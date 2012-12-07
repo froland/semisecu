@@ -57,10 +57,6 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<Hotel> findAll() {
-		Hotel h = new Hotel();
-		h.setHotelName("Meridian");
-		h.setAddress("Brussels");
-		hotelDao.save(h);
 		return hotelDao.findAll();
 	}
 

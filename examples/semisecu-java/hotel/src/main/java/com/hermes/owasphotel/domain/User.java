@@ -16,6 +16,7 @@ public class User extends IdentifiableEntity<Integer> {
 	private String password;
 	private String email;
 
+	// TODO change this and use a table with roles
 	@Column(name = "isadmin")
 	private int isAdmin = 0;
 
