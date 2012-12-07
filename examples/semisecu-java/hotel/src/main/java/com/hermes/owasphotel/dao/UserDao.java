@@ -8,7 +8,7 @@ import com.hermes.owasphotel.domain.User;
  * 
  * @author k
  */
-public interface UserDao extends SimpleDao<Long, User> {
+public interface UserDao extends SimpleDao<Integer, User> {
 
 	public User find(String name);
 }

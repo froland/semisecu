@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="initialUsers" author="k">
+		<!-- Users -->
+		<createTable tableName="USERS">
+			<column name="ID" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="NAME" type="VARCHAR2(50)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="PASSWORD" type="VARCHAR2(50)" />
+			<column name="EMAIL" type="VARCHAR2(50)" />
+			<column name="ISADMIN" type="INT" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createSequence sequenceName="USERS_SEQ" />
+
+		<!-- Add some data -->
+		<insert tableName="USERS">
+			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
+			<column name="NAME">admin</column>
+			<column name="PASSWORD">admin</column>
+			<column name="EMAIL">admin@localhost</column>
+			<column name="ISADMIN">1</column>
+		</insert>
+		<insert tableName="USERS">
+			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
+			<column name="NAME">k</column>
+			<column name="PASSWORD">123456</column>
+			<column name="EMAIL">k@hermes-ecs.com</column>
+		</insert>
+		<insert tableName="USERS">
+			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
+			<column name="NAME">v</column>
+			<column name="PASSWORD">123456</column>
+			<column name="EMAIL">v@hermes-ecs.com</column>
+		</insert>
+	</changeSet>
+
+	<changeSet id="initialHotel" author="k">
+		<!-- Hotel information -->
+		<createTable tableName="HOTELS">
+			<column name="ID" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="hotelname" type="VARCHAR2(50)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="address" type="VARCHAR2(50)" />
+		</createTable>
+		<createSequence sequenceName="HOTELS_SEQ" />
+
+		<!-- Comments for the hotels -->
+		<createTable tableName="COMMENTS">
+			<column name="HOTELID" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="SEQ" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="USERID" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="TEXT" type="VARCHAR2(500)" />
+		</createTable>
+		<addPrimaryKey tableName="COMMENTS" columnNames="HOTELID, SEQ" />
+		<addForeignKeyConstraint constraintName="FK_COMMENTS_HOTELID"
+			referencedTableName="HOTELS" baseColumnNames="HOTELID" baseTableName="COMMENTS"
+			referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FK_COMMENTS_USERID"
+			referencedTableName="USERS" baseColumnNames="USERID" baseTableName="COMMENTS"
+			referencedColumnNames="ID" />
+	</changeSet>
+
+</databaseChangeLog>

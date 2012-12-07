@@ -11,7 +11,7 @@ import com.hermes.owasphotel.domain.Hotel;
  * @author k
  */
 @Repository("hotelDao")
-public class HotelDaoJpa extends SimpleJPA<Long, Hotel> implements HotelDao {
+public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	/**
 	 * Initializes this DAO.
 	 */

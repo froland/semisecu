@@ -8,5 +8,5 @@ import com.hermes.owasphotel.domain.Hotel;
  * 
  * @author k
  */
-public interface HotelDao extends SimpleDao<Long, Hotel> {
+public interface HotelDao extends SimpleDao<Integer, Hotel> {
 }

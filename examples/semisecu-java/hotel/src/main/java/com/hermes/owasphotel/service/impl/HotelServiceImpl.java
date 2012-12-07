@@ -30,7 +30,7 @@ public class HotelServiceImpl implements HotelService {
 	private UserDao userDao;
 
 	@Override
-	public Hotel find(Long id) {
+	public Hotel find(Integer id) {
 		Hotel h = hotelDao.find(id);
 		if (h == null)
 			return null;
@@ -57,11 +57,15 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<Hotel> findAll() {
+		Hotel h = new Hotel();
+		h.setHotelName("Meridian");
+		h.setAddress("Brussels");
+		hotelDao.save(h);
 		return hotelDao.findAll();
 	}
 
 	@Override
-	public void addComment(Long hotelId, String name, String text) {
+	public void addComment(Integer hotelId, String name, String text) {
 		User user = userDao.find(name);
 		Hotel hotel = find(hotelId);
 		Comment c = new Comment(hotel, user);

@@ -8,8 +8,8 @@ import com.hermes.owasphotel.domain.Hotel;
  * 
  * @author k
  */
-public interface HotelService extends SimpleDao<Long, Hotel> {
+public interface HotelService extends SimpleDao<Integer, Hotel> {
 
-	public void addComment(Long hotelId, String name, String text);
+	public void addComment(Integer hotelId, String name, String text);
 
 }

@@ -8,13 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
 @Entity
 @Table(name = "HOTELS")
-public class Hotel extends IdentifiableEntity<Long> {
+@SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
+public class Hotel extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "hotelname", unique = true)

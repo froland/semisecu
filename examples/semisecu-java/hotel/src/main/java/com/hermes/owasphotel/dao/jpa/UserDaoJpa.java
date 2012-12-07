@@ -13,7 +13,7 @@ import com.hermes.owasphotel.domain.User;
  * @author k
  */
 @Repository("userDao")
-public class UserDaoJpa extends SimpleJPA<Long, User> implements UserDao {
+public class UserDaoJpa extends SimpleJPA<Integer, User> implements UserDao {
 	/**
 	 * Initializes this DAO.
 	 */

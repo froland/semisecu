@@ -54,16 +54,16 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public String viewHotelComments(Model model, @PathVariable Long id) {
+	public String viewHotelComments(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.find(id);
 		if (hotel == null)
-			throw new ResourceNotFoundException(Hotel.class, id);
+			throw new ResourceNotFoundException(Hotel.class, id.longValue());
 		model.addAttribute("hotel", hotel);
 		return "hotel/view";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment")
-	public String addComment(@PathVariable("id") Long hotelId,
+	public String addComment(@PathVariable("id") Integer hotelId,
 			@RequestParam String text, Principal user) {
 		if (hotelId != null && user != null && text != null) {
 			hotelService.addComment(hotelId, user.getName(), text);

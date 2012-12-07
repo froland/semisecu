@@ -68,7 +68,7 @@ public class Comment {
 class CommentID implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public Long hotel;
+	public Integer hotel;
 	public int sequence;
 
 	@Override

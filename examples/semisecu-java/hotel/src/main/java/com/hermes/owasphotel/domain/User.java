@@ -2,13 +2,15 @@ package com.hermes.owasphotel.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
 @Entity
 @Table(name = "users")
-public class User extends IdentifiableEntity<Long> {
+@SequenceGenerator(name = "id_seq", sequenceName = "USERS_SEQ")
+public class User extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String password;
