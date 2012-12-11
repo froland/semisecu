@@ -15,11 +15,17 @@
 			</column>
 			<column name="PASSWORD" type="VARCHAR2(50)" />
 			<column name="EMAIL" type="VARCHAR2(50)" />
-			<column name="ISADMIN" type="INT" defaultValueBoolean="false">
+		</createTable>
+		<createSequence sequenceName="USERS_SEQ" />
+		<createTable tableName="ROLES">
+			<column name="USERID" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="VARCHAR2(20)">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		<createSequence sequenceName="USERS_SEQ" />
+		<addPrimaryKey tableName="ROLES" columnNames="USERID, NAME" />
 
 		<!-- Add some data -->
 		<insert tableName="USERS">
@@ -27,7 +33,6 @@
 			<column name="NAME">admin</column>
 			<column name="PASSWORD">admin</column>
 			<column name="EMAIL">admin@localhost</column>
-			<column name="ISADMIN">1</column>
 		</insert>
 		<insert tableName="USERS">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
@@ -40,6 +45,22 @@
 			<column name="NAME">v</column>
 			<column name="PASSWORD">123456</column>
 			<column name="EMAIL">v@hermes-ecs.com</column>
+		</insert>
+		<insert tableName="ROLES">
+			<column name="USERID">1</column>
+			<column name="NAME">admin</column>
+		</insert>
+		<insert tableName="ROLES">
+			<column name="USERID">1</column>
+			<column name="NAME">user</column>
+		</insert>
+		<insert tableName="ROLES">
+			<column name="USERID">2</column>
+			<column name="NAME">user</column>
+		</insert>
+		<insert tableName="ROLES">
+			<column name="USERID">3</column>
+			<column name="NAME">user</column>
 		</insert>
 	</changeSet>
 

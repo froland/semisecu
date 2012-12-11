@@ -1,7 +1,14 @@
 package com.hermes.owasphotel.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -12,13 +19,25 @@ import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 @SequenceGenerator(name = "id_seq", sequenceName = "USERS_SEQ")
 public class User extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
+	private static final String ROLE_USER = "user";
+	private static final String ROLE_ADMIN = "admin";
+
 	private String name;
 	private String password;
 	private String email;
 
-	// TODO change this and use a table with roles
-	@Column(name = "isadmin")
-	private int isAdmin = 0;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(joinColumns = @JoinColumn(name = "userid"), name = "ROLES")
+	@Column(name = "name")
+	private List<String> roles = new ArrayList<String>();
+
+	User() {
+	}
+
+	public User(String name) {
+		setName(name);
+		roles.add(ROLE_USER);
+	}
 
 	public String getName() {
 		return name;
@@ -41,10 +60,15 @@ public class User extends IdentifiableEntity<Integer> {
 	}
 
 	public boolean isAdmin() {
-		return isAdmin > 0;
+		return roles.contains(ROLE_ADMIN);
 	}
 
 	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin ? 1 : 0;
+		if (isAdmin) {
+			if (!roles.contains(ROLE_ADMIN))
+				roles.add(ROLE_ADMIN);
+		} else {
+			roles.remove(ROLE_ADMIN);
+		}
 	}
 }
