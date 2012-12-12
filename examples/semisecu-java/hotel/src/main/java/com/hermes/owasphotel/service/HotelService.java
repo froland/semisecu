@@ -14,6 +14,8 @@ public interface HotelService extends SimpleDao<Integer, Hotel> {
 
 	public List<Hotel> findApproved();
 
+	public void approve(Hotel h);
+
 	public void addComment(Integer hotelId, String name, String text);
 
 }

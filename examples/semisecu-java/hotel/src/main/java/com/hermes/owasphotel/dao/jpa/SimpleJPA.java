@@ -53,12 +53,13 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 
 	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
-	public void save(T obj) {
+	public T save(T obj) {
 		if (obj.getId() == null) {
 			em.persist(obj);
 			em.flush(); // generate the ID
+			return obj;
 		} else {
-			em.merge(obj);
+			return em.merge(obj);
 		}
 	}
 

@@ -3,8 +3,6 @@ package com.hermes.owasphotel.dao.base;
 import java.io.Serializable;
 import java.util.List;
 
-
-
 /**
  * Base interface for DAO with CRUD operations.
  * @author k
@@ -23,8 +21,9 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	/**
 	 * Persists an object.
 	 * @param obj The object
+	 * @return The saved object
 	 */
-	public void save(T obj);
+	public T save(T obj);
 	
 	/**
 	 * Deletes the object.
