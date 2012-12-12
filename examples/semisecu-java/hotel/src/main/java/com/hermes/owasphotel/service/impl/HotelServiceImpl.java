@@ -46,8 +46,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void save(Hotel obj) {
-		hotelDao.save(obj);
+	public Hotel save(Hotel obj) {
+		return hotelDao.save(obj);
 	}
 
 	@Override
@@ -63,6 +63,12 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Hotel> findApproved() {
 		return hotelDao.findApprovedHotels();
+	}
+
+	@Override
+	public void approve(Hotel h) {
+		h.approveHotel();
+		h = hotelDao.save(h);
 	}
 
 	@Override
