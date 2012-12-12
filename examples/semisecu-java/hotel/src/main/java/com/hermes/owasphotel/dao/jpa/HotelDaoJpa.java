@@ -1,5 +1,7 @@
 package com.hermes.owasphotel.dao.jpa;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.hermes.owasphotel.dao.HotelDao;
@@ -18,4 +20,10 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	public HotelDaoJpa() {
 		super(Hotel.class);
 	}
+
+	@Override
+	public List<Hotel> findApprovedHotels() {
+		return em.createNamedQuery("Hotel.findApproved", Hotel.class).getResultList();
+	}
+
 }

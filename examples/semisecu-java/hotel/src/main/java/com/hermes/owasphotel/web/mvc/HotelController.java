@@ -48,7 +48,7 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewHotels(Model model) {
-		List<Hotel> hotels = hotelService.findAll();
+		List<Hotel> hotels = hotelService.findApproved();
 		model.addAttribute("hotels", hotels);
 		return "hotel/list";
 	}

@@ -61,6 +61,11 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
+	public List<Hotel> findApproved() {
+		return hotelDao.findApprovedHotels();
+	}
+
+	@Override
 	public void addComment(Integer hotelId, String name, String text) {
 		User user = userDao.find(name);
 		Hotel hotel = find(hotelId);
