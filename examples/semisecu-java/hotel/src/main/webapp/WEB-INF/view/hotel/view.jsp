@@ -1,22 +1,17 @@
-<%@page contentType="text/html;charset=UTF-8"%>
-<%@page pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>Hotel: ${hotel.hotelName}</title>
-</head>
-<body>
-	<div>
-		<a href="<c:url value="/hotel"/>">List of hotels</a>
-	</div>
-	<div class="container">
-		<h1>Hotel: ${hotel.hotelName}</h1>
-		<div>Address: ${hotel.address}</div>
+<t:page.template>
+	<jsp:attribute name="navigation">
+		<t:navigation.hotel />
+	</jsp:attribute>
+	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
+	<jsp:body>
+		<div>Address: <br />${hotel.address}<br />${hotel.city} ${hotel.country}</div>
 		<div>
 			<h3>Comments</h3>
 			<c:forEach var="comment" items="${hotel.comments}">
@@ -38,6 +33,5 @@
 				</div>
 			</sec:authorize>
 		</div>
-	</div>
-</body>
-</html>
+	</jsp:body>
+</t:page.template>
