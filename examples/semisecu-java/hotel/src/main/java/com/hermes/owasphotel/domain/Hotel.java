@@ -22,7 +22,7 @@ import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 public class Hotel extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "hotelname")
+	@Column(name = "hotelname", nullable = false)
 	private String hotelName;
 
 	private String address;
@@ -80,12 +80,12 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		this.email = email;
 	}
 
-	public String getPhone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
-	public void setPhone(String phone) {
-		this.telephone = phone;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 	public Integer getStars() {

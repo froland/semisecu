@@ -13,6 +13,7 @@ import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.HotelDto;
 import com.hermes.owasphotel.service.HotelService;
 
 /**
@@ -63,6 +64,15 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<Hotel> findApproved() {
 		return hotelDao.findApprovedHotels();
+	}
+
+	@Override
+	public Hotel update(Integer hotelId, HotelDto data) {
+		Hotel h = find(hotelId);
+		if (h == null)
+			return null;
+		data.update(h);
+		return h;
 	}
 
 	@Override
