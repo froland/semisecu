@@ -1,0 +1,23 @@
+Home Controller
+
+G    /
+G    /login
+
+
+Hotel Controller
+G     /hotel
+G     /hotel/{id}
+P     /hotel/{id}/comment
+G,P   /hotel/create
+G,P   /hotel/{id}/update
+P     /hotel/{id}/approve
+
+
+
+User Controller
+G,P  /user/register
+G,P  /user/{id}		//Profil+ si admin => gestion des droits
+
+Admin Controller
+G     /admin/export
+G     /admin/export-db	//type: SQL
