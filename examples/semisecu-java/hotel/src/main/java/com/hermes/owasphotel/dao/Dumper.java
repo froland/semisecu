@@ -32,8 +32,11 @@ public class Dumper {
 		SqlRowSetMetaData data = res.getMetaData();
 		for (int i = 0; i < data.getColumnCount(); i++)
 		{
+			w.write("\"");
 			w.write(data.getColumnLabel(i+1));
-			w.write(", ");
+			w.write("\"");
+			if(i != data.getColumnCount()-1)
+				w.write(", ");
 		}
 		w.write("\n");
 		res.beforeFirst();
@@ -41,8 +44,11 @@ public class Dumper {
 		{
 			for (int i = 0; i < data.getColumnCount(); i++)
 			{
+				w.write("\"");
 				w.write(res.getString(i+1));
-				w.write(", ");
+				w.write("\"");
+				if(i != data.getColumnCount()-1)
+					w.write(", ");
 			}
 			w.write("\n");
 		}

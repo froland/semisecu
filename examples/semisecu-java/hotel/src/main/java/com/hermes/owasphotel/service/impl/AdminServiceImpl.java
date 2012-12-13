@@ -14,7 +14,7 @@ import com.hermes.owasphotel.service.AdminService;
 @Transactional
 public class AdminServiceImpl implements AdminService{
 	
-	//@Autowired
+	@Autowired
 	private Dumper dumper;
 	
 	@Override
