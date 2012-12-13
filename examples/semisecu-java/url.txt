@@ -19,5 +19,6 @@ G,P  /user/register
 G,P  /user/{id}		//Profil+ si admin => gestion des droits
 
 Admin Controller
+G     /admin/view
 G     /admin/export
 G     /admin/export-db	//type: SQL
