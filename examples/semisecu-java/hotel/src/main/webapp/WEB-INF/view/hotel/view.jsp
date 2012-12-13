@@ -21,7 +21,28 @@
 			</sec:authorize>
 		</c:if>
 		<div>
-			<t:hotel.stars stars="${hotel.stars}" />
+			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
+			</p>
+			<p>Average note:
+				<t:hotel.stars value="${hotel.averageNote}" max="10" />
+				<sec:authorize access="hasRole('user')">
+				<form method="POST"
+						action="<c:url value="/hotel/${hotel.id}/note"/>">
+				<select name="note" onchange="this.form.submit()">
+				<c:forEach var="i" begin="1" end="10">
+				<c:choose>
+				<c:when test="${i == user_note.note}">
+				<option selected="selected">${i}</option>
+				</c:when>
+				<c:otherwise>
+				<option>${i}</option>
+				</c:otherwise>
+				</c:choose>
+				</c:forEach>
+				</select>
+				</form>
+				</sec:authorize>
+			</p>
 			<p>Address: <br />${hotel.address}<br />${hotel.city} ${hotel.country}</p>
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>

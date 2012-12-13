@@ -1,24 +1,26 @@
 package com.hermes.owasphotel.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
 @Entity
 @Table(name = "HOTELS")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
-@NamedQueries({ @NamedQuery(name = "Hotel.findApproved", query = "from Hotel where approved != 0") })
 public class Hotel extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +40,15 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hotelid")
+	@OrderBy("sequence")
 	private List<Comment> comments = new ArrayList<Comment>();
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "hotelid")
+	@MapKeyColumn(name = "userid")
+	private Map<Integer, HotelNote> notes = new HashMap<Integer, HotelNote>();
+	@Transient
+	private Double averageNote;
 
 	public String getHotelName() {
 		return hotelName;
@@ -110,5 +120,31 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+	public HotelNote getNote(User user) {
+		if (user == null)
+			return null;
+		return notes.get(user.getId());
+	}
+
+	public void setNote(HotelNote note) {
+		if (note == null || !equals(note.getHotel()))
+			throw new IllegalArgumentException("Invalid note for this hotel");
+		notes.put(note.getUser().getId(), note);
+	}
+
+	public void removeNote(HotelNote note) {
+		if (note == null || !equals(note.getHotel()))
+			throw new IllegalArgumentException("Invalid note for this hotel");
+		notes.remove(note.getUser().getId());
+	}
+
+	public Double getAverageNote() {
+		return averageNote;
+	}
+
+	public void setAverageNote(Double averageNote) {
+		this.averageNote = averageNote;
 	}
 }
