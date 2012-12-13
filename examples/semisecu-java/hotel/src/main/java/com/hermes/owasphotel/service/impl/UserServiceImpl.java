@@ -57,5 +57,11 @@ public class UserServiceImpl implements UserService {
 			return null;
 		//TODO replace return null by exception
 	}
+	
+	@Override
+	public User save(User u)
+	{
+		return userDao.save(u);
+	}
 
 }

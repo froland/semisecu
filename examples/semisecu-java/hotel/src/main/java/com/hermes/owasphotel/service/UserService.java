@@ -15,5 +15,7 @@ public interface UserService {
 	public User add(User u);
 	
 	public User update(User u);
+	
+	public User save(User u);
 
 }

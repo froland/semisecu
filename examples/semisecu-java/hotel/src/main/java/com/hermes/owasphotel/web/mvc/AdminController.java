@@ -2,10 +2,11 @@ package com.hermes.owasphotel.web.mvc;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,17 +22,37 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "export")
-	public String export(Model model, @RequestParam String tableName) {
-		String s;
+	public void export(HttpServletResponse response, @RequestParam String tableName) {
+		
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition",
+		"attachment;filename=dumpTable"+tableName+".csv");
+		
+		
 		try{
-			s = adminService.getDumpString(tableName);
+			
+			adminService.dumpToWriter(tableName, response.getWriter());
 		}
-		catch (IOException e)
+		catch (DataAccessException e)
 		{
-			s = e.getLocalizedMessage();
+			try {
+				response.sendError(404, "Unable to fetch data");
+			} catch (IOException e1) {
+				System.out.println("SqlError");
+				e1.printStackTrace();
+			}
 		}
-		model.addAttribute("dump", s);
-		return "admin/export-db";
+		catch (Exception e)
+		{
+			try {
+				response.sendError(500, "Sending data failed due to unknow error");
+			} catch (IOException e1) {
+				//What could I do?
+				System.out.println("Error");
+				e1.printStackTrace();
+			}
+			
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "view")

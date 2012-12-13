@@ -1,6 +1,7 @@
 package com.hermes.owasphotel.service.impl;
 
 import java.io.IOException;
+import java.io.Writer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,12 @@ public class AdminServiceImpl implements AdminService{
 	public String getDumpString(String tableName) throws IOException
 	{
 		return dumper.dump(tableName);
+	}
+	
+	@Override
+	public void dumpToWriter(String tableName, Writer w) throws IOException
+	{
+		dumper.dump(tableName, w);
 	}
 
 }

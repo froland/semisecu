@@ -22,6 +22,7 @@ public class User extends IdentifiableEntity<Integer> {
 	private static final String ROLE_USER = "user";
 	private static final String ROLE_ADMIN = "admin";
 
+	@Column(unique=true)
 	private String name;
 	private String password;
 	private String email;
@@ -49,6 +50,10 @@ public class User extends IdentifiableEntity<Integer> {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public void setPassword(String password){
+		this.password = password;
 	}
 
 	public String getEmail() {
