@@ -11,7 +11,27 @@
 	</jsp:attribute>
 	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
-		<div>Address: <br />${hotel.address}<br />${hotel.city} ${hotel.country}</div>
+		<c:if test="!${hotel.approved}">
+			<p>The hotel is not approved!</p>
+			<sec:authorize access="hasRole('admin')">
+			<form method="POST"
+					action="<c:url value="/hotel/${hotel.id}/approve"/>">
+				<input type="submit" value="Approve hotel" />
+			</form>
+			</sec:authorize>
+		</c:if>
+		<div>
+			<t:hotel.stars stars="${hotel.stars}" />
+			<p>Address: <br />${hotel.address}<br />${hotel.city} ${hotel.country}</p>
+			<p>Telephone: ${hotel.telephone}</p>
+			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
+			</p>
+			<sec:authorize access="hasRole('admin')">
+			<p>
+				<a href="<c:url value="/hotel/${hotel.id}/update" />">Update the hotel</a>
+			</p>
+			</sec:authorize>
+		</div>
 		<div>
 			<h3>Comments</h3>
 			<c:forEach var="comment" items="${hotel.comments}">

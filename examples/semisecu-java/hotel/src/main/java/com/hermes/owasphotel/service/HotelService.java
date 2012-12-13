@@ -18,4 +18,5 @@ public interface HotelService extends SimpleDao<Integer, Hotel> {
 
 	public void addComment(Integer hotelId, String name, String text);
 
+	public Hotel update(Integer hotelId, HotelDto data);
 }

@@ -9,20 +9,14 @@
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
-	<jsp:attribute name="title">Hotels</jsp:attribute>
+	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
-	<table>
-		<tr>
-			<th>Hotel name</th>
-			<th>City</th>
-		</tr>
-		<c:forEach var="hotel" items="${hotels}">
-			<tr>
-				<td><a href="<c:url value="/hotel/${hotel.id}"/>"><c:out
-								value="${hotel.hotelName}" /></a></td>
-				<td><c:out value="${hotel.city}" /></td>
-			</tr>
-		</c:forEach>
-	</table>
+		<p>The hotel you chose has not been yet approved.</p>
+		<sec:authorize access="hasRole('admin')">
+		<form method="POST"
+				action="<c:url value="/hotel/${hotel.id}/approve"/>">
+			<input type="submit" value="Approve hotel" />
+		</form>
+		</sec:authorize>
 	</jsp:body>
 </t:page.template>
