@@ -72,6 +72,15 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "top")
+	public String viewTopHotels(Model model) {
+		final int COUNT = 3;
+		List<Hotel> hotels = hotelService.findTopNoted(COUNT);
+		model.addAttribute("hotels", hotels);
+		model.addAttribute("pageTitle", "Top " + COUNT + " hotels");
+		return "hotel/list";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public String viewHotel(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.find(id);

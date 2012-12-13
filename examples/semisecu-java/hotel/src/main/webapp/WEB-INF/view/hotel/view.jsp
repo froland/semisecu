@@ -21,7 +21,11 @@
 			</sec:authorize>
 		</c:if>
 		<div>
-			<t:hotel.stars stars="${hotel.stars}" />
+			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
+			</p>
+			<p>Average note: <t:hotel.stars value="${hotel.averageNote}"
+					max="10" />
+			</p>
 			<p>Address: <br />${hotel.address}<br />${hotel.city} ${hotel.country}</p>
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>

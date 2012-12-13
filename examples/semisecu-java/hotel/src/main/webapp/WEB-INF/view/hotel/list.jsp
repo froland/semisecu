@@ -5,11 +5,14 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<c:if test="${empty pageTitle}">
+	<c:set var="pageTitle" value="Hotels" />
+</c:if>
 <t:page.template>
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
-	<jsp:attribute name="title">Hotels</jsp:attribute>
+	<jsp:attribute name="title">${pageTitle}</jsp:attribute>
 	<jsp:body>
 	<table>
 		<tr>

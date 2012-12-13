@@ -2,7 +2,6 @@ package com.hermes.owasphotel.service;
 
 import java.util.List;
 
-import com.hermes.owasphotel.dao.base.SimpleDao;
 import com.hermes.owasphotel.domain.Hotel;
 
 /**
@@ -10,9 +9,19 @@ import com.hermes.owasphotel.domain.Hotel;
  * 
  * @author k
  */
-public interface HotelService extends SimpleDao<Integer, Hotel> {
+public interface HotelService {
+
+	public Hotel find(Integer id);
+
+	public Hotel save(Hotel h);
+
+	public void delete(Hotel h);
+
+	public List<Hotel> findAll();
 
 	public List<Hotel> findApproved();
+
+	public List<Hotel> findTopNoted(int count);
 
 	public void approve(Hotel h);
 
