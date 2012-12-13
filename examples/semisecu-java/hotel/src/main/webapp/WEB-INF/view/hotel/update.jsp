@@ -50,7 +50,7 @@
 				<tr>
 					<td>Stars</td>
 					<td><form:select path="stars">
-					<c:forEach var="i" items="1, 2, 3, 4, 5">
+					<c:forEach var="i" begin="1" end="5">
 					<form:option value="${i}" />
 					</c:forEach>
 					</form:select></td>

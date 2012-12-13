@@ -82,13 +82,20 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public String viewHotel(Model model, @PathVariable Integer id) {
+	public String viewHotel(Model model, @PathVariable Integer id,
+			Principal principal) {
 		Hotel hotel = hotelService.find(id);
 		if (hotel == null)
 			throw new ResourceNotFoundException(Hotel.class, id.longValue());
 		model.addAttribute("hotel", hotel);
 		if (!hotel.isApproved())
 			return "hotel/notApproved";
+		if (principal != null) {
+			model.addAttribute(
+					"user_note",
+					hotelService.getHotelNote(hotel.getId(),
+							principal.getName()));
+		}
 		return "hotel/view";
 	}
 
@@ -139,6 +146,13 @@ public class HotelController {
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/approve")
 	public String approveHotel(@PathVariable("id") Integer hotelId) {
 		hotelService.approve(hotelService.find(hotelId));
+		return redirectTo(hotelId);
+	}
+
+	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/note")
+	public String approveHotel(@PathVariable("id") Integer hotelId,
+			Principal principal, @RequestParam int note) {
+		hotelService.setHotelNote(hotelId, principal.getName(), note);
 		return redirectTo(hotelId);
 	}
 }

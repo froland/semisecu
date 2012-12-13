@@ -123,17 +123,19 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	}
 
 	public HotelNote getNote(User user) {
+		if (user == null)
+			return null;
 		return notes.get(user.getId());
 	}
 
 	public void setNote(HotelNote note) {
-		if (!equals(note.getHotel()))
+		if (note == null || !equals(note.getHotel()))
 			throw new IllegalArgumentException("Invalid note for this hotel");
 		notes.put(note.getUser().getId(), note);
 	}
 
 	public void removeNote(HotelNote note) {
-		if (!equals(note.getHotel()))
+		if (note == null || !equals(note.getHotel()))
 			throw new IllegalArgumentException("Invalid note for this hotel");
 		notes.remove(note.getUser().getId());
 	}
