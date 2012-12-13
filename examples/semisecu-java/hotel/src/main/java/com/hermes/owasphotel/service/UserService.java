@@ -11,5 +11,9 @@ public interface UserService {
 	public boolean isUsed(String name);
 	
 	public boolean isMatching(Integer id, String name);
+	
+	public User add(User u);
+	
+	public User update(User u);
 
 }

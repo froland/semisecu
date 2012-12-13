@@ -37,5 +37,25 @@ public class UserServiceImpl implements UserService {
 			return false;
 		return find(id).getName().equals(name);
 	}
+	
+	@Override
+	public User add(User u)
+	{
+		if(! isUsed(u.getName()))
+			return userDao.save(u);
+		else
+			return null;
+		//TODO replace return null by exception
+	}
+	
+	@Override
+	public User update(User u)
+	{
+		if(isUsed(u.getName()))
+			return userDao.save(u);
+		else
+			return null;
+		//TODO replace return null by exception
+	}
 
 }
