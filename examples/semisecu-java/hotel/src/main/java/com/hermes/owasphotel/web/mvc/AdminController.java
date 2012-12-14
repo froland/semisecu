@@ -27,8 +27,6 @@ public class AdminController {
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition",
 		"attachment;filename=dumpTable"+tableName+".csv");
-		
-		
 		try{
 			
 			adminService.dumpToWriter(tableName, response.getWriter());
