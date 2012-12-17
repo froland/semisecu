@@ -2,6 +2,7 @@ package com.hermes.owasphotel.service.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,8 @@ import com.hermes.owasphotel.service.HotelService;
 @Service
 @Transactional
 public class HotelServiceImpl implements HotelService {
+	static final Logger log = Logger.getLogger(HotelServiceImpl.class);
+
 	@Autowired
 	private HotelDao hotelDao;
 
@@ -121,5 +124,18 @@ public class HotelServiceImpl implements HotelService {
 
 		// mark as deleted
 		comment.delete();
+	}
+
+	@Override
+	public byte[] getHotelImage(Integer hotelId) {
+		Hotel hotel = hotelDao.find(hotelId);
+		if (hotel == null)
+			return null;
+		return hotel.getImage();
+	}
+
+	@Override
+	public void setHotelImage(Integer hotelId, byte[] image) {
+		hotelDao.find(hotelId).setImage(image);
 	}
 }

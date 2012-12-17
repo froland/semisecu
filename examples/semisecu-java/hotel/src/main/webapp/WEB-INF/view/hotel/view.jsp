@@ -11,6 +11,8 @@
 	</jsp:attribute>
 	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
+		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
+			class="hotelImage" />
 		<c:if test="!${hotel.approved}">
 			<p>The hotel is not approved!</p>
 			<sec:authorize access="hasRole('admin')">

@@ -70,5 +70,12 @@
 				</tr>
 			</table>
 		</form:form>
+		<c:if test="${not empty hotel.id}">
+		<form method="POST" enctype="multipart/form-data"
+				action="<c:url value="/hotel/${hotel.id}/image"/>">
+		Image: <input type="file" name="file" />
+		<input type="submit" value="Upload" />
+		</form>
+		</c:if>
 	</jsp:body>
 </t:page.template>

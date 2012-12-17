@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
@@ -58,11 +61,14 @@ public class HotelController {
 	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		// property editor for dates
+		// Property editor for dates
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
+		// Convert multipart object to byte[]
+		binder.registerCustomEditor(byte[].class,
+				new ByteArrayMultipartFileEditor());
 	}
 
 	private static String redirectTo(Integer id) {
@@ -184,6 +190,22 @@ public class HotelController {
 	@PreAuthorize("hasRole('admin')")
 	public String approveHotel(@PathVariable("id") Integer hotelId) {
 		hotelService.approve(hotelService.find(hotelId));
+		return redirectTo(hotelId);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "{id}/image", produces = "image/png")
+	@ResponseBody
+	public byte[] getHotelImage(@PathVariable("id") Integer hotelId) {
+		return hotelService.getHotelImage(hotelId);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "{id}/image")
+	public String uploadHotelImage(@PathVariable("id") Integer hotelId,
+			UploadedImage upload) {
+		CommonsMultipartFile file = upload.getFile();
+		if (file != null) {
+			hotelService.setHotelImage(hotelId, file.getBytes());
+		}
 		return redirectTo(hotelId);
 	}
 }

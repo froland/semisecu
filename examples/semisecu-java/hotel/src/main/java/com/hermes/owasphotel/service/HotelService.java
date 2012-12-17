@@ -32,4 +32,8 @@ public interface HotelService {
 
 	public Hotel update(Integer hotelId, HotelDto data);
 
+	public byte[] getHotelImage(Integer hotelId);
+
+	public void setHotelImage(Integer hotelId, byte[] image);
+
 }

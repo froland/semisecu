@@ -3,10 +3,13 @@ package com.hermes.owasphotel.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -24,6 +27,10 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	@Column(name = "hotelname", nullable = false)
 	private String hotelName;
+
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] image;
 
 	private String address;
 	private String city;
@@ -61,6 +68,14 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	public void setHotelName(String hotelName) {
 		this.hotelName = hotelName;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public String getAddress() {
