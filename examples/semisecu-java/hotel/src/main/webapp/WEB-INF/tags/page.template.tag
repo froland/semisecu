@@ -23,6 +23,7 @@
 		</sec:authorize>
 		<sec:authorize access="!isAuthenticated()">
 			<a href="<c:url value="/login"/>">Log in</a>
+			<a href="<c:url value="/user/create"/>">Create new user</a>
 		</sec:authorize>
 	</div>
 	<c:choose>

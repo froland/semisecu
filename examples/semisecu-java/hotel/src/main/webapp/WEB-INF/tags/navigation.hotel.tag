@@ -7,4 +7,5 @@
 <sec:authorize access="hasRole('admin')">
 	<a href="<c:url value="/hotel/all"/>">All hotels</a>
 	<a href="<c:url value="/hotel/create"/>">Create a new hotel</a>
+	<a href="<c:url value="/admin/view"/>">Administration page</a>
 </sec:authorize>

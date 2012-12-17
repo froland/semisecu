@@ -6,4 +6,5 @@
 
 	<include file="changes1.xml" relativeToChangelogFile="true" />
 	<include file="changes-notes.xml" relativeToChangelogFile="true" />
+	<include file="changes-delete-comment.xml" relativeToChangelogFile="true" />
 </databaseChangeLog>

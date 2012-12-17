@@ -30,6 +30,8 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userid")
 	private User user;
+	
+	private int deleted;
 
 	Comment() {
 	}
@@ -62,6 +64,14 @@ public class Comment {
 
 	public User getUser() {
 		return user;
+	}
+	
+	public boolean isDeleted() {
+		return deleted != 0;
+	}
+
+	public void deleteComment() {
+		this.deleted = 1;
 	}
 }
 
