@@ -25,7 +25,7 @@
 			<table>
 				<tr>
 					<td>Name</td>
-					<td><form:input path="name" /></td>
+					<td><form:input path="name" value="${user.name}"/></td>
 				</tr>
 				<tr>
 					<td>Password</td>
@@ -37,7 +37,7 @@
 				</tr>
 				<tr>
 					<td>E-mail</td>
-					<td><form:input path="email" /></td>
+					<td><form:input path="email" value="${user.email}"/></td>
 				</tr>
 				
 			<tr>

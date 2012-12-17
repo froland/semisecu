@@ -20,9 +20,12 @@
 		<sec:authorize access="isAuthenticated()">
 			Authentified as <sec:authentication property="principal.username" />
 			<a href="<c:url value="/logout"/>">Log out</a>
+			<a href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View profile</a>
+			
 		</sec:authorize>
 		<sec:authorize access="!isAuthenticated()">
 			<a href="<c:url value="/login"/>">Log in</a>
+			<a href="<c:url value="/user/create"/>">Create new user</a>
 		</sec:authorize>
 	</div>
 	<c:choose>

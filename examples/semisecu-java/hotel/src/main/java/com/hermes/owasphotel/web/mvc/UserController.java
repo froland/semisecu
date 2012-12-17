@@ -43,21 +43,31 @@ public class UserController {
 				dateFormat, false));
 	}
 	
-	private static String redirectTo(Integer id) {
+	private static String redirectTo(String name) {
 		String r = "redirect:/user";
-		if (id != null)
-			r += "/" + id;
+		if (name != null)
+			r += "/" + name;
 		return r;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public String viewUser(Model model, @PathVariable Integer id) {
-		User user = userService.find(id);
+	@RequestMapping(method = RequestMethod.GET, value = "{name}")
+	public String viewUser(Model model, @PathVariable String name) {
+		User user = userService.find(name);
 		if (user == null)
-			throw new ResourceNotFoundException(User.class, id.longValue());
+			throw new ResourceNotFoundException(User.class, null);
 		model.addAttribute("user", user);
 		return "user/view";
 	}
+	@RequestMapping(method = RequestMethod.GET, value = "update/{id}")
+	public String viewUpdateUser(Model model, @PathVariable Integer id) {
+		User user = userService.find(id);
+		if (user == null)
+			throw new ResourceNotFoundException(User.class, Long.valueOf(id));
+		model.addAttribute("user", new UserDto(user));
+		return "user/update";
+	}
+	
+	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "create")
 	public String viewCreateHotel(@ModelAttribute("user") UserDto dto) {
@@ -72,7 +82,17 @@ public class UserController {
 		}
 		User user = dto.makeNew();
 		userService.save(user);
-		return redirectTo(user.getId());
+		return redirectTo(user.getName());
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")
+	public String updateUser(@PathVariable Integer id, @Valid @ModelAttribute("user") UserDto dto, 
+			BindingResult binding) {
+		if (binding.hasErrors()) {
+			return "user/update";
+		}
+		userService.update(dto);
+		return redirectTo(dto.getName());
 	}
 
 }
