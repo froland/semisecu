@@ -1,6 +1,8 @@
 package com.hermes.owasphotel.domain;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @IdClass(CommentID.class)
@@ -24,24 +28,35 @@ public class Comment {
 	@Column(name = "seq")
 	private int sequence;
 
+	@Column(name = "when")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
+
+	@Column(name = "note")
+	private int note;
 	@Column(name = "text")
 	private String text;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userid")
 	private User user;
+	private String userName;
+	private int deleted = 0;
 
 	Comment() {
 	}
 
-	public Comment(Hotel hotel, User user) {
+	Comment(Hotel hotel, User user) {
 		if (hotel == null)
 			throw new IllegalArgumentException("hotel is null");
-		if (user == null)
-			throw new IllegalArgumentException("user is null");
 		this.hotel = hotel;
 		this.user = user;
-		this.sequence = hotel.getComments().size() + 1;
+		this.date = new Date();
+
+		// add to the comment list
+		List<Comment> comments = hotel.getComments();
+		this.sequence = comments.size() + 1;
+		comments.add(this);
 	}
 
 	public Hotel getHotel() {
@@ -52,6 +67,14 @@ public class Comment {
 		return sequence;
 	}
 
+	public int getNote() {
+		return note;
+	}
+
+	public void setNote(int note) {
+		this.note = note;
+	}
+
 	public String getText() {
 		return text;
 	}
@@ -60,8 +83,30 @@ public class Comment {
 		this.text = text;
 	}
 
+	public Date getDate() {
+		return date;
+	}
+
 	public User getUser() {
 		return user;
+	}
+
+	public String getUserName() {
+		if ((userName == null || userName.isEmpty()) && user != null)
+			return user.getName();
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public boolean isDeleted() {
+		return deleted != 0;
+	}
+
+	public void delete() {
+		this.deleted = 1;
 	}
 }
 

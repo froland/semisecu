@@ -3,7 +3,6 @@ package com.hermes.owasphotel.service;
 import java.util.List;
 
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelNote;
 
 /**
  * Service: Hotel
@@ -26,11 +25,8 @@ public interface HotelService {
 
 	public void approve(Hotel h);
 
-	public void addComment(Integer hotelId, String name, String text);
-
-	public HotelNote getHotelNote(Integer hotelId, String name);
-
-	public void setHotelNote(Integer hotelId, String name, int note);
+	public void addComment(Integer hotelId, String name,
+			boolean authentifiedUser, int note, String text);
 
 	public Hotel update(Integer hotelId, HotelDto data);
 }

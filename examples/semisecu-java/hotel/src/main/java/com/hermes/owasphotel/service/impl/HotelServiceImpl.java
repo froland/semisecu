@@ -10,7 +10,6 @@ import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelNote;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelDto;
 import com.hermes.owasphotel.service.HotelService;
@@ -83,26 +82,18 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void addComment(Integer hotelId, String name, String text) {
-		User user = userDao.find(name);
+	public void addComment(Integer hotelId, String name,
+			boolean authentifiedUser, int note, String text) {
+		User user = null;
+		if (authentifiedUser) {
+			user = userDao.find(name);
+		}
 		Hotel hotel = find(hotelId);
-		Comment c = new Comment(hotel, user);
+		Comment c = hotel.addComment(user);
+		if (user == null) {
+			c.setUserName(name);
+		}
 		c.setText(text);
-		hotel.getComments().add(c);
-	}
-
-	@Override
-	public HotelNote getHotelNote(Integer hotelId, String name) {
-		Hotel h = hotelDao.find(hotelId);
-		if (h == null)
-			return null;
-		return h.getNote(userDao.find(name));
-	}
-
-	@Override
-	public void setHotelNote(Integer hotelId, String name, int note) {
-		Hotel h = hotelDao.find(hotelId);
-		h.setNote(new HotelNote(h, userDao.find(name), note));
-		hotelDao.save(h);
+		c.setNote(note);
 	}
 }

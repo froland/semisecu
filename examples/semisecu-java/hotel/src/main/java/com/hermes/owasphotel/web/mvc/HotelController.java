@@ -88,28 +88,24 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public String viewHotel(Model model, @PathVariable Integer id,
-			Principal principal) {
+	public String viewHotel(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.find(id);
 		if (hotel == null)
 			throw new ResourceNotFoundException(Hotel.class, id.longValue());
 		model.addAttribute("hotel", hotel);
 		if (!hotel.isApproved())
 			return "hotel/notApproved";
-		if (principal != null) {
-			model.addAttribute(
-					"user_note",
-					hotelService.getHotelNote(hotel.getId(),
-							principal.getName()));
-		}
 		return "hotel/view";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment")
 	public String addComment(@PathVariable("id") Integer hotelId,
-			@RequestParam String text, Principal user) {
-		if (hotelId != null && user != null && text != null) {
-			hotelService.addComment(hotelId, user.getName(), text);
+			Principal user, @RequestParam String text,
+			@RequestParam(required = false) String name, @RequestParam int note) {
+		if (hotelId != null && (name != null || user != null) && text != null) {
+			if (name == null)
+				name = user.getName();
+			hotelService.addComment(hotelId, name, user != null, note, text);
 		}
 		return redirectTo(hotelId);
 	}
@@ -155,14 +151,6 @@ public class HotelController {
 	@PreAuthorize("hasRole('admin')")
 	public String approveHotel(@PathVariable("id") Integer hotelId) {
 		hotelService.approve(hotelService.find(hotelId));
-		return redirectTo(hotelId);
-	}
-
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/note")
-	@PreAuthorize("hasRole('admin')")
-	public String addNote(@PathVariable("id") Integer hotelId,
-			Principal principal, @RequestParam int note) {
-		hotelService.setHotelNote(hotelId, principal.getName(), note);
 		return redirectTo(hotelId);
 	}
 }
