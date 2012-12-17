@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -38,6 +39,9 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	private int approved;
 
+	@ManyToOne
+	private User createdBy;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hotelid")
 	@OrderBy("sequence")
@@ -49,6 +53,14 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	private Map<Integer, HotelNote> notes = new HashMap<Integer, HotelNote>();
 	@Transient
 	private Double averageNote;
+
+	Hotel() {
+	}
+
+	public Hotel(String name, User createdBy) {
+		setHotelName(name);
+		this.createdBy = createdBy;
+	}
 
 	public String getHotelName() {
 		return hotelName;
@@ -116,6 +128,10 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	public void approveHotel() {
 		this.approved = 1;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
 	}
 
 	public List<Comment> getComments() {

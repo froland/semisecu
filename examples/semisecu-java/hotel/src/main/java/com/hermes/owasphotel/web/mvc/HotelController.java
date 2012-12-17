@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelDto;
 import com.hermes.owasphotel.service.HotelService;
+import com.hermes.owasphotel.service.UserService;
 
 /**
  * Controller for hotels.
@@ -35,6 +38,9 @@ public class HotelController {
 
 	@Autowired
 	private HotelService hotelService;
+
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * Initializes the editors.
@@ -115,11 +121,12 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "create")
 	public String createHotel(@Valid @ModelAttribute("hotel") HotelDto dto,
-			BindingResult binding) {
+			BindingResult binding, Principal p) {
 		if (binding.hasErrors()) {
 			return "hotel/update";
 		}
-		Hotel hotel = dto.makeNew();
+		User user = userService.find(p.getName());
+		Hotel hotel = dto.makeNew(user);
 		hotelService.save(hotel);
 		return redirectTo(hotel.getId());
 	}
@@ -150,6 +157,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/note")
+	@PreAuthorize("hasRole('admin')")
 	public String approveHotel(@PathVariable("id") Integer hotelId,
 			Principal principal, @RequestParam int note) {
 		hotelService.setHotelNote(hotelId, principal.getName(), note);

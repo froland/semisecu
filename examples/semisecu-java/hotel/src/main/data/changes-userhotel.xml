@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="userForHotel" author="k">
+		<addColumn tableName="HOTELS">
+			<column name="CREATED_BY" type="INT" />
+		</addColumn>
+		<addForeignKeyConstraint constraintName="FK_HOTELS_CREATED_BY"
+			referencedTableName="USERS" baseColumnNames="CREATED_BY"
+			baseTableName="HOTELS" referencedColumnNames="ID" />
+	</changeSet>
+
+</databaseChangeLog>
