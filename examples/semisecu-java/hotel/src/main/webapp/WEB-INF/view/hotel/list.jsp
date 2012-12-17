@@ -14,7 +14,7 @@
 	</jsp:attribute>
 	<jsp:attribute name="title">${pageTitle}</jsp:attribute>
 	<jsp:body>
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<th>Hotel name</th>
 			<th>City</th>
