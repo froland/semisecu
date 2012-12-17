@@ -92,27 +92,6 @@
 			check stars is
 			null or (stars between 0 and 5);
 		</sql>
-
-		<!-- Comments for the hotels -->
-		<createTable tableName="COMMENTS">
-			<column name="HOTELID" type="INT">
-				<constraints nullable="false" />
-			</column>
-			<column name="SEQ" type="INT">
-				<constraints nullable="false" />
-			</column>
-			<column name="USERID" type="INT">
-				<constraints nullable="false" />
-			</column>
-			<column name="TEXT" type="VARCHAR2(500)" />
-		</createTable>
-		<addPrimaryKey tableName="COMMENTS" columnNames="HOTELID, SEQ" />
-		<addForeignKeyConstraint constraintName="FK_COMMENTS_HOTELID"
-			referencedTableName="HOTELS" baseColumnNames="HOTELID" baseTableName="COMMENTS"
-			referencedColumnNames="ID" />
-		<addForeignKeyConstraint constraintName="FK_COMMENTS_USERID"
-			referencedTableName="USERS" baseColumnNames="USERID" baseTableName="COMMENTS"
-			referencedColumnNames="ID" />
 	</changeSet>
 
 </databaseChangeLog>

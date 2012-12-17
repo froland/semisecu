@@ -5,10 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelDto;
 import com.hermes.owasphotel.service.HotelService;
+import com.hermes.owasphotel.service.UserService;
 
 /**
  * Controller for hotels.
@@ -33,8 +38,17 @@ import com.hermes.owasphotel.service.HotelService;
 @RequestMapping("/hotel")
 public class HotelController {
 
+	public static final int PAGE_COUNT = 4;
+	public static final int TOP_COUNT = 3;
+
 	@Autowired
 	private HotelService hotelService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private HttpServletRequest request;
 
 	/**
 	 * Initializes the editors.
@@ -58,53 +72,73 @@ public class HotelController {
 		return r;
 	}
 
+	private <E> PagedListHolder<E> setPagedList(Model model, String name,
+			List<E> list) {
+		PagedListHolder<E> paged = new PagedListHolder<E>(list);
+		paged.setPageSize(PAGE_COUNT);
+		String page = request.getParameter("page");
+		if (page != null) {
+			try {
+				paged.setPage(Integer.parseInt(page));
+			} catch (IllegalArgumentException e) {
+				// ignore parsing error
+			}
+		}
+		model.addAttribute(name, paged.getPageList());
+		model.addAttribute("pagedListHolder", paged);
+		return paged;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
-	public String viewHotels(Model model) {
+	public String viewHotels(Model model,
+			@RequestParam(defaultValue = "0") int page) {
 		List<Hotel> hotels = hotelService.findApproved();
-		model.addAttribute("hotels", hotels);
+		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
 		List<Hotel> hotels = hotelService.findAll();
-		model.addAttribute("hotels", hotels);
+		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
-		final int COUNT = 3;
-		List<Hotel> hotels = hotelService.findTopNoted(COUNT);
+		List<Hotel> hotels = hotelService.findTopNoted(TOP_COUNT);
 		model.addAttribute("hotels", hotels);
-		model.addAttribute("pageTitle", "Top " + COUNT + " hotels");
+		model.addAttribute("pageTitle", "Top " + TOP_COUNT + " hotels");
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public String viewHotel(Model model, @PathVariable Integer id,
-			Principal principal) {
+	public String viewHotel(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.find(id);
 		if (hotel == null)
 			throw new ResourceNotFoundException(Hotel.class, id.longValue());
 		model.addAttribute("hotel", hotel);
 		if (!hotel.isApproved())
 			return "hotel/notApproved";
-		if (principal != null) {
-			model.addAttribute(
-					"user_note",
-					hotelService.getHotelNote(hotel.getId(),
-							principal.getName()));
-		}
 		return "hotel/view";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment")
 	public String addComment(@PathVariable("id") Integer hotelId,
-			@RequestParam String text, Principal user) {
-		if (hotelId != null && user != null && text != null) {
-			hotelService.addComment(hotelId, user.getName(), text);
+			Principal user, @RequestParam String text,
+			@RequestParam(required = false) String name, @RequestParam int note) {
+		if (hotelId != null && (name != null || user != null) && text != null) {
+			if (name == null)
+				name = user.getName();
+			hotelService.addComment(hotelId, name, user != null, note, text);
 		}
+		return redirectTo(hotelId);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
+	public String deleteComment(@PathVariable("id") Integer hotelId,
+			@RequestParam("delete") int comment) {
+		hotelService.deleteComment(hotelId, comment);
 		return redirectTo(hotelId);
 	}
 
@@ -115,11 +149,12 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "create")
 	public String createHotel(@Valid @ModelAttribute("hotel") HotelDto dto,
-			BindingResult binding) {
+			BindingResult binding, Principal p) {
 		if (binding.hasErrors()) {
 			return "hotel/update";
 		}
-		Hotel hotel = dto.makeNew();
+		User user = userService.find(p.getName());
+		Hotel hotel = dto.makeNew(user);
 		hotelService.save(hotel);
 		return redirectTo(hotel.getId());
 	}
@@ -133,6 +168,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/update")
+	// TODO @PreAuthorize("hasPermission(#hotel, 'user')")
 	public String updateHotel(Model model, @PathVariable("id") Integer hotelId,
 			@Valid @ModelAttribute("hotel") HotelDto dto, BindingResult result) {
 		if (result.hasErrors()) {
@@ -144,15 +180,9 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/approve")
+	@PreAuthorize("hasRole('admin')")
 	public String approveHotel(@PathVariable("id") Integer hotelId) {
 		hotelService.approve(hotelService.find(hotelId));
-		return redirectTo(hotelId);
-	}
-
-	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/note")
-	public String approveHotel(@PathVariable("id") Integer hotelId,
-			Principal principal, @RequestParam int note) {
-		hotelService.setHotelNote(hotelId, principal.getName(), note);
 		return redirectTo(hotelId);
 	}
 }

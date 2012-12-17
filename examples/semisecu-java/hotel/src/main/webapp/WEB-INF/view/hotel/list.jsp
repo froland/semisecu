@@ -27,5 +27,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<c:if test="${not empty pagedListHolder}">
+	<t:paging pagedLink="?page=~" pagedListHolder="${pagedListHolder}" />
+	</c:if>
 	</jsp:body>
 </t:page.template>

@@ -10,7 +10,6 @@ import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelNote;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelDto;
 import com.hermes.owasphotel.service.HotelService;
@@ -83,26 +82,44 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void addComment(Integer hotelId, String name, String text) {
-		User user = userDao.find(name);
-		Hotel hotel = find(hotelId);
-		Comment c = new Comment(hotel, user);
+	public void addComment(Integer hotelId, String name,
+			boolean authentifiedUser, int note, String text) {
+		User user = null;
+		if (authentifiedUser) {
+			user = userDao.find(name);
+		}
+		Hotel hotel = hotelDao.find(hotelId);
+		Comment c = hotel.addComment(user);
+		if (user == null) {
+			c.setUserName(name);
+		}
 		c.setText(text);
-		hotel.getComments().add(c);
+		c.setNote(note);
 	}
 
 	@Override
-	public HotelNote getHotelNote(Integer hotelId, String name) {
-		Hotel h = hotelDao.find(hotelId);
-		if (h == null)
-			return null;
-		return h.getNote(userDao.find(name));
-	}
+	public void deleteComment(Integer hotelId, int commentSeq) {
+		Hotel hotel = hotelDao.find(hotelId);
+		Comment comment = null;
+		try {
+			comment = hotel.getComments().get(commentSeq - 1);
+			if (comment.getSequence() != commentSeq) {
+				// not 1-indexed
+				comment = null;
+			}
+		} catch (IndexOutOfBoundsException e) {
+			comment = null;
+		}
+		if (comment == null) {
+			for (Comment c : hotel.getComments()) {
+				if (c.getSequence() == commentSeq) {
+					comment = c;
+					break;
+				}
+			}
+		}
 
-	@Override
-	public void setHotelNote(Integer hotelId, String name, int note) {
-		Hotel h = hotelDao.find(hotelId);
-		h.setNote(new HotelNote(h, userDao.find(name), note));
-		hotelDao.save(h);
+		// mark as deleted
+		comment.delete();
 	}
 }

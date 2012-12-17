@@ -4,13 +4,13 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<changeSet id="addDelete" author="v">
-	
-	<addColumn tableName="COMMENTS">
-		<column name="Deleted" type="INT" defaultValueBoolean="false">
-			<constraints nullable="false"/>
-		</column>
-	</addColumn>
-	
+	<changeSet id="userForHotel" author="k">
+		<addColumn tableName="HOTELS">
+			<column name="CREATED_BY" type="INT" />
+		</addColumn>
+		<addForeignKeyConstraint constraintName="FK_HOTELS_CREATED_BY"
+			referencedTableName="USERS" baseColumnNames="CREATED_BY"
+			baseTableName="HOTELS" referencedColumnNames="ID" />
 	</changeSet>
+
 </databaseChangeLog>

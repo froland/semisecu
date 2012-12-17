@@ -25,54 +25,60 @@
 			</p>
 			<p>Average note:
 				<t:hotel.stars value="${hotel.averageNote}" max="10" />
-				<sec:authorize access="hasRole('user')">
-				<form method="POST"
-						action="<c:url value="/hotel/${hotel.id}/note"/>">
-				<select name="note" onchange="this.form.submit()">
-				<c:forEach var="i" begin="1" end="10">
-				<c:choose>
-				<c:when test="${i == user_note.note}">
-				<option selected="selected">${i}</option>
-				</c:when>
-				<c:otherwise>
-				<option>${i}</option>
-				</c:otherwise>
-				</c:choose>
-				</c:forEach>
-				</select>
-				</form>
-				</sec:authorize>
 			</p>
 			<p>Address: <br />${hotel.address}<br />${hotel.city} ${hotel.country}</p>
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
-			<sec:authorize access="hasRole('admin')">
+			<c:if
+				test="${hotel.createdBy.name == pageContext['request'].userPrincipal.name}">
 			<p>
 				<a href="<c:url value="/hotel/${hotel.id}/update" />">Update the hotel</a>
 			</p>
-			</sec:authorize>
+			</c:if>
 		</div>
 		<div>
 			<h3>Comments</h3>
 			<c:forEach var="comment" items="${hotel.comments}">
+			<c:if test="${!comment.deleted}">
 				<div class="comment">
-					<p>User: ${comment.user.name}</p>
+					<div>${comment.userName} commented on ${comment.date}
+					Note: ${comment.note}
+					<sec:authorize access="hasRole('admin')">
+					<form method="POST"
+									action="<c:url value="/hotel/${hotel.id}/comment"/>">
+					<input type="hidden" name="delete" value="${comment.sequence}" />
+					<input type="submit" value="Delete">
+					</form>
+					</sec:authorize>
+					</div>
 					${comment.text}
 				</div>
+			</c:if>
 			</c:forEach>
-			<sec:authorize access="hasRole('user')">
-				<div class="newComment">
-					<form action="<c:url value="/hotel/${hotel.id}/comment"/>"
-						method="POST">
-						<label for="text">Text:</label>
-						<div>
-							<textarea rows="3" cols="60" name="text"></textarea>
-						</div>
-						<input type="submit" value="Add comment" />
-					</form>
-				</div>
-			</sec:authorize>
+			
+			<!-- Add a new comment -->
+			<div class="newComment">
+				<form action="<c:url value="/hotel/${hotel.id}/comment"/>"
+					method="POST">
+					<sec:authorize access="!isAuthenticated()">
+					<label for="name">Name:</label>
+					<input name="name" />
+					</sec:authorize>
+					<label for="note">Note:</label>
+					<select name="note">
+					<c:forEach var="i" begin="1" end="10">
+					<option>${i}</option>
+					</c:forEach>
+					</select>
+					<br />
+					<label for="text">Text:</label>
+					<div>
+						<textarea rows="3" cols="60" name="text"></textarea>
+					</div>
+					<input type="submit" value="Add comment" />
+				</form>
+			</div>
 		</div>
 	</jsp:body>
 </t:page.template>

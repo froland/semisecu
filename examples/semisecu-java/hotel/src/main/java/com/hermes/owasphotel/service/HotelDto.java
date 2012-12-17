@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.User;
 
 public class HotelDto extends GenericDto<Integer, Hotel> {
 	@NotBlank(message = "The name of the hotel may not be blank")
@@ -82,8 +83,8 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 		this.stars = stars;
 	}
 
-	public Hotel makeNew() {
-		Hotel h = new Hotel();
+	public Hotel makeNew(User user) {
+		Hotel h = new Hotel(hotelName, user);
 		update(h);
 		return h;
 	}

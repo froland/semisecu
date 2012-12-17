@@ -1,15 +1,13 @@
 package com.hermes.owasphotel.domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
@@ -38,17 +36,24 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	private int approved;
 
+	@ManyToOne
+	private User createdBy;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hotelid")
 	@OrderBy("sequence")
 	private List<Comment> comments = new ArrayList<Comment>();
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "hotelid")
-	@MapKeyColumn(name = "userid")
-	private Map<Integer, HotelNote> notes = new HashMap<Integer, HotelNote>();
 	@Transient
 	private Double averageNote;
+
+	Hotel() {
+	}
+
+	public Hotel(String name, User createdBy) {
+		setHotelName(name);
+		this.createdBy = createdBy;
+	}
 
 	public String getHotelName() {
 		return hotelName;
@@ -118,26 +123,16 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		this.approved = 1;
 	}
 
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
 	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public HotelNote getNote(User user) {
-		if (user == null)
-			return null;
-		return notes.get(user.getId());
-	}
-
-	public void setNote(HotelNote note) {
-		if (note == null || !equals(note.getHotel()))
-			throw new IllegalArgumentException("Invalid note for this hotel");
-		notes.put(note.getUser().getId(), note);
-	}
-
-	public void removeNote(HotelNote note) {
-		if (note == null || !equals(note.getHotel()))
-			throw new IllegalArgumentException("Invalid note for this hotel");
-		notes.remove(note.getUser().getId());
+	public Comment addComment(User user) {
+		return new Comment(this, user);
 	}
 
 	public Double getAverageNote() {
