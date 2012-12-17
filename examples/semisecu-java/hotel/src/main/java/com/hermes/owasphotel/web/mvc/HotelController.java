@@ -140,6 +140,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/update")
+	// TODO @PreAuthorize("hasPermission(#hotel, 'user')")
 	public String updateHotel(Model model, @PathVariable("id") Integer hotelId,
 			@Valid @ModelAttribute("hotel") HotelDto dto, BindingResult result) {
 		if (result.hasErrors()) {
@@ -151,6 +152,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/approve")
+	@PreAuthorize("hasRole('admin')")
 	public String approveHotel(@PathVariable("id") Integer hotelId) {
 		hotelService.approve(hotelService.find(hotelId));
 		return redirectTo(hotelId);
@@ -158,7 +160,7 @@ public class HotelController {
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/note")
 	@PreAuthorize("hasRole('admin')")
-	public String approveHotel(@PathVariable("id") Integer hotelId,
+	public String addNote(@PathVariable("id") Integer hotelId,
 			Principal principal, @RequestParam int note) {
 		hotelService.setHotelNote(hotelId, principal.getName(), note);
 		return redirectTo(hotelId);

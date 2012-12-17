@@ -47,11 +47,12 @@
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
-			<sec:authorize access="hasRole('admin')">
+			<c:if
+				test="${hotel.createdBy != null and hotel.createdBy.name == pageContext['request'].userPrincipal.name}">
 			<p>
 				<a href="<c:url value="/hotel/${hotel.id}/update" />">Update the hotel</a>
 			</p>
-			</sec:authorize>
+			</c:if>
 		</div>
 		<div>
 			<h3>Comments</h3>
