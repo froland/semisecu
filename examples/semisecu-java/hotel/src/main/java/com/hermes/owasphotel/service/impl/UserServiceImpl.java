@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.UserDto;
 import com.hermes.owasphotel.service.UserService;
 
 @Service
@@ -62,6 +63,14 @@ public class UserServiceImpl implements UserService {
 	public User save(User u)
 	{
 		return userDao.save(u);
+	}
+	
+	@Override
+	public User update(UserDto dto)
+	{
+		User u = userDao.find(dto.getId());
+		dto.update(u);
+		return u;
 	}
 
 }

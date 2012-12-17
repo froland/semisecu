@@ -18,4 +18,6 @@ public interface UserService {
 	
 	public User save(User u);
 
+	User update(UserDto dto);
+
 }
