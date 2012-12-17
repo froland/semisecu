@@ -135,6 +135,13 @@ public class HotelController {
 		return redirectTo(hotelId);
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
+	public String deleteComment(@PathVariable("id") Integer hotelId,
+			@RequestParam("delete") int comment) {
+		hotelService.deleteComment(hotelId, comment);
+		return redirectTo(hotelId);
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "create")
 	public String viewCreateHotel(@ModelAttribute("hotel") HotelDto dto) {
 		return "hotel/update";

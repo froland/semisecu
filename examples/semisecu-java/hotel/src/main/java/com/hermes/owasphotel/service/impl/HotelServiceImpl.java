@@ -88,12 +88,38 @@ public class HotelServiceImpl implements HotelService {
 		if (authentifiedUser) {
 			user = userDao.find(name);
 		}
-		Hotel hotel = find(hotelId);
+		Hotel hotel = hotelDao.find(hotelId);
 		Comment c = hotel.addComment(user);
 		if (user == null) {
 			c.setUserName(name);
 		}
 		c.setText(text);
 		c.setNote(note);
+	}
+
+	@Override
+	public void deleteComment(Integer hotelId, int commentSeq) {
+		Hotel hotel = hotelDao.find(hotelId);
+		Comment comment = null;
+		try {
+			comment = hotel.getComments().get(commentSeq - 1);
+			if (comment.getSequence() != commentSeq) {
+				// not 1-indexed
+				comment = null;
+			}
+		} catch (IndexOutOfBoundsException e) {
+			comment = null;
+		}
+		if (comment == null) {
+			for (Comment c : hotel.getComments()) {
+				if (c.getSequence() == commentSeq) {
+					comment = c;
+					break;
+				}
+			}
+		}
+
+		// mark as deleted
+		comment.delete();
 	}
 }

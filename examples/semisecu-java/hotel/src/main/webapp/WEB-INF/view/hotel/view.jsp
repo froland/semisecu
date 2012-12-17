@@ -42,8 +42,16 @@
 			<c:forEach var="comment" items="${hotel.comments}">
 			<c:if test="${!comment.deleted}">
 				<div class="comment">
-					<p>${comment.userName} commented on ${comment.date}
-					Note: ${comment.note}</p>
+					<div>${comment.userName} commented on ${comment.date}
+					Note: ${comment.note}
+					<sec:authorize access="hasRole('admin')">
+					<form method="POST"
+									action="<c:url value="/hotel/${hotel.id}/comment"/>">
+					<input type="hidden" name="delete" value="${comment.sequence}" />
+					<input type="submit" value="Delete">
+					</form>
+					</sec:authorize>
+					</div>
 					${comment.text}
 				</div>
 			</c:if>
