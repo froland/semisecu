@@ -5,10 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,11 +38,17 @@ import com.hermes.owasphotel.service.UserService;
 @RequestMapping("/hotel")
 public class HotelController {
 
+	public static final int PAGE_COUNT = 4;
+	public static final int TOP_COUNT = 3;
+
 	@Autowired
 	private HotelService hotelService;
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private HttpServletRequest request;
 
 	/**
 	 * Initializes the editors.
@@ -64,26 +72,43 @@ public class HotelController {
 		return r;
 	}
 
+	private <E> PagedListHolder<E> setPagedList(Model model, String name,
+			List<E> list) {
+		PagedListHolder<E> paged = new PagedListHolder<E>(list);
+		paged.setPageSize(PAGE_COUNT);
+		String page = request.getParameter("page");
+		if (page != null) {
+			try {
+				paged.setPage(Integer.parseInt(page));
+			} catch (IllegalArgumentException e) {
+				// ignore parsing error
+			}
+		}
+		model.addAttribute(name, paged.getPageList());
+		model.addAttribute("pagedListHolder", paged);
+		return paged;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
-	public String viewHotels(Model model) {
+	public String viewHotels(Model model,
+			@RequestParam(defaultValue = "0") int page) {
 		List<Hotel> hotels = hotelService.findApproved();
-		model.addAttribute("hotels", hotels);
+		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
 		List<Hotel> hotels = hotelService.findAll();
-		model.addAttribute("hotels", hotels);
+		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
-		final int COUNT = 3;
-		List<Hotel> hotels = hotelService.findTopNoted(COUNT);
+		List<Hotel> hotels = hotelService.findTopNoted(TOP_COUNT);
 		model.addAttribute("hotels", hotels);
-		model.addAttribute("pageTitle", "Top " + COUNT + " hotels");
+		model.addAttribute("pageTitle", "Top " + TOP_COUNT + " hotels");
 		return "hotel/list";
 	}
 
