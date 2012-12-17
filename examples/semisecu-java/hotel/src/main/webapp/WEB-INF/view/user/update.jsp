@@ -45,10 +45,10 @@
 					<td>
 					<c:choose>
 					<c:when test="${empty user.id}">
-					<input type="submit" value="Add user" />
+					<button type="submit" class="btn btn-primary"> Add user </button>
 					</c:when>
 					<c:otherwise>
-					<input type="submit" value="Update user" />
+					<button type="submit" class="btn btn-primary"> Update user </button>
 					</c:otherwise>
 					</c:choose>
 					</td>

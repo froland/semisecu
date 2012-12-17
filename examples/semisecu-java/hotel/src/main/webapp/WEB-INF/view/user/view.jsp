@@ -10,6 +10,6 @@
 	<jsp:body>
 		<div>Name: ${user.name}</div>
 		<div>Email: ${user.email}</div>
-		<div><a href="<c:url value="/user/update/${user.id}"/>">Update profile</a></div>
+		<div><a href="<c:url value="/user/update/${user.id}"/>" class="btn btn-primary">Update profile</a></div>
 	</jsp:body>
 </t:page.template>

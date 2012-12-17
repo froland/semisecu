@@ -13,6 +13,7 @@
 <html>
 <head>
 <title>${title}</title>
+<link href="<c:url value="/css/bootstrap.css"/>" type="text/css" rel="stylesheet"/>
 <jsp:invoke fragment="head" />
 </head>
 <body>
