@@ -7,7 +7,6 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/spring/spring-security.xml,
 			classpath*:META-INF/spring/applicationContext*.xml
 		</param-value>
 	</context-param>
@@ -67,6 +66,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
+				classpath*:META-INF/spring/applicationContext-security.xml,
 				/WEB-INF/spring/mvc-config.xml
 			</param-value>
 		</init-param>

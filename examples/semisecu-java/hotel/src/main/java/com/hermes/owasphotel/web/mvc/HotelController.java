@@ -143,6 +143,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "create")
+	@PreAuthorize("hasRole('user')")
 	public String viewCreateHotel(@ModelAttribute("hotel") HotelDto dto) {
 		return "hotel/update";
 	}
