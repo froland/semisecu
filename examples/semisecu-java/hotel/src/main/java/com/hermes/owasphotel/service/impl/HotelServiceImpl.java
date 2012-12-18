@@ -1,5 +1,6 @@
 package com.hermes.owasphotel.service.impl;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,6 +14,7 @@ import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelDto;
+import com.hermes.owasphotel.service.HotelListItemDto;
 import com.hermes.owasphotel.service.HotelService;
 
 /**
@@ -58,15 +60,41 @@ public class HotelServiceImpl implements HotelService {
 	public List<Hotel> findAll() {
 		return hotelDao.findAll();
 	}
+	
+	@Override
+	public List<HotelListItemDto> listAll() {
+		return itemize(findAll());
+	}
+	
+	private List<HotelListItemDto> itemize(List<Hotel> lh)
+	{
+		List<HotelListItemDto> result = new LinkedList<HotelListItemDto>();
+		for (Hotel hotel : lh) {
+			hotelDao.computeNote(hotel);
+			result.add(new HotelListItemDto(hotel.getHotelName(), hotelDao.countComments(hotel), hotel.getAverageNote(), hotel.getId()));
+		}
+		
+		return result;
+	}
 
 	@Override
 	public List<Hotel> findApproved() {
 		return hotelDao.findApprovedHotels();
 	}
+	
+	@Override
+	public List<HotelListItemDto> listApproved() {
+		return itemize(findApproved());
+	}
 
 	@Override
 	public List<Hotel> findTopNoted(int count) {
 		return hotelDao.findTopNotedHotels(count);
+	}
+	
+	@Override
+	public List<HotelListItemDto> listTopNoted(int count) {
+		return itemize(findTopNoted(count));
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package com.hermes.owasphotel.web.mvc;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.validation.Valid;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
@@ -34,6 +37,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelDto;
+import com.hermes.owasphotel.service.HotelListItemDto;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
 
@@ -74,6 +78,8 @@ public class HotelController {
 		// Convert multipart object to byte[]
 		binder.registerCustomEditor(byte[].class,
 				new ByteArrayMultipartFileEditor());
+		
+		
 	}
 
 	private static String redirectTo(Integer id) {
@@ -103,21 +109,21 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewHotels(Model model,
 			@RequestParam(defaultValue = "0") int page) {
-		List<Hotel> hotels = hotelService.findApproved();
+		List<HotelListItemDto> hotels = hotelService.listApproved();
 		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
-		List<Hotel> hotels = hotelService.findAll();
+		List<HotelListItemDto> hotels = hotelService.listAll();
 		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
-		List<Hotel> hotels = hotelService.findTopNoted(TOP_COUNT);
+		List<HotelListItemDto> hotels = hotelService.listTopNoted(TOP_COUNT);
 		model.addAttribute("hotels", hotels);
 		model.addAttribute("pageTitle", "Top " + TOP_COUNT + " hotels");
 		return "hotel/list";

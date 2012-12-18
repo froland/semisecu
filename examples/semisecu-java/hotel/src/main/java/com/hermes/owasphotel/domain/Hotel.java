@@ -145,6 +145,11 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	public List<Comment> getComments() {
 		return comments;
 	}
+	
+	public int getNbComments()
+	{
+		return getComments().size();
+	}
 
 	public Comment addComment(User user) {
 		return new Comment(this, user);

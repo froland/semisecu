@@ -36,4 +36,10 @@ public interface HotelService {
 
 	public void setHotelImage(Integer hotelId, byte[] image);
 
+	public List<HotelListItemDto> listAll();
+
+	public List<HotelListItemDto> listTopNoted(int count);
+
+	public List<HotelListItemDto> listApproved();
+
 }
