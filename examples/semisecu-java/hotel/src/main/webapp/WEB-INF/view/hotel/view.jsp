@@ -11,6 +11,19 @@
 img.hotelImage {
 	width: 200px;
 }
+
+.comment {
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
 </style>
 	</jsp:attribute>
 	<jsp:attribute name="navigation">
@@ -18,7 +31,7 @@ img.hotelImage {
 	</jsp:attribute>
 	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
-		<c:if test="${!hotel.approved}">
+	<c:if test="${!hotel.approved}">
 			<p class="alert">The hotel is not approved!</p>
 			<sec:authorize access="hasRole('admin')">
 			<form method="POST"
@@ -27,9 +40,12 @@ img.hotelImage {
 			</form>
 			</sec:authorize>
 		</c:if>
+		<div class="row">
+		<div class="span4 offset1">
 		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
 			class="hotelImage" />
-		<div>
+		</div>
+		
 			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
 			</p>
 			<p>Average note:
@@ -42,16 +58,20 @@ img.hotelImage {
 			<p>Manager: <a
 					href="<c:url value="/user/${hotel.manager.name}"/>">${hotel.manager.name}</a>
 			</p>
-			<div class="description">
+			<div class="row">
+			<div class="span10 offset1">
 			${hotel.descriptionHTML}
+			</div>
 			</div>
 			<c:if
 				test="${hotel.manager.name == pageContext['request'].userPrincipal.name}">
-			<p>
+			<div class="row">
+			<div class="span10 offset1">
 				<a class="btn btn-warning"
 						href="<c:url value="/hotel/${hotel.id}/update" />"><i
 						class="icon-edit icon-white"></i> Update the hotel</a>
-			</p>
+			</div>
+			</div>
 			</c:if>
 		</div>
 		<div>

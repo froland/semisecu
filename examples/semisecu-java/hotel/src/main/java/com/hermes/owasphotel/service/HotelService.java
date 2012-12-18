@@ -25,8 +25,6 @@ public interface HotelService {
 
 	public Hotel findByName(String search);
 
-	public List<Hotel> findSearchQuery(String search);
-
 	public List<String> findForAutoComplete(String query);
 
 	public void approve(Hotel h);
@@ -41,5 +39,13 @@ public interface HotelService {
 	public byte[] getHotelImage(Integer hotelId);
 
 	public void setHotelImage(Integer hotelId, byte[] image);
+
+	public List<HotelListItemDto> listAll();
+
+	public List<HotelListItemDto> listTopNoted(int count);
+
+	public List<HotelListItemDto> listApproved();
+
+	public List<HotelListItemDto> listSearchQuery(String search);
 
 }

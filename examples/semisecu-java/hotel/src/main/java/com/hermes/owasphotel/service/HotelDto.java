@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
@@ -28,6 +29,8 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 	private Integer stars;
 
 	private String descriptionHTML;
+	
+	private CommonsMultipartFile file;
 
 	public String getHotelName() {
 		return hotelName;
@@ -92,6 +95,24 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 	public void setStars(Integer stars) {
 		this.stars = stars;
 	}
+	public CommonsMultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(CommonsMultipartFile file) {
+		this.file = file;
+	}
+	
+	@Override
+	public void update(Hotel h)
+	{
+		super.update(h);
+		if (file != null) {
+			h.setImage(file.getBytes());
+		}
+		
+	}
+	
 
 	public Hotel makeNew(User user) {
 		Hotel h = new Hotel(hotelName, user);

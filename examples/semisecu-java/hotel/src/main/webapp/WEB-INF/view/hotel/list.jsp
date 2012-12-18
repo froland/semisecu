@@ -14,21 +14,8 @@
 	</jsp:attribute>
 	<jsp:attribute name="title">${pageTitle}</jsp:attribute>
 	<jsp:body>
-	<table class="table table-striped">
-		<tr>
-			<th>Hotel name</th>
-			<th>City</th>
-		</tr>
-		<c:forEach var="hotel" items="${hotels}">
-			<tr>
-				<td><a href="<c:url value="/hotel/${hotel.id}"/>"><c:out
-								value="${hotel.hotelName}" /></a></td>
-				<td><c:out value="${hotel.city}" /></td>
-			</tr>
-		</c:forEach>
-	</table>
-	<c:if test="${not empty pagedListHolder}">
-	<t:paging pagedLink="?page=~" pagedListHolder="${pagedListHolder}" />
-	</c:if>
+	    <jsp:include page="hotelTable.jsp">
+    		<jsp:param name="hotels" value="${hotels}" />
+    	</jsp:include>
 	</jsp:body>
 </t:page.template>

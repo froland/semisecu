@@ -34,6 +34,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelDto;
+import com.hermes.owasphotel.service.HotelListItemDto;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
 
@@ -74,6 +75,7 @@ public class HotelController {
 		// Convert multipart object to byte[]
 		binder.registerCustomEditor(byte[].class,
 				new ByteArrayMultipartFileEditor());
+
 	}
 
 	private static String redirectTo(Integer id) {
@@ -103,21 +105,21 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewHotels(Model model,
 			@RequestParam(defaultValue = "0") int page) {
-		List<Hotel> hotels = hotelService.findApproved();
+		List<HotelListItemDto> hotels = hotelService.listApproved();
 		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
-		List<Hotel> hotels = hotelService.findAll();
+		List<HotelListItemDto> hotels = hotelService.listAll();
 		setPagedList(model, "hotels", hotels);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
-		List<Hotel> hotels = hotelService.findTopNoted(TOP_COUNT);
+		List<HotelListItemDto> hotels = hotelService.listTopNoted(TOP_COUNT);
 		model.addAttribute("hotels", hotels);
 		model.addAttribute("pageTitle", "Top " + TOP_COUNT + " hotels");
 		return "hotel/list";
@@ -131,7 +133,7 @@ public class HotelController {
 			return redirectTo(hotel.getId());
 
 		// return the result list
-		List<Hotel> hotels = hotelService.findSearchQuery(search);
+		List<HotelListItemDto> hotels = hotelService.listSearchQuery(search);
 		setPagedList(model, "hotels", hotels);
 		model.addAttribute("pageTitle", "Search: " + search);
 		return "hotel/list";
