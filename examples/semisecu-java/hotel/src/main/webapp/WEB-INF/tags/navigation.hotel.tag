@@ -18,8 +18,21 @@
 						hotel</a></li>
 			</sec:authorize>
 		</ul>
-		<form action="<c:url value="/hotel/search"/>" method="get">
-			Search <input type="text" name="t" title="Search for a hotel" />
+		<form action="<c:url value="/hotel/search"/>" method="get" id="hotelSearch">
+			Search <input type="text" name="t" title="Search for a hotel"
+				id="hotelSearchField" />
+			<a href="javascript:$('form#hotelSearch').submit();" class="btn"><i class="icon-search"></i></a>
+<script type="text/javascript">
+	$(function() {
+		$('#hotelSearchField').typeahead({
+			'source' : function(query, process) {
+				return $.getJSON("<c:url value="/hotel/searchAutocomplete"/>", {
+					't' : query
+				}, process);
+			}
+		});
+	});
+</script>
 		</form>
 	</div>
 </div>

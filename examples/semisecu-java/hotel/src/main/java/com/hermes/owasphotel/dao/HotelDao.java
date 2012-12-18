@@ -17,5 +17,9 @@ public interface HotelDao extends SimpleDao<Integer, Hotel> {
 
 	public List<Hotel> findTopNotedHotels(int count);
 
-	public List<Hotel> findSearchQuery(String search);
+	public Hotel findByName(String search);
+
+	public List<Hotel> findSearchQuery(String search, boolean fullSearch,
+			int maxResults);
+
 }

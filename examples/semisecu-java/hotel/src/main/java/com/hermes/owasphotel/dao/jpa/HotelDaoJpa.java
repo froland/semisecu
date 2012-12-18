@@ -2,6 +2,8 @@ package com.hermes.owasphotel.dao.jpa;
 
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Repository;
 
 import com.hermes.owasphotel.dao.HotelDao;
@@ -48,13 +50,29 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	}
 
 	@Override
-	public List<Hotel> findSearchQuery(String search) {
-		return em
-				.createQuery(
-						"select h from Hotel h where lower(h.hotelName) like :t",
-						Hotel.class)
-				.setParameter("t", "%" + search.toLowerCase() + "%")
+	public Hotel findByName(String search) {
+		List<Hotel> list = em
+				.createQuery("from Hotel h where lower(h.hotelName) = :t",
+						Hotel.class).setParameter("t", search.toLowerCase())
 				.getResultList();
+		return list.size() == 1 ? list.get(0) : null;
+	}
+
+	@Override
+	public List<Hotel> findSearchQuery(String search, boolean fullSearch,
+			int maxResults) {
+		// build the like string
+		String like = search.toLowerCase() + "%";
+		if (fullSearch) {
+			like = "%" + like;
+		}
+		// build the query
+		TypedQuery<Hotel> query = em.createQuery(
+				"select h from Hotel h where lower(h.hotelName) like :t",
+				Hotel.class).setParameter("t", like);
+		if (maxResults > 0)
+			query = query.setMaxResults(maxResults);
+		return query.getResultList();
 	}
 
 }

@@ -13,7 +13,10 @@
 <html>
 <head>
 <title>${title}</title>
-<link href="<c:url value="/css/bootstrap.css"/>" type="text/css" rel="stylesheet"/>
+<link href="<c:url value="/css/bootstrap.css"/>" type="text/css"
+	rel="stylesheet" />
+<script src="<c:url value="http://code.jquery.com/jquery-latest.js"/>"></script>
+<script src="<c:url value="/js/bootstrap.js"/>"></script>
 <jsp:invoke fragment="head" />
 </head>
 <body>
@@ -65,7 +68,5 @@
 	<div id="body">
 		<jsp:doBody />
 	</div>
-	<script src="<c:url value="http://code.jquery.com/jquery-latest.js"/>"></script>
-	<script src="<c:url value="/js/bootstrap.js"/>"></script>
 </body>
 </html>

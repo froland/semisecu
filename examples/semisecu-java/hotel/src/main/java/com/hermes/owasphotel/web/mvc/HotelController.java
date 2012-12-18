@@ -125,10 +125,22 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "search")
 	public String viewSearchHotels(Model model, @RequestParam("t") String search) {
+		// try to find by name
+		Hotel hotel = hotelService.findByName(search);
+		if (hotel != null)
+			return redirectTo(hotel.getId());
+
+		// return the result list
 		List<Hotel> hotels = hotelService.findSearchQuery(search);
 		setPagedList(model, "hotels", hotels);
 		model.addAttribute("pageTitle", "Search: " + search);
 		return "hotel/list";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "searchAutocomplete")
+	@ResponseBody
+	public List<String> getHotels(@RequestParam("t") String query) {
+		return hotelService.findForAutoComplete(query);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")

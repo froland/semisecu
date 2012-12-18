@@ -23,7 +23,11 @@ public interface HotelService {
 
 	public List<Hotel> findTopNoted(int count);
 
+	public Hotel findByName(String search);
+
 	public List<Hotel> findSearchQuery(String search);
+
+	public List<String> findForAutoComplete(String query);
 
 	public void approve(Hotel h);
 

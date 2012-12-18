@@ -1,5 +1,6 @@
 package com.hermes.owasphotel.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -70,8 +71,22 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
+	public Hotel findByName(String search) {
+		return hotelDao.findByName(search);
+	}
+
+	@Override
+	public List<String> findForAutoComplete(String query) {
+		List<String> list = new ArrayList<String>();
+		for (Hotel h : hotelDao.findSearchQuery(query, false, 100)) {
+			list.add(h.getHotelName());
+		}
+		return list;
+	}
+
+	@Override
 	public List<Hotel> findSearchQuery(String search) {
-		return hotelDao.findSearchQuery(search);
+		return hotelDao.findSearchQuery(search, true, 0);
 	}
 
 	@Override
