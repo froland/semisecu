@@ -1,5 +1,7 @@
 package com.hermes.owasphotel.web.mvc;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,9 +10,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -193,10 +198,19 @@ public class HotelController {
 		return redirectTo(hotelId);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "{id}/image", produces = "image/png")
+	@RequestMapping(method = RequestMethod.GET, value = "{id}/image", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
-	public byte[] getHotelImage(@PathVariable("id") Integer hotelId) {
-		return hotelService.getHotelImage(hotelId);
+	public byte[] getHotelImage(@PathVariable("id") Integer hotelId)
+			throws IOException {
+		byte[] img = hotelService.getHotelImage(hotelId);
+		if (img == null || img.length == 0) {
+			ClassPathResource res = new ClassPathResource(
+					"/img/defaultHotel.png");
+			InputStream in = res.getInputStream();
+			img = IOUtils.toByteArray(in);
+			IOUtils.closeQuietly(in);
+		}
+		return img;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/image")
