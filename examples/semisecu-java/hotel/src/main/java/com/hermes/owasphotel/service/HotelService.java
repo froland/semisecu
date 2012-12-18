@@ -23,6 +23,8 @@ public interface HotelService {
 
 	public List<Hotel> findTopNoted(int count);
 
+	public List<Hotel> findSearchQuery(String search);
+
 	public void approve(Hotel h);
 
 	public void addComment(Integer hotelId, String name,

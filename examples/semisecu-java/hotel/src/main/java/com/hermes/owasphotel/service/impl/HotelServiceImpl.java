@@ -70,6 +70,11 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
+	public List<Hotel> findSearchQuery(String search) {
+		return hotelDao.findSearchQuery(search);
+	}
+
+	@Override
 	public Hotel update(Integer hotelId, HotelDto data) {
 		Hotel h = hotelDao.find(hotelId);
 		if (h == null)

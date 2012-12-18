@@ -18,5 +18,8 @@
 						hotel</a></li>
 			</sec:authorize>
 		</ul>
+		<form action="<c:url value="/hotel/search"/>" method="get">
+			Search <input type="text" name="t" title="Search for a hotel" />
+		</form>
 	</div>
 </div>

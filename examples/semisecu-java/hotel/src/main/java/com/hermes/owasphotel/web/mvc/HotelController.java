@@ -123,6 +123,14 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "search")
+	public String viewSearchHotels(Model model, @RequestParam("t") String search) {
+		List<Hotel> hotels = hotelService.findSearchQuery(search);
+		setPagedList(model, "hotels", hotels);
+		model.addAttribute("pageTitle", "Search: " + search);
+		return "hotel/list";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public String viewHotel(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.find(id);

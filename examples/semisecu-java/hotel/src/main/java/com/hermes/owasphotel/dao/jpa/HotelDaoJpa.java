@@ -47,4 +47,14 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 				.setMaxResults(count).getResultList();
 	}
 
+	@Override
+	public List<Hotel> findSearchQuery(String search) {
+		return em
+				.createQuery(
+						"select h from Hotel h where lower(h.hotelName) like :t",
+						Hotel.class)
+				.setParameter("t", "%" + search.toLowerCase() + "%")
+				.getResultList();
+	}
+
 }
