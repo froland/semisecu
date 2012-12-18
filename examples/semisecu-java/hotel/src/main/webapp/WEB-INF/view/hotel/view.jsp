@@ -39,11 +39,12 @@ img.hotelImage {
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
+			<p>Manager: <a href="<c:url value="/user/${hotel.manager.name}"/>">${hotel.manager.name}</a></p>
 			<div class="description">
 			${hotel.descriptionHTML}
 			</div>
 			<c:if
-				test="${hotel.createdBy.name == pageContext['request'].userPrincipal.name}">
+				test="${hotel.manager.name == pageContext['request'].userPrincipal.name}">
 			<p>
 				<a class="btn btn-warning" href="<c:url value="/hotel/${hotel.id}/update" />"><i class="icon-edit icon-white"></i> Update the hotel</a>
 			</p>

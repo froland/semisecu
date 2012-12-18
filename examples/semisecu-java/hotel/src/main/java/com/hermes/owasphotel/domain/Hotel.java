@@ -59,9 +59,9 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	Hotel() {
 	}
 
-	public Hotel(String name, User createdBy) {
+	public Hotel(String name, User manager) {
 		setHotelName(name);
-		this.createdBy = createdBy;
+		this.createdBy = manager;
 	}
 
 	public String getHotelName() {
@@ -148,7 +148,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		this.approved = 1;
 	}
 
-	public User getCreatedBy() {
+	public User getManager() {
 		return createdBy;
 	}
 
