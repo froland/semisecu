@@ -39,6 +39,9 @@ img.hotelImage {
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
+			<div class="description">
+			${hotel.descriptionHTML}
+			</div>
 			<c:if
 				test="${hotel.createdBy.name == pageContext['request'].userPrincipal.name}">
 			<p>

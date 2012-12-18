@@ -86,6 +86,14 @@ img.hotelImage {
 				</div>
 				
 				<div class="control-group">
+					<label class="control-label" for="descriptionHTML">Description</label>
+					<div class="controls">
+						<form:textarea path="descriptionHTML" />
+					</div>
+				</div>
+				
+				
+				<div class="control-group">
 				<div class="controls">
 				<c:choose>
 					<c:when test="${empty hotel.id}">
@@ -103,9 +111,9 @@ img.hotelImage {
 			</form:form>
 		<c:if test="${not empty hotel.id}">
 		<form method="POST" enctype="multipart/form-data"
-				action="<c:url value="/hotel/${hotel.id}/image"/>">
+					action="<c:url value="/hotel/${hotel.id}/image"/>">
 		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
-					class="hotelImage" />
+						class="hotelImage" />
 		Image: <input type="file" name="file" />
 		<input type="submit" value="Upload" />
 		</form>

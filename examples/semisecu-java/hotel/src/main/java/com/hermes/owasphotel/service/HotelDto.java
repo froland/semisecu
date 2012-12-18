@@ -27,6 +27,8 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 	@NotNull
 	private Integer stars;
 
+	private String descriptionHTML;
+
 	public String getHotelName() {
 		return hotelName;
 	}
@@ -73,6 +75,14 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getDescriptionHTML() {
+		return descriptionHTML;
+	}
+
+	public void setDescriptionHTML(String descriptionHTML) {
+		this.descriptionHTML = descriptionHTML;
 	}
 
 	public Integer getStars() {

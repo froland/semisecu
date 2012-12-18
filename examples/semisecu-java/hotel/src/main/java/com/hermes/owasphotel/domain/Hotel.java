@@ -38,6 +38,8 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	private String telephone;
 	private String email;
+	@Column(name = "description_html")
+	private String descriptionHTML;
 
 	private Integer stars;
 
@@ -116,6 +118,14 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getDescriptionHTML() {
+		return descriptionHTML;
+	}
+
+	public void setDescriptionHTML(String descriptionHTML) {
+		this.descriptionHTML = descriptionHTML;
 	}
 
 	public Integer getStars() {
