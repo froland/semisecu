@@ -206,6 +206,6 @@ public class HotelController {
 		if (file != null) {
 			hotelService.setHotelImage(hotelId, file.getBytes());
 		}
-		return redirectTo(hotelId);
+		return "redirect:/hotel/" + hotelId + "/update";
 	}
 }

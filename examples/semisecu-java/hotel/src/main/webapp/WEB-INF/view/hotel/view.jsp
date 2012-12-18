@@ -6,6 +6,13 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
+	<jsp:attribute name="head">
+<style type="text/css">
+img.hotelImage {
+	width: 200px;
+}
+</style>
+	</jsp:attribute>
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
