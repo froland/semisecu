@@ -31,13 +31,7 @@ img.hotelImage {
 	</jsp:attribute>
 	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
-<<<<<<< HEAD
-		<div class="row">
-		<div class="span4 offset1">
-		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
-			class="hotelImage" />
-		</div>
-		<c:if test="${!hotel.approved}">
+	<c:if test="${!hotel.approved}">
 			<p class="alert">The hotel is not approved!</p>
 			<sec:authorize access="hasRole('admin')">
 			<form method="POST"
@@ -45,12 +39,13 @@ img.hotelImage {
 				<input type="submit" value="Approve hotel" class="btn btn-success" />
 			</form>
 			</sec:authorize>
-			</div>
 		</c:if>
-		<div class="span5 offset1">
+		<div class="row">
+		<div class="span4 offset1">
 		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
 			class="hotelImage" />
-		<div>
+		</div>
+		
 			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
 			</p>
 			<p>Average note:
@@ -74,7 +69,6 @@ img.hotelImage {
 						class="icon-edit icon-white"></i> Update the hotel</a>
 			</p>
 			</c:if>
-		</div>
 		</div>
 		<div>
 			<h3>Comments</h3>
