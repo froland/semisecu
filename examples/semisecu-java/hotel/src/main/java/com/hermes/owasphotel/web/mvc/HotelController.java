@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.hermes.owasphotel.domain.Hotel;
@@ -238,15 +237,5 @@ public class HotelController {
 			IOUtils.closeQuietly(in);
 		}
 		return img;
-	}
-
-	@RequestMapping(method = RequestMethod.POST, value = "{id}/image")
-	public String uploadHotelImage(@PathVariable("id") Integer hotelId,
-			UploadedImage upload) {
-		CommonsMultipartFile file = upload.getFile();
-		if (file != null) {
-			hotelService.setHotelImage(hotelId, file.getBytes());
-		}
-		return "redirect:/hotel/" + hotelId + "/update";
 	}
 }

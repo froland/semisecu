@@ -15,6 +15,8 @@
 <title>${title}</title>
 <link href="<c:url value="/css/bootstrap.css"/>" type="text/css"
 	rel="stylesheet" />
+<link href="<c:url value="/css/hotel.css"/>" type="text/css"
+	rel="stylesheet" />
 <script src="<c:url value="http://code.jquery.com/jquery-latest.js"/>"></script>
 <script src="<c:url value="/js/bootstrap.js"/>"></script>
 <jsp:invoke fragment="head" />
@@ -38,6 +40,10 @@
 							<li><a
 								href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View
 									profile</a></li>
+							<sec:authorize access="hasRole('admin')">
+								<li><a href="<c:url value="/admin/view"/>">Administration
+										page</a></li>
+							</sec:authorize>
 							<li><a href="<c:url value="/logout"/>">Log out</a></li>
 
 						</ul>

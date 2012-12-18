@@ -10,19 +10,15 @@
 			<li><a href="<c:url value="/hotel/top"/>">Top hotels</a></li>
 			<sec:authorize access="hasRole('admin')">
 				<li><a href="<c:url value="/hotel/toApprove"/>">Hotels to approve</a></li>
-				<li><a href="<c:url value="/admin/view"/>">Administration
-						page</a></li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('user')">
-				<li><a href="<c:url value="/hotel/create"/>">Create a new
-						hotel</a></li>
+				<li><a href="<c:url value="/hotel/create"/>">Create a new hotel</a></li>
 			</sec:authorize>
 		</ul>
-		<form action="<c:url value="/hotel/search"/>" method="get" class="form-search">
-			<div class="input-append">
-				<input type="text" name="t" title="Search for a hotel" id="hotelSearchField" />
-				<button type="submit" class="btn"><i class="icon-search"></i></button>
-			</div>
+		<form action="<c:url value="/hotel/search"/>" method="get" class="navbar-search pull-right">
+			<input type="text" name="t" title="Search for a hotel"
+				id="hotelSearchField" class="search-query" placeholder="Search hotel" />
+			<button type="submit" class="btn"><i class="icon-search"></i></button>
 <script type="text/javascript">
 	$(function() {
 		$('#hotelSearchField').typeahead({

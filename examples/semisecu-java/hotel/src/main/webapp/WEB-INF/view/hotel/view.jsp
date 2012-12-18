@@ -6,32 +6,12 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
-	<jsp:attribute name="head">
-<style type="text/css">
-img.hotelImage {
-	width: 200px;
-}
-
-.comment {
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
-        background-color: #fff;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
-</style>
-	</jsp:attribute>
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
 	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
-	<c:if test="${!hotel.approved}">
+		<c:if test="${!hotel.approved}">
 			<p class="alert">The hotel is not approved!</p>
 			<sec:authorize access="hasRole('admin')">
 			<form method="POST"
@@ -43,9 +23,9 @@ img.hotelImage {
 		<div class="row">
 		<div class="span4 offset1">
 		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
-			class="hotelImage" />
+					class="hotelImage" />
 		</div>
-		
+		<div class="span4">
 			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
 			</p>
 			<p>Average note:
@@ -56,15 +36,17 @@ img.hotelImage {
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
 			<p>Manager: <a
-					href="<c:url value="/user/${hotel.manager.name}"/>">${hotel.manager.name}</a>
+						href="<c:url value="/user/${hotel.manager.name}"/>">${hotel.manager.name}</a>
 			</p>
-			<div class="row">
+		</div>
+		</div>
+		<div class="row">
 			<div class="span10 offset1">
 			${hotel.descriptionHTML}
 			</div>
-			</div>
+		</div>
 			<c:if
-				test="${hotel.manager.name == pageContext['request'].userPrincipal.name}">
+			test="${hotel.manager.name == pageContext['request'].userPrincipal.name}">
 			<div class="row">
 			<div class="span10 offset1">
 				<a class="btn btn-warning"
@@ -73,14 +55,15 @@ img.hotelImage {
 			</div>
 			</div>
 			</c:if>
-		</div>
 		<div>
 			<h3>Comments</h3>
 			<c:forEach var="comment" items="${hotel.comments}">
 			<c:if test="${!comment.deleted}">
 				<div class="comment">
-					<div>${comment.userName} commented on ${comment.date}
-					Note: ${comment.note}
+					<div>
+					<c:out value="${comment.userName}" /> commented on
+					<fmt:formatDate value="${comment.date}" />
+					<span style="float: right;">Note: <t:hotel.stars value="${comment.note}" max="10" /></span>
 					<sec:authorize access="hasRole('admin')">
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
@@ -99,15 +82,14 @@ img.hotelImage {
 			<div class="newComment">
 				<form action="<c:url value="/hotel/${hotel.id}/comment"/>"
 					method="POST">
+					<h4>New comment</h4>
 					<sec:authorize access="!isAuthenticated()">
 					<label for="name">Name:</label>
 					<input name="name" />
 					</sec:authorize>
 					<label for="note">Note:</label>
 					<select name="note">
-					<c:forEach var="i" begin="1" end="10">
-					<option>${i}</option>
-					</c:forEach>
+					<t:selectOptions end="10" value="5" />
 					</select>
 					<br />
 					<label for="text">Text:</label>

@@ -6,13 +6,6 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
-	<jsp:attribute name="head">
-<style type="text/css">
-img.hotelImage {
-	width: 200px;
-}
-</style>
-	</jsp:attribute>
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
@@ -28,17 +21,18 @@ img.hotelImage {
 	</jsp:attribute>
 	<jsp:body>
 	<div>
-		<form:form modelAttribute="hotel" cssClass="form-horizontal" enctype="multipart/form-data" >
+		<form:form modelAttribute="hotel" cssClass="form-horizontal"
+				enctype="multipart/form-data">
 			<form:errors path="*" />
 			<c:if test="${not empty hotel.id}">
-			<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
-						class="hotelImage" />
+			<img src="<c:url value="/hotel/${hotel.id}/image"/>"
+						alt="Hotel image" class="hotelImage" />
 			</c:if>
 			 <fieldset>
 			 	<div class="control-group">
 					<label class="control-label" for="hotelImage">Image</label>
 					<div class="controls">
-						<input type="file" name="file" id="hotelImage"/>
+						<input type="file" name="file" id="hotelImage" />
 					</div>
 				</div>
 			 			 	 
@@ -88,9 +82,7 @@ img.hotelImage {
 					<label class="control-label" for="hotelStars">Stars</label>
 					<div class="controls">
 						<form:select path="stars" id="hotelStars">
-							<c:forEach var="i" begin="1" end="5">
-							<form:option value="${i}"></form:option>
-							</c:forEach>
+						<t:selectOptions end="5" begin="1" />
 						</form:select>
 					</div>
 				</div>
