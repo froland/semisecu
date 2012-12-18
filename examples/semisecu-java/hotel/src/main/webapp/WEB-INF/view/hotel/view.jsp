@@ -58,16 +58,20 @@ img.hotelImage {
 			<p>Manager: <a
 					href="<c:url value="/user/${hotel.manager.name}"/>">${hotel.manager.name}</a>
 			</p>
-			<div class="description">
+			<div class="row">
+			<div class="span10 offset1">
 			${hotel.descriptionHTML}
+			</div>
 			</div>
 			<c:if
 				test="${hotel.manager.name == pageContext['request'].userPrincipal.name}">
-			<p>
+			<div class="row">
+			<div class="span10 offset1">
 				<a class="btn btn-warning"
 						href="<c:url value="/hotel/${hotel.id}/update" />"><i
 						class="icon-edit icon-white"></i> Update the hotel</a>
-			</p>
+			</div>
+			</div>
 			</c:if>
 		</div>
 		<div>

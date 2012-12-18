@@ -27,11 +27,21 @@ img.hotelImage {
 		</c:choose>
 	</jsp:attribute>
 	<jsp:body>
-	<div class="container">
-		<form:form modelAttribute="hotel" cssClass="form-horizontal">
+	<div>
+		<form:form modelAttribute="hotel" cssClass="form-horizontal" enctype="multipart/form-data" >
 			<form:errors path="*" />
-			
-			 <fieldset>			 	 
+			<c:if test="${not empty hotel.id}">
+			<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
+						class="hotelImage" />
+			</c:if>
+			 <fieldset>
+			 	<div class="control-group">
+					<label class="control-label" for="hotelImage">Image</label>
+					<div class="controls">
+						<input type="file" name="file" id="hotelImage"/>
+					</div>
+				</div>
+			 			 	 
  				<div class="control-group">
 					<label class="control-label" for="hotelName">Name</label>
 					<div class="controls">
@@ -109,15 +119,7 @@ img.hotelImage {
 			</fieldset>
 		
 			</form:form>
-		<c:if test="${not empty hotel.id}">
-		<form method="POST" enctype="multipart/form-data"
-					action="<c:url value="/hotel/${hotel.id}/image"/>">
-		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
-						class="hotelImage" />
-		Image: <input type="file" name="file" />
-		<input type="submit" value="Upload" />
-		</form>
-		</c:if>
+		
 		</div>
 	</jsp:body>
 </t:page.template>
