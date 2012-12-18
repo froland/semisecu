@@ -31,23 +31,26 @@ img.hotelImage {
 	</jsp:attribute>
 	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
+<<<<<<< HEAD
 		<div class="row">
 		<div class="span4 offset1">
 		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
 			class="hotelImage" />
 		</div>
-		<c:if test="!${hotel.approved}">
-			<div>
-			<p>The hotel is not approved!</p>
+		<c:if test="${!hotel.approved}">
+			<p class="alert">The hotel is not approved!</p>
 			<sec:authorize access="hasRole('admin')">
 			<form method="POST"
 					action="<c:url value="/hotel/${hotel.id}/approve"/>">
-				<input type="submit" value="Approve hotel" />
+				<input type="submit" value="Approve hotel" class="btn btn-success" />
 			</form>
 			</sec:authorize>
 			</div>
 		</c:if>
 		<div class="span5 offset1">
+		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
+			class="hotelImage" />
+		<div>
 			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
 			</p>
 			<p>Average note:
@@ -57,10 +60,18 @@ img.hotelImage {
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
+			<p>Manager: <a
+					href="<c:url value="/user/${hotel.manager.name}"/>">${hotel.manager.name}</a>
+			</p>
+			<div class="description">
+			${hotel.descriptionHTML}
+			</div>
 			<c:if
-				test="${hotel.createdBy.name == pageContext['request'].userPrincipal.name}">
+				test="${hotel.manager.name == pageContext['request'].userPrincipal.name}">
 			<p>
-				<a class="btn btn-warning" href="<c:url value="/hotel/${hotel.id}/update" />"><i class="icon-edit icon-white"></i> Update the hotel</a>
+				<a class="btn btn-warning"
+						href="<c:url value="/hotel/${hotel.id}/update" />"><i
+						class="icon-edit icon-white"></i> Update the hotel</a>
 			</p>
 			</c:if>
 		</div>
@@ -76,7 +87,8 @@ img.hotelImage {
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
 					<input type="hidden" name="delete" value="${comment.sequence}" />
-					<button type="submit" class="btn btn-danger"> <i class="icon-trash icon-white"></i> Delete</button>
+					<button type="submit" class="btn btn-danger"> <i
+											class="icon-trash icon-white"></i> Delete</button>
 					</form>
 					</sec:authorize>
 					</div>
@@ -104,7 +116,8 @@ img.hotelImage {
 					<div>
 						<textarea rows="3" cols="60" name="text"></textarea>
 					</div>
-					<button class="btn btn-success" type="submit" > <i class="icon-comment icon-white"></i> Add comment</button>
+					<button class="btn btn-success" type="submit"> <i
+							class="icon-comment icon-white"></i> Add comment</button>
 				</form>
 			</div>
 		</div>

@@ -135,8 +135,6 @@ public class HotelController {
 		if (hotel == null)
 			throw new ResourceNotFoundException(Hotel.class, id.longValue());
 		model.addAttribute("hotel", hotel);
-		if (!hotel.isApproved())
-			return "hotel/notApproved";
 		return "hotel/view";
 	}
 

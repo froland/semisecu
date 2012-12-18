@@ -7,5 +7,8 @@
 	<include file="changes1.xml" relativeToChangelogFile="true" />
 	<include file="changes-userhotel.xml" relativeToChangelogFile="true" />
 	<include file="changes-hotelImage.xml" relativeToChangelogFile="true" />
+	<include file="changes-hotelDescription.xml"
+		relativeToChangelogFile="true" />
 	<include file="changes-comments.xml" relativeToChangelogFile="true" />
+
 </databaseChangeLog>
