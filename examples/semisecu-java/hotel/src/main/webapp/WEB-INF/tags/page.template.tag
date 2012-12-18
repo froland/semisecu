@@ -17,32 +17,43 @@
 <jsp:invoke fragment="head" />
 </head>
 <body>
-	<div id="login">
-		<sec:authorize access="isAuthenticated()">
-			<div class="btn-group">
-				<a class="btn btn-primary" href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>"><i
-					class="icon-user icon-white"></i> <sec:authentication property="principal.username" /></a> <a
-					class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-					href="#"><span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="<c:url value="/logout"/>">Log out</a></li>
-					
-				</ul>
+	<div class="row-fluid">
+		<div class="span4">
+			<h1>OwaspHotel</h1>
+		</div>
+		<div class="span6 offset2">
+			<div id="login">
+				<sec:authorize access="isAuthenticated()">
+					<div class="btn-group">
+						<a class="btn btn-primary"
+							href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>"><i
+							class="icon-user icon-white"></i> <sec:authentication
+								property="principal.username" /></a> <a
+							class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+							href="#"><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View
+									profile</a></li>
+							<li><a href="<c:url value="/logout"/>">Log out</a></li>
+
+						</ul>
+					</div>
+				</sec:authorize>
+				<sec:authorize access="!isAuthenticated()">
+					<a class="btn btn-primary" href="<c:url value="/login"/>">Log
+						in</a>
+					<a class="btn btn-info" href="<c:url value="/user/create"/>">Create
+						new user</a>
+				</sec:authorize>
 			</div>
-		
-			Authentified as <sec:authentication property="principal.username" />
-			<a href="<c:url value="/logout"/>">Log out</a>
-			<a href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View profile</a>
-			
-		</sec:authorize>
-		<sec:authorize access="!isAuthenticated()">
-			<a class="btn btn-primary" href="<c:url value="/login"/>">Log in</a>
-			<a class="btn btn-info" href="<c:url value="/user/create"/>">Create new user</a>
-		</sec:authorize>
+		</div>
 	</div>
+
 	<c:choose>
 		<c:when test="${empty navigation}">
-			<a class="btn btn-danger" href="<c:url value="/"/>"><i class="icon-home icon-white"></i>Return to home</a>
+			<a class="btn btn-danger" href="<c:url value="/"/>"><i
+				class="icon-home icon-white"></i>Return to home</a>
 		</c:when>
 		<c:otherwise>
 			<div id="navigation">
@@ -54,5 +65,7 @@
 	<div id="body">
 		<jsp:doBody />
 	</div>
+	<script src="<c:url value="http://code.jquery.com/jquery-latest.js"/>"></script>
+	<script src="<c:url value="/js/bootstrap.js"/>"></script>
 </body>
 </html>

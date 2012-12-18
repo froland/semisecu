@@ -28,6 +28,8 @@
 		cache-period="3600" />
 	<mvc:resources mapping="/css/**" location="/css/"
 		cache-period="3600" />
+	<mvc:resources mapping="/js/**" location="/js/"
+		cache-period="3600" />
 
 	<!-- Resolves view names to protected .jsp resources within the /WEB-INF/views 
 		directory -->
