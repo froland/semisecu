@@ -11,7 +11,7 @@ import com.hermes.owasphotel.domain.Hotel;
  * @author k
  */
 public interface HotelDao extends SimpleDao<Integer, Hotel> {
-	public List<Hotel> findApprovedHotels();
+	public List<Hotel> findApprovedHotels(boolean approved);
 
 	public void computeNote(Hotel h);
 

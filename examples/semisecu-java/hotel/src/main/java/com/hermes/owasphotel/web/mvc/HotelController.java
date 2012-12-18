@@ -117,6 +117,13 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "toApprove")
+	public String viewHotelsNotApproved(Model model) {
+		List<HotelListItemDto> hotels = hotelService.listNotApproved();
+		setPagedList(model, "hotels", hotels);
+		return "hotel/list";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
 		List<HotelListItemDto> hotels = hotelService.listTopNoted(TOP_COUNT);

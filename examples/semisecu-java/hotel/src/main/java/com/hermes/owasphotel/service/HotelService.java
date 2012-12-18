@@ -46,6 +46,7 @@ public interface HotelService {
 
 	public List<HotelListItemDto> listApproved();
 
-	public List<HotelListItemDto> listSearchQuery(String search);
+	public List<HotelListItemDto> listNotApproved();
 
+	public List<HotelListItemDto> listSearchQuery(String search);
 }

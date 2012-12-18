@@ -24,9 +24,10 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	}
 
 	@Override
-	public List<Hotel> findApprovedHotels() {
-		return em.createQuery("from Hotel where approved != 0", Hotel.class)
-				.getResultList();
+	public List<Hotel> findApprovedHotels(boolean approved) {
+		StringBuilder query = new StringBuilder("from Hotel where approved");
+		query.append(' ').append(approved ? "!=" : "=").append(" 0");
+		return em.createQuery(query.toString(), Hotel.class).getResultList();
 	}
 
 	@Override
@@ -38,14 +39,13 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 				.getSingleResult();
 		h.setAverageNote(avg);
 	}
-	
+
 	@Override
 	public Long countComments(Hotel h) {
 		return em
 				.createQuery(
 						"select count(*) from Comment n where n.hotel = :hotel",
-						Long.class).setParameter("hotel", h)
-				.getSingleResult();
+						Long.class).setParameter("hotel", h).getSingleResult();
 	}
 
 	@Override

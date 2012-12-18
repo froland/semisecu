@@ -81,12 +81,17 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<Hotel> findApproved() {
-		return hotelDao.findApprovedHotels();
+		return hotelDao.findApprovedHotels(true);
 	}
 
 	@Override
 	public List<HotelListItemDto> listApproved() {
 		return itemize(findApproved());
+	}
+
+	@Override
+	public List<HotelListItemDto> listNotApproved() {
+		return itemize(hotelDao.findApprovedHotels(false));
 	}
 
 	@Override

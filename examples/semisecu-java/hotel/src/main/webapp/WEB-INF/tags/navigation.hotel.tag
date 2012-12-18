@@ -9,7 +9,7 @@
 			<li><a href="<c:url value="/hotel"/>">List of hotels</a></li>
 			<li><a href="<c:url value="/hotel/top"/>">Top hotels</a></li>
 			<sec:authorize access="hasRole('admin')">
-				<li><a href="<c:url value="/hotel/all"/>">All hotels</a></li>
+				<li><a href="<c:url value="/hotel/toApprove"/>">Hotels to approve</a></li>
 				<li><a href="<c:url value="/admin/view"/>">Administration
 						page</a></li>
 			</sec:authorize>
