@@ -6,6 +6,13 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
+	<jsp:attribute name="head">
+<style type="text/css">
+img.hotelImage {
+	width: 200px;
+}
+</style>
+	</jsp:attribute>
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
@@ -70,5 +77,14 @@
 				</tr>
 			</table>
 		</form:form>
+		<c:if test="${not empty hotel.id}">
+		<form method="POST" enctype="multipart/form-data"
+				action="<c:url value="/hotel/${hotel.id}/image"/>">
+		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
+					class="hotelImage" />
+		Image: <input type="file" name="file" />
+		<input type="submit" value="Upload" />
+		</form>
+		</c:if>
 	</jsp:body>
 </t:page.template>

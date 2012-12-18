@@ -6,11 +6,20 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
+	<jsp:attribute name="head">
+<style type="text/css">
+img.hotelImage {
+	width: 200px;
+}
+</style>
+	</jsp:attribute>
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
 	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
 	<jsp:body>
+		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
+			class="hotelImage" />
 		<c:if test="!${hotel.approved}">
 			<p>The hotel is not approved!</p>
 			<sec:authorize access="hasRole('admin')">

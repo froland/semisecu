@@ -19,7 +19,7 @@
 	<mvc:annotation-driven />
 
 	<!-- View controllers -->
-	<!--<mvc:view-controller path="/" view-name="welcome" />-->
+	<!--<mvc:view-controller path="/" view-name="welcome" /> -->
 	<mvc:view-controller path="/resourceNotFound"
 		view-name="err/resourceNotFound" />
 
@@ -39,4 +39,10 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<!-- Configure the multipart resolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="3000000" />
+	</bean>
 </beans>
