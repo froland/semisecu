@@ -18,10 +18,11 @@
 						hotel</a></li>
 			</sec:authorize>
 		</ul>
-		<form action="<c:url value="/hotel/search"/>" method="get" id="hotelSearch">
-			Search <input type="text" name="t" title="Search for a hotel"
-				id="hotelSearchField" />
-			<a href="javascript:$('form#hotelSearch').submit();" class="btn"><i class="icon-search"></i></a>
+		<form action="<c:url value="/hotel/search"/>" method="get" class="form-search">
+			<div class="input-append">
+				<input type="text" name="t" title="Search for a hotel" id="hotelSearchField" />
+				<button type="submit" class="btn"><i class="icon-search"></i></button>
+			</div>
 <script type="text/javascript">
 	$(function() {
 		$('#hotelSearchField').typeahead({
