@@ -2,12 +2,21 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<a href="<c:url value="/hotel"/>">List of hotels</a>
-<a href="<c:url value="/hotel/top"/>">Top hotels</a>
-<sec:authorize access="hasRole('admin')">
-	<a href="<c:url value="/hotel/all"/>">All hotels</a>
-</sec:authorize>
-<sec:authorize access="hasRole('user')">
-	<a href="<c:url value="/hotel/create"/>">Create a new hotel</a>
-	<a href="<c:url value="/admin/view"/>">Administration page</a>
-</sec:authorize>
+
+<div class="navbar">
+	<div class="navbar-inner">
+		<ul class="nav">
+			<li><a href="<c:url value="/hotel"/>">List of hotels</a></li>
+			<li><a href="<c:url value="/hotel/top"/>">Top hotels</a></li>
+			<sec:authorize access="hasRole('admin')">
+				<li><a href="<c:url value="/hotel/all"/>">All hotels</a></li>
+				<li><a href="<c:url value="/admin/view"/>">Administration
+						page</a></li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('user')">
+				<li><a href="<c:url value="/hotel/create"/>">Create a new
+						hotel</a></li>
+			</sec:authorize>
+		</ul>
+	</div>
+</div>

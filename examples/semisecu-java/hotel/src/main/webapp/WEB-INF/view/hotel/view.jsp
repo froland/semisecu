@@ -42,7 +42,7 @@ img.hotelImage {
 			<c:if
 				test="${hotel.createdBy.name == pageContext['request'].userPrincipal.name}">
 			<p>
-				<a href="<c:url value="/hotel/${hotel.id}/update" />">Update the hotel</a>
+				<a class="btn btn-warning" href="<c:url value="/hotel/${hotel.id}/update" />"><i class="icon-edit icon-white"></i> Update the hotel</a>
 			</p>
 			</c:if>
 		</div>
@@ -57,7 +57,7 @@ img.hotelImage {
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
 					<input type="hidden" name="delete" value="${comment.sequence}" />
-					<input type="submit" value="Delete">
+					<button type="submit" class="btn btn-danger"> <i class="icon-trash icon-white"></i> Delete</button>
 					</form>
 					</sec:authorize>
 					</div>
@@ -85,7 +85,7 @@ img.hotelImage {
 					<div>
 						<textarea rows="3" cols="60" name="text"></textarea>
 					</div>
-					<input type="submit" value="Add comment" />
+					<button class="btn btn-success" type="submit" > <i class="icon-comment icon-white"></i> Add comment</button>
 				</form>
 			</div>
 		</div>
