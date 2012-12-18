@@ -27,45 +27,67 @@ img.hotelImage {
 		</c:choose>
 	</jsp:attribute>
 	<jsp:body>
-		<form:form modelAttribute="hotel">
+	<div class="container">
+		<form:form modelAttribute="hotel" cssClass="form-horizontal">
 			<form:errors path="*" />
-			<table>
-				<tr>
-					<td>Name</td>
-					<td><form:input path="hotelName" /></td>
-				</tr>
-				<tr>
-					<td>Address</td>
-					<td><form:textarea path="address" /></td>
-				</tr>
-				<tr>
-					<td>City</td>
-					<td><form:input path="city" /></td>
-				</tr>
-				<tr>
-					<td>Country</td>
-					<td><form:input path="country" /></td>
-				</tr>
-				<tr>
-					<td>Telephone</td>
-					<td><form:input path="telephone" /></td>
-				</tr>
-				<tr>
-					<td>E-mail</td>
-					<td><form:input path="email" /></td>
-				</tr>
-				<tr>
-					<td>Stars</td>
-					<td><form:select path="stars">
-					<c:forEach var="i" begin="1" end="5">
-					<form:option value="${i}" />
-					</c:forEach>
-					</form:select></td>
-				</tr>
-			<tr>
-					<td />
-					<td>
-					<c:choose>
+			
+			 <fieldset>			 	 
+ 				<div class="control-group">
+					<label class="control-label" for="hotelName">Name</label>
+					<div class="controls">
+						<form:input path="hotelName" id="hotelName" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelAddress">Address</label>
+					<div class="controls">
+						<form:textarea path="address" id="hotelAddress" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelCity">City</label>
+					<div class="controls">
+						<form:input path="city" id="hotelCity" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelCountry">Country</label>
+					<div class="controls">
+						<form:input path="country" id="hotelCountry" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelTelephone">Telephone</label>
+					<div class="controls">
+						<form:input path="telephone" id="hotelTelephone" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelEmail">Email</label>
+					<div class="controls">
+						<form:input path="email" id="hotelEmail" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelStars">Stars</label>
+					<div class="controls">
+						<form:select path="stars" id="hotelStars">
+							<c:forEach var="i" begin="1" end="5">
+							<form:option value="${i}"></form:option>
+							</c:forEach>
+						</form:select>
+					</div>
+				</div>
+				
+				<div class="control-group">
+				<div class="controls">
+				<c:choose>
 					<c:when test="${empty hotel.id}">
 					<input type="submit" value="Add hotel" />
 					</c:when>
@@ -73,10 +95,12 @@ img.hotelImage {
 					<input type="submit" value="Update hotel" />
 					</c:otherwise>
 					</c:choose>
-					</td>
-				</tr>
-			</table>
-		</form:form>
+				</div>
+				</div>
+				
+			</fieldset>
+		
+			</form:form>
 		<c:if test="${not empty hotel.id}">
 		<form method="POST" enctype="multipart/form-data"
 				action="<c:url value="/hotel/${hotel.id}/image"/>">
@@ -86,5 +110,6 @@ img.hotelImage {
 		<input type="submit" value="Upload" />
 		</form>
 		</c:if>
+		</div>
 	</jsp:body>
 </t:page.template>
