@@ -46,7 +46,8 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	private int approved;
 
 	@ManyToOne
-	private User createdBy;
+	@JoinColumn(name = "createdBy")
+	private User manager;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hotelid")
@@ -61,7 +62,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	public Hotel(String name, User manager) {
 		setHotelName(name);
-		this.createdBy = manager;
+		this.manager = manager;
 	}
 
 	public String getHotelName() {
@@ -149,16 +150,28 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	}
 
 	public User getManager() {
-		return createdBy;
+		return manager;
+	}
+
+	public void setManager(User manager) {
+		this.manager = manager;
 	}
 
 	public List<Comment> getComments() {
 		return comments;
 	}
-	
-	public int getNbComments()
-	{
-		return getComments().size();
+
+	public int getNbComments(boolean countDeleted) {
+		if (countDeleted) {
+			return comments.size();
+		} else {
+			int total = 0;
+			for (Comment c : comments) {
+				if (!c.isDeleted())
+					total++;
+			}
+			return total;
+		}
 	}
 
 	public Comment addComment(User user) {

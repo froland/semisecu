@@ -131,6 +131,15 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "managed")
+	public String viewHotelsManaged(Model model, Principal p) {
+		List<HotelListItemDto> hotels = hotelService.listManagedHotels(p
+				.getName());
+		model.addAttribute("hotels", hotels);
+		model.addAttribute("pageTitle", "Managed hotels");
+		return "hotel/list";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "search")
 	public String viewSearchHotels(Model model, @RequestParam("t") String search) {
 		// try to find by name
@@ -201,12 +210,13 @@ public class HotelController {
 	public String viewUpdateHotel(Model model,
 			@PathVariable("id") Integer hotelId) {
 		Hotel hotel = hotelService.find(hotelId);
-		model.addAttribute("hotel", hotel);
+		HotelDto dto = new HotelDto();
+		dto.read(hotel);
+		model.addAttribute("hotel", dto);
 		return "hotel/update";
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/update")
-	// TODO @PreAuthorize("hasPermission(#hotel, 'user')")
 	public String updateHotel(Model model, @PathVariable("id") Integer hotelId,
 			@Valid @ModelAttribute("hotel") HotelDto dto, BindingResult result) {
 		if (result.hasErrors()) {
@@ -238,17 +248,15 @@ public class HotelController {
 		}
 		return img;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "image/default", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
-	public byte[] getHotelDefaultImage()
-			throws IOException {
-		ClassPathResource res = new ClassPathResource(
-				"/img/defaultHotel.png");
+	public byte[] getHotelDefaultImage() throws IOException {
+		ClassPathResource res = new ClassPathResource("/img/defaultHotel.png");
 		InputStream in = res.getInputStream();
 		byte[] img = IOUtils.toByteArray(in);
 		IOUtils.closeQuietly(in);
 		return img;
 	}
-	
+
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserDto;
@@ -61,6 +62,12 @@ public class UserController {
 		return "user/list";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "listNames")
+	@ResponseBody
+	public List<String> getNames(@RequestParam(required = false) String prefix) {
+		return userService.getNames(prefix);
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "{name}")
 	public String viewUser(Model model, @PathVariable String name) {
 		User user = userService.find(name);
@@ -75,7 +82,9 @@ public class UserController {
 		User user = userService.find(id);
 		if (user == null)
 			throw new ResourceNotFoundException(User.class, Long.valueOf(id));
-		model.addAttribute("user", new UserDto(user));
+		UserDto dto = new UserDto();
+		dto.read(user);
+		model.addAttribute("user", dto);
 		return "user/update";
 	}
 

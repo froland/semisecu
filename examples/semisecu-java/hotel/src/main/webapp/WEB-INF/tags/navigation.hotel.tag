@@ -12,6 +12,7 @@
 				<li><a href="<c:url value="/hotel/toApprove"/>">Hotels to approve</a></li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('user')">
+				<li><a href="<c:url value="/hotel/managed"/>">My hotels</a></li>
 				<li><a href="<c:url value="/hotel/create"/>">Create a new hotel</a></li>
 			</sec:authorize>
 		</ul>

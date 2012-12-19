@@ -1,5 +1,6 @@
 package com.hermes.owasphotel.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAll() {
 		return userDao.findAll();
+	}
+
+	@Override
+	public List<String> getNames(String prefix) {
+		if (prefix == null)
+			prefix = "";
+		ArrayList<String> names = new ArrayList<String>();
+		for (User u : userDao.findAll()) {
+			String n = u.getName();
+			if (n.startsWith(prefix)) {
+				names.add(n);
+			}
+		}
+		return names;
 	}
 
 	@Override

@@ -124,11 +124,23 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
+	public List<HotelListItemDto> listManagedHotels(String name) {
+		User user = userDao.find(name);
+		return itemize(hotelDao.findManagedHotels(user));
+	}
+
+	@Override
 	public Hotel update(Integer hotelId, HotelDto data) {
 		Hotel h = hotelDao.find(hotelId);
 		if (h == null)
 			return null;
+		// update the data
 		data.update(h);
+		// update the manager
+		User manager = userDao.find(data.getManager());
+		if (manager != null) {
+			h.setManager(manager);
+		}
 		return h;
 	}
 
