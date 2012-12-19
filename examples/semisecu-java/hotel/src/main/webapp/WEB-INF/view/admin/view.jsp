@@ -14,18 +14,28 @@
 		</div>
 		<div>
 			<h2>Export a table</h2>
-			<form name='dumpForm' action="<c:url value='/admin/export' />"
-				method='GET'>
-				<table>
-				<tr>
-					<td><label for="tableName">Table name</label></td>
-					<td><input type='text' name='tableName' value=''></td>
-				</tr>
-				<tr>
-					<td />
-					<td><input class="btn btn-primary" type="submit" value="Dump" /></td>
-				</tr>
-				</table>
+			<form action="<c:url value='/admin/export' />" method="get">
+				<label for="tableName">Table name</label>
+				<input type="text" name="tableName" id="dumpTable">
+				<div id="dumpTableColumns"></div>
+				<input class="btn btn-primary" type="submit" value="Dump" />
+<script type="text/javascript">
+	$(function() {
+		var divCols = $("#dumpTableColumns");
+		$('#dumpTable').typeahead({
+			'source' : ${tables},
+			'updater': function(item) {
+				// update the list of columns
+				$.get("<c:url value="/admin/tableColumns"/>", {
+					'tableName': item
+				}, function(data) {
+					divCols.html(data);
+				});
+				return item;
+			}
+		});
+	});
+</script>
 			</form>
 		</div>
 	</jsp:body>

@@ -1,75 +1,103 @@
 package com.hermes.owasphotel.dao;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.InvalidResultSetAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Dumper {
-	
+
 	@Autowired
 	private DataSource dataSource;
-	
-	public void dump(String tableName, File dest) throws IOException, DataAccessException
-	{
-		FileWriter fw = new FileWriter(dest);
-		dump(tableName, fw);
-		fw.close();
-	}
-	
-	public void dump(String tableName, Writer w) throws IOException, DataAccessException, InvalidResultSetAccessException
-	{
-		SqlRowSet res = getRows(tableName);
-		SqlRowSetMetaData data = res.getMetaData();
-		for (int i = 0; i < data.getColumnCount(); i++)
-		{
+
+	private String schemaPattern = "PUBLIC";
+
+	private void writeLine(Writer w, String[] line) throws IOException {
+		for (int i = 0; i < line.length; i++) {
 			w.write("\"");
-			w.write(data.getColumnLabel(i+1));
+			if (line[i] != null)
+				w.write(line[i]);
 			w.write("\"");
-			if(i != data.getColumnCount()-1)
+			if (i != line.length - 1)
 				w.write(", ");
 		}
 		w.write("\n");
-		res.beforeFirst();
-		while(res.next())
-		{
-			for (int i = 0; i < data.getColumnCount(); i++)
-			{
-				w.write("\"");
-				w.write(res.getString(i+1));
-				w.write("\"");
-				if(i != data.getColumnCount()-1)
-					w.write(", ");
-			}
-			w.write("\n");
-		}
-		w.flush();
-	}
-	
-	public String dump(String tableName) throws IOException, DataAccessException
-	{
-		StringWriter sw = new StringWriter();
-		dump(tableName, sw);
-		sw.close();
-		return sw.toString();
-	}
-	
-	private SqlRowSet getRows(String tableName) throws DataAccessException
-	{
-		  JdbcTemplate select = new JdbcTemplate(dataSource);
-		  return select.queryForRowSet("select * from " + tableName);
 	}
 
+	public void dump(String tableName, String[] columns, Writer w)
+			throws IOException, DataAccessException, SQLException {
+		if (columns == null || columns.length == 0) {
+			columns = listColumns(tableName).toArray(new String[0]);
+		}
+		JdbcTemplate select = new JdbcTemplate(dataSource);
+		StringBuilder query = new StringBuilder("select ");
+		for (String col : columns) {
+			query.append(col).append(',');
+		}
+		query.setLength(query.length() - 1);
+		query.append(" from ").append(tableName);
+		writeLine(w, columns);
+		for (Map<String, Object> row : select.queryForList(query.toString())) {
+			String[] line = new String[columns.length];
+			for (int i = 0; i < line.length; i++) {
+				Object o = row.get(columns[i]);
+				if (o != null)
+					line[i] = o.toString();
+			}
+			writeLine(w, line);
+		}
+	}
+
+	public List<String> listTables() throws SQLException {
+		ArrayList<String> names = new ArrayList<String>();
+		Connection c = null;
+		ResultSet rs = null;
+		try {
+			c = dataSource.getConnection();
+			rs = c.getMetaData().getTables(null, schemaPattern, null,
+					new String[] { "TABLE" });
+			while (rs.next()) {
+				names.add(rs.getString("TABLE_NAME"));
+			}
+			rs.close();
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (c != null)
+				c.close();
+		}
+		return names;
+	}
+
+	public List<String> listColumns(String tableName) throws SQLException {
+		ArrayList<String> names = new ArrayList<String>();
+		Connection c = null;
+		ResultSet rs = null;
+		try {
+			c = dataSource.getConnection();
+			rs = c.getMetaData().getColumns(null, schemaPattern, tableName,
+					null);
+			while (rs.next()) {
+				names.add(rs.getString("COLUMN_NAME"));
+			}
+		} finally {
+			if (rs != null)
+				rs.close();
+			if (c != null)
+				c.close();
+		}
+		return names;
+	}
 }
