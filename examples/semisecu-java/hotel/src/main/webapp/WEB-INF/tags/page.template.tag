@@ -31,7 +31,7 @@
 									href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View
 									profile</a></li>
 							<sec:authorize access="hasRole('admin')">
-								<li><a href="<c:url value="/admin/view"/>">Administration
+								<li><a href="<c:url value="/admin"/>">Administration
 										page</a></li>
 							</sec:authorize>
 							<li><a href="<c:url value="/logout"/>">Log out</a></li>
@@ -47,10 +47,15 @@
 			</div>
 		</div>
 	</div>
-
 	<c:choose>
 		<c:when test="${empty navigation}">
-			<a class="btn" href="<c:url value="/"/>"><i class="icon-home"></i>Return to home</a>
+		<div class="navbar">
+			<div class="navbar-inner">
+			<ul class="nav">
+			<li><a href="<c:url value="/"/>"><i class="icon-home"></i>Return to home</a></li>
+			</ul>
+			</div>
+		</div>
 		</c:when>
 		<c:otherwise>
 			<div id="navigation">

@@ -2,6 +2,7 @@ package com.hermes.owasphotel.web.mvc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -28,12 +29,11 @@ import com.hermes.owasphotel.service.UserService;
  */
 @Controller
 @RequestMapping("/user")
-
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		// property editor for dates
@@ -42,14 +42,21 @@ public class UserController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
 	}
-	
+
 	private static String redirectTo(String name) {
 		String r = "redirect:/user";
 		if (name != null)
 			r += "/" + name;
 		return r;
 	}
-	
+
+	@RequestMapping(method = RequestMethod.GET, value = "list")
+	public String viewList(Model model) {
+		List<User> users = userService.findAll();
+		model.addAttribute("users", users);
+		return "user/list";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "{name}")
 	public String viewUser(Model model, @PathVariable String name) {
 		User user = userService.find(name);
@@ -58,6 +65,7 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "user/view";
 	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "update/{id}")
 	public String viewUpdateUser(Model model, @PathVariable Integer id) {
 		User user = userService.find(id);
@@ -66,14 +74,12 @@ public class UserController {
 		model.addAttribute("user", new UserDto(user));
 		return "user/update";
 	}
-	
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "create")
 	public String viewCreateHotel(@ModelAttribute("user") UserDto dto) {
 		return "user/update";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "create")
 	public String createHotel(@Valid @ModelAttribute("user") UserDto dto,
 			BindingResult binding) {
@@ -84,10 +90,10 @@ public class UserController {
 		userService.save(user);
 		return redirectTo(user.getName());
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")
-	public String updateUser(@PathVariable Integer id, @Valid @ModelAttribute("user") UserDto dto, 
-			BindingResult binding) {
+	public String updateUser(@PathVariable Integer id,
+			@Valid @ModelAttribute("user") UserDto dto, BindingResult binding) {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}

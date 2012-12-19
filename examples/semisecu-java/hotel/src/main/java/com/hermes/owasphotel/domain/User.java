@@ -86,4 +86,8 @@ public class User extends IdentifiableEntity<Integer> {
 			roles.remove(ROLE_ADMIN);
 		}
 	}
+
+	public List<String> getRoles() {
+		return new ArrayList<String>(roles);
+	}
 }
