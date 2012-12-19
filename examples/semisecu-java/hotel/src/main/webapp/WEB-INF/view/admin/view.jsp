@@ -6,6 +6,9 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
+	<jsp:attribute name="navigation">
+		<t:navigation.admin />
+	</jsp:attribute>
 	<jsp:attribute name="title">Administration</jsp:attribute>
 	<jsp:body>
 		<div>

@@ -7,6 +7,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
 	<jsp:attribute name="title">User: ${user.name}</jsp:attribute>
+	
+		<jsp:attribute name="navigation" >
+		
+		<sec:authorize access= "hasRole('admin')" > <t:navigation.admin /> </sec:authorize>
+		<sec:authorize access= "!hasRole('admin')" > <t:navigation.default /> </sec:authorize>
+		
+		
+		
+	</jsp:attribute>
 	<jsp:body>
 		<c:if test="${!user.enabled}">
 		<p class="alert">The account is disabled.</p>
