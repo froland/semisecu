@@ -20,21 +20,33 @@
 		</c:choose>
 	</jsp:attribute>
 	<jsp:body>
-	<div>
+	<div class="span10 offset1">
 		<form:form modelAttribute="hotel" cssClass="form-horizontal"
 				enctype="multipart/form-data">
 			<form:errors path="*" />
-			<c:if test="${not empty hotel.id}">
-			<img src="<c:url value="/hotel/${hotel.id}/image"/>"
-						alt="Hotel image" class="hotelImage" />
-			</c:if>
-			 <fieldset>
-			 	<div class="control-group">
-					<label class="control-label" for="hotelImage">Image</label>
-					<div class="controls">
+			<div class="row">
+			<div class="span4">
+			<div class="row">
+			<label>Image</label>
+			<c:choose>
+			<c:when test="${empty hotel.id}">
+		<img src="<c:url value="/hotel/image/default"/>" alt="Hotel image"
+									class="hotelImage" />
+		</c:when>
+		<c:otherwise>
+		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
+									class="hotelImage" />
+		</c:otherwise>
+		</c:choose>
+		</div>
+		<div class="row">	
+			 	
 						<input type="file" name="file" id="hotelImage" />
-					</div>
+
 				</div>
+				</div>
+				<div class="span5 offset1">
+				<fieldset>
 			 			 	 
  				<div class="control-group">
 					<label class="control-label" for="hotelName">Name</label>
@@ -87,29 +99,32 @@
 					</div>
 				</div>
 				
-				<div class="control-group">
-					<label class="control-label" for="descriptionHTML">Description</label>
-					<div class="controls">
-						<form:textarea path="descriptionHTML" />
-					</div>
+				</fieldset>
 				</div>
+				<div class="row">
+				
+				
+					<label>Description (HTML)</label>
+					
+						<form:textarea path="descriptionHTML" cssClass="span11" rows="13"/>
+				
 				
 				
 				<div class="control-group">
 				<div class="controls">
 				<c:choose>
 					<c:when test="${empty hotel.id}">
-					<input type="submit" value="Add hotel" />
+					<button type="submit" class="btn btn-success"><i class="icon-plus-sign icon-white"></i> Add hotel</button>
 					</c:when>
 					<c:otherwise>
-					<input type="submit" value="Update hotel" />
+					<button type="submit" class="btn btn-success"><i class="icon-refresh icon-white"></i> Update hotel</button>
 					</c:otherwise>
 					</c:choose>
 				</div>
 				</div>
 				
-			</fieldset>
-		
+			</div>
+		</div>
 			</form:form>
 		
 		</div>
