@@ -23,7 +23,8 @@
 	<div class="span10 offset1">
 		<form:form modelAttribute="hotel" cssClass="form-horizontal"
 				enctype="multipart/form-data">
-			<form:errors path="*" />
+				
+				<form:errors element="div" path="*" cssClass="alert alert-error"></form:errors>
 			<div class="row">
 			<div class="span4">
 			<div class="row">

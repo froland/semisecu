@@ -85,7 +85,7 @@
 					<h4>New comment</h4>
 					<sec:authorize access="!isAuthenticated()">
 					<label for="name">Name:</label>
-					<input name="name" />
+					<input name="name" required/>
 					</sec:authorize>
 					<label for="note">Note:</label>
 					<select name="note">
