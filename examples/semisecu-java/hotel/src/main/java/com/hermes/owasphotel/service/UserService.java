@@ -18,4 +18,5 @@ public interface UserService {
 
 	public User update(UserDto dto);
 
+	public User enableUser(Integer id, boolean enable);
 }

@@ -11,11 +11,11 @@
 	<c:forEach var="user" items="${users}">
 		<tr>
 			<td><a href="<c:url value="/user/${user.name}"/>"><c:out
-						value="${user.name}" /></a></td>
+						value="${user.name}" /></a> <c:if test="${!user.enabled}">
+					<span class="text-warning">(disabled)</span>
+				</c:if></td>
 			<td><c:out value="${user.email}" /></td>
-			<td><c:if test="${!user.enabled}">
-					<span class="alert">Account disabled</span>
-				</c:if><t:list items="${user.roles}" /></td>
+			<td><t:list items="${user.roles}" /></td>
 		</tr>
 	</c:forEach>
 </table>

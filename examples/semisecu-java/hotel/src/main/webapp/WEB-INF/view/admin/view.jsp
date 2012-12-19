@@ -10,7 +10,7 @@
 	<jsp:body>
 		<div>
 			<h2>List the users</h2>
-			<a href="<c:url value="/user/list" />">User list</a>
+			<a href="<c:url value="/user" />">User list</a>
 		</div>
 		<div>
 			<h2>Export a table</h2>

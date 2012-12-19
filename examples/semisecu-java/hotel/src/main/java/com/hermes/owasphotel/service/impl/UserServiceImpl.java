@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
 		return u;
 	}
 
+	@Override
+	public User enableUser(Integer id, boolean enable) {
+		User u = userDao.find(id);
+		u.setEnabled(enable);
+		return u;
+	}
 }
