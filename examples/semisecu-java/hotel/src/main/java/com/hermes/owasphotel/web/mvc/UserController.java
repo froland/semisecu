@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -99,14 +98,13 @@ public class UserController {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
-		try{
+		try {
 			User user = dto.makeNew();
 			userService.save(user);
 			return redirectTo(user);
-		}
-		catch(PersistenceException e)
-		{
-			binding.addError(new ObjectError("User", "User "+dto.getName()+" already exists "));
+		} catch (PersistenceException e) {
+			binding.addError(new ObjectError("User", "User " + dto.getName()
+					+ " already exists "));
 			return "user/update";
 		}
 	}

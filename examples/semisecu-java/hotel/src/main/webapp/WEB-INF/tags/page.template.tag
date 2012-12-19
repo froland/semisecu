@@ -16,7 +16,7 @@
 		<div class="span4">
 			<h1>OwaspHotel</h1>
 		</div>
-		<div class="span6 offset2">
+		<div class="span3 offset2">
 			<div id="login">
 				<sec:authorize access="isAuthenticated()">
 					<div class="btn-group">
@@ -45,6 +45,26 @@
 					<a class="btn btn-info" href="<c:url value="/user/create"/>">Register</a>
 				</sec:authorize>
 			</div>
+		</div>
+		<div class="span2">
+		<form action="<c:url value="/hotel/search"/>" method="get" class="form-search pull-right">
+		<div class="input-append">
+			<input type="text" name="t" title="Search for a hotel"
+				id="hotelSearchField" class="search-query" placeholder="Search hotel" />
+			<button type="submit" class="btn"><i class="icon-search"></i></button>
+		</div>
+<script type="text/javascript">
+	$(function() {
+		$('#hotelSearchField').typeahead({
+			'source' : function(query, process) {
+				return $.getJSON("<c:url value="/hotel/searchAutocomplete"/>", {
+					't' : query
+				}, process);
+			}
+		});
+	});
+</script>
+		</form>
 		</div>
 	</div>
 	<c:choose>

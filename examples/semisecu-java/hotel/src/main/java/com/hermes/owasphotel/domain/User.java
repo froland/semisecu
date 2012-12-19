@@ -27,7 +27,7 @@ public class User extends IdentifiableEntity<Integer> {
 	private String password;
 	private String email;
 
-	private int enabled;
+	private int enabled = 1;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(joinColumns = @JoinColumn(name = "userid"), name = "ROLES")

@@ -16,21 +16,5 @@
 				<li><a href="<c:url value="/hotel/create"/>">Create a new hotel</a></li>
 			</sec:authorize>
 		</ul>
-		<form action="<c:url value="/hotel/search"/>" method="get" class="navbar-search pull-right">
-			<input type="text" name="t" title="Search for a hotel"
-				id="hotelSearchField" class="search-query" placeholder="Search hotel" />
-			<button type="submit" class="btn"><i class="icon-search"></i></button>
-<script type="text/javascript">
-	$(function() {
-		$('#hotelSearchField').typeahead({
-			'source' : function(query, process) {
-				return $.getJSON("<c:url value="/hotel/searchAutocomplete"/>", {
-					't' : query
-				}, process);
-			}
-		});
-	});
-</script>
-		</form>
 	</div>
 </div>
