@@ -94,7 +94,7 @@
 					<br />
 					<label for="text">Text:</label>
 					<div>
-						<textarea rows="3" cols="60" name="text"></textarea>
+						<textarea rows="3" class="span10" name="text"></textarea>
 					</div>
 					<button class="btn btn-success" type="submit"> <i
 							class="icon-comment icon-white"></i> Add comment</button>
