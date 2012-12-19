@@ -49,4 +49,6 @@ public interface HotelService {
 	public List<HotelListItemDto> listNotApproved();
 
 	public List<HotelListItemDto> listSearchQuery(String search);
+
+	public List<HotelListItemDto> listManagedHotels(String name);
 }

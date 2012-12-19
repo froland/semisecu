@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.User;
 
 /**
  * DAO: Hotel
@@ -84,4 +85,10 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 		return query.getResultList();
 	}
 
+	@Override
+	public List<Hotel> findManagedHotels(User user) {
+		return em
+				.createQuery("from Hotel h where h.manager=:user", Hotel.class)
+				.setParameter("user", user).getResultList();
+	}
 }

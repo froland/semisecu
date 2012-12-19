@@ -28,9 +28,12 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 	@NotNull
 	private Integer stars;
 
+	private String manager;
+
 	private String descriptionHTML;
-	
+
 	private CommonsMultipartFile file;
+	private boolean deleteFile;
 
 	public String getHotelName() {
 		return hotelName;
@@ -95,6 +98,7 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 	public void setStars(Integer stars) {
 		this.stars = stars;
 	}
+
 	public CommonsMultipartFile getFile() {
 		return file;
 	}
@@ -102,17 +106,39 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 	public void setFile(CommonsMultipartFile file) {
 		this.file = file;
 	}
-	
+
+	public boolean isDeleteFile() {
+		return deleteFile;
+	}
+
+	public void setDeleteFile(boolean deleteFile) {
+		this.deleteFile = deleteFile;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
 	@Override
-	public void update(Hotel h)
-	{
-		super.update(h);
-		if (file != null) {
+	public void update(Hotel h) {
+		copyProperties(this, h, "id", "manager", "file", "deleteFile");
+		if (deleteFile) {
+			h.setImage(null);
+		} else if (file != null && file.getSize() > 0) {
 			h.setImage(file.getBytes());
 		}
-		
+		// manager is not updated directly from this DTO
 	}
-	
+
+	@Override
+	public void read(Hotel domain) {
+		copyProperties(domain, this, "manager");
+		manager = domain.getManager().getName();
+	}
 
 	public Hotel makeNew(User user) {
 		Hotel h = new Hotel(hotelName, user);

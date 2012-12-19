@@ -9,15 +9,15 @@ import com.hermes.owasphotel.domain.User;
 
 @ScriptAssert(lang = "jexl", script = "_.password == _.retypedPassword", alias = "_", message = "Both passwords are not equal")
 public class UserDto extends GenericDto<Integer, User> {
-	
+
 	@NotBlank(message = "Your name may not be blank")
 	private String name;
-	
+
 	@Length(min = 5, message = "Your password must have at least 5 character")
 	private String password;
-	
+
 	private String retypedPassword;
-	
+
 	@Email(message = "You must enter a valid e-mail")
 	private String email;
 
@@ -52,19 +52,14 @@ public class UserDto extends GenericDto<Integer, User> {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	UserDto()
-	{
-		
-	}
-	
-	public UserDto(User u)
-	{
+
+	@Override
+	public void read(User u) {
 		this.setId(u.getId());
 		this.email = u.getEmail();
 		this.name = u.getName();
 	}
-	
+
 	public User makeNew() {
 		User u = new User(name);
 		update(u);

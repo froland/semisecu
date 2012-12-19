@@ -26,26 +26,27 @@
 				
 				<form:errors element="div" path="*" cssClass="alert alert-error"></form:errors>
 			<div class="row">
-			<div class="span4">
-			<div class="row">
-			<label>Image</label>
+		<div class="span4">
+		<div class="row">
 			<c:choose>
 			<c:when test="${empty hotel.id}">
-		<img src="<c:url value="/hotel/image/default"/>" alt="Hotel image"
-									class="hotelImage" />
-		</c:when>
-		<c:otherwise>
-		<img src="<c:url value="/hotel/${hotel.id}/image"/>" alt="Hotel image"
-									class="hotelImage" />
-		</c:otherwise>
-		</c:choose>
+			<img src="<c:url value="/hotel/image/default"/>" alt="Hotel image"
+										class="hotelImage" />
+			</c:when>
+			<c:otherwise>
+			<img src="<c:url value="/hotel/${hotel.id}/image"/>"
+										alt="Hotel image" class="hotelImage" />
+			</c:otherwise>
+			</c:choose>
 		</div>
-		<div class="row">	
-			 	
-						<input type="file" name="file" id="hotelImage" />
-
-				</div>
-				</div>
+		<div class="row">
+			<input type="file" name="file" id="hotelImage" />
+			<br />
+			<label class="checkbox">
+			<input type="checkbox" name="deleteFile" />
+			Delete the file</label>
+		</div>
+		</div>
 				<div class="span5 offset1">
 				<fieldset>
 			 			 	 
@@ -100,6 +101,26 @@
 					</div>
 				</div>
 				
+				<sec:authorize access="hasRole('admin')">
+				<div class="control-group">
+					<label class="control-label" for="hotelManager">Manager</label>
+					<div class="controls">
+						<form:input path="manager" id="hotelManager" />
+					</div>
+<script type="text/javascript">
+	$(function() {
+		$('#hotelManager').typeahead({
+			'source' : function(query, process) {
+				return $.getJSON("<c:url value="/user/listNames"/>", {
+					'prefix' : query
+				}, process);
+			}
+		});
+	});
+</script>
+				</div>
+				</sec:authorize>
+				
 				</fieldset>
 				</div>
 				<div class="row">
@@ -107,7 +128,7 @@
 				
 					<label>Description (HTML)</label>
 					
-						<form:textarea path="descriptionHTML" cssClass="span11" rows="13"/>
+					<form:textarea path="descriptionHTML" cssClass="span11" rows="13" />
 				
 				
 				
@@ -115,10 +136,12 @@
 				<div class="controls">
 				<c:choose>
 					<c:when test="${empty hotel.id}">
-					<button type="submit" class="btn btn-success"><i class="icon-plus-sign icon-white"></i> Add hotel</button>
+					<button type="submit" class="btn btn-success">
+											<i class="icon-plus-sign icon-white"></i> Add hotel</button>
 					</c:when>
 					<c:otherwise>
-					<button type="submit" class="btn btn-success"><i class="icon-refresh icon-white"></i> Update hotel</button>
+					<button type="submit" class="btn btn-success">
+											<i class="icon-refresh icon-white"></i> Update hotel</button>
 					</c:otherwise>
 					</c:choose>
 				</div>

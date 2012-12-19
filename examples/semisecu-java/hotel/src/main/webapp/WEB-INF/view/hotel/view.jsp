@@ -45,8 +45,8 @@
 			${hotel.descriptionHTML}
 			</div>
 		</div>
-			<c:if
-			test="${hotel.manager.name == pageContext['request'].userPrincipal.name}">
+			<sec:authorize
+			access="hasRole('admin') or ${hotel.manager.name == pageContext['request'].userPrincipal.name }">
 			<div class="row">
 			<div class="span10 offset1">
 				<a class="btn btn-warning"
@@ -54,7 +54,7 @@
 						class="icon-edit icon-white"></i> Update the hotel</a>
 			</div>
 			</div>
-			</c:if>
+			</sec:authorize>
 		<div>
 			<h3>Comments</h3>
 			<c:forEach var="comment" items="${hotel.comments}">
@@ -62,8 +62,9 @@
 				<div class="comment">
 					<div>
 					<c:out value="${comment.userName}" /> commented on
-					<fmt:formatDate value="${comment.date}" />
-					<span style="float: right;">Note: <t:hotel.stars value="${comment.note}" max="10" /></span>
+					<fmt:formatDate value="${comment.date}" type="both" />
+					<span style="float: right;">Note: <t:hotel.stars
+									value="${comment.note}" max="10" /></span>
 					<sec:authorize access="hasRole('admin')">
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
@@ -84,17 +85,17 @@
 					method="POST">
 					<h4>New comment</h4>
 					<sec:authorize access="!isAuthenticated()">
-					<label for="name">Name:</label>
-					<input name="name" required/>
+					<label for="commentName">Name:</label>
+					<input name="name" required="required" id="commentName" />
 					</sec:authorize>
-					<label for="note">Note:</label>
-					<select name="note">
+					<label for="commentNote">Note:</label>
+					<select name="note" id="commentNote">
 					<t:selectOptions end="10" value="5" />
 					</select>
 					<br />
-					<label for="text">Text:</label>
+					<label for="commentText">Text:</label>
 					<div>
-						<textarea rows="3" class="span10" name="text"></textarea>
+						<textarea rows="3" class="span10" name="text" id="commentText"></textarea>
 					</div>
 					<button class="btn btn-success" type="submit"> <i
 							class="icon-comment icon-white"></i> Add comment</button>
