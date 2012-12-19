@@ -85,7 +85,7 @@
 					<h4>New comment</h4>
 					<sec:authorize access="!isAuthenticated()">
 					<label for="name">Name:</label>
-					<input name="name" />
+					<input name="name" required/>
 					</sec:authorize>
 					<label for="note">Note:</label>
 					<select name="note">
@@ -94,7 +94,7 @@
 					<br />
 					<label for="text">Text:</label>
 					<div>
-						<textarea rows="3" cols="60" name="text"></textarea>
+						<textarea rows="3" class="span10" name="text"></textarea>
 					</div>
 					<button class="btn btn-success" type="submit"> <i
 							class="icon-comment icon-white"></i> Add comment</button>
