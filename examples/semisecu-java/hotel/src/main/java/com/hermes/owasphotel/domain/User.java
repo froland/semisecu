@@ -22,10 +22,12 @@ public class User extends IdentifiableEntity<Integer> {
 	private static final String ROLE_USER = "user";
 	private static final String ROLE_ADMIN = "admin";
 
-	@Column(unique=true)
+	@Column(unique = true)
 	private String name;
 	private String password;
 	private String email;
+
+	private int enabled;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(joinColumns = @JoinColumn(name = "userid"), name = "ROLES")
@@ -51,8 +53,8 @@ public class User extends IdentifiableEntity<Integer> {
 	public String getPassword() {
 		return password;
 	}
-	
-	public void setPassword(String password){
+
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -62,6 +64,14 @@ public class User extends IdentifiableEntity<Integer> {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isEnabled() {
+		return enabled != 0;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled ? 1 : 0;
 	}
 
 	public boolean isAdmin() {

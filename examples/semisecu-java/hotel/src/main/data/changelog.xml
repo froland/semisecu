@@ -5,6 +5,7 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<include file="changes1.xml" relativeToChangelogFile="true" />
+	<include file="changes-userenable.xml" relativeToChangelogFile="true" />
 	<include file="changes-userhotel.xml" relativeToChangelogFile="true" />
 	<include file="changes-hotelImage.xml" relativeToChangelogFile="true" />
 	<include file="changes-hotelDescription.xml"
