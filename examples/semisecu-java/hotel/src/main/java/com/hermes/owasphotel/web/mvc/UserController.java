@@ -3,13 +3,16 @@ package com.hermes.owasphotel.web.mvc;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -80,9 +83,16 @@ public class UserController {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
-		User user = dto.makeNew();
-		userService.save(user);
-		return redirectTo(user.getName());
+		try{
+			User user = dto.makeNew();
+			userService.save(user);
+			return redirectTo(user.getName());
+		}
+		catch(PersistenceException e)
+		{
+			binding.addError(new ObjectError("User", "User "+dto.getName()+" already exists "));
+			return "user/update";
+		}
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")

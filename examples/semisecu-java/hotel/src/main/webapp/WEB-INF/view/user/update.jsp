@@ -20,30 +20,42 @@
 		</c:choose>
 	</jsp:attribute>
 	<jsp:body>
-		<form:form modelAttribute="user">
-			<form:errors path="*" />
-			<table>
-				<tr>
-					<td>Name</td>
-					<td><form:input path="name" value="${user.name}"/></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td><form:password path="password" /></td>
-				</tr>
-				<tr>
-					<td>Re-type your Password</td>
-					<td><form:password path="retypedPassword" /></td>
-				</tr>
-				<tr>
-					<td>E-mail</td>
-					<td><form:input path="email" value="${user.email}"/></td>
-				</tr>
+		<form:form modelAttribute="user" cssClass="form-horizontal">
+			<form:errors element="div" path="*" cssClass="alert alert-error"></form:errors>
+			<fieldset>
+			 			 	 
+ 				<div class="control-group">
+					<label class="control-label" for="userName">Name</label>
+					<div class="controls">
+						<form:input path="name" id="userName" value="${user.name}"/>
+					</div>
+				</div>
 				
-			<tr>
-					<td />
-					<td>
-					<c:choose>
+				<div class="control-group">
+					<label class="control-label" for="userPassword">Password</label>
+					<div class="controls">
+						<form:password path="password" id="userPassword"/>
+					</div>
+				</div>
+				
+				
+				<div class="control-group">
+					<label class="control-label" for="userRetypedPassword">Re-type your Password</label>
+					<div class="controls">
+						<form:password path="retypedPassword" id="userPassword"/>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="userEmail">Email</label>
+					<div class="controls">
+						<form:input path="email" id="userEmail" value="${user.email}"/>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<div class="controls">
+						<c:choose>
 					<c:when test="${empty user.id}">
 					<button type="submit" class="btn btn-primary"> Add user </button>
 					</c:when>
@@ -51,9 +63,9 @@
 					<button type="submit" class="btn btn-primary"> Update user </button>
 					</c:otherwise>
 					</c:choose>
-					</td>
-				</tr>
-			</table>
+					</div>
+				</div>
+			</fieldset>
 		</form:form>
 	</jsp:body>
 </t:page.template>
