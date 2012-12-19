@@ -7,6 +7,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
 	<jsp:attribute name="title">User list</jsp:attribute>
+	<jsp:attribute name="navigation">
+		<t:navigation.admin />
+	</jsp:attribute>
 	<jsp:body>
 	    <jsp:include page="userTable.jsp" />
 	</jsp:body>
