@@ -7,9 +7,41 @@
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
 	<jsp:attribute name="title">User: ${user.name}</jsp:attribute>
+	
+		<jsp:attribute name="navigation" >
+		
+		<sec:authorize access= "hasRole('admin')" > <t:navigation.admin /> </sec:authorize>
+		<sec:authorize access= "!hasRole('admin')" > <t:navigation.default /> </sec:authorize>
+		
+		
+		
+	</jsp:attribute>
 	<jsp:body>
-		<div>Name: ${user.name}</div>
-		<div>Email: ${user.email}</div>
-		<div><a href="<c:url value="/user/update/${user.id}"/>" class="btn btn-primary"> <i  class="icon-edit icon-white"></i> Update profile</a></div>
+		<c:if test="${!user.enabled}">
+		<p class="alert">The account is disabled.</p>
+		</c:if>
+		<p>Email: <a href="mailto:${user.email}"><c:out
+					value="${user.email}" /></a>
+		</p>
+		<p>Roles: <t:list items="${user.roles}" />
+		</p>
+		<div>
+			<a href="<c:url value="/user/update/${user.id}"/>" class="btn"><i
+				class="icon-edit"></i> Update profile</a>
+			<sec:authorize access="hasRole('admin')">
+			<form action="<c:url value="/user/enable/${user.id}"/>" method="post">
+			<c:choose>
+			<c:when test="${user.enabled}">
+			<input type="hidden" name="enable" value="false" />
+			<input type="submit" class="btn btn-warning" value="Disable account" />
+			</c:when>
+			<c:otherwise>
+			<input type="hidden" name="enable" value="true" />
+			<input type="submit" class="btn btn-warning" value="Enable account" />
+			</c:otherwise>
+			</c:choose>
+			</form>
+			</sec:authorize>
+		</div>
 	</jsp:body>
 </t:page.template>

@@ -1,6 +1,7 @@
 <%-- based on http://stackoverflow.com/questions/10529963/what-is-the-best-way-to-create-jsp-layout-template --%>
 <%@tag description="Main page template" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@attribute name="title" type="java.lang.String"
@@ -9,19 +10,8 @@
 	description="Navigation toolbar"%>
 <%@attribute name="head" fragment="true"
 	description="Additional elements for the head"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>${title}</title>
-<link href="<c:url value="/css/bootstrap.css"/>" type="text/css"
-	rel="stylesheet" />
-<link href="<c:url value="/css/hotel.css"/>" type="text/css"
-	rel="stylesheet" />
-<script src="<c:url value="http://code.jquery.com/jquery-latest.js"/>"></script>
-<script src="<c:url value="/js/bootstrap.js"/>"></script>
-<jsp:invoke fragment="head" />
-</head>
-<body>
+<t:page.blank title="${title}" head="${head}">
+	<jsp:body>
 	<div class="row-fluid">
 		<div class="span4">
 			<h1>OwaspHotel</h1>
@@ -31,17 +21,17 @@
 				<sec:authorize access="isAuthenticated()">
 					<div class="btn-group">
 						<a class="btn btn-primary"
-							href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>"><i
-							class="icon-user icon-white"></i> <sec:authentication
-								property="principal.username" /></a> <a
-							class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-							href="#"><span class="caret"></span></a>
+								href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>"><i
+								class="icon-user icon-white"></i> <sec:authentication
+									property="principal.username" /></a> <a
+								class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+								href="#"><span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a
-								href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View
+									href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View
 									profile</a></li>
 							<sec:authorize access="hasRole('admin')">
-								<li><a href="<c:url value="/admin/view"/>">Administration
+								<li><a href="<c:url value="/admin"/>">Administration
 										page</a></li>
 							</sec:authorize>
 							<li><a href="<c:url value="/logout"/>">Log out</a></li>
@@ -52,17 +42,20 @@
 				<sec:authorize access="!isAuthenticated()">
 					<a class="btn btn-primary" href="<c:url value="/login"/>">Log
 						in</a>
-					<a class="btn btn-info" href="<c:url value="/user/create"/>">Create
-						new user</a>
+					<a class="btn btn-info" href="<c:url value="/user/create"/>">Register</a>
 				</sec:authorize>
 			</div>
 		</div>
 	</div>
-
 	<c:choose>
 		<c:when test="${empty navigation}">
-			<a class="btn btn-danger" href="<c:url value="/"/>"><i
-				class="icon-home icon-white"></i>Return to home</a>
+		<div class="navbar">
+			<div class="navbar-inner">
+			<ul class="nav">
+			<li><a href="<c:url value="/"/>"><i class="icon-home"></i>Return to home</a></li>
+			</ul>
+			</div>
+		</div>
 		</c:when>
 		<c:otherwise>
 			<div id="navigation">
@@ -74,5 +67,5 @@
 	<div id="body">
 		<jsp:doBody />
 	</div>
-</body>
-</html>
+</jsp:body>
+</t:page.blank>

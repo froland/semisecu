@@ -7,7 +7,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
 	<jsp:attribute name="navigation">
-		<t:navigation.hotel />
+		<t:navigation.default />
 	</jsp:attribute>
 	<jsp:attribute name="title">
 		<c:choose>

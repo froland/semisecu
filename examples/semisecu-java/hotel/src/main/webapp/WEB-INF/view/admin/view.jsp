@@ -6,23 +6,30 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
+	<jsp:attribute name="navigation">
+		<t:navigation.admin />
+	</jsp:attribute>
 	<jsp:attribute name="title">Administration</jsp:attribute>
 	<jsp:body>
 		<div>
-			<sec:authorize access="hasRole('admin')">		
+			<h2>List the users</h2>
+			<a href="<c:url value="/user" />">User list</a>
+		</div>
+		<div>
+			<h2>Export a table</h2>
 			<form name='dumpForm' action="<c:url value='/admin/export' />"
-					method='GET'>
+				method='GET'>
 				<table>
 				<tr>
-					<td>Table name:</td>
+					<td><label for="tableName">Table name</label></td>
 					<td><input type='text' name='tableName' value=''></td>
 				</tr>
 				<tr>
-					<td colspan='2'><input name="submit" type="submit" value="Dump" /></td>
+					<td />
+					<td><input class="btn btn-primary" type="submit" value="Dump" /></td>
 				</tr>
 				</table>
-			</form>		
-			</sec:authorize>
-		</div>	
+			</form>
+		</div>
 	</jsp:body>
 </t:page.template>

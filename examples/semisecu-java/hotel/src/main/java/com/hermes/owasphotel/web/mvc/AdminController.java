@@ -15,48 +15,44 @@ import com.hermes.owasphotel.service.AdminService;
 
 @Controller
 @RequestMapping("/admin")
-
 public class AdminController {
-	
+
 	@Autowired
 	private AdminService adminService;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "export")
-	public void export(HttpServletResponse response, @RequestParam String tableName) {
-		
+	public void export(HttpServletResponse response,
+			@RequestParam String tableName) {
+
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition",
-		"attachment;filename=dumpTable"+tableName+".csv");
-		try{
-			
+				"attachment;filename=dumpTable" + tableName + ".csv");
+		try {
+
 			adminService.dumpToWriter(tableName, response.getWriter());
-		}
-		catch (DataAccessException e)
-		{
+		} catch (DataAccessException e) {
 			try {
 				response.sendError(404, "Unable to fetch data");
 			} catch (IOException e1) {
 				System.out.println("SqlError");
 				e1.printStackTrace();
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			try {
-				response.sendError(500, "Sending data failed due to unknow error");
+				response.sendError(500,
+						"Sending data failed due to unknow error");
 			} catch (IOException e1) {
-				//What could I do?
+				// What could I do?
 				System.out.println("Error");
 				e1.printStackTrace();
 			}
-			
+
 		}
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "view")
+
+	@RequestMapping(method = RequestMethod.GET)
 	public String viewAdmin() {
 		return "admin/view";
 	}
-	
 
 }
