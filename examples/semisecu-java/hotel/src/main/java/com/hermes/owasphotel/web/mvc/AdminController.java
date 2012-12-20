@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.hermes.owasphotel.service.AdminService;
 
 @Controller
 @RequestMapping("/admin")
+@PreAuthorize("hasRole('admin')")
 public class AdminController {
 
 	@Autowired

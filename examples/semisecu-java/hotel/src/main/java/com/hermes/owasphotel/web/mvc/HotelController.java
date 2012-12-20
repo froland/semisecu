@@ -2,7 +2,6 @@ package com.hermes.owasphotel.web.mvc;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,10 +15,13 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,7 +48,7 @@ import com.hermes.owasphotel.service.UserService;
 @RequestMapping("/hotel")
 public class HotelController {
 
-	public static final int PAGE_COUNT = 4;
+	public static final int PAGE_COUNT = 10;
 	public static final int TOP_COUNT = 3;
 
 	@Autowired
@@ -117,6 +119,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "toApprove")
+	@PreAuthorize("hasRole('admin')")
 	public String viewHotelsNotApproved(Model model) {
 		List<HotelListItemDto> hotels = hotelService.listNotApproved();
 		setPagedList(model, "hotels", hotels);
@@ -132,8 +135,9 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "managed")
-	public String viewHotelsManaged(Model model, Principal p) {
-		List<HotelListItemDto> hotels = hotelService.listManagedHotels(p
+	@PreAuthorize("hasRole('user')")
+	public String viewHotelsManaged(Model model, Authentication auth) {
+		List<HotelListItemDto> hotels = hotelService.listManagedHotels(auth
 				.getName());
 		model.addAttribute("hotels", hotels);
 		model.addAttribute("pageTitle", "Managed hotels");
@@ -171,17 +175,21 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment")
 	public String addComment(@PathVariable("id") Integer hotelId,
-			Principal user, @RequestParam String text,
-			@RequestParam(required = false) String name, @RequestParam int note) {
+			Authentication user, @RequestParam String text,
+			@RequestParam(required = false) String name, @RequestParam int note)
+			throws MissingServletRequestParameterException {
 		if (hotelId != null && (name != null || user != null) && text != null) {
 			if (name == null)
 				name = user.getName();
 			hotelService.addComment(hotelId, name, user != null, note, text);
+		} else {
+			throw new MissingServletRequestParameterException("name", "String");
 		}
 		return redirectTo(hotelId);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
+	@PreAuthorize("hasRole('admin')")
 	public String deleteComment(@PathVariable("id") Integer hotelId,
 			@RequestParam("delete") int comment) {
 		hotelService.deleteComment(hotelId, comment);
@@ -195,21 +203,38 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "create")
+	@PreAuthorize("hasRole('user')")
 	public String createHotel(@Valid @ModelAttribute("hotel") HotelDto dto,
-			BindingResult binding, Principal p) {
+			BindingResult binding, Authentication auth) {
 		if (binding.hasErrors()) {
 			return "hotel/update";
 		}
-		User user = userService.find(p.getName());
+		User user = getUser(auth);
 		Hotel hotel = dto.makeNew(user);
 		hotelService.save(hotel);
 		return redirectTo(hotel.getId());
 	}
 
+	private static void checkEdit(Hotel hotel, User user) {
+		if (user == null
+				|| hotel == null
+				|| !(user.equalsId(hotel.getManager()) || user.getRoles()
+						.contains("admin")))
+			throw new AccessDeniedException("Cannot edit that hotel");
+	}
+
+	private User getUser(Authentication auth) {
+		if (auth == null)
+			return null;
+		return userService.find(auth.getName());
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "{id}/update")
-	public String viewUpdateHotel(Model model,
+	@PreAuthorize("isAuthenticated()")
+	public String viewUpdateHotel(Model model, Authentication auth,
 			@PathVariable("id") Integer hotelId) {
 		Hotel hotel = hotelService.find(hotelId);
+		checkEdit(hotel, getUser(auth));
 		HotelDto dto = new HotelDto();
 		dto.read(hotel);
 		model.addAttribute("hotel", dto);
@@ -217,8 +242,11 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/update")
-	public String updateHotel(Model model, @PathVariable("id") Integer hotelId,
+	@PreAuthorize("isAuthenticated()")
+	public String updateHotel(Model model, Authentication auth,
+			@PathVariable("id") Integer hotelId,
 			@Valid @ModelAttribute("hotel") HotelDto dto, BindingResult result) {
+		checkEdit(hotelService.find(hotelId), getUser(auth));
 		if (result.hasErrors()) {
 			dto.setId(hotelId);
 			return "hotel/update";
@@ -240,11 +268,7 @@ public class HotelController {
 			throws IOException {
 		byte[] img = hotelService.getHotelImage(hotelId);
 		if (img == null || img.length == 0) {
-			ClassPathResource res = new ClassPathResource(
-					"/img/defaultHotel.png");
-			InputStream in = res.getInputStream();
-			img = IOUtils.toByteArray(in);
-			IOUtils.closeQuietly(in);
+			img = getHotelDefaultImage();
 		}
 		return img;
 	}

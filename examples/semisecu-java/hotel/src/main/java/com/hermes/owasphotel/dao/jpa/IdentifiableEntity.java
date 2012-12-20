@@ -41,6 +41,14 @@ public abstract class IdentifiableEntity<I extends Serializable> implements
 		return super.equals(obj);
 	}
 
+	public final boolean equalsId(Object obj) {
+		if (this.id != null && getClass().isInstance(obj)) {
+			Object id = ((IdentifiableEntity<?>) obj).getId();
+			return this.id.equals(id);
+		}
+		return false;
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + "[id=" + getId() + "]";

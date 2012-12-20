@@ -9,6 +9,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,7 +57,16 @@ public class UserController {
 		return r;
 	}
 
+	private static void checkEditProfile(User user, Authentication auth) {
+		if (auth == null
+				|| user == null
+				|| !(auth.getName().equals(user.getName()) || Utils.hasRole(
+						auth, "admin")))
+			throw new AccessDeniedException("Cannot edit that profile");
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
+	@PreAuthorize("hasRole('admin')")
 	public String viewList(Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
@@ -62,12 +74,14 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "listNames")
+	@PreAuthorize("hasRole('admin')")
 	@ResponseBody
 	public List<String> getNames(@RequestParam(required = false) String prefix) {
 		return userService.getNames(prefix);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{name}")
+	@PreAuthorize("hasRole('admin') or #name == principal.username")
 	public String viewUser(Model model, @PathVariable String name) {
 		User user = userService.find(name);
 		if (user == null)
@@ -77,10 +91,12 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "update/{id}")
-	public String viewUpdateUser(Model model, @PathVariable Integer id) {
+	public String viewUpdateUser(Model model, @PathVariable Integer id,
+			Authentication auth) {
 		User user = userService.find(id);
 		if (user == null)
 			throw new ResourceNotFoundException(User.class, Long.valueOf(id));
+		checkEditProfile(user, auth);
 		UserDto dto = new UserDto();
 		dto.read(user);
 		model.addAttribute("user", dto);
@@ -88,12 +104,12 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "create")
-	public String viewCreateHotel(@ModelAttribute("user") UserDto dto) {
+	public String viewCreateUser(@ModelAttribute("user") UserDto dto) {
 		return "user/update";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "create")
-	public String createHotel(@Valid @ModelAttribute("user") UserDto dto,
+	public String createUser(@Valid @ModelAttribute("user") UserDto dto,
 			BindingResult binding) {
 		if (binding.hasErrors()) {
 			return "user/update";
@@ -110,16 +126,18 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")
-	public String updateUser(@PathVariable Integer id,
+	public String updateUser(@PathVariable Integer id, Authentication auth,
 			@Valid @ModelAttribute("user") UserDto dto, BindingResult binding) {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
+		checkEditProfile(userService.find(id), auth);
 		User user = userService.update(dto);
 		return redirectTo(user);
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "enable/{id}")
+	@PreAuthorize("hasRole('admin')")
 	public String enableUser(@PathVariable Integer id,
 			@RequestParam boolean enable) {
 		User user = userService.enableUser(id, enable);
