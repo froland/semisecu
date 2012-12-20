@@ -17,7 +17,7 @@ public interface UserService {
 
 	public User save(User u);
 
-	public User update(UserDto dto);
+	public User update(UserDto dto, boolean asAdmin);
 
 	public User enableUser(Integer id, boolean enable);
 

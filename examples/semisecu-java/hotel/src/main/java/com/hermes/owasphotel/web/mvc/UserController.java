@@ -131,9 +131,13 @@ public class UserController {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
-		checkEditProfile(userService.find(id), auth);
+		User user = userService.find(id);
+		checkEditProfile(user, auth);
 		try {
-			User user = userService.update(dto);
+			user = userService.update(
+					dto,
+					!auth.getName().equals(user.getName())
+							&& Utils.hasRole(auth, "admin"));
 			return redirectTo(user);
 		} catch (IllegalArgumentException e) {
 			binding.addError(new ObjectError("User", e.getMessage()));

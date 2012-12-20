@@ -63,11 +63,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(UserDto dto) {
+	public User update(UserDto dto, boolean asAdmin) {
 		User u = userDao.find(dto.getId());
 		String oldName = u.getName();
+		dto.updatePassword(u, asAdmin);
 		dto.update(u);
-		if (!oldName.equals(u.getName())) {
+		if (!asAdmin && !oldName.equals(u.getName())) {
 			// re-authentify the user
 			SecurityContext ctx = SecurityContextHolder.getContext();
 			Authentication auth = ctx.getAuthentication();

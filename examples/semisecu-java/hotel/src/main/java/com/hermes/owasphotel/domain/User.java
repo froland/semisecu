@@ -39,9 +39,10 @@ public class User extends IdentifiableEntity<Integer> {
 	User() {
 	}
 
-	public User(String name) {
+	public User(String name, String password) {
 		setName(name);
 		roles.add(ROLE_USER);
+		setPassword(password, null, false);
 	}
 
 	public String getName() {
@@ -52,12 +53,17 @@ public class User extends IdentifiableEntity<Integer> {
 		this.name = name;
 	}
 
-	public void setPassword(String password, String oldPassword) {
+	public final void setPassword(String password, String oldPassword) {
+		setPassword(password, oldPassword, true);
+	}
+
+	public void setPassword(String password, String oldPassword,
+			boolean checkOld) {
 		if (password == null || password.isEmpty())
 			throw new IllegalArgumentException(
 					"The new password cannot be empty");
 		Md5PasswordEncoder enc = new Md5PasswordEncoder();
-		if (!enc.isPasswordValid(this.password, oldPassword, null))
+		if (checkOld && !enc.isPasswordValid(this.password, oldPassword, null))
 			throw new IllegalArgumentException("The old password is not valid");
 		this.password = enc.encodePassword(password, null);
 	}

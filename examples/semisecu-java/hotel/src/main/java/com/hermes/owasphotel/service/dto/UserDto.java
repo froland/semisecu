@@ -68,14 +68,18 @@ public class UserDto extends GenericDto<Integer, User> {
 
 	@Override
 	public void update(User domain) {
-		if (oldPassword != null && !oldPassword.isEmpty()) {
-			domain.setPassword(password, oldPassword);
-		}
 		copyProperties(this, domain, "id", "password");
 	}
 
+	public void updatePassword(User domain, boolean asAdmin) {
+		String field = asAdmin ? password : oldPassword;
+		if (field != null && !field.isEmpty()) {
+			domain.setPassword(password, oldPassword, !asAdmin);
+		}
+	}
+
 	public User makeNew() {
-		User u = new User(name);
+		User u = new User(name, password);
 		update(u);
 		return u;
 	}

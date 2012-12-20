@@ -32,10 +32,12 @@
 				</div>
 				
 				<div class="control-group">
+					<sec:authorize access="!hasRole('admin') and ${not empty user.id}">
 					<label class="control-label" for="oldPassword">Old password</label>
 					<div class="controls">
 						<form:password path="oldPassword" id="oldPassword" />
 					</div>
+					</sec:authorize>
 					<label class="control-label" for="userPassword">Password</label>
 					<div class="controls">
 						<form:password path="password" id="userPassword" />
