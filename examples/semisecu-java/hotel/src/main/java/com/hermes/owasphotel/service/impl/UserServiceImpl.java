@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.User;
-import com.hermes.owasphotel.service.UserDto;
 import com.hermes.owasphotel.service.UserService;
+import com.hermes.owasphotel.service.dto.UserDto;
 
 @Service
 @Transactional

@@ -3,6 +3,8 @@ package com.hermes.owasphotel.service;
 import java.util.List;
 
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.service.dto.HotelDto;
+import com.hermes.owasphotel.service.dto.HotelListItemDto;
 
 /**
  * Service: Hotel

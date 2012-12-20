@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hermes.owasphotel.domain.User;
-import com.hermes.owasphotel.service.UserDto;
 import com.hermes.owasphotel.service.UserService;
+import com.hermes.owasphotel.service.dto.UserDto;
 
 /**
  * Controller for users.

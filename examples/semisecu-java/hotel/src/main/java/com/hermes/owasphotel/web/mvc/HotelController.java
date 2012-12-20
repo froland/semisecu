@@ -34,10 +34,10 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
-import com.hermes.owasphotel.service.HotelDto;
-import com.hermes.owasphotel.service.HotelListItemDto;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
+import com.hermes.owasphotel.service.dto.HotelDto;
+import com.hermes.owasphotel.service.dto.HotelListItemDto;
 
 /**
  * Controller for hotels.

@@ -3,6 +3,7 @@ package com.hermes.owasphotel.service;
 import java.util.List;
 
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.dto.UserDto;
 
 public interface UserService {
 

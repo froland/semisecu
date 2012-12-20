@@ -1,17 +1,17 @@
-package com.hermes.owasphotel.service;
+package com.hermes.owasphotel.service.dto;
 
 import com.hermes.owasphotel.domain.Hotel;
 
 public class HotelListItemDto extends GenericDto<Integer, Hotel> {
-	
-	private String hotelName;
-	
-	private Long nbComments;
-	
-	private Double note;
-	
 
-	public HotelListItemDto(String hotelName, Long nbComments, Double note, Integer id) {
+	private String hotelName;
+
+	private Long nbComments;
+
+	private Double note;
+
+	public HotelListItemDto(String hotelName, Long nbComments, Double note,
+			Integer id) {
 		super();
 		this.hotelName = hotelName;
 		this.nbComments = nbComments;
@@ -42,5 +42,5 @@ public class HotelListItemDto extends GenericDto<Integer, Hotel> {
 	public void setNote(Double note) {
 		this.note = note;
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package com.hermes.owasphotel.service;
+package com.hermes.owasphotel.service.dto;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;

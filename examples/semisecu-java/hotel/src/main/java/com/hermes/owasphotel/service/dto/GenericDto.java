@@ -1,4 +1,4 @@
-package com.hermes.owasphotel.service;
+package com.hermes.owasphotel.service.dto;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;
