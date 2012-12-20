@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +65,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(UserDto dto) {
 		User u = userDao.find(dto.getId());
+		String oldName = u.getName();
 		dto.update(u);
+		if (!oldName.equals(u.getName())) {
+			// re-authentify the user
+			SecurityContext ctx = SecurityContextHolder.getContext();
+			Authentication auth = ctx.getAuthentication();
+			ctx.setAuthentication(new UsernamePasswordAuthenticationToken(dto
+					.getName(), auth.getCredentials(), auth.getAuthorities()));
+		}
 		return u;
 	}
 

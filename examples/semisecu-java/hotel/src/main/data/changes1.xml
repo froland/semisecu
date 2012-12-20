@@ -13,7 +13,7 @@
 			<column name="NAME" type="VARCHAR2(50)">
 				<constraints unique="true" nullable="false" />
 			</column>
-			<column name="PASSWORD" type="VARCHAR2(50)" />
+			<column name="PASSWORD" type="VARCHAR2(32)" />
 			<column name="EMAIL" type="VARCHAR2(50)" />
 		</createTable>
 		<createSequence sequenceName="USERS_SEQ" />
@@ -31,7 +31,8 @@
 		<insert tableName="USERS">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
 			<column name="NAME">admin</column>
-			<column name="PASSWORD">admin</column>
+			<!-- Pass: admin -->
+			<column name="PASSWORD">21232f297a57a5a743894a0e4a801fc3</column>
 			<column name="EMAIL">admin@localhost</column>
 		</insert>
 		<insert tableName="ROLES">
@@ -45,7 +46,8 @@
 		<insert tableName="USERS">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
 			<column name="NAME">k</column>
-			<column name="PASSWORD">123456</column>
+			<!-- Pass: 123456 -->
+			<column name="PASSWORD">e10adc3949ba59abbe56e057f20f883e</column>
 			<column name="EMAIL">k@hermes-ecs.com</column>
 		</insert>
 		<insert tableName="ROLES">
@@ -55,7 +57,7 @@
 		<insert tableName="USERS">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
 			<column name="NAME">v</column>
-			<column name="PASSWORD">123456</column>
+			<column name="PASSWORD">e10adc3949ba59abbe56e057f20f883e</column>
 			<column name="EMAIL">v@hermes-ecs.com</column>
 		</insert>
 		<insert tableName="ROLES">

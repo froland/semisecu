@@ -81,7 +81,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{name}")
-	@PreAuthorize("hasRole('admin') or #name == principal.username")
+	@PreAuthorize("hasRole('admin') or #name == authentication.name")
 	public String viewUser(Model model, @PathVariable String name) {
 		User user = userService.find(name);
 		if (user == null)
@@ -132,8 +132,13 @@ public class UserController {
 			return "user/update";
 		}
 		checkEditProfile(userService.find(id), auth);
-		User user = userService.update(dto);
-		return redirectTo(user);
+		try {
+			User user = userService.update(dto);
+			return redirectTo(user);
+		} catch (IllegalArgumentException e) {
+			binding.addError(new ObjectError("User", e.getMessage()));
+			return "user/update";
+		}
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "enable/{id}")

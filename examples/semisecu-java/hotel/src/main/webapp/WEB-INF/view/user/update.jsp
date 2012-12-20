@@ -27,29 +27,29 @@
  				<div class="control-group">
 					<label class="control-label" for="userName">Name</label>
 					<div class="controls">
-						<form:input path="name" id="userName" value="${user.name}"/>
+						<form:input path="name" id="userName" value="${user.name}" />
 					</div>
 				</div>
 				
 				<div class="control-group">
+					<label class="control-label" for="oldPassword">Old password</label>
+					<div class="controls">
+						<form:password path="oldPassword" id="oldPassword" />
+					</div>
 					<label class="control-label" for="userPassword">Password</label>
 					<div class="controls">
-						<form:password path="password" id="userPassword"/>
+						<form:password path="password" id="userPassword" />
 					</div>
-				</div>
-				
-				
-				<div class="control-group">
 					<label class="control-label" for="userRetypedPassword">Re-type your Password</label>
 					<div class="controls">
-						<form:password path="retypedPassword" id="userPassword"/>
+						<form:password path="retypedPassword" id="userPassword" />
 					</div>
 				</div>
 				
 				<div class="control-group">
 					<label class="control-label" for="userEmail">Email</label>
 					<div class="controls">
-						<form:input path="email" id="userEmail" value="${user.email}"/>
+						<form:input path="email" id="userEmail" value="${user.email}" />
 					</div>
 				</div>
 				

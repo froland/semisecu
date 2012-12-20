@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+
 import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
 @Entity
@@ -50,12 +52,14 @@ public class User extends IdentifiableEntity<Integer> {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String password, String oldPassword) {
+		if (password == null || password.isEmpty())
+			throw new IllegalArgumentException(
+					"The new password cannot be empty");
+		Md5PasswordEncoder enc = new Md5PasswordEncoder();
+		if (!enc.isPasswordValid(this.password, oldPassword, null))
+			throw new IllegalArgumentException("The old password is not valid");
+		this.password = enc.encodePassword(password, null);
 	}
 
 	public String getEmail() {
@@ -90,4 +94,5 @@ public class User extends IdentifiableEntity<Integer> {
 	public List<String> getRoles() {
 		return new ArrayList<String>(roles);
 	}
+
 }

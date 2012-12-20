@@ -1,7 +1,6 @@
 package com.hermes.owasphotel.service.dto;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
 
@@ -13,9 +12,8 @@ public class UserDto extends GenericDto<Integer, User> {
 	@NotBlank(message = "Your name may not be blank")
 	private String name;
 
-	@Length(min = 5, message = "Your password must have at least 5 character")
+	private String oldPassword;
 	private String password;
-
 	private String retypedPassword;
 
 	@Email(message = "You must enter a valid e-mail")
@@ -27,6 +25,14 @@ public class UserDto extends GenericDto<Integer, User> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
 
 	public String getPassword() {
@@ -58,6 +64,14 @@ public class UserDto extends GenericDto<Integer, User> {
 		this.setId(u.getId());
 		this.email = u.getEmail();
 		this.name = u.getName();
+	}
+
+	@Override
+	public void update(User domain) {
+		if (oldPassword != null && !oldPassword.isEmpty()) {
+			domain.setPassword(password, oldPassword);
+		}
+		copyProperties(this, domain, "id", "password");
 	}
 
 	public User makeNew() {

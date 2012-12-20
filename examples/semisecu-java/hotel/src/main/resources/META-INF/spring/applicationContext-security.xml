@@ -24,8 +24,8 @@
 	<!-- Configure Authentication mechanism -->
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider>
-			<password-encoder base64="false" hash="plaintext" />
-			<!-- <password-encoder hash="sha-256" /> -->
+			<!-- <password-encoder base64="false" hash="plaintext" /> -->
+			<password-encoder hash="md5" />
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="select name, password, enabled from users where name=?"
 				authorities-by-username-query="select u.name, r.name from users u, roles r where u.id=r.userid and u.name=?" />

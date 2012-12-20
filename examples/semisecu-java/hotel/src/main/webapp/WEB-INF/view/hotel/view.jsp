@@ -46,7 +46,7 @@
 			</div>
 		</div>
 			<sec:authorize
-			access="hasRole('admin') or ${hotel.manager.name == pageContext['request'].userPrincipal.name }">
+			access="hasRole('admin') or (isAuthenticated() and ${hotel.manager.name == pageContext['request'].userPrincipal.name })">
 			<div class="row">
 			<div class="span10 offset1">
 				<a class="btn btn-warning"

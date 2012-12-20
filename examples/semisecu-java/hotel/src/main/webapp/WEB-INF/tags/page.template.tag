@@ -22,9 +22,8 @@
 					<div class="btn-group">
 						<a class="btn btn-primary"
 								href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>"><i
-								class="icon-user icon-white"></i> <sec:authentication
-									property="principal.username" /></a> <a
-								class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+								class="icon-user icon-white"></i> <sec:authentication property="name" /></a>
+						<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
 								href="#"><span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a
