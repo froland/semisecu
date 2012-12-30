@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,8 @@ import com.hermes.owasphotel.service.dto.HotelListItemDto;
 @Service
 @Transactional
 public class HotelServiceImpl implements HotelService {
-	static final Logger log = Logger.getLogger(HotelServiceImpl.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(HotelServiceImpl.class);
 
 	@Autowired
 	private HotelDao hotelDao;
@@ -148,6 +150,7 @@ public class HotelServiceImpl implements HotelService {
 	public void approve(Hotel h) {
 		h.approveHotel();
 		hotelDao.save(h);
+		logger.info("Hotel approved: " + h);
 	}
 
 	@Override
@@ -189,7 +192,9 @@ public class HotelServiceImpl implements HotelService {
 		}
 
 		// mark as deleted
-		comment.delete();
+		if (comment != null) {
+			comment.delete();
+		}
 	}
 
 	@Override
