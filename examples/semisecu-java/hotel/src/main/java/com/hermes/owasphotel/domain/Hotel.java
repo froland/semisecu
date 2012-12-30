@@ -70,6 +70,8 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	}
 
 	public void setHotelName(String hotelName) {
+		if (hotelName == null || hotelName.isEmpty())
+			throw new IllegalArgumentException("Empty name");
 		this.hotelName = hotelName;
 	}
 

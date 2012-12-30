@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
 import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
@@ -21,8 +22,8 @@ import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 @SequenceGenerator(name = "id_seq", sequenceName = "USERS_SEQ")
 public class User extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
-	private static final String ROLE_USER = "user";
-	private static final String ROLE_ADMIN = "admin";
+	public static final String ROLE_USER = "user";
+	public static final String ROLE_ADMIN = "admin";
 
 	@Column(unique = true)
 	private String name;
@@ -50,7 +51,22 @@ public class User extends IdentifiableEntity<Integer> {
 	}
 
 	public void setName(String name) {
+		if (name == null || name.isEmpty())
+			throw new IllegalArgumentException("Empty name");
 		this.name = name;
+	}
+
+	protected MessageDigestPasswordEncoder getPasswordEncoder() {
+		return new Md5PasswordEncoder();
+	}
+
+	protected Object getSalt() {
+		return null;
+	}
+
+	public boolean checkPassword(String password) {
+		return getPasswordEncoder().isPasswordValid(this.password, password,
+				getSalt());
 	}
 
 	public final void setPassword(String password, String oldPassword) {
@@ -62,8 +78,9 @@ public class User extends IdentifiableEntity<Integer> {
 		if (password == null || password.isEmpty())
 			throw new IllegalArgumentException(
 					"The new password cannot be empty");
-		Md5PasswordEncoder enc = new Md5PasswordEncoder();
-		if (checkOld && !enc.isPasswordValid(this.password, oldPassword, null))
+		MessageDigestPasswordEncoder enc = getPasswordEncoder();
+		if (checkOld
+				&& !enc.isPasswordValid(this.password, oldPassword, getSalt()))
 			throw new IllegalArgumentException("The old password is not valid");
 		this.password = enc.encodePassword(password, null);
 	}
