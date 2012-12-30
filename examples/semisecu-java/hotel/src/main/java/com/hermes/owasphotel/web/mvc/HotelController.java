@@ -276,7 +276,8 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "image/default", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
 	public byte[] getHotelDefaultImage() throws IOException {
-		ClassPathResource res = new ClassPathResource("/img/defaultHotel.png");
+		ClassPathResource res = new ClassPathResource(
+				"/META-INF/img/defaultHotel.png");
 		InputStream in = res.getInputStream();
 		byte[] img = IOUtils.toByteArray(in);
 		IOUtils.closeQuietly(in);
