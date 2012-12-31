@@ -11,6 +11,11 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.hermes.owasphotel.dao" />
 
+	<bean id="liquibaseChangeLog" class="java.lang.String"
+		factory-method="valueOf">
+		<constructor-arg value="data/changelog.xml" />
+	</bean>
+
 	<!-- Data source -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">

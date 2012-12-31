@@ -13,8 +13,6 @@ public interface UserService {
 
 	public List<User> findAll();
 
-	public boolean isUsed(String name);
-
 	public User save(User u);
 
 	public User update(UserDto dto, boolean asAdmin);

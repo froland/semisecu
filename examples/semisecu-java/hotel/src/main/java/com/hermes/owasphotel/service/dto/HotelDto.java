@@ -1,5 +1,7 @@
 package com.hermes.owasphotel.service.dto;
 
+import java.util.Set;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -125,7 +127,7 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 
 	@Override
 	public void update(Hotel h) {
-		copyProperties(this, h, "id", "manager", "file", "deleteFile");
+		super.update(h);
 		if (deleteFile) {
 			h.setImage(null);
 		} else if (file != null && file.getSize() > 0) {
@@ -136,8 +138,19 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 
 	@Override
 	public void read(Hotel domain) {
-		copyProperties(domain, this, "manager");
+		super.read(domain);
 		manager = domain.getManager().getName();
+	}
+
+	@Override
+	protected Set<String> ignoredFields(boolean update) {
+		Set<String> s = super.ignoredFields(update);
+		if (update) {
+			s.add("file");
+			s.add("deleteFile");
+		}
+		s.add("manager");
+		return s;
 	}
 
 	public Hotel makeNew(User user) {

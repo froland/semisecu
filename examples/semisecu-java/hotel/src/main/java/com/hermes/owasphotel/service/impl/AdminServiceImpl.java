@@ -1,7 +1,6 @@
 package com.hermes.owasphotel.service.impl;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,21 +26,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private Dumper dumper;
-
-	@Override
-	public String getDumpString(String tableName) {
-		StringWriter s = new StringWriter();
-		try {
-			dumper.dump(tableName, null, s);
-		} catch (DataAccessException e) {
-			logger.error("Dump failed", e);
-		} catch (IOException e) {
-			logger.error("Dump failed", e);
-		} catch (SQLException e) {
-			logger.error("Dump failed", e);
-		}
-		return s.toString();
-	}
 
 	@Override
 	public void dumpToWriter(String tableName, String[] columns, Writer w)

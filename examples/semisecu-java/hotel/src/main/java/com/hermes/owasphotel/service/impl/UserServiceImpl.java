@@ -53,11 +53,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean isUsed(String name) {
-		return find(name) != null;
-	}
-
-	@Override
 	public User save(User u) {
 		return userDao.save(u);
 	}
@@ -65,6 +60,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(UserDto dto, boolean asAdmin) {
 		User u = userDao.find(dto.getId());
+		if (u == null)
+			return null;
 		String oldName = u.getName();
 		dto.updatePassword(u, asAdmin);
 		dto.update(u);

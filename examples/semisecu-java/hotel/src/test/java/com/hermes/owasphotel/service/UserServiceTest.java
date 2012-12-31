@@ -1,0 +1,99 @@
+package com.hermes.owasphotel.service;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.dto.UserDto;
+
+public class UserServiceTest extends ServiceTestBase {
+	@Autowired
+	private UserService userService;
+
+	@Test
+	public void testFind() {
+		User user = userService.find(1857);
+		assertNull(user);
+
+		user = new User("a", "a");
+		user = userService.save(user);
+		assertNotNull("User not saved", userService.find(user.getId()));
+		assertTrue("User name not returned by getNames()", userService
+				.getNames("").contains("a"));
+		assertFalse("User name returned by getNames() with a bad prefix",
+				userService.getNames("ab").contains("a"));
+	}
+
+	@Test
+	public void testUpdate() {
+		User u = new User("a", "p");
+		u = userService.save(u);
+
+		// create the DTO
+		UserDto user = new UserDto();
+		user.read(u);
+		assertNull("The old password was read from the user",
+				user.getOldPassword());
+		assertNull("The password is shown", user.getPassword());
+
+		// update the e-mail
+		String newEmail = "hello@test.com";
+		user.setEmail(newEmail);
+		u = userService.update(user, false);
+		assertEquals("Failed to update the e-mail", newEmail, u.getEmail());
+		assertTrue("Password updated with e-mail", u.checkPassword("p"));
+	}
+
+	@Test
+	public void testUpdatePassword() {
+		User u = new User("a", "p");
+		u = userService.save(u);
+		UserDto user = new UserDto();
+		user.read(u);
+
+		// update without giving the old password
+		user.setPassword("z");
+		user.setRetypedPassword("z");
+		u = userService.update(user, false);
+		assertTrue("Password updated without giving the old password",
+				u.checkPassword("p"));
+
+		// update
+		user.setOldPassword("p");
+		u = userService.update(user, false);
+		assertFalse("Password not updated", u.checkPassword("p"));
+		assertTrue("New password is not working", u.checkPassword("z"));
+	}
+
+	@Test
+	public void testUpdatePasswordAsAdmin() {
+		User u = new User("a", "p");
+		u = userService.save(u);
+		UserDto user = new UserDto();
+		user.read(u);
+
+		// update without giving the old password (as admin)
+		user.setPassword("z");
+		user.setRetypedPassword("z");
+		u = userService.update(user, true);
+		assertTrue("New password is not working", u.checkPassword("z"));
+	}
+
+	@Test
+	public void testEnable() {
+		User u = new User("a", "p");
+		u = userService.save(u);
+		final Integer id = u.getId();
+
+		u = userService.enableUser(id, false);
+		assertFalse(u.isEnabled());
+		u = userService.enableUser(id, true);
+		assertTrue(u.isEnabled());
+	}
+}

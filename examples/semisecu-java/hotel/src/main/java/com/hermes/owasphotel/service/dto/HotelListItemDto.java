@@ -1,21 +1,22 @@
 package com.hermes.owasphotel.service.dto;
 
-import com.hermes.owasphotel.domain.Hotel;
+public class HotelListItemDto {
 
-public class HotelListItemDto extends GenericDto<Integer, Hotel> {
-
+	private Integer id;
 	private String hotelName;
-
 	private int nbComments;
-
 	private Double note;
 
 	public HotelListItemDto(String hotelName, int nbComments, Double note,
 			Integer id) {
+		this.id = id;
 		this.hotelName = hotelName;
 		this.nbComments = nbComments;
 		this.note = note;
-		this.setId(id);
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 	public String getHotelName() {

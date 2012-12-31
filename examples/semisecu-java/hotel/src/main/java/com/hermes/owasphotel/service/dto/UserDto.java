@@ -1,5 +1,7 @@
 package com.hermes.owasphotel.service.dto;
 
+import java.util.Set;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.ScriptAssert;
@@ -60,15 +62,12 @@ public class UserDto extends GenericDto<Integer, User> {
 	}
 
 	@Override
-	public void read(User u) {
-		this.setId(u.getId());
-		this.email = u.getEmail();
-		this.name = u.getName();
-	}
-
-	@Override
-	public void update(User domain) {
-		copyProperties(this, domain, "id", "password");
+	protected Set<String> ignoredFields(boolean update) {
+		Set<String> s = super.ignoredFields(update);
+		s.add("password");
+		s.add("oldPassword");
+		s.add("retypedPassword");
+		return s;
 	}
 
 	public void updatePassword(User domain, boolean asAdmin) {

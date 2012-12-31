@@ -5,14 +5,11 @@ import static org.junit.Assert.assertNull;
 import javax.persistence.PersistenceException;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hermes.owasphotel.dao.base.SimpleDao;
 import com.hermes.owasphotel.domain.User;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class UserDaoTest extends SimpleDaoTestBase<Integer, User> {
 	@Autowired
 	private UserDao userDao;

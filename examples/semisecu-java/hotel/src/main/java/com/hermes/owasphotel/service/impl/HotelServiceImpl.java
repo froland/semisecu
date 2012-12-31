@@ -60,13 +60,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<Hotel> findAll() {
-		return hotelDao.findAll();
-	}
-
-	@Override
 	public List<HotelListItemDto> listAll() {
-		return itemize(findAll());
+		return itemize(hotelDao.findAll());
 	}
 
 	private List<HotelListItemDto> itemize(List<Hotel> lh) {
@@ -81,13 +76,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<Hotel> findApproved() {
-		return hotelDao.findApprovedHotels(true);
-	}
-
-	@Override
 	public List<HotelListItemDto> listApproved() {
-		return itemize(findApproved());
+		return itemize(hotelDao.findApprovedHotels(true));
 	}
 
 	@Override
@@ -96,13 +86,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<Hotel> findTopNoted(int count) {
-		return hotelDao.findTopNotedHotels(count);
-	}
-
-	@Override
 	public List<HotelListItemDto> listTopNoted(int count) {
-		return itemize(findTopNoted(count));
+		return itemize(hotelDao.findTopNotedHotels(count));
 	}
 
 	@Override
@@ -134,22 +119,29 @@ public class HotelServiceImpl implements HotelService {
 	public Hotel update(Integer hotelId, HotelDto data) {
 		Hotel h = hotelDao.find(hotelId);
 		if (h == null)
-			return null;
+			throw new IllegalArgumentException("Hotel does not exist: id="
+					+ hotelId);
 		// update the data
 		data.update(h);
+		logger.info("Hotel updated: " + h);
 		// update the manager
 		User manager = userDao.find(data.getManager());
 		if (manager != null) {
 			h.setManager(manager);
+			logger.info("Hotel manager updated");
 		}
 		return h;
 	}
 
 	@Override
-	public void approve(Hotel h) {
+	public Hotel approve(Integer hotelId) {
+		Hotel h = hotelDao.find(hotelId);
+		if (h == null)
+			throw new IllegalArgumentException("Hotel does not exist: id="
+					+ hotelId);
 		h.approveHotel();
-		hotelDao.save(h);
 		logger.info("Hotel approved: " + h);
+		return h;
 	}
 
 	@Override

@@ -19,22 +19,16 @@ public interface HotelService {
 
 	public void delete(Hotel h);
 
-	public List<Hotel> findAll();
-
-	public List<Hotel> findApproved();
-
-	public List<Hotel> findTopNoted(int count);
-
 	public Hotel findByName(String search);
 
 	public List<String> findForAutoComplete(String query);
 
-	public void approve(Hotel h);
+	public Hotel approve(Integer hotelId);
 
 	public void addComment(Integer hotelId, String name,
 			boolean authentifiedUser, int note, String text);
 
-	public void deleteComment(Integer hotelId, int comment);
+	public void deleteComment(Integer hotelId, int commentSeq);
 
 	public Hotel update(Integer hotelId, HotelDto data);
 

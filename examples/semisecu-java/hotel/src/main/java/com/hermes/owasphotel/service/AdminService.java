@@ -6,9 +6,8 @@ import java.util.List;
 
 public interface AdminService {
 
-	public String getDumpString(String tableName);
-
-	public void dumpToWriter(String tableName, String[] columns, Writer w) throws IOException;
+	public void dumpToWriter(String tableName, String[] columns, Writer w)
+			throws IOException;
 
 	public List<String> listTables();
 

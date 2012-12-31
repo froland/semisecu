@@ -258,7 +258,7 @@ public class HotelController {
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/approve")
 	@PreAuthorize("hasRole('admin')")
 	public String approveHotel(@PathVariable("id") Integer hotelId) {
-		hotelService.approve(hotelService.find(hotelId));
+		hotelService.approve(hotelId);
 		return redirectTo(hotelId);
 	}
 
