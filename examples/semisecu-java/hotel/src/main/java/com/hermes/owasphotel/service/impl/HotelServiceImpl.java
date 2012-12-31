@@ -73,11 +73,10 @@ public class HotelServiceImpl implements HotelService {
 		List<HotelListItemDto> result = new LinkedList<HotelListItemDto>();
 		for (Hotel hotel : lh) {
 			hotelDao.computeNote(hotel);
-			result.add(new HotelListItemDto(hotel.getHotelName(), hotelDao
-					.countComments(hotel), hotel.getAverageNote(), hotel
+			result.add(new HotelListItemDto(hotel.getHotelName(), hotel
+					.getNbComments(false), hotel.getAverageNote(), hotel
 					.getId()));
 		}
-
 		return result;
 	}
 

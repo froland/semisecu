@@ -56,7 +56,7 @@
 		<property name="persistenceUnitName" value="persistenceUnit" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="${database.showSql}" />
+				<property name="showSql" value="false" />
 			</bean>
 		</property>
 	</bean>

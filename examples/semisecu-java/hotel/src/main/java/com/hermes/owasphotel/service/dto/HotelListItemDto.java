@@ -6,13 +6,12 @@ public class HotelListItemDto extends GenericDto<Integer, Hotel> {
 
 	private String hotelName;
 
-	private Long nbComments;
+	private int nbComments;
 
 	private Double note;
 
-	public HotelListItemDto(String hotelName, Long nbComments, Double note,
+	public HotelListItemDto(String hotelName, int nbComments, Double note,
 			Integer id) {
-		super();
 		this.hotelName = hotelName;
 		this.nbComments = nbComments;
 		this.note = note;
@@ -27,11 +26,11 @@ public class HotelListItemDto extends GenericDto<Integer, Hotel> {
 		this.hotelName = hotelName;
 	}
 
-	public Long getNbComments() {
+	public int getNbComments() {
 		return nbComments;
 	}
 
-	public void setNbComments(Long nbComments) {
+	public void setNbComments(int nbComments) {
 		this.nbComments = nbComments;
 	}
 

@@ -42,14 +42,6 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	}
 
 	@Override
-	public Long countComments(Hotel h) {
-		return em
-				.createQuery(
-						"select count(*) from Comment n where n.hotel = :hotel and n.deleted = 0",
-						Long.class).setParameter("hotel", h).getSingleResult();
-	}
-
-	@Override
 	public List<Hotel> findTopNotedHotels(int count) {
 		return em
 				.createQuery(

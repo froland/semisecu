@@ -22,7 +22,7 @@ public class Comment {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "hotelid")
+	@JoinColumn(name = "hotelid", nullable = false)
 	private Hotel hotel;
 	@Id
 	@Column(name = "seq")
@@ -38,7 +38,7 @@ public class Comment {
 	private String text;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userid")
+	@JoinColumn(name = "userid", nullable = true)
 	private User user;
 	private String userName;
 	private int deleted = 0;

@@ -49,8 +49,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	@JoinColumn(name = "createdBy")
 	private User manager;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "hotelid")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
 	@OrderBy("sequence")
 	private List<Comment> comments = new ArrayList<Comment>();
 
