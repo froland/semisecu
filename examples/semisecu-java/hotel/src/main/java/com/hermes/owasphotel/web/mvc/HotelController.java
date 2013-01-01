@@ -88,19 +88,7 @@ public class HotelController {
 
 	private <E> PagedListHolder<E> setPagedList(Model model, String name,
 			List<E> list) {
-		PagedListHolder<E> paged = new PagedListHolder<E>(list);
-		paged.setPageSize(PAGE_COUNT);
-		String page = request.getParameter("page");
-		if (page != null) {
-			try {
-				paged.setPage(Integer.parseInt(page));
-			} catch (IllegalArgumentException e) {
-				// ignore parsing error
-			}
-		}
-		model.addAttribute(name, paged.getPageList());
-		model.addAttribute("pagedListHolder", paged);
-		return paged;
+		return Utils.setPagedList(request, model, name, list, PAGE_COUNT);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

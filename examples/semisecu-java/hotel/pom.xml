@@ -81,13 +81,6 @@
 						<targetPath>../data</targetPath>
 					</resource>
 				</resources>
-				<testResources>
-					<testResource>
-						<directory>src/main/data</directory>
-						<filtering>true</filtering>
-						<targetPath>data</targetPath>
-					</testResource>
-				</testResources>
 			</build>
 		</profile>
 	</profiles>
@@ -114,6 +107,11 @@
 			<testResource>
 				<directory>src/test/resources</directory>
 				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<directory>src/main/data</directory>
+				<filtering>true</filtering>
+				<targetPath>data</targetPath>
 			</testResource>
 		</testResources>
 
@@ -188,7 +186,7 @@
 											liquibase-maven-plugin
 										</artifactId>
 										<versionRange>
-											[2.0.5,)
+											[2.0.0,)
 										</versionRange>
 										<goals>
 											<goal>update</goal>
@@ -425,7 +423,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<!-- JEXL (Validation) -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -440,4 +437,5 @@
 			<version>1.9.9</version>
 		</dependency>
 	</dependencies>
+
 </project>

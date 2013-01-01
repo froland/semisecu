@@ -42,6 +42,8 @@ public abstract class IdentifiableEntity<I extends Serializable> implements
 	}
 
 	public final boolean equalsId(Object obj) {
+		if (this == obj)
+			return true;
 		if (this.id != null && getClass().isInstance(obj)) {
 			Object id = ((IdentifiableEntity<?>) obj).getId();
 			return this.id.equals(id);

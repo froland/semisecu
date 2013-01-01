@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,8 @@ public class AdminController {
 			adminService.dumpToWriter(tableName, columns, response.getWriter());
 		} catch (DataAccessException e) {
 			try {
-				response.sendError(404, "Unable to fetch data");
+				response.sendError(HttpStatus.NOT_FOUND.value(),
+						"Unable to fetch data");
 			} catch (IOException e1) {
 				e.printStackTrace();
 			}
