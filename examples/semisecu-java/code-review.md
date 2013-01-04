@@ -20,3 +20,15 @@
   * testFindByName(), même commentaire que dans HotelDaoTest.
   * Dans testDuplicateUserName(), ne faut-il pas appeler la méthode flush() sur l'entity manager ?
 
+---
+
+* HotelTest
+  * setAverageNote() ne devrait pas exister. Il s'agit d'un résultat de calcul.
+  * Pour l'usage qui en est fait ici, je renommerais addComment en createComment avec tous les éléments obligatoires en paramètres.
+* UserTest
+  * testCreate() teste trop de choses en même temps.
+  * User.setEnabled() devrait être changé en enable() et disable() qui sont plus explicites.
+
+* ServiceTestBase et ControllerTestBase
+  * Il n'y a pas de raison de faire intervenir Spring ou la DB dans les tests sur les services ou la couche de présentation. Je ferai le code review quand ils seront modifiés.
+
