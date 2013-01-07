@@ -37,6 +37,8 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 			return;
 		assertNotNull("No found object", found);
 		assertEquals("Not same ID", expected.getId().equals(found.getId()));
+		assertTrue(expected.hashCode()==found.hashCode());
+		assertTrue(expected.equals(found));
 	}
 
 	protected abstract SimpleDao<I, T> getDao();

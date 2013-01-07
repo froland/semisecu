@@ -45,7 +45,7 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	@Override
 	public Hotel getByName(String search) {
 		List<Hotel> list = em
-				.createQuery("from Hotel h where lower(h.hotelName) = :t",
+				.createQuery("from Hotel h where lower(h.name) = :t",
 						Hotel.class).setParameter("t", search.toLowerCase())
 				.getResultList();
 		return list.size() == 1 ? list.get(0) : null;
@@ -61,7 +61,7 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 		}
 		// build the query
 		TypedQuery<Hotel> query = em.createQuery(
-				"select h from Hotel h where lower(h.hotelName) like :t",
+				"select h from Hotel h where lower(h.name) like :t",
 				Hotel.class).setParameter("t", like);
 		if (maxResults > 0)
 			query = query.setMaxResults(maxResults);

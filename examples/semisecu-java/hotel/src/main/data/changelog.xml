@@ -11,5 +11,5 @@
 	<include file="changes-hotelDescription.xml"
 		relativeToChangelogFile="true" />
 	<include file="changes-comments.xml" relativeToChangelogFile="true" />
-
+	<include file="changes-HotelUnicity.xml" relativeToChangelogFile="true" />
 </databaseChangeLog>

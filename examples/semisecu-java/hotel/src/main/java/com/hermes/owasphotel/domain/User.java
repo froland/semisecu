@@ -118,7 +118,7 @@ public class User extends IdentifiableEntity<Integer> {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof User))
+		if (obj == null || !(obj instanceof User))
 			return false;
 		return getName().equals(((User) obj).getName());
 	}

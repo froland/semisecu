@@ -189,10 +189,28 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Hotel))
+		if (obj == null || !(obj instanceof Hotel))
 			return false;
 		Hotel other = (Hotel) obj;
-		return (other.getCity().equals(this.getCity()) && other.getName().equals(this.getName()) && other.getCountry().equals(this.getCountry()));
+		boolean toReturn = true;
+		
+		if(other.getCity() == null || getCity() == null)
+			toReturn &= (other.getCity() == null && getCity() == null);
+		else
+			toReturn &= other.getCity().equals(this.getCity());
+		
+		if(other.getName() == null || getName() == null)
+			toReturn &= (other.getName() == null && getName() == null);
+		else
+			toReturn &= other.getName().equals(this.getName());		
+
+		if(other.getCountry() == null || getCountry() == null)
+			toReturn &= (other.getCountry() == null && getCountry() == null);
+		else
+			toReturn &= other.getCountry().equals(this.getCountry());
+		
+			
+		return toReturn;
 	}
 	
 	@Override
