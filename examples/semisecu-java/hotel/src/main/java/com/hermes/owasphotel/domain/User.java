@@ -115,5 +115,17 @@ public class User extends IdentifiableEntity<Integer> {
 	public List<String> getRoles() {
 		return new ArrayList<String>(roles);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof User))
+			return false;
+		return getName().equals(((User) obj).getName());
+	}
+	
+	@Override
+	public int hashCode() {
+		return getName().hashCode();
+	}
 
 }
