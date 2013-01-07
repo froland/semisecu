@@ -64,7 +64,7 @@ public class HotelServiceTest extends ServiceTestBase {
 		hotelService.save(h);
 		assertNotNull("Not saved", h.getId());
 		h = hotelService.getById(h.getId());
-		assertEquals("Invalid name", "tested", h.getHotelName());
+		assertEquals("Invalid name", "tested", h.getName());
 	}
 
 	@Test

@@ -42,7 +42,7 @@ public class HotelForm {
 
 	public HotelForm(Hotel hotel) {
 		id = hotel.getId();
-		hotelName = hotel.getHotelName();
+		hotelName = hotel.getName();
 
 		address = hotel.getAddress();
 		city = hotel.getCity();
@@ -57,7 +57,7 @@ public class HotelForm {
 	}
 
 	public void update(Hotel h, UserService userService) {
-		h.setHotelName(hotelName);
+		h.setName(hotelName);
 		h.setAddress(address);
 		h.setCity(city);
 		h.setCountry(country);

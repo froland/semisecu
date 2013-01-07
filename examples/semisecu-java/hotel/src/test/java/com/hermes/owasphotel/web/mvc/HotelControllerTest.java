@@ -106,11 +106,12 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 			ReflectionTestUtils.setField(h, "id", 1);
 			assert h.getId() != null : "h.id not set";
 			Mockito.when(service.getById(h.getId())).thenReturn(h);
-			Mockito.when(service.getByName(h.getHotelName())).thenReturn(h);
+			Mockito.when(service.getByName(h.getName())).thenReturn(h);
 			// TODO
 //			Mockito.when(
 //					service.update(Mockito.eq(h.getId()),
 //							Mockito.any(HotelForm.class))).thenReturn(h);
+
 			return service;
 		}
 

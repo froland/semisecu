@@ -8,7 +8,7 @@ public class HotelTest {
 	public void testCreate() {
 		User manager = new User("a", "a");
 		Hotel h = new Hotel("h", manager);
-		assertEquals("h", h.getHotelName());
+		assertEquals("h", h.getName());
 		assertSame(manager, h.getManager());
 	}
 
@@ -67,15 +67,5 @@ public class HotelTest {
 		c1.delete();
 		assertEquals(2, h.getNbComments(true));
 		assertEquals(1, h.getNbComments(false));
-	}
-
-	@Test
-	public void testAverageNote() {
-		Hotel h = new Hotel("h", new User("a", "a"));
-		assertNull(h.getAverageNote());
-		Double note = 8d;
-		h.setAverageNote(note);
-		assertSame(note, h.getAverageNote());
-		h.setAverageNote(null);
 	}
 }

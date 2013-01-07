@@ -32,6 +32,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	protected Hotel createEntity() {
 		User u = new User("u", "u");
 		userDao.save(u);
+		userDao.flush();
 		Hotel h = new Hotel("h", u);
 		Comment c = h.addComment(null);
 		c.setUserName("me");
@@ -49,12 +50,14 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		multipleHotelsManaged = new ArrayList<Hotel>();
 		multipleManager = new User("some manager", "a");
 		userDao.save(multipleManager);
+		userDao.flush();
 
 		multipleTopNotedHotel = addMultipleHotel("top", multipleManager, 10);
 		addMultipleHotel("h1", multipleManager);
 
 		User other = new User("ben", "ben");
 		userDao.save(other);
+		userDao.flush();
 
 		addMultipleHotel("h2", other, 8);
 		addMultipleHotel("h3", other, 3, 5);
@@ -67,6 +70,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 			h.addComment(null).setNote(note);
 		}
 		hotelDao.save(h);
+		hotelDao.flush();
 		multipleHotels.add(h);
 		if (manager == multipleManager)
 			multipleHotelsManaged.add(h);
@@ -102,9 +106,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		int count = Math.min(3, multipleHotels.size());
 		assertEquals("Invalid number of top hotels", count, top.size());
 		checkEquals(multipleTopNotedHotel, top.get(0));
-		hotelDao.computeNote(multipleTopNotedHotel);
 		for (int i = 1; i < count; i++) {
-			hotelDao.computeNote(top.get(i));
 			assertTrue("Invalid order at index: " + (i - 1) + "-" + i,
 					top.get(i - 1).getAverageNote() > top.get(i)
 							.getAverageNote());
@@ -114,8 +116,9 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	@Test
 	public void testFindByName() {
 		Hotel h = createEntity();
-		h.setHotelName("my hotel");
+		h.setName("my hotel");
 		hotelDao.save(h);
+		hotelDao.flush();
 
 		assertNull(hotelDao.getByName("___xyz"));
 		Hotel found = hotelDao.getByName("my hotel");
@@ -125,8 +128,10 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	@Test
 	public void testFindSearchQuery() {
 		Hotel h = createEntity();
-		h.setHotelName("my hotel");
+		h.setName("my hotel");
 		hotelDao.save(h);
+		hotelDao.flush();
+		
 		List<Hotel> list;
 
 		list = hotelDao.findSearchQuery("hot", true, 2);
@@ -151,8 +156,8 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		}
 		note /= h.getComments().size();
 		hotelDao.save(h);
+		hotelDao.flush();
 
-		hotelDao.computeNote(h);
 		assertEquals(note, h.getAverageNote(), 0.1d);
 	}
 

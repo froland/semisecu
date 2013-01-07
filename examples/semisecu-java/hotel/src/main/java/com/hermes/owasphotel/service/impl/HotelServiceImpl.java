@@ -42,8 +42,6 @@ public class HotelServiceImpl implements HotelService {
 			return null;
 		// load comments
 		h.getComments().size();
-		// set the note
-		hotelDao.computeNote(h);
 
 		return h;
 	}
@@ -66,8 +64,7 @@ public class HotelServiceImpl implements HotelService {
 	private List<HotelListItem> itemize(List<Hotel> lh) {
 		List<HotelListItem> result = new LinkedList<HotelListItem>();
 		for (Hotel hotel : lh) {
-			hotelDao.computeNote(hotel);
-			result.add(new HotelListItem(hotel.getId(), hotel.getHotelName(),
+			result.add(new HotelListItem(hotel.getId(), hotel.getName(),
 					hotel.getNbComments(false), hotel.getAverageNote()));
 		}
 		return result;
@@ -97,7 +94,7 @@ public class HotelServiceImpl implements HotelService {
 	public List<String> findForAutoComplete(String query) {
 		List<String> list = new ArrayList<String>();
 		for (Hotel h : hotelDao.findSearchQuery(query, false, 100)) {
-			list.add(h.getHotelName());
+			list.add(h.getName());
 		}
 		return list;
 	}

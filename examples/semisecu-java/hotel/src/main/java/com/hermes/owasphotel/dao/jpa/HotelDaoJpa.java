@@ -31,15 +31,6 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 		return em.createQuery(query.toString(), Hotel.class).getResultList();
 	}
 
-	@Override
-	public void computeNote(Hotel h) {
-		Double avg = em
-				.createQuery(
-						"select avg(n.note) from Comment n where n.hotel = :hotel and n.deleted = 0",
-						Double.class).setParameter("hotel", h)
-				.getSingleResult();
-		h.setAverageNote(avg);
-	}
 
 	@Override
 	public List<Hotel> findTopNotedHotels(int count) {
