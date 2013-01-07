@@ -133,12 +133,7 @@ public class HotelServiceImpl implements HotelService {
 			user = userDao.find(name);
 		}
 		Hotel hotel = hotelDao.getById(hotelId);
-		Comment c = hotel.addComment(user);
-		if (user == null) {
-			c.setUserName(name);
-		}
-		c.setText(text);
-		c.setNote(note);
+		hotel.createComment(user, note, text);
 	}
 
 	@Override

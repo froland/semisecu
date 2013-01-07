@@ -170,9 +170,15 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		}
 	}
 
-	public Comment addComment(User user) {
-		return new Comment(this, user);
+	public Comment createComment(User user, int note, String text)
+	{
+		Comment c = new Comment(this, user);
+		c.setNote(note);
+		c.setText(text);
+		return c;
 	}
+	
+	
 
 	public Double getAverageNote() {
 		double note = 0.0;

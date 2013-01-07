@@ -39,9 +39,7 @@ public class HotelServiceTest extends ServiceTestBase {
 		b = new Hotel("b", manager);
 		a.approveHotel();
 		b.approveHotel();
-		Comment comment = a.addComment(null);
-		comment.setNote(2);
-		comment.setText("default");
+		a.createComment(null, 2, "default");
 		hotelService.save(a);
 		hotelService.save(b);
 		// another hotel

@@ -12,7 +12,6 @@ import javax.persistence.PersistenceException;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.ExpectedException;
 
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
@@ -35,20 +34,20 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	protected Hotel createEntity() {
 		User u = new User("u", "u");
 		userDao.save(u);
-		userDao.flush();
 		Hotel h = new Hotel("h", u);
-		Comment c = h.addComment(null);
-		c.setUserName("me");
-		c.setNote(1);
+		User me = new User("me", "me");
+		userDao.save(me);
+		userDao.flush();
+		h.createComment(me, 1, "");
 		return h;
 	}
 
-	protected List<Hotel> multipleHotels;
-	protected List<Hotel> multipleHotelsManaged;
+	private List<Hotel> multipleHotels;
+	private List<Hotel> multipleHotelsManaged;
 	private Hotel multipleTopNotedHotel;
-	protected User multipleManager;
+	private User multipleManager;
 
-	protected void initializeMultipleHotels() {
+	private void initializeMultipleHotels() {
 		multipleHotels = new ArrayList<Hotel>();
 		multipleHotelsManaged = new ArrayList<Hotel>();
 		multipleManager = new User("some manager", "a");
@@ -70,7 +69,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		Hotel h = new Hotel(name, manager);
 		h.approveHotel();
 		for (int note : notes) {
-			h.addComment(null).setNote(note);
+			h.createComment(null, note, "");
 		}
 		hotelDao.save(h);
 		hotelDao.flush();
@@ -81,7 +80,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Test
-	public void testFindManaged() {
+	public void findManaged() {
 		initializeMultipleHotels();
 		List<Hotel> managed = hotelDao.findManagedHotels(multipleManager);
 		assertTrue(
@@ -91,7 +90,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Test
-	public void testFindApproved() {
+	public void findApproved() {
 		initializeMultipleHotels();
 		int count = 0;
 		for (Hotel h : hotelDao.findAll()) {
@@ -103,7 +102,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Test
-	public void testFindTopHotels() {
+	public void findTopHotels() {
 		initializeMultipleHotels();
 		List<Hotel> top = hotelDao.findTopNotedHotels(3);
 		int count = Math.min(3, multipleHotels.size());
@@ -117,7 +116,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Test
-	public void testFindByName() {
+	public void findByName() {
 		Hotel h = createEntity();
 		h.setName("my hotel");
 		hotelDao.save(h);
@@ -127,32 +126,57 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		Hotel found = hotelDao.getByName("my hotel");
 		checkEquals(h, found);
 	}
-
-	@Test
-	public void testFindSearchQuery() {
+	
+	private Hotel persistMyHotel()
+	{
 		Hotel h = createEntity();
 		h.setName("my hotel");
 		hotelDao.save(h);
 		hotelDao.flush();
-		
-		List<Hotel> list;
-
-		list = hotelDao.findSearchQuery("hot", true, 2);
-		assertTrue(list.contains(h));
-		list = hotelDao.findSearchQuery("HOT", true, 2);
-		assertTrue("Query should be case-insensitive", list.contains(h));
-		list = hotelDao.findSearchQuery("my", false, 2);
-		assertTrue(list.contains(h));
-		list = hotelDao.findSearchQuery("hot", false, 2);
-		assertFalse(list.contains(h));
+		return h;
 	}
+
+	@Test
+	public void findFullSearchQuery() {
+		Hotel h = persistMyHotel();
+		
+		List<Hotel> list = hotelDao.findSearchQuery("hot", true, 2);
+		assertTrue(list.contains(h));
+	}
+	
+	@Test
+	public void findSearchQueryInsensitive() {
+		Hotel h = persistMyHotel();
+		
+		List<Hotel> list = hotelDao.findSearchQuery("HOT", true, 2);
+		assertTrue("Query should be case-insensitive", list.contains(h));
+	}
+	
+	@Test
+	public void findSearchQuery() {
+		Hotel h = persistMyHotel();
+		
+		List<Hotel> list = hotelDao.findSearchQuery("my", false, 2);
+		assertTrue(list.contains(h));
+				
+	}
+	
+	@Test
+	public void findSearchQueryNoMatch() {
+		Hotel h = persistMyHotel();
+		
+		List<Hotel> list = hotelDao.findSearchQuery("hot", false, 2);
+		assertFalse(list.contains(h));
+				
+	}
+	
 
 	@Test
 	public void testAverageNote() {
 		Hotel h = createEntity();
-		h.addComment(null).setNote(8);
-		h.addComment(null).setNote(3);
-		h.addComment(null).setNote(7);
+		h.createComment(null, 8, "");
+		h.createComment(null, 3, "");
+		h.createComment(null, 7, "");
 		double note = 0;
 		for (Comment c : h.getComments()) {
 			note += c.getNote();
