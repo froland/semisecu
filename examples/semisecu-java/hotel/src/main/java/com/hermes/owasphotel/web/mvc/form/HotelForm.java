@@ -67,7 +67,7 @@ public class HotelForm {
 		h.setDescriptionHTML(descriptionHTML);
 
 		if (userService != null) {
-			h.setManager(userService.find(this.manager));
+			h.setManager(userService.getByName(this.manager));
 		}
 
 		if (deleteFile) {

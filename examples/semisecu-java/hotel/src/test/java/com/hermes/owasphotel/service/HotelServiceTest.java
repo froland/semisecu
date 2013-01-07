@@ -50,7 +50,7 @@ public class HotelServiceTest extends ServiceTestBase {
 
 	@Test
 	public void testFind() {
-		Hotel h = hotelService.find(a.getId());
+		Hotel h = hotelService.getById(a.getId());
 		assertNotNull("Hotel not found (initialization error)", h);
 		assertNotNull("Comments not retrieved", h.getComments());
 		assertNotNull("Average not not computed by find()", h.getAverageNote());
@@ -63,7 +63,7 @@ public class HotelServiceTest extends ServiceTestBase {
 		Hotel h = new Hotel("tested", a);
 		hotelService.save(h);
 		assertNotNull("Not saved", h.getId());
-		h = hotelService.find(h.getId());
+		h = hotelService.getById(h.getId());
 		assertEquals("Invalid name", "tested", h.getName());
 	}
 
@@ -93,10 +93,10 @@ public class HotelServiceTest extends ServiceTestBase {
 
 	@Test
 	public void testAddComment() {
-		hotelService.addComment(a.getId(), "chris", false, 2, "hello world!");
-		hotelService.addComment(a.getId(), manager.getName(), true, 5,
-				"manager word");
-		a = hotelService.find(a.getId());
+		hotelService.addComment(a.getId(), null, 2, "hello world!");
+		hotelService
+				.addComment(a.getId(), manager.getName(), 5, "manager word");
+		a = hotelService.getById(a.getId());
 
 		int found = 0;
 		for (Comment c : a.getComments()) {
@@ -123,7 +123,7 @@ public class HotelServiceTest extends ServiceTestBase {
 		assert size > 0;
 		Comment toDelete = a.getComments().get(0);
 		hotelService.deleteComment(a.getId(), toDelete.getSequence());
-		a = hotelService.find(a.getId());
+		a = hotelService.getById(a.getId());
 		assertEquals("Comment not marked as deleted", size - 1,
 				a.getNbComments(false));
 	}
@@ -137,7 +137,7 @@ public class HotelServiceTest extends ServiceTestBase {
 		Mockito.when(file.getBytes()).thenReturn(imgData);
 		Mockito.when(file.getSize()).thenReturn((long) imgData.length);
 		dto.setFile(file);
-		Hotel h = hotelService.find(a.getId());
+		Hotel h = hotelService.getById(a.getId());
 		dto.update(h, userService);
 		h = hotelService.update(h);
 

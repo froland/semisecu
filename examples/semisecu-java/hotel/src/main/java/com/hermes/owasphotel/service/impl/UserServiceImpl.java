@@ -19,12 +19,12 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public User find(Integer id) {
+	public User getById(Integer id) {
 		return userDao.getById(id);
 	}
 
 	@Override
-	public User find(String name) {
+	public User getByName(String name) {
 		return userDao.find(name);
 	}
 

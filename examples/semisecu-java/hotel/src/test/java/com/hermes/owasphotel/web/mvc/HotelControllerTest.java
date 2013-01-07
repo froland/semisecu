@@ -94,8 +94,8 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 		@Bean
 		public UserService userService() {
 			UserService service = Mockito.mock(UserService.class);
-			Mockito.when(service.find("a")).thenReturn(new User("a", "a"));
-			Mockito.when(service.find(manager.getName())).thenReturn(manager);
+			Mockito.when(service.getByName("a")).thenReturn(new User("a", "a"));
+			Mockito.when(service.getByName(manager.getName())).thenReturn(manager);
 			return service;
 		}
 
@@ -105,8 +105,8 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 			Hotel h = new Hotel("h", manager);
 			ReflectionTestUtils.setField(h, "id", 1);
 			assert h.getId() != null : "h.id not set";
-			Mockito.when(service.find(h.getId())).thenReturn(h);
-			Mockito.when(service.findByName(h.getName())).thenReturn(h);
+			Mockito.when(service.getById(h.getId())).thenReturn(h);
+			Mockito.when(service.getByName(h.getName())).thenReturn(h);
 			// TODO
 //			Mockito.when(
 //					service.update(Mockito.eq(h.getId()),

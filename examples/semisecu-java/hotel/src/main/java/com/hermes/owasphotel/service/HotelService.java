@@ -12,20 +12,19 @@ import com.hermes.owasphotel.domain.HotelListItem;
  */
 public interface HotelService {
 
-	public Hotel find(Integer id);
+	public Hotel getById(Integer id);
 
 	public void save(Hotel h);
 
 	public void delete(Hotel h);
 
-	public Hotel findByName(String search);
+	public Hotel getByName(String search);
 
 	public List<String> findForAutoComplete(String query);
 
 	public Hotel approve(Integer hotelId);
 
-	public void addComment(Integer hotelId, String name,
-			boolean authentifiedUser, int note, String text);
+	public void addComment(Integer hotelId, String name, int note, String text);
 
 	public void deleteComment(Integer hotelId, int commentSeq);
 
