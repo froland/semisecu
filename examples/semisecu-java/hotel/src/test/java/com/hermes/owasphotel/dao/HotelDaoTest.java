@@ -8,8 +8,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.ExpectedException;
 
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
@@ -145,7 +148,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Test
-	public void testComputedNote() {
+	public void testAverageNote() {
 		Hotel h = createEntity();
 		h.addComment(null).setNote(8);
 		h.addComment(null).setNote(3);
@@ -159,6 +162,23 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		hotelDao.flush();
 
 		assertEquals(note, h.getAverageNote(), 0.1d);
+	}
+	
+	@Test(expected=PersistenceException.class)
+	public void unicity()
+	{
+		User u = new User("u", "u");
+		userDao.save(u);
+		Hotel h1 = new Hotel("test", u);
+		h1.setCity("");
+		h1.setCountry("");
+		hotelDao.save(h1);
+		hotelDao.flush();
+		Hotel h2 = new Hotel("test", u);
+		h2.setCity("");
+		h2.setCountry("");
+		hotelDao.save(h2);
+		hotelDao.flush();
 	}
 
 }

@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "HOTEL")
@@ -186,5 +185,36 @@ public class Hotel extends IdentifiableEntity<Integer> {
 			}
 		}
 		return note/nbComment;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Hotel))
+			return false;
+		Hotel other = (Hotel) obj;
+		boolean toReturn = true;
+		
+		if(other.getCity() == null || getCity() == null)
+			toReturn &= (other.getCity() == null && getCity() == null);
+		else
+			toReturn &= other.getCity().equals(this.getCity());
+		
+		if(other.getName() == null || getName() == null)
+			toReturn &= (other.getName() == null && getName() == null);
+		else
+			toReturn &= other.getName().equals(this.getName());		
+
+		if(other.getCountry() == null || getCountry() == null)
+			toReturn &= (other.getCountry() == null && getCountry() == null);
+		else
+			toReturn &= other.getCountry().equals(this.getCountry());
+		
+			
+		return toReturn;
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getName().hashCode();
 	}
 }
