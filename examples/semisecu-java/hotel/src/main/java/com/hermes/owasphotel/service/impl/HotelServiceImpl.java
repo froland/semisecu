@@ -14,10 +14,9 @@ import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.HotelListItem;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelService;
-import com.hermes.owasphotel.service.dto.HotelDto;
-import com.hermes.owasphotel.service.dto.HotelListItemDto;
 
 /**
  * Service: Hotel
@@ -58,32 +57,31 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<HotelListItemDto> listAll() {
+	public List<HotelListItem> listAll() {
 		return itemize(hotelDao.findAll());
 	}
 
-	private List<HotelListItemDto> itemize(List<Hotel> lh) {
-		List<HotelListItemDto> result = new LinkedList<HotelListItemDto>();
+	private List<HotelListItem> itemize(List<Hotel> lh) {
+		List<HotelListItem> result = new LinkedList<HotelListItem>();
 		for (Hotel hotel : lh) {
-			result.add(new HotelListItemDto(hotel.getName(), hotel
-					.getNbComments(false), hotel.getAverageNote(), hotel
-					.getId()));
+			result.add(new HotelListItem(hotel.getId(), hotel.getHotelName(),
+					hotel.getNbComments(false), hotel.getAverageNote()));
 		}
 		return result;
 	}
 
 	@Override
-	public List<HotelListItemDto> listApproved() {
+	public List<HotelListItem> listApproved() {
 		return itemize(hotelDao.findApprovedHotels(true));
 	}
 
 	@Override
-	public List<HotelListItemDto> listNotApproved() {
+	public List<HotelListItem> listNotApproved() {
 		return itemize(hotelDao.findApprovedHotels(false));
 	}
 
 	@Override
-	public List<HotelListItemDto> listTopNoted(int count) {
+	public List<HotelListItem> listTopNoted(int count) {
 		return itemize(hotelDao.findTopNotedHotels(count));
 	}
 
@@ -102,32 +100,19 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<HotelListItemDto> listSearchQuery(String search) {
+	public List<HotelListItem> listSearchQuery(String search) {
 		return itemize(hotelDao.findSearchQuery(search, true, 0));
 	}
 
 	@Override
-	public List<HotelListItemDto> listManagedHotels(String name) {
+	public List<HotelListItem> listManagedHotels(String name) {
 		User user = userDao.find(name);
 		return itemize(hotelDao.findManagedHotels(user));
 	}
 
 	@Override
-	public Hotel update(Integer hotelId, HotelDto data) {
-		Hotel h = hotelDao.getById(hotelId);
-		if (h == null)
-			throw new IllegalArgumentException("Hotel does not exist: id="
-					+ hotelId);
-		// update the data
-		data.update(h);
-		logger.info("Hotel updated: " + h);
-		// update the manager
-		User manager = userDao.find(data.getManager());
-		if (manager != null) {
-			h.setManager(manager);
-			logger.info("Hotel manager updated");
-		}
-		return h;
+	public Hotel update(Hotel hotel) {
+		return hotelDao.merge(hotel);
 	}
 
 	@Override

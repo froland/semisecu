@@ -22,7 +22,7 @@ import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
-import com.hermes.owasphotel.service.dto.HotelDto;
+import com.hermes.owasphotel.web.mvc.form.HotelForm;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = HotelControllerTest.Config.class)
@@ -60,7 +60,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 		authentify("manager", null, "user");
 		request(HttpMethod.GET, "/hotel/1/update");
 		assertResponse(HttpStatus.OK);
-		assertType(mav, "hotel", HotelDto.class);
+		assertType(mav, "hotel", HotelForm.class);
 	}
 
 	@Test
@@ -107,9 +107,11 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 			assert h.getId() != null : "h.id not set";
 			Mockito.when(service.find(h.getId())).thenReturn(h);
 			Mockito.when(service.findByName(h.getName())).thenReturn(h);
-			Mockito.when(
-					service.update(Mockito.eq(h.getId()),
-							Mockito.any(HotelDto.class))).thenReturn(h);
+			// TODO
+//			Mockito.when(
+//					service.update(Mockito.eq(h.getId()),
+//							Mockito.any(HotelForm.class))).thenReturn(h);
+
 			return service;
 		}
 

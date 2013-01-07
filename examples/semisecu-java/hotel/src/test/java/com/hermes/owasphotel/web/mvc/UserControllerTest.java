@@ -19,7 +19,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
-import com.hermes.owasphotel.service.dto.UserDto;
+import com.hermes.owasphotel.web.mvc.form.UserForm;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = UserControllerTest.Config.class)
@@ -47,7 +47,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		authentify("a", null, "user");
 		request(HttpMethod.GET, "/user/update/1");
 		assertResponse(HttpStatus.OK);
-		assertType(mav, "user", UserDto.class);
+		assertType(mav, "user", UserForm.class);
 	}
 
 	@Test
