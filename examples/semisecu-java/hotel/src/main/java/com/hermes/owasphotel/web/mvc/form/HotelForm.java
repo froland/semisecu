@@ -16,7 +16,7 @@ public class HotelForm {
 	private Integer id;
 
 	@NotBlank(message = "The name of the hotel may not be blank")
-	private String hotelName;
+	private String name;
 
 	private String address;
 	private String city;
@@ -42,7 +42,7 @@ public class HotelForm {
 
 	public HotelForm(Hotel hotel) {
 		id = hotel.getId();
-		hotelName = hotel.getName();
+		name = hotel.getName();
 
 		address = hotel.getAddress();
 		city = hotel.getCity();
@@ -57,7 +57,7 @@ public class HotelForm {
 	}
 
 	public void update(Hotel h, UserService userService) {
-		h.setName(hotelName);
+		h.setName(name);
 		h.setAddress(address);
 		h.setCity(city);
 		h.setCountry(country);
@@ -77,20 +77,20 @@ public class HotelForm {
 		}
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public String getHotelName() {
-		return hotelName;
+	public String getName() {
+		return name;
 	}
 
-	public void setHotelName(String hotelName) {
-		this.hotelName = hotelName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
@@ -174,7 +174,7 @@ public class HotelForm {
 	}
 
 	public Hotel makeNew(User user) {
-		Hotel h = new Hotel(hotelName, user);
+		Hotel h = new Hotel(name, user);
 		update(h, null);
 		return h;
 	}

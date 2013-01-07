@@ -67,7 +67,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 	public void postUpdateHotel() throws Exception {
 		authentify("manager", null, "user");
 		request.setParameter("address", "updateAddress");
-		request.setParameter("hotelName", "updateName");
+		request.setParameter("name", "updateName");
 		request.setParameter("stars", "3");
 		request(HttpMethod.POST, "/hotel/1/update");
 		assertNoBindingErrors(mav);

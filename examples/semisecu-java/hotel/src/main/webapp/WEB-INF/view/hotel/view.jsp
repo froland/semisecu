@@ -9,7 +9,7 @@
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
-	<jsp:attribute name="title">Hotel: ${hotel.hotelName}</jsp:attribute>
+	<jsp:attribute name="title">Hotel: ${hotel.name}</jsp:attribute>
 	<jsp:body>
 		<c:if test="${!hotel.approved}">
 			<p class="alert">The hotel is not approved!</p>

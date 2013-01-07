@@ -53,7 +53,7 @@
  				<div class="control-group">
 					<label class="control-label" for="hotelName">Name</label>
 					<div class="controls">
-						<form:input path="hotelName" id="hotelName" />
+						<form:input path="name" id="hotelName" />
 					</div>
 				</div>
 				

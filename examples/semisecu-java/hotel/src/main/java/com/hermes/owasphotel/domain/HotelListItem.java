@@ -3,13 +3,13 @@ package com.hermes.owasphotel.domain;
 public class HotelListItem {
 
 	private int id;
-	private String hotelName;
+	private String name;
 	private int nbComments;
 	private Double note;
 
 	public HotelListItem(int id, String hotelName, int nbComments, Double note) {
 		this.id = id;
-		this.hotelName = hotelName;
+		this.name = hotelName;
 		this.nbComments = nbComments;
 		this.note = note;
 	}
@@ -18,12 +18,12 @@ public class HotelListItem {
 		return id;
 	}
 
-	public String getHotelName() {
-		return hotelName;
+	public String getName() {
+		return name;
 	}
 
-	public void setHotelName(String hotelName) {
-		this.hotelName = hotelName;
+	public void setName(String hotelName) {
+		this.name = hotelName;
 	}
 
 	public int getNbComments() {

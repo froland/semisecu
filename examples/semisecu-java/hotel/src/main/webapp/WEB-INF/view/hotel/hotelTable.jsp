@@ -11,7 +11,7 @@
 	<c:forEach var="hotel" items="${hotels}">
 		<tr>
 			<td><a href="<c:url value="/hotel/${hotel.id}"/>"><c:out
-						value="${hotel.hotelName}" /></a></td>
+						value="${hotel.name}" /></a></td>
 			<td><fmt:formatNumber type="number" maxFractionDigits="2"
 					value="${hotel.note }" /></td>
 			<td><c:out value="${hotel.nbComments}" /></td>

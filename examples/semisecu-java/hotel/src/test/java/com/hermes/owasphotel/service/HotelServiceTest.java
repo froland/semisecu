@@ -74,7 +74,7 @@ public class HotelServiceTest extends ServiceTestBase {
 		assertEquals("Hotels are approved or not approved", listAll.size(),
 				listApproved.size() + listNA.size());
 		for (HotelListItem item : listAll) {
-			assertNotNull(item.getHotelName());
+			assertNotNull(item.getName());
 			assertNotNull(item.getNbComments());
 		}
 	}

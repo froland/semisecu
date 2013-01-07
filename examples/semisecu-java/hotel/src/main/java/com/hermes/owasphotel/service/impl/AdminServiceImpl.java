@@ -61,7 +61,7 @@ public class AdminServiceImpl implements AdminService {
 			return new ArrayList<String>();
 		}
 		// mask some columns
-		if ("USERS".equalsIgnoreCase(tableName)) {
+		if ("USER".equalsIgnoreCase(tableName)) {
 			list.remove("PASSWORD");
 		}
 		return list;
