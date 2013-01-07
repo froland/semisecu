@@ -18,12 +18,12 @@ public class UserServiceTest extends ServiceTestBase {
 
 	@Test
 	public void testFind() {
-		User user = userService.find(1857);
+		User user = userService.getById(1857);
 		assertNull(user);
 
 		user = new User("a", "a");
 		userService.save(user);
-		assertNotNull("User not saved", userService.find(user.getId()));
+		assertNotNull("User not saved", userService.getById(user.getId()));
 		assertTrue("User name not returned by getNames()", userService
 				.getNames("").contains("a"));
 		assertFalse("User name returned by getNames() with a bad prefix",

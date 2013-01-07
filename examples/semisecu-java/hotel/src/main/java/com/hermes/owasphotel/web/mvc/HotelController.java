@@ -135,7 +135,7 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "search")
 	public String viewSearchHotels(Model model, @RequestParam("t") String search) {
 		// try to find by name
-		Hotel hotel = hotelService.findByName(search);
+		Hotel hotel = hotelService.getByName(search);
 		if (hotel != null)
 			return redirectTo(hotel.getId());
 
@@ -154,9 +154,7 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public String viewHotel(Model model, @PathVariable Integer id) {
-		Hotel hotel = hotelService.find(id);
-		if (hotel == null)
-			throw new ResourceNotFoundException(Hotel.class, id.longValue());
+		Hotel hotel = hotelService.getById(id);
 		model.addAttribute("hotel", hotel);
 		return "hotel/view";
 	}
@@ -164,12 +162,11 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment")
 	public String addComment(@PathVariable("id") Integer hotelId,
 			Authentication user, @RequestParam String text,
-			@RequestParam(required = false) String name, @RequestParam int note)
+			@RequestParam int note)
 			throws MissingServletRequestParameterException {
-		if (hotelId != null && (name != null || user != null) && text != null) {
-			if (name == null)
-				name = user.getName();
-			hotelService.addComment(hotelId, name, user != null, note, text);
+		if (hotelId != null && text != null) {
+			hotelService.addComment(hotelId,
+					user == null ? null : user.getName(), note, text);
 		} else {
 			throw new MissingServletRequestParameterException("name", "String");
 		}
@@ -214,14 +211,14 @@ public class HotelController {
 	private User getUser(Authentication auth) {
 		if (auth == null)
 			return null;
-		return userService.find(auth.getName());
+		return userService.getByName(auth.getName());
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}/update")
 	@PreAuthorize("isAuthenticated()")
 	public String viewUpdateHotel(Model model, Authentication auth,
 			@PathVariable("id") Integer hotelId) {
-		Hotel hotel = hotelService.find(hotelId);
+		Hotel hotel = hotelService.getById(hotelId);
 		checkEdit(hotel, getUser(auth));
 		model.addAttribute("hotel", new HotelForm(hotel));
 		return "hotel/update";
@@ -232,7 +229,7 @@ public class HotelController {
 	public String updateHotel(Model model, Authentication auth,
 			@PathVariable("id") Integer hotelId,
 			@Valid @ModelAttribute("hotel") HotelForm dto, BindingResult result) {
-		Hotel hotel = hotelService.find(hotelId);
+		Hotel hotel = hotelService.getById(hotelId);
 		checkEdit(hotel, getUser(auth));
 		if (result.hasErrors()) {
 			dto.setId(hotelId);

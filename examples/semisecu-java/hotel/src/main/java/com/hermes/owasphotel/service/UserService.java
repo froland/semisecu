@@ -6,9 +6,9 @@ import com.hermes.owasphotel.domain.User;
 
 public interface UserService {
 
-	public User find(Integer id);
+	public User getById(Integer id);
 
-	public User find(String name);
+	public User getByName(String name);
 
 	public List<User> findAll();
 

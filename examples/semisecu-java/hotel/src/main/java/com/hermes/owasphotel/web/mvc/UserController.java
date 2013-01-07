@@ -86,9 +86,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "{name}")
 	@PreAuthorize("hasRole('admin') or #name == authentication.name")
 	public String viewUser(Model model, @PathVariable String name) {
-		User user = userService.find(name);
-		if (user == null)
-			throw new ResourceNotFoundException(User.class, null);
+		User user = userService.getByName(name);
 		model.addAttribute("user", user);
 		return "user/view";
 	}
@@ -96,9 +94,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "update/{id}")
 	public String viewUpdateUser(Model model, @PathVariable Integer id,
 			Authentication auth) {
-		User user = userService.find(id);
-		if (user == null)
-			throw new ResourceNotFoundException(User.class, Long.valueOf(id));
+		User user = userService.getById(id);
 		checkEditProfile(user, auth);
 		model.addAttribute("user", new UserForm(user));
 		return "user/update";
@@ -132,7 +128,7 @@ public class UserController {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
-		User user = userService.find(id);
+		User user = userService.getById(id);
 		checkEditProfile(user, auth);
 		try {
 			boolean asAdmin = !auth.getName().equals(user.getName())

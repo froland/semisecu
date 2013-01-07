@@ -36,7 +36,7 @@ public class HotelServiceImpl implements HotelService {
 	private UserDao userDao;
 
 	@Override
-	public Hotel find(Integer id) {
+	public Hotel getById(Integer id) {
 		Hotel h = hotelDao.getById(id);
 		if (h == null)
 			return null;
@@ -89,7 +89,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Hotel findByName(String search) {
+	public Hotel getByName(String search) {
 		return hotelDao.getByName(search);
 	}
 
@@ -130,10 +130,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void addComment(Integer hotelId, String name,
-			boolean authentifiedUser, int note, String text) {
+	public void addComment(Integer hotelId, String name, int note, String text) {
 		User user = null;
-		if (authentifiedUser) {
+		if (name != null) {
 			user = userDao.find(name);
 		}
 		Hotel hotel = hotelDao.getById(hotelId);
