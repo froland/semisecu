@@ -38,7 +38,7 @@
 * Attention aux conventions de nommage et surtout à la cohérence : certaines colonnes dans la DB ont des noms non séparés (USERID, hotelname) et d'autres ont des noms séparés par des underscores (USER_NAME).
 * Identifiable
   * Quel est la raison du paramètre de type ? Y-a-t-il une raison de ne pas utiliser Long ou Integer ?
-  * Mettre Identifiable dans le package dao.base introduit une dépendance circulaire (appelée *tangle* dans ce cas-ci) avec le package domain. Dans la mesure du possible, il faut éviter ce genre de chose cbr cela diminue la modularité du code.
+  * Mettre Identifiable dans le package dao.base introduit une dépendance circulaire (appelée *tangle* dans ce cas-ci) avec le package domain. Dans la mesure du possible, il faut éviter ce genre de chose car cela diminue la modularité du code.
 * SimpleJPA
   * Dans la méthode save(), je ne vois pas l'intérêt d'utiliser flush. Au contraire, cela neutralise les optimisations d'Hibernate en cas d'opérations multiples.
   * Toujours dans la méthode save(), je ne vois pas l'intérêt du merge. Je préfère que le code soit organisé de tel manière à ne pas en avoir besoin et éviter ainsi les problèmes de modifications concurrentes.
@@ -56,16 +56,16 @@
   * La relation entre *Hotel* et *Comment* devrait être unidirectionelle et uniquement navigable de *Hotel* vers *Comment*.
   * Quel est l'intérêt du champs *sequence* ?
   * *deleted* devrait être de type boolean.
-  * Pourquoi *username* est-il sauvegalsé en DB ?
+  * Pourquoi *username* est-il sauvegardé en DB ?
 * Hotel
   * *hotelName* ne devrait-il pas être unique ?
-  * *address* est un drôle de nom pour un chapms qui ne contient pas country et city. Quid du code postal par exemple ? L'idéal est de créer une classe *Address* et de l'ajouter comme champ embedded dans le mapping Hibernate.
+  * *address* est un drôle de nom pour un champs qui ne contient pas country et city. Quid du code postal par exemple ? L'idéal est de créer une classe *Address* et de l'ajouter comme champ embedded dans le mapping Hibernate.
 * User
   * *enabled* doit être de type *boolean*.
   * Remplacer *ROLE_USER* et *ROLE_ADMIN* par une enum.
-  * *roles* ne doit pas être une *List* mais un *Set*. Ça simplifiera *setAdmim()*.
+  * *roles* ne doit pas être une *List* mais un *Set*. Ça simplifiera *setAdmin()*.
 * service.dto
-  * J'aime pas la copie automatique de propriétés par réflection. On a toujours pleins d'ennuis avec ces brols et le comportement de l'application n'est plus validé lors de la compilation.
+  * Je n'aime pas la copie automatique de propriétés par réflection. On a toujours pleins d'ennuis avec ces brols et le comportement de l'application n'est plus validé lors de la compilation.
   * Ces DTO ont l'air de travailler avec la couche de présentation :
     1. ils sont donc au mauvais endroit;
     2. ce ne sont plus vraiment des DTO puisqu'il y a de la logique de validation à l'intérieur.
