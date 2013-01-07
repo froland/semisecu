@@ -58,8 +58,10 @@ public class HotelServiceTest extends ServiceTestBase {
 
 	@Test
 	public void testSave() {
-		Hotel h = hotelService.save(new Hotel("tested", userService
-				.save(new User("a", "a"))));
+		User a = new User("a", "a");
+		userService.save(a);
+		Hotel h = new Hotel("tested", a);
+		hotelService.save(h);
 		assertNotNull("Not saved", h.getId());
 		h = hotelService.find(h.getId());
 		assertEquals("Invalid name", "tested", h.getHotelName());

@@ -15,7 +15,7 @@ public interface HotelService {
 
 	public Hotel find(Integer id);
 
-	public Hotel save(Hotel h);
+	public void save(Hotel h);
 
 	public void delete(Hotel h);
 

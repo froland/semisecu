@@ -23,9 +23,15 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	/**
 	 * Persists an object.
 	 * @param obj The object
+	 */
+	public void save(T obj);
+	
+	/**
+	 * Merges an object.
+	 * @param obj The object
 	 * @return The saved object
 	 */
-	public T save(T obj);
+	public T merge(T obj);
 	
 	/**
 	 * Deletes the object.
@@ -38,4 +44,10 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	 * @return A list of objects
 	 */
 	public List<T> findAll();
+	
+	/**
+	 * Flushes the modifications.
+	 * <p>After this call the inserted objects will have their ids.</p>
+	 */
+	public void flush();
 }

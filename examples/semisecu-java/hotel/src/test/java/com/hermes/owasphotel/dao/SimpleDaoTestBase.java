@@ -18,9 +18,9 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 	@Test
 	public void testDAO() {
 		SimpleDao<I, T> dao = getDao();
-		T obj = createEntity();
-		T saved = dao.save(obj);
-		assertNotNull("No saved object returned", saved);
+		T saved = createEntity();
+		dao.save(saved);
+		// TODO flush, etc.
 		assertNotNull("ID not generated", saved.getId());
 		assertTrue("FindAll must contains DAO", dao.findAll().contains(saved));
 		T found = dao.getById(saved.getId());

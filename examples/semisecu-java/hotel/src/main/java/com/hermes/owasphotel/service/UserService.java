@@ -13,7 +13,7 @@ public interface UserService {
 
 	public List<User> findAll();
 
-	public User save(User u);
+	public void save(User u);
 
 	public User update(UserDto dto, boolean asAdmin);
 

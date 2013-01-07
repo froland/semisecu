@@ -22,7 +22,7 @@ public class UserServiceTest extends ServiceTestBase {
 		assertNull(user);
 
 		user = new User("a", "a");
-		user = userService.save(user);
+		userService.save(user);
 		assertNotNull("User not saved", userService.find(user.getId()));
 		assertTrue("User name not returned by getNames()", userService
 				.getNames("").contains("a"));
@@ -33,7 +33,7 @@ public class UserServiceTest extends ServiceTestBase {
 	@Test
 	public void testUpdate() {
 		User u = new User("a", "p");
-		u = userService.save(u);
+		userService.save(u);
 
 		// create the DTO
 		UserDto user = new UserDto();
@@ -53,7 +53,7 @@ public class UserServiceTest extends ServiceTestBase {
 	@Test
 	public void testUpdatePassword() {
 		User u = new User("a", "p");
-		u = userService.save(u);
+		userService.save(u);
 		UserDto user = new UserDto();
 		user.read(u);
 
@@ -74,7 +74,7 @@ public class UserServiceTest extends ServiceTestBase {
 	@Test
 	public void testUpdatePasswordAsAdmin() {
 		User u = new User("a", "p");
-		u = userService.save(u);
+		userService.save(u);
 		UserDto user = new UserDto();
 		user.read(u);
 
@@ -88,7 +88,7 @@ public class UserServiceTest extends ServiceTestBase {
 	@Test
 	public void testEnable() {
 		User u = new User("a", "p");
-		u = userService.save(u);
+		userService.save(u);
 		final Integer id = u.getId();
 
 		u = userService.enableUser(id, false);

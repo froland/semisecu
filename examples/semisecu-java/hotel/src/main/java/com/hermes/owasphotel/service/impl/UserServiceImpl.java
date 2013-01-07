@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User save(User u) {
-		return userDao.save(u);
+	public void save(User u) {
+		userDao.save(u);
 	}
 
 	@Override

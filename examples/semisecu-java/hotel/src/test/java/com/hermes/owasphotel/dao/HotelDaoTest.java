@@ -115,7 +115,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	public void testFindByName() {
 		Hotel h = createEntity();
 		h.setHotelName("my hotel");
-		h = hotelDao.save(h);
+		hotelDao.save(h);
 
 		assertNull(hotelDao.getByName("___xyz"));
 		Hotel found = hotelDao.getByName("my hotel");
@@ -126,7 +126,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	public void testFindSearchQuery() {
 		Hotel h = createEntity();
 		h.setHotelName("my hotel");
-		h = hotelDao.save(h);
+		hotelDao.save(h);
 		List<Hotel> list;
 
 		list = hotelDao.findSearchQuery("hot", true, 2);
@@ -150,7 +150,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 			note += c.getNote();
 		}
 		note /= h.getComments().size();
-		h = hotelDao.save(h);
+		hotelDao.save(h);
 
 		hotelDao.computeNote(h);
 		assertEquals(note, h.getAverageNote(), 0.1d);

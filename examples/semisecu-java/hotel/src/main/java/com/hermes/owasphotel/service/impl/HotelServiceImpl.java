@@ -50,8 +50,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Hotel save(Hotel obj) {
-		return hotelDao.save(obj);
+	public void save(Hotel obj) {
+		hotelDao.save(obj);
 	}
 
 	@Override
