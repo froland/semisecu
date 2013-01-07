@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
-import com.hermes.owasphotel.service.dto.UserDto;
 
 @Service
 @Transactional
@@ -58,21 +53,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(UserDto dto, boolean asAdmin) {
-		User u = userDao.getById(dto.getId());
-		if (u == null)
-			return null;
-		String oldName = u.getName();
-		dto.updatePassword(u, asAdmin);
-		dto.update(u);
-		if (!asAdmin && !oldName.equals(u.getName())) {
-			// re-authentify the user
-			SecurityContext ctx = SecurityContextHolder.getContext();
-			Authentication auth = ctx.getAuthentication();
-			ctx.setAuthentication(new UsernamePasswordAuthenticationToken(dto
-					.getName(), auth.getCredentials(), auth.getAuthorities()));
-		}
-		return u;
+	public User update(User user) {
+		return userDao.merge(user);
 	}
 
 	@Override

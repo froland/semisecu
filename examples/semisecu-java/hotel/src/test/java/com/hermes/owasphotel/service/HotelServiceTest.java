@@ -16,9 +16,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.HotelListItem;
 import com.hermes.owasphotel.domain.User;
-import com.hermes.owasphotel.service.dto.HotelDto;
-import com.hermes.owasphotel.service.dto.HotelListItemDto;
+import com.hermes.owasphotel.web.mvc.form.HotelForm;
 
 public class HotelServiceTest extends ServiceTestBase {
 	@Autowired
@@ -69,13 +69,13 @@ public class HotelServiceTest extends ServiceTestBase {
 
 	@Test
 	public void testListHotels() {
-		List<HotelListItemDto> listAll = hotelService.listAll();
+		List<HotelListItem> listAll = hotelService.listAll();
 		assertFalse("No hotels initialized", listAll.isEmpty());
-		List<HotelListItemDto> listApproved = hotelService.listApproved();
-		List<HotelListItemDto> listNA = hotelService.listNotApproved();
+		List<HotelListItem> listApproved = hotelService.listApproved();
+		List<HotelListItem> listNA = hotelService.listNotApproved();
 		assertEquals("Hotels are approved or not approved", listAll.size(),
 				listApproved.size() + listNA.size());
-		for (HotelListItemDto item : listAll) {
+		for (HotelListItem item : listAll) {
 			assertNotNull(item.getHotelName());
 			assertNotNull(item.getNbComments());
 		}
@@ -83,10 +83,10 @@ public class HotelServiceTest extends ServiceTestBase {
 
 	@Test
 	public void testApprove() {
-		HotelListItemDto h = hotelService.listNotApproved().get(0);
+		HotelListItem h = hotelService.listNotApproved().get(0);
 		hotelService.approve(h.getId());
-		for (HotelListItemDto i : hotelService.listNotApproved()) {
-			if (i.getId().equals(h.getId()))
+		for (HotelListItem i : hotelService.listNotApproved()) {
+			if (i.getId() == h.getId())
 				fail("Hotel failed to be approved");
 		}
 	}
@@ -130,15 +130,16 @@ public class HotelServiceTest extends ServiceTestBase {
 
 	@Test
 	public void testUpdateHotel() {
-		HotelDto dto = new HotelDto();
-		dto.read(a);
+		HotelForm dto = new HotelForm(a);
 		dto.setAddress("my new address");
 		final byte[] imgData = new byte[2];
 		CommonsMultipartFile file = Mockito.mock(CommonsMultipartFile.class);
 		Mockito.when(file.getBytes()).thenReturn(imgData);
 		Mockito.when(file.getSize()).thenReturn((long) imgData.length);
 		dto.setFile(file);
-		Hotel h = hotelService.update(dto.getId(), dto);
+		Hotel h = hotelService.find(a.getId());
+		dto.update(h, userService);
+		h = hotelService.update(h);
 
 		assertEquals("Address not updated", "my new address", h.getAddress());
 		assertEquals("Image not updated", imgData, h.getImage());

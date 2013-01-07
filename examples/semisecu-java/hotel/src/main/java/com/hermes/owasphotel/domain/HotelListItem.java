@@ -1,21 +1,20 @@
-package com.hermes.owasphotel.service.dto;
+package com.hermes.owasphotel.domain;
 
-public class HotelListItemDto {
+public class HotelListItem {
 
-	private Integer id;
+	private int id;
 	private String hotelName;
 	private int nbComments;
 	private Double note;
 
-	public HotelListItemDto(String hotelName, int nbComments, Double note,
-			Integer id) {
+	public HotelListItem(int id, String hotelName, int nbComments, Double note) {
 		this.id = id;
 		this.hotelName = hotelName;
 		this.nbComments = nbComments;
 		this.note = note;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
