@@ -84,10 +84,6 @@
 				<form action="<c:url value="/hotel/${hotel.id}/comment"/>"
 					method="POST">
 					<h4>New comment</h4>
-					<sec:authorize access="!isAuthenticated()">
-					<label for="commentName">Name:</label>
-					<input name="name" required="required" id="commentName" />
-					</sec:authorize>
 					<label for="commentNote">Note:</label>
 					<select name="note" id="commentNote">
 					<t:selectOptions end="10" value="5" />

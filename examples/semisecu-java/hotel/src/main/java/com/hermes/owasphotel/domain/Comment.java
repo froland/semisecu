@@ -40,7 +40,6 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
-	private String userName;
 	private int deleted = 0;
 
 	Comment() {
@@ -92,13 +91,9 @@ public class Comment {
 	}
 
 	public String getUserName() {
-		if ((userName == null || userName.isEmpty()) && user != null)
+		if (user != null)
 			return user.getName();
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+		return "Anonymous";
 	}
 
 	public boolean isDeleted() {
