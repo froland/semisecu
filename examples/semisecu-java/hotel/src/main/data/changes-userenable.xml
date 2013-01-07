@@ -5,7 +5,7 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet id="userEnable" author="k">
-		<addColumn tableName="USERS">
+		<addColumn tableName="USER">
 			<column name="ENABLED" type="INT" defaultValueNumeric="1" />
 		</addColumn>
 	</changeSet>
