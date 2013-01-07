@@ -6,7 +6,7 @@
 
 	<changeSet id="initialUsers" author="k">
 		<!-- Users -->
-		<createTable tableName="USERS">
+		<createTable tableName="USER">
 			<column name="ID" type="INT">
 				<constraints primaryKey="true" />
 			</column>
@@ -17,62 +17,62 @@
 			<column name="EMAIL" type="VARCHAR2(50)" />
 		</createTable>
 		<createSequence sequenceName="USERS_SEQ" />
-		<createTable tableName="ROLES">
-			<column name="USERID" type="INT">
+		<createTable tableName="ROLE">
+			<column name="USER_ID" type="INT">
 				<constraints nullable="false" />
 			</column>
 			<column name="NAME" type="VARCHAR2(20)">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		<addPrimaryKey tableName="ROLES" columnNames="USERID, NAME" />
+		<addPrimaryKey tableName="ROLE" columnNames="USER_ID, NAME" />
 
 		<!-- Add some data -->
-		<insert tableName="USERS">
+		<insert tableName="USER">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
 			<column name="NAME">admin</column>
 			<!-- Pass: admin -->
 			<column name="PASSWORD">21232f297a57a5a743894a0e4a801fc3</column>
 			<column name="EMAIL">admin@localhost</column>
 		</insert>
-		<insert tableName="ROLES">
-			<column name="USERID" valueComputed="USERS_SEQ.CURRVAL" />
+		<insert tableName="ROLE">
+			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
 			<column name="NAME">admin</column>
 		</insert>
-		<insert tableName="ROLES">
-			<column name="USERID" valueComputed="USERS_SEQ.CURRVAL" />
+		<insert tableName="ROLE">
+			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
 			<column name="NAME">user</column>
 		</insert>
-		<insert tableName="USERS">
+		<insert tableName="USER">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
 			<column name="NAME">k</column>
 			<!-- Pass: 123456 -->
 			<column name="PASSWORD">e10adc3949ba59abbe56e057f20f883e</column>
 			<column name="EMAIL">k@hermes-ecs.com</column>
 		</insert>
-		<insert tableName="ROLES">
-			<column name="USERID" valueComputed="USERS_SEQ.CURRVAL" />
+		<insert tableName="ROLE">
+			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
 			<column name="NAME">user</column>
 		</insert>
-		<insert tableName="USERS">
+		<insert tableName="USER">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
 			<column name="NAME">v</column>
 			<column name="PASSWORD">e10adc3949ba59abbe56e057f20f883e</column>
 			<column name="EMAIL">v@hermes-ecs.com</column>
 		</insert>
-		<insert tableName="ROLES">
-			<column name="USERID" valueComputed="USERS_SEQ.CURRVAL" />
+		<insert tableName="ROLE">
+			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
 			<column name="NAME">user</column>
 		</insert>
 	</changeSet>
 
 	<changeSet id="initialHotel" author="k">
 		<!-- Hotel information -->
-		<createTable tableName="HOTELS">
+		<createTable tableName="HOTEL">
 			<column name="ID" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="hotelname" type="VARCHAR2(50)">
+			<column name="NAME" type="VARCHAR2(50)">
 				<constraints nullable="false" />
 			</column>
 			<column name="address" type="VARCHAR2(50)" />
@@ -89,7 +89,7 @@
 		</createTable>
 		<createSequence sequenceName="HOTELS_SEQ" />
 		<sql>
-			alter table HOTELS
+			alter table HOTEL
 			add constraint CK_HOTELS_STARS
 			check stars is
 			null or (stars between 0 and 5);

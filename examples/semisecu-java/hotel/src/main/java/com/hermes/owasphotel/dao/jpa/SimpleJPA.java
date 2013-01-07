@@ -9,8 +9,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hermes.owasphotel.dao.base.Identifiable;
 import com.hermes.owasphotel.dao.base.SimpleDao;
+import com.hermes.owasphotel.domain.Identifiable;
 
 /**
  * Template class for CRUD operations that uses JPA.
@@ -47,20 +47,20 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 
 	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
-	public T find(I id) {
+	public T getById(I id) {
 		return em.find(type, id);
 	}
 
 	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
-	public T save(T obj) {
-		if (obj.getId() == null) {
-			em.persist(obj);
-			em.flush(); // generate the ID
-			return obj;
-		} else {
-			return em.merge(obj);
-		}
+	public void save(T obj) {
+		em.persist(obj);
+	}
+
+	@Transactional(propagation = Propagation.MANDATORY)
+	@Override
+	public T merge(T obj) {
+		return em.merge(obj);
 	}
 
 	@Transactional(propagation = Propagation.MANDATORY)
@@ -75,4 +75,9 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 				.getResultList();
 	}
 
+	@Transactional(propagation = Propagation.MANDATORY)
+	@Override
+	public void flush() {
+		em.flush();
+	}
 }

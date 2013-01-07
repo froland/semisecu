@@ -19,7 +19,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
-import com.hermes.owasphotel.service.dto.UserDto;
+import com.hermes.owasphotel.web.mvc.form.UserForm;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = UserControllerTest.Config.class)
@@ -47,7 +47,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		authentify("a", null, "user");
 		request(HttpMethod.GET, "/user/update/1");
 		assertResponse(HttpStatus.OK);
-		assertType(mav, "user", UserDto.class);
+		assertType(mav, "user", UserForm.class);
 	}
 
 	@Test
@@ -64,7 +64,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		request(HttpMethod.GET, "/user/update/1");
 	}
 
-	@Test(expected = ResourceNotFoundException.class)
+	@Test(expected = IllegalArgumentException.class) // TODO
 	public void viewUpdateIncorrectUser() throws Exception {
 		request(HttpMethod.GET, "/user/update/2");
 	}
@@ -94,8 +94,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		public UserService userService() {
 			UserService service = Mockito.mock(UserService.class);
 			User a = new User("a", "a");
-			Mockito.when(service.find(1)).thenReturn(a);
-			Mockito.when(service.find(a.getName())).thenReturn(a);
+			Mockito.when(service.getById(1)).thenReturn(a);
+			Mockito.when(service.getByName(a.getName())).thenReturn(a);
 			return service;
 		}
 	}

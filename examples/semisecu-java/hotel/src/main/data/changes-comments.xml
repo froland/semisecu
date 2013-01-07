@@ -7,15 +7,15 @@
 	<changeSet id="commentsTable" author="k">
 
 		<!-- Comments for the hotels -->
-		<createTable tableName="COMMENTS">
-			<column name="HOTELID" type="INT">
+		<createTable tableName="COMMENT">
+			<column name="HOTEL_ID" type="INT">
 				<constraints nullable="false" />
 			</column>
 			<column name="SEQ" type="INT">
 				<constraints nullable="false" />
 			</column>
 			<column name="WHEN" type="TIMESTAMP" />
-			<column name="USERID" type="INT">
+			<column name="USER_ID" type="INT">
 				<constraints nullable="true" />
 			</column>
 			<column name="USER_NAME" type="VARCHAR2(50)" />
@@ -27,15 +27,15 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		<addPrimaryKey tableName="COMMENTS" columnNames="HOTELID, SEQ" />
+		<addPrimaryKey tableName="COMMENT" columnNames="HOTEL_ID, SEQ" />
 		<addForeignKeyConstraint constraintName="FK_COMMENTS_HOTELID"
-			referencedTableName="HOTELS" baseColumnNames="HOTELID" baseTableName="COMMENTS"
+			referencedTableName="HOTEL" baseColumnNames="HOTEL_ID" baseTableName="COMMENT"
 			referencedColumnNames="ID" />
 		<addForeignKeyConstraint constraintName="FK_COMMENTS_USERID"
-			referencedTableName="USERS" baseColumnNames="USERID" baseTableName="COMMENTS"
+			referencedTableName="USER" baseColumnNames="USER_ID" baseTableName="COMMENT"
 			referencedColumnNames="ID" />
 		<sql>
-			alter table COMMENTS
+			alter table COMMENT
 			add constraint CK_COMMENT_NOTE
 			check (note
 			between 1 and 10);

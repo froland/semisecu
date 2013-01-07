@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
-import com.hermes.owasphotel.service.dto.UserDto;
+import com.hermes.owasphotel.web.mvc.form.UserForm;
 
 /**
  * Controller for users.
@@ -83,9 +86,7 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "{name}")
 	@PreAuthorize("hasRole('admin') or #name == authentication.name")
 	public String viewUser(Model model, @PathVariable String name) {
-		User user = userService.find(name);
-		if (user == null)
-			throw new ResourceNotFoundException(User.class, null);
+		User user = userService.getByName(name);
 		model.addAttribute("user", user);
 		return "user/view";
 	}
@@ -93,23 +94,19 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.GET, value = "update/{id}")
 	public String viewUpdateUser(Model model, @PathVariable Integer id,
 			Authentication auth) {
-		User user = userService.find(id);
-		if (user == null)
-			throw new ResourceNotFoundException(User.class, Long.valueOf(id));
+		User user = userService.getById(id);
 		checkEditProfile(user, auth);
-		UserDto dto = new UserDto();
-		dto.read(user);
-		model.addAttribute("user", dto);
+		model.addAttribute("user", new UserForm(user));
 		return "user/update";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "create")
-	public String viewCreateUser(@ModelAttribute("user") UserDto dto) {
+	public String viewCreateUser(@ModelAttribute("user") UserForm dto) {
 		return "user/update";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "create")
-	public String createUser(@Valid @ModelAttribute("user") UserDto dto,
+	public String createUser(@Valid @ModelAttribute("user") UserForm dto,
 			BindingResult binding) {
 		if (binding.hasErrors()) {
 			return "user/update";
@@ -127,17 +124,31 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")
 	public String updateUser(@PathVariable Integer id, Authentication auth,
-			@Valid @ModelAttribute("user") UserDto dto, BindingResult binding) {
+			@Valid @ModelAttribute("user") UserForm dto, BindingResult binding) {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
-		User user = userService.find(id);
+		User user = userService.getById(id);
 		checkEditProfile(user, auth);
 		try {
-			user = userService.update(
-					dto,
-					!auth.getName().equals(user.getName())
-							&& Utils.hasRole(auth, "admin"));
+			boolean asAdmin = !auth.getName().equals(user.getName())
+					&& Utils.hasRole(auth, "admin");
+			String oldName = user.getName();
+
+			// update the user
+			dto.update(user);
+			dto.updatePassword(user, asAdmin);
+			user = userService.update(user);
+
+			// re-authentify the user
+			if (!asAdmin && !oldName.equals(user.getName())) {
+				SecurityContext ctx = SecurityContextHolder.getContext();
+				assert auth == ctx.getAuthentication();
+				ctx.setAuthentication(new UsernamePasswordAuthenticationToken(
+						dto.getName(), auth.getCredentials(), auth
+								.getAuthorities()));
+			}
+
 			return redirectTo(user);
 		} catch (IllegalArgumentException e) {
 			binding.addError(new ObjectError("User", e.getMessage()));

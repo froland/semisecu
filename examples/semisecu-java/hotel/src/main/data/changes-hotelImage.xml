@@ -5,11 +5,11 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet id="imageForHotel" author="k">
-		<addColumn tableName="HOTELS">
+		<addColumn tableName="HOTEL">
 			<column name="IMAGE" type="BLOB" />
 		</addColumn>
 		<!-- For some reason, h2 creates a varbinary typed column -->
-		<sql>alter table HOTELS alter column image blob;</sql>
+		<sql>alter table HOTEL alter column image blob;</sql>
 	</changeSet>
 
 </databaseChangeLog>

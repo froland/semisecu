@@ -3,6 +3,8 @@ package com.hermes.owasphotel.dao.base;
 import java.io.Serializable;
 import java.util.List;
 
+import com.hermes.owasphotel.domain.Identifiable;
+
 /**
  * Base interface for DAO with CRUD operations.
  * @author k
@@ -16,14 +18,20 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	 * @param id The id
 	 * @return The object or <code>null</code> if not found
 	 */
-	public T find(I id);
+	public T getById(I id);
 	
 	/**
 	 * Persists an object.
 	 * @param obj The object
+	 */
+	public void save(T obj);
+	
+	/**
+	 * Merges an object.
+	 * @param obj The object
 	 * @return The saved object
 	 */
-	public T save(T obj);
+	public T merge(T obj);
 	
 	/**
 	 * Deletes the object.
@@ -36,4 +44,10 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	 * @return A list of objects
 	 */
 	public List<T> findAll();
+	
+	/**
+	 * Flushes the modifications.
+	 * <p>After this call the inserted objects will have their ids.</p>
+	 */
+	public void flush();
 }

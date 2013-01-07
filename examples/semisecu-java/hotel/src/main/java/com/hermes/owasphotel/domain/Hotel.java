@@ -15,18 +15,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
 @Entity
-@Table(name = "HOTELS")
+@Table(name = "HOTEL")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
 public class Hotel extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "hotelname", nullable = false)
-	private String hotelName;
+	@Column(name = "name", nullable = false)
+	private String name;
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
@@ -46,32 +43,30 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	private int approved;
 
 	@ManyToOne
-	@JoinColumn(name = "createdBy")
+	@JoinColumn(name = "created_by")
 	private User manager;
 
+	@Basic(fetch = FetchType.EAGER)
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
 	@OrderBy("sequence")
 	private List<Comment> comments = new ArrayList<Comment>();
-
-	@Transient
-	private Double averageNote;
 
 	Hotel() {
 	}
 
 	public Hotel(String name, User manager) {
-		setHotelName(name);
+		setName(name);
 		this.manager = manager;
 	}
 
-	public String getHotelName() {
-		return hotelName;
+	public String getName() {
+		return name;
 	}
 
-	public void setHotelName(String hotelName) {
+	public void setName(String hotelName) {
 		if (hotelName == null || hotelName.isEmpty())
 			throw new IllegalArgumentException("Empty name");
-		this.hotelName = hotelName;
+		this.name = hotelName;
 	}
 
 	public byte[] getImage() {
@@ -175,15 +170,57 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		}
 	}
 
-	public Comment addComment(User user) {
-		return new Comment(this, user);
+	public Comment createComment(User user, int note, String text)
+	{
+		Comment c = new Comment(this, user);
+		c.setNote(note);
+		c.setText(text);
+		return c;
 	}
+	
+	
 
 	public Double getAverageNote() {
-		return averageNote;
+		double note = 0.0;
+		int nbComment = 0;
+		for (Comment c : getComments()) {
+			if(!c.isDeleted())
+			{
+				note += c.getNote();
+				nbComment++;
+			}
+		}
+		return note/nbComment;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof Hotel))
+			return false;
+		Hotel other = (Hotel) obj;
+		boolean toReturn = true;
+		
+		if(other.getCity() == null || getCity() == null)
+			toReturn &= (other.getCity() == null && getCity() == null);
+		else
+			toReturn &= other.getCity().equals(this.getCity());
+		
+		if(other.getName() == null || getName() == null)
+			toReturn &= (other.getName() == null && getName() == null);
+		else
+			toReturn &= other.getName().equals(this.getName());		
 
-	public void setAverageNote(Double averageNote) {
-		this.averageNote = averageNote;
+		if(other.getCountry() == null || getCountry() == null)
+			toReturn &= (other.getCountry() == null && getCountry() == null);
+		else
+			toReturn &= other.getCountry().equals(this.getCountry());
+		
+			
+		return toReturn;
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getName().hashCode();
 	}
 }

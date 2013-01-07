@@ -1,6 +1,4 @@
-package com.hermes.owasphotel.service.dto;
-
-import java.util.Set;
+package com.hermes.owasphotel.web.mvc.form;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -12,8 +10,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.UserService;
 
-public class HotelDto extends GenericDto<Integer, Hotel> {
+public class HotelForm {
+	private Integer id;
+
 	@NotBlank(message = "The name of the hotel may not be blank")
 	private String hotelName;
 
@@ -24,18 +25,65 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 	private String telephone;
 	@Email
 	private String email;
-
 	@Min(0)
 	@Max(5)
 	@NotNull
 	private Integer stars;
+	private String descriptionHTML;
 
 	private String manager;
 
-	private String descriptionHTML;
-
 	private CommonsMultipartFile file;
 	private boolean deleteFile;
+
+	public HotelForm() {
+		// default constructor
+	}
+
+	public HotelForm(Hotel hotel) {
+		id = hotel.getId();
+		hotelName = hotel.getName();
+
+		address = hotel.getAddress();
+		city = hotel.getCity();
+		country = hotel.getCountry();
+
+		telephone = hotel.getTelephone();
+		email = hotel.getEmail();
+		stars = hotel.getStars();
+		descriptionHTML = hotel.getDescriptionHTML();
+
+		manager = hotel.getManager().getName();
+	}
+
+	public void update(Hotel h, UserService userService) {
+		h.setName(hotelName);
+		h.setAddress(address);
+		h.setCity(city);
+		h.setCountry(country);
+		h.setTelephone(telephone);
+		h.setEmail(email);
+		h.setStars(stars);
+		h.setDescriptionHTML(descriptionHTML);
+
+		if (userService != null) {
+			h.setManager(userService.getByName(this.manager));
+		}
+
+		if (deleteFile) {
+			h.setImage(null);
+		} else if (file != null && file.getSize() > 0) {
+			h.setImage(file.getBytes());
+		}
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getHotelName() {
 		return hotelName;
@@ -125,37 +173,9 @@ public class HotelDto extends GenericDto<Integer, Hotel> {
 		this.manager = manager;
 	}
 
-	@Override
-	public void update(Hotel h) {
-		super.update(h);
-		if (deleteFile) {
-			h.setImage(null);
-		} else if (file != null && file.getSize() > 0) {
-			h.setImage(file.getBytes());
-		}
-		// manager is not updated directly from this DTO
-	}
-
-	@Override
-	public void read(Hotel domain) {
-		super.read(domain);
-		manager = domain.getManager().getName();
-	}
-
-	@Override
-	protected Set<String> ignoredFields(boolean update) {
-		Set<String> s = super.ignoredFields(update);
-		if (update) {
-			s.add("file");
-			s.add("deleteFile");
-		}
-		s.add("manager");
-		return s;
-	}
-
 	public Hotel makeNew(User user) {
 		Hotel h = new Hotel(hotelName, user);
-		update(h);
+		update(h, null);
 		return h;
 	}
 }

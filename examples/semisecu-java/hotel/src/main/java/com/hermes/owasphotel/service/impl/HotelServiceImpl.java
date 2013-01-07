@@ -14,10 +14,9 @@ import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.HotelListItem;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelService;
-import com.hermes.owasphotel.service.dto.HotelDto;
-import com.hermes.owasphotel.service.dto.HotelListItemDto;
 
 /**
  * Service: Hotel
@@ -37,21 +36,19 @@ public class HotelServiceImpl implements HotelService {
 	private UserDao userDao;
 
 	@Override
-	public Hotel find(Integer id) {
-		Hotel h = hotelDao.find(id);
+	public Hotel getById(Integer id) {
+		Hotel h = hotelDao.getById(id);
 		if (h == null)
 			return null;
 		// load comments
 		h.getComments().size();
-		// set the note
-		hotelDao.computeNote(h);
 
 		return h;
 	}
 
 	@Override
-	public Hotel save(Hotel obj) {
-		return hotelDao.save(obj);
+	public void save(Hotel obj) {
+		hotelDao.save(obj);
 	}
 
 	@Override
@@ -60,82 +57,67 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<HotelListItemDto> listAll() {
+	public List<HotelListItem> listAll() {
 		return itemize(hotelDao.findAll());
 	}
 
-	private List<HotelListItemDto> itemize(List<Hotel> lh) {
-		List<HotelListItemDto> result = new LinkedList<HotelListItemDto>();
+	private List<HotelListItem> itemize(List<Hotel> lh) {
+		List<HotelListItem> result = new LinkedList<HotelListItem>();
 		for (Hotel hotel : lh) {
-			hotelDao.computeNote(hotel);
-			result.add(new HotelListItemDto(hotel.getHotelName(), hotel
-					.getNbComments(false), hotel.getAverageNote(), hotel
-					.getId()));
+			result.add(new HotelListItem(hotel.getId(), hotel.getName(),
+					hotel.getNbComments(false), hotel.getAverageNote()));
 		}
 		return result;
 	}
 
 	@Override
-	public List<HotelListItemDto> listApproved() {
+	public List<HotelListItem> listApproved() {
 		return itemize(hotelDao.findApprovedHotels(true));
 	}
 
 	@Override
-	public List<HotelListItemDto> listNotApproved() {
+	public List<HotelListItem> listNotApproved() {
 		return itemize(hotelDao.findApprovedHotels(false));
 	}
 
 	@Override
-	public List<HotelListItemDto> listTopNoted(int count) {
+	public List<HotelListItem> listTopNoted(int count) {
 		return itemize(hotelDao.findTopNotedHotels(count));
 	}
 
 	@Override
-	public Hotel findByName(String search) {
-		return hotelDao.findByName(search);
+	public Hotel getByName(String search) {
+		return hotelDao.getByName(search);
 	}
 
 	@Override
 	public List<String> findForAutoComplete(String query) {
 		List<String> list = new ArrayList<String>();
 		for (Hotel h : hotelDao.findSearchQuery(query, false, 100)) {
-			list.add(h.getHotelName());
+			list.add(h.getName());
 		}
 		return list;
 	}
 
 	@Override
-	public List<HotelListItemDto> listSearchQuery(String search) {
+	public List<HotelListItem> listSearchQuery(String search) {
 		return itemize(hotelDao.findSearchQuery(search, true, 0));
 	}
 
 	@Override
-	public List<HotelListItemDto> listManagedHotels(String name) {
+	public List<HotelListItem> listManagedHotels(String name) {
 		User user = userDao.find(name);
 		return itemize(hotelDao.findManagedHotels(user));
 	}
 
 	@Override
-	public Hotel update(Integer hotelId, HotelDto data) {
-		Hotel h = hotelDao.find(hotelId);
-		if (h == null)
-			throw new IllegalArgumentException("Hotel does not exist: id="
-					+ hotelId);
-		// update the data
-		data.update(h);
-		logger.info("Hotel updated: " + h);
-		// update the manager
-		User manager = userDao.find(data.getManager());
-		if (manager != null) {
-			h.setManager(manager);
-			logger.info("Hotel manager updated");
-		}
-		return h;
+	public Hotel update(Hotel hotel) {
+		return hotelDao.merge(hotel);
 	}
 
 	@Override
 	public Hotel approve(Integer hotelId) {
-		Hotel h = hotelDao.find(hotelId);
+		Hotel h = hotelDao.getById(hotelId);
 		if (h == null)
 			throw new IllegalArgumentException("Hotel does not exist: id="
 					+ hotelId);
@@ -145,24 +127,18 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void addComment(Integer hotelId, String name,
-			boolean authentifiedUser, int note, String text) {
+	public void addComment(Integer hotelId, String name, int note, String text) {
 		User user = null;
-		if (authentifiedUser) {
+		if (name != null) {
 			user = userDao.find(name);
 		}
-		Hotel hotel = hotelDao.find(hotelId);
-		Comment c = hotel.addComment(user);
-		if (user == null) {
-			c.setUserName(name);
-		}
-		c.setText(text);
-		c.setNote(note);
+		Hotel hotel = hotelDao.getById(hotelId);
+		hotel.createComment(user, note, text);
 	}
 
 	@Override
 	public void deleteComment(Integer hotelId, int commentSeq) {
-		Hotel hotel = hotelDao.find(hotelId);
+		Hotel hotel = hotelDao.getById(hotelId);
 		Comment comment = null;
 		try {
 			comment = hotel.getComments().get(commentSeq - 1);
@@ -190,7 +166,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public byte[] getHotelImage(Integer hotelId) {
-		Hotel hotel = hotelDao.find(hotelId);
+		Hotel hotel = hotelDao.getById(hotelId);
 		if (hotel == null)
 			return null;
 		return hotel.getImage();
@@ -198,6 +174,6 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public void setHotelImage(Integer hotelId, byte[] image) {
-		hotelDao.find(hotelId).setImage(image);
+		hotelDao.getById(hotelId).setImage(image);
 	}
 }

@@ -22,7 +22,7 @@ import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
-import com.hermes.owasphotel.service.dto.HotelDto;
+import com.hermes.owasphotel.web.mvc.form.HotelForm;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = HotelControllerTest.Config.class)
@@ -60,7 +60,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 		authentify("manager", null, "user");
 		request(HttpMethod.GET, "/hotel/1/update");
 		assertResponse(HttpStatus.OK);
-		assertType(mav, "hotel", HotelDto.class);
+		assertType(mav, "hotel", HotelForm.class);
 	}
 
 	@Test
@@ -94,8 +94,8 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 		@Bean
 		public UserService userService() {
 			UserService service = Mockito.mock(UserService.class);
-			Mockito.when(service.find("a")).thenReturn(new User("a", "a"));
-			Mockito.when(service.find(manager.getName())).thenReturn(manager);
+			Mockito.when(service.getByName("a")).thenReturn(new User("a", "a"));
+			Mockito.when(service.getByName(manager.getName())).thenReturn(manager);
 			return service;
 		}
 
@@ -105,11 +105,13 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 			Hotel h = new Hotel("h", manager);
 			ReflectionTestUtils.setField(h, "id", 1);
 			assert h.getId() != null : "h.id not set";
-			Mockito.when(service.find(h.getId())).thenReturn(h);
-			Mockito.when(service.findByName(h.getHotelName())).thenReturn(h);
-			Mockito.when(
-					service.update(Mockito.eq(h.getId()),
-							Mockito.any(HotelDto.class))).thenReturn(h);
+			Mockito.when(service.getById(h.getId())).thenReturn(h);
+			Mockito.when(service.getByName(h.getName())).thenReturn(h);
+			// TODO
+//			Mockito.when(
+//					service.update(Mockito.eq(h.getId()),
+//							Mockito.any(HotelForm.class))).thenReturn(h);
+
 			return service;
 		}
 

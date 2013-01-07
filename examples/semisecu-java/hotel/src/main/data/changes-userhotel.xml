@@ -5,12 +5,12 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet id="userForHotel" author="k">
-		<addColumn tableName="HOTELS">
+		<addColumn tableName="HOTEL">
 			<column name="CREATED_BY" type="INT" />
 		</addColumn>
 		<addForeignKeyConstraint constraintName="FK_HOTELS_CREATED_BY"
-			referencedTableName="USERS" baseColumnNames="CREATED_BY"
-			baseTableName="HOTELS" referencedColumnNames="ID" />
+			referencedTableName="USER" baseColumnNames="CREATED_BY"
+			baseTableName="HOTEL" referencedColumnNames="ID" />
 	</changeSet>
 
 </databaseChangeLog>
