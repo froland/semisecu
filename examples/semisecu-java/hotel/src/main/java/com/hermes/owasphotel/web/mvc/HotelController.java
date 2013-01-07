@@ -206,7 +206,7 @@ public class HotelController {
 	private static void checkEdit(Hotel hotel, User user) {
 		if (user == null
 				|| hotel == null
-				|| !(user.equalsId(hotel.getManager()) || user.getRoles()
+				|| !(user.equals(hotel.getManager()) || user.getRoles()
 						.contains("admin")))
 			throw new AccessDeniedException("Cannot edit that hotel");
 	}

@@ -52,7 +52,7 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	}
 
 	@Override
-	public Hotel findByName(String search) {
+	public Hotel getByName(String search) {
 		List<Hotel> list = em
 				.createQuery("from Hotel h where lower(h.hotelName) = :t",
 						Hotel.class).setParameter("t", search.toLowerCase())

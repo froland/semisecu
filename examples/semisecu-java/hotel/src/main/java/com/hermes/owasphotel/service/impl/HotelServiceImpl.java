@@ -38,7 +38,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel find(Integer id) {
-		Hotel h = hotelDao.find(id);
+		Hotel h = hotelDao.getById(id);
 		if (h == null)
 			return null;
 		// load comments
@@ -92,7 +92,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel findByName(String search) {
-		return hotelDao.findByName(search);
+		return hotelDao.getByName(search);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel update(Integer hotelId, HotelDto data) {
-		Hotel h = hotelDao.find(hotelId);
+		Hotel h = hotelDao.getById(hotelId);
 		if (h == null)
 			throw new IllegalArgumentException("Hotel does not exist: id="
 					+ hotelId);
@@ -135,7 +135,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel approve(Integer hotelId) {
-		Hotel h = hotelDao.find(hotelId);
+		Hotel h = hotelDao.getById(hotelId);
 		if (h == null)
 			throw new IllegalArgumentException("Hotel does not exist: id="
 					+ hotelId);
@@ -151,7 +151,7 @@ public class HotelServiceImpl implements HotelService {
 		if (authentifiedUser) {
 			user = userDao.find(name);
 		}
-		Hotel hotel = hotelDao.find(hotelId);
+		Hotel hotel = hotelDao.getById(hotelId);
 		Comment c = hotel.addComment(user);
 		if (user == null) {
 			c.setUserName(name);
@@ -162,7 +162,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public void deleteComment(Integer hotelId, int commentSeq) {
-		Hotel hotel = hotelDao.find(hotelId);
+		Hotel hotel = hotelDao.getById(hotelId);
 		Comment comment = null;
 		try {
 			comment = hotel.getComments().get(commentSeq - 1);
@@ -190,7 +190,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public byte[] getHotelImage(Integer hotelId) {
-		Hotel hotel = hotelDao.find(hotelId);
+		Hotel hotel = hotelDao.getById(hotelId);
 		if (hotel == null)
 			return null;
 		return hotel.getImage();
@@ -198,6 +198,6 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public void setHotelImage(Integer hotelId, byte[] image) {
-		hotelDao.find(hotelId).setImage(image);
+		hotelDao.getById(hotelId).setImage(image);
 	}
 }

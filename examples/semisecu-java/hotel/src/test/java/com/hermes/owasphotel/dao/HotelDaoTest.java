@@ -117,8 +117,8 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		h.setHotelName("my hotel");
 		h = hotelDao.save(h);
 
-		assertNull(hotelDao.findByName("___xyz"));
-		Hotel found = hotelDao.findByName("my hotel");
+		assertNull(hotelDao.getByName("___xyz"));
+		Hotel found = hotelDao.getByName("my hotel");
 		checkEquals(h, found);
 	}
 

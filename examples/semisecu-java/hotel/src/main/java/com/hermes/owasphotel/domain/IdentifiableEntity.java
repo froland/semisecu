@@ -1,4 +1,4 @@
-package com.hermes.owasphotel.dao.jpa;
+package com.hermes.owasphotel.domain;
 
 import java.io.Serializable;
 
@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-
-import com.hermes.owasphotel.dao.base.Identifiable;
 
 /**
  * An identifiable JPA entity.
@@ -32,23 +30,20 @@ public abstract class IdentifiableEntity<I extends Serializable> implements
 	}
 
 	@Override
-	public final int hashCode() {
-		return super.hashCode();
+	public int hashCode() {
+		return id == null ? super.hashCode() : id.hashCode()
+				* getClass().hashCode();
 	}
 
 	@Override
-	public final boolean equals(Object obj) {
-		return super.equals(obj);
-	}
-
-	public final boolean equalsId(Object obj) {
-		if (this == obj)
-			return true;
-		if (this.id != null && getClass().isInstance(obj)) {
-			Object id = ((IdentifiableEntity<?>) obj).getId();
-			return this.id.equals(id);
+	public boolean equals(Object obj) {
+		if (id == null) {
+			return super.equals(obj);
+		} else if (getClass().isInstance(obj)) {
+			return id.equals(((Identifiable<?>) obj).getId());
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	@Override

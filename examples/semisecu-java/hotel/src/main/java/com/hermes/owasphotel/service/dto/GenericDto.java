@@ -9,7 +9,7 @@ import java.util.Set;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-import com.hermes.owasphotel.dao.base.Identifiable;
+import com.hermes.owasphotel.domain.Identifiable;
 
 public abstract class GenericDto<I extends Serializable, T extends Identifiable<I>> {
 	private I id;

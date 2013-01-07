@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
-import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
-
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "id_seq", sequenceName = "USERS_SEQ")

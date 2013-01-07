@@ -17,8 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
-
 @Entity
 @Table(name = "HOTELS")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")

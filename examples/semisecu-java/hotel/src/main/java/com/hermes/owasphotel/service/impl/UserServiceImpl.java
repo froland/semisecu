@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User find(Integer id) {
-		return userDao.find(id);
+		return userDao.getById(id);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User update(UserDto dto, boolean asAdmin) {
-		User u = userDao.find(dto.getId());
+		User u = userDao.getById(dto.getId());
 		if (u == null)
 			return null;
 		String oldName = u.getName();
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User enableUser(Integer id, boolean enable) {
-		User u = userDao.find(id);
+		User u = userDao.getById(id);
 		u.setEnabled(enable);
 		return u;
 	}

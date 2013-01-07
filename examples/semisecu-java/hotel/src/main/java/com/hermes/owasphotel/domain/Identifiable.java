@@ -1,4 +1,4 @@
-package com.hermes.owasphotel.dao.base;
+package com.hermes.owasphotel.domain;
 
 import java.io.Serializable;
 

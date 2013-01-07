@@ -10,8 +10,8 @@ import java.io.Serializable;
 
 import org.junit.Test;
 
-import com.hermes.owasphotel.dao.base.Identifiable;
 import com.hermes.owasphotel.dao.base.SimpleDao;
+import com.hermes.owasphotel.domain.Identifiable;
 
 public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identifiable<I>>
 		extends DaoTestBase {
@@ -23,12 +23,12 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 		assertNotNull("No saved object returned", saved);
 		assertNotNull("ID not generated", saved.getId());
 		assertTrue("FindAll must contains DAO", dao.findAll().contains(saved));
-		T found = dao.find(saved.getId());
+		T found = dao.getById(saved.getId());
 		assertNotNull("Saved object not found", found);
 		checkEquals(saved, found);
 		dao.delete(found);
 		assertFalse("Not deleted", dao.findAll().contains(saved));
-		assertNull("Deleted object found", dao.find(saved.getId()));
+		assertNull("Deleted object found", dao.getById(saved.getId()));
 	}
 
 	protected void checkEquals(T expected, T found) {

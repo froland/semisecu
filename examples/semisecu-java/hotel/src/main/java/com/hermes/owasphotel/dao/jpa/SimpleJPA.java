@@ -9,8 +9,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hermes.owasphotel.dao.base.Identifiable;
 import com.hermes.owasphotel.dao.base.SimpleDao;
+import com.hermes.owasphotel.domain.Identifiable;
 
 /**
  * Template class for CRUD operations that uses JPA.
@@ -47,7 +47,7 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 
 	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
-	public T find(I id) {
+	public T getById(I id) {
 		return em.find(type, id);
 	}
 
