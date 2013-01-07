@@ -106,7 +106,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 			ReflectionTestUtils.setField(h, "id", 1);
 			assert h.getId() != null : "h.id not set";
 			Mockito.when(service.find(h.getId())).thenReturn(h);
-			Mockito.when(service.findByName(h.getHotelName())).thenReturn(h);
+			Mockito.when(service.findByName(h.getName())).thenReturn(h);
 			Mockito.when(
 					service.update(Mockito.eq(h.getId()),
 							Mockito.any(HotelDto.class))).thenReturn(h);

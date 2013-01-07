@@ -23,6 +23,4 @@ public interface HotelDao extends SimpleDao<Integer, Hotel> {
 
 	public List<Hotel> findManagedHotels(User user);
 
-	public void computeNote(Hotel h);
-
 }

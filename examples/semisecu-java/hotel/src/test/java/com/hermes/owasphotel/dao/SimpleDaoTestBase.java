@@ -20,13 +20,14 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 		SimpleDao<I, T> dao = getDao();
 		T saved = createEntity();
 		dao.save(saved);
-		// TODO flush, etc.
+		dao.flush();
 		assertNotNull("ID not generated", saved.getId());
 		assertTrue("FindAll must contains DAO", dao.findAll().contains(saved));
 		T found = dao.getById(saved.getId());
 		assertNotNull("Saved object not found", found);
 		checkEquals(saved, found);
 		dao.delete(found);
+		dao.flush();
 		assertFalse("Not deleted", dao.findAll().contains(saved));
 		assertNull("Deleted object found", dao.getById(saved.getId()));
 	}

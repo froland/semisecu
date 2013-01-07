@@ -24,7 +24,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "name", nullable = false)
-	private String hotelName;
+	private String name;
 
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
@@ -47,29 +47,27 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	@JoinColumn(name = "created_by")
 	private User manager;
 
+	@Basic(fetch = FetchType.EAGER)
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
 	@OrderBy("sequence")
 	private List<Comment> comments = new ArrayList<Comment>();
-
-	@Transient
-	private Double averageNote;
 
 	Hotel() {
 	}
 
 	public Hotel(String name, User manager) {
-		setHotelName(name);
+		setName(name);
 		this.manager = manager;
 	}
 
-	public String getHotelName() {
-		return hotelName;
+	public String getName() {
+		return name;
 	}
 
-	public void setHotelName(String hotelName) {
+	public void setName(String hotelName) {
 		if (hotelName == null || hotelName.isEmpty())
 			throw new IllegalArgumentException("Empty name");
-		this.hotelName = hotelName;
+		this.name = hotelName;
 	}
 
 	public byte[] getImage() {
@@ -178,10 +176,15 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	}
 
 	public Double getAverageNote() {
-		return averageNote;
-	}
-
-	public void setAverageNote(Double averageNote) {
-		this.averageNote = averageNote;
+		double note = 0.0;
+		int nbComment = 0;
+		for (Comment c : getComments()) {
+			if(!c.isDeleted())
+			{
+				note += c.getNote();
+				nbComment++;
+			}
+		}
+		return note/nbComment;
 	}
 }
