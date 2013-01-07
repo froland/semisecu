@@ -20,12 +20,12 @@ import javax.persistence.Transient;
 import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
 @Entity
-@Table(name = "HOTELS")
+@Table(name = "HOTEL")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
 public class Hotel extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "hotelname", nullable = false)
+	@Column(name = "name", nullable = false)
 	private String hotelName;
 
 	@Lob
@@ -46,7 +46,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	private int approved;
 
 	@ManyToOne
-	@JoinColumn(name = "createdBy")
+	@JoinColumn(name = "created_by")
 	private User manager;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")

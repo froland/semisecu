@@ -18,7 +18,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import com.hermes.owasphotel.dao.jpa.IdentifiableEntity;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @SequenceGenerator(name = "id_seq", sequenceName = "USERS_SEQ")
 public class User extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class User extends IdentifiableEntity<Integer> {
 	private int enabled = 1;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(joinColumns = @JoinColumn(name = "userid"), name = "ROLES")
+	@CollectionTable(joinColumns = @JoinColumn(name = "user_id"), name = "ROLE")
 	@Column(name = "name")
 	private List<String> roles = new ArrayList<String>();
 

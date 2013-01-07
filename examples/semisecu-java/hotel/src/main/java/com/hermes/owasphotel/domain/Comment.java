@@ -17,12 +17,12 @@ import javax.persistence.TemporalType;
 
 @Entity
 @IdClass(CommentID.class)
-@Table(name = "comments")
+@Table(name = "comment")
 public class Comment {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "hotelid", nullable = false)
+	@JoinColumn(name = "hotel_id", nullable = false)
 	private Hotel hotel;
 	@Id
 	@Column(name = "seq")
@@ -38,7 +38,7 @@ public class Comment {
 	private String text;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userid", nullable = true)
+	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
 	private String userName;
 	private int deleted = 0;
