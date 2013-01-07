@@ -64,7 +64,7 @@ public class HotelServiceImpl implements HotelService {
 	private List<HotelListItem> itemize(List<Hotel> lh) {
 		List<HotelListItem> result = new LinkedList<HotelListItem>();
 		for (Hotel hotel : lh) {
-			result.add(new HotelListItem(hotel.getId(), hotel.getHotelName(),
+			result.add(new HotelListItem(hotel.getId(), hotel.getName(),
 					hotel.getNbComments(false), hotel.getAverageNote()));
 		}
 		return result;
