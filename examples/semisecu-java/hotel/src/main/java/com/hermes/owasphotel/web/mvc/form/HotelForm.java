@@ -4,8 +4,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
+import org.apache.bval.constraints.Email;
+import org.apache.bval.constraints.NotEmpty;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.hermes.owasphotel.domain.Hotel;
@@ -15,7 +15,7 @@ import com.hermes.owasphotel.service.UserService;
 public class HotelForm {
 	private Integer id;
 
-	@NotBlank(message = "The name of the hotel may not be blank")
+	@NotEmpty(message = "The name of the hotel may not be blank")
 	private String hotelName;
 
 	private String address;
