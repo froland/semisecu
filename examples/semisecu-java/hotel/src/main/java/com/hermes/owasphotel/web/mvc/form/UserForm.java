@@ -1,17 +1,17 @@
 package com.hermes.owasphotel.web.mvc.form;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.ScriptAssert;
+import org.apache.bval.constraints.Email;
+import org.apache.bval.constraints.NotEmpty;
 
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.validation.SameValue;
 
-@ScriptAssert(lang = "jexl", script = "_.password == _.retypedPassword", alias = "_", message = "Both passwords are not equal")
+@SameValue(fieldNames = { "password", "retypedPassword" }, message = "Both passwords are not equal")
 public class UserForm {
 
 	private Integer id;
 
-	@NotBlank(message = "Your name may not be blank")
+	@NotEmpty(message = "Your name may not be blank")
 	private String name;
 
 	private String oldPassword;
