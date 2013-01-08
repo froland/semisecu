@@ -37,9 +37,16 @@ public class Dumper {
 	}
 
 	public void dump(String tableName, String[] columns, Writer w)
-			throws IOException, DataAccessException, SQLException {
+			throws IOException, DataAccessException {
 		if (columns == null || columns.length == 0) {
-			columns = listColumns(tableName).toArray(new String[0]);
+			try {
+				columns = listColumns(tableName).toArray(new String[0]);
+			} catch (SQLException e) {
+				throw new DataAccessException(
+						"Failed to get the column list of " + tableName, e) {
+					private static final long serialVersionUID = 1L;
+				};
+			}
 		}
 		JdbcTemplate select = new JdbcTemplate(dataSource);
 		StringBuilder query = new StringBuilder("select ");
