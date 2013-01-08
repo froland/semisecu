@@ -19,7 +19,7 @@ import com.hermes.owasphotel.service.AdminService;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasRole('admin')")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
 	@Autowired

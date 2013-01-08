@@ -1,6 +1,7 @@
 package com.hermes.owasphotel.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -47,8 +48,8 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	@JoinColumn(name = "created_by")
 	private User manager;
 
-	@Basic(fetch = FetchType.EAGER)
-	@OneToMany(cascade = CascadeType.ALL)
+	// XXX eager loading, loads the comments twice
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "hotel_id", nullable = false)
 	@OrderBy("id")
 	private List<Comment> comments = new ArrayList<Comment>();
@@ -156,7 +157,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	}
 
 	public List<Comment> getComments() {
-		return comments;
+		return Collections.unmodifiableList(comments);
 	}
 
 	public int getNbComments(boolean countDeleted) {
@@ -189,6 +190,8 @@ public class Hotel extends IdentifiableEntity<Integer> {
 				nbComment++;
 			}
 		}
+		if (nbComment == 0) // avoid returning NaN
+			return 0.0f;
 		return note / nbComment;
 	}
 

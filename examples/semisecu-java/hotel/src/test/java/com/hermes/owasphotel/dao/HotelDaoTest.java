@@ -171,5 +171,6 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		super.checkEquals(expected, found);
 		assertEquals(expected.getCountry(), found.getCountry());
 		assertEquals(expected.getImage(), found.getImage());
+		assertEquals(expected.getComments().size(), found.getComments().size());
 	}
 }

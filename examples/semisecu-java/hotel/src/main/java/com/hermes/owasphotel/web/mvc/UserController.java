@@ -78,7 +78,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	@PreAuthorize("hasRole('admin')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String viewList(Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
@@ -86,14 +86,14 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "listNames")
-	@PreAuthorize("hasRole('admin')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@ResponseBody
 	public List<String> getNames(@RequestParam(required = false) String prefix) {
 		return userService.getNames(prefix);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{name}")
-	@PreAuthorize("hasRole('admin') or #name == authentication.name")
+	@PreAuthorize("hasRole('ADMIN') or #name == authentication.name")
 	public String viewUser(Model model, @PathVariable String name) {
 		User user = userService.getByName(name);
 		if (user == null)
@@ -168,7 +168,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "enable/{id}")
-	@PreAuthorize("hasRole('admin')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String enableUser(@PathVariable Integer id,
 			@RequestParam boolean enable) {
 		User user;

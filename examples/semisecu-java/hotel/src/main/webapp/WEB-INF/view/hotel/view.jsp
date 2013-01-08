@@ -13,7 +13,7 @@
 	<jsp:body>
 		<c:if test="${!hotel.approved}">
 			<p class="alert">The hotel is not approved!</p>
-			<sec:authorize access="hasRole('admin')">
+			<sec:authorize access="hasRole('ADMIN')">
 			<form method="POST"
 					action="<c:url value="/hotel/${hotel.id}/approve"/>">
 				<input type="submit" value="Approve hotel" class="btn btn-success" />
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 			<sec:authorize
-			access="hasRole('admin') or (isAuthenticated() and ${hotel.manager.name == pageContext['request'].userPrincipal.name })">
+			access="hasRole('ADMIN') or (isAuthenticated() and ${hotel.manager.name == pageContext['request'].userPrincipal.name })">
 			<div class="row">
 			<div class="span10 offset1">
 				<a class="btn btn-warning"
@@ -65,7 +65,7 @@
 					<fmt:formatDate value="${comment.date}" type="both" />
 					<span style="float: right;">Note: <t:hotel.stars
 									value="${comment.note}" max="10" /></span>
-					<sec:authorize access="hasRole('admin')">
+					<sec:authorize access="hasRole('ADMIN')">
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
 					<input type="hidden" name="delete" value="${comment.id}" />

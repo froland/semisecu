@@ -115,7 +115,7 @@
 					</div>
 				</div>
 				
-				<sec:authorize access="hasRole('admin')">
+				<sec:authorize access="hasRole('ADMIN')">
 				<div class="control-group">
 					<label class="control-label" for="hotelManager">Manager</label>
 					<div class="controls">

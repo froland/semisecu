@@ -10,8 +10,8 @@
 	
 		<jsp:attribute name="navigation" >
 		
-		<sec:authorize access= "hasRole('admin')" > <t:navigation.admin /> </sec:authorize>
-		<sec:authorize access= "!hasRole('admin')" > <t:navigation.default /> </sec:authorize>
+		<sec:authorize access= "hasRole('ADMIN')" > <t:navigation.admin /> </sec:authorize>
+		<sec:authorize access= "!hasRole('ADMIN')" > <t:navigation.default /> </sec:authorize>
 		
 		
 		
@@ -28,7 +28,7 @@
 		<div>
 			<a href="<c:url value="/user/update/${user.id}"/>" class="btn"><i
 				class="icon-edit"></i> Update profile</a>
-			<sec:authorize access="hasRole('admin')">
+			<sec:authorize access="hasRole('ADMIN')">
 			<form action="<c:url value="/user/enable/${user.id}"/>" method="post">
 			<c:choose>
 			<c:when test="${user.enabled}">

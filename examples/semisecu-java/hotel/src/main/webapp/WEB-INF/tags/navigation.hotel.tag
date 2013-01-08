@@ -8,10 +8,10 @@
 		<ul class="nav">
 			<li><a href="<c:url value="/hotel"/>">List of hotels</a></li>
 			<li><a href="<c:url value="/hotel/top"/>">Top hotels</a></li>
-			<sec:authorize access="hasRole('admin')">
+			<sec:authorize access="hasRole('ADMIN')">
 				<li><a href="<c:url value="/hotel/toApprove"/>">Hotels to approve</a></li>
 			</sec:authorize>
-			<sec:authorize access="hasRole('user')">
+			<sec:authorize access="hasRole('USER')">
 				<li><a href="<c:url value="/hotel/managed"/>">My hotels</a></li>
 				<li><a href="<c:url value="/hotel/create"/>">Create a new hotel</a></li>
 			</sec:authorize>

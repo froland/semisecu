@@ -55,7 +55,12 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel getById(Integer id) {
-		return hotelDao.getById(id);
+		Hotel h = hotelDao.getById(id);
+		// force loading as eager loading fetches the data twice
+		if (h == null)
+			return null;
+		h.getComments().size();
+		return h;
 	}
 
 	@Override

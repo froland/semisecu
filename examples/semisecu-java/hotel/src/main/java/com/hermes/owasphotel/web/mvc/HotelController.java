@@ -132,7 +132,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "toApprove")
-	@PreAuthorize("hasRole('admin')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String viewHotelsNotApproved(Model model) {
 		List<HotelListItem> hotels = hotelService.listNotApproved();
 		setPagedList(model, "hotels", hotels);
@@ -148,7 +148,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "managed")
-	@PreAuthorize("hasRole('user')")
+	@PreAuthorize("hasRole('USER')")
 	public String viewHotelsManaged(Model model, Authentication auth) {
 		List<HotelListItem> hotels = hotelService.listManagedHotels(auth
 				.getName());
@@ -197,7 +197,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
-	@PreAuthorize("hasRole('admin')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteComment(@PathVariable("id") Integer hotelId,
 			@RequestParam("delete") Integer comment) {
 		hotelService.deleteComment(hotelId, comment);
@@ -205,13 +205,13 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "create")
-	@PreAuthorize("hasRole('user')")
+	@PreAuthorize("hasRole('USER')")
 	public String viewCreateHotel(@ModelAttribute("hotel") HotelForm dto) {
 		return "hotel/update";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "create")
-	@PreAuthorize("hasRole('user')")
+	@PreAuthorize("hasRole('USER')")
 	public String createHotel(@Valid @ModelAttribute("hotel") HotelForm dto,
 			BindingResult binding, Authentication auth) {
 		if (binding.hasErrors()) {
@@ -265,7 +265,7 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/approve")
-	@PreAuthorize("hasRole('admin')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String approveHotel(@PathVariable("id") Integer hotelId) {
 		hotelService.approve(hotelId);
 		return redirectTo(hotelId);

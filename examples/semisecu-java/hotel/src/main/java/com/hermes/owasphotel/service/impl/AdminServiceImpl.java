@@ -14,7 +14,7 @@ import com.hermes.owasphotel.service.AdminService;
 
 @Service
 @Transactional
-@PreAuthorize("hasRole('admin')")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired

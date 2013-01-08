@@ -29,7 +29,7 @@
 							<li><a
 									href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View
 									profile</a></li>
-							<sec:authorize access="hasRole('admin')">
+							<sec:authorize access="hasRole('ADMIN')">
 								<li><a href="<c:url value="/admin"/>">Administration
 										page</a></li>
 							</sec:authorize>
