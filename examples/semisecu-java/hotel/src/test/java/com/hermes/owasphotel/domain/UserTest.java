@@ -15,7 +15,7 @@ public class UserTest {
 				a.checkPassword("pass") && !a.checkPassword("a"));
 		assertFalse("By default the user is not an admin", a.isAdmin());
 
-		assertTrue("Check role user", a.getRoles().contains(User.ROLE_USER));
+		assertTrue("Check role user", a.getRoles().contains(Roles.user));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -45,9 +45,9 @@ public class UserTest {
 		a.setAdmin(true);
 		assertTrue(a.isAdmin());
 		assertTrue("The admin role should be present when admin", a.getRoles()
-				.contains(User.ROLE_ADMIN));
+				.contains(Roles.admin));
 		a.setAdmin(false);
 		assertFalse(a.isAdmin());
-		assertFalse(a.getRoles().contains(User.ROLE_ADMIN));
+		assertFalse(a.getRoles().contains(Roles.admin));
 	}
 }
