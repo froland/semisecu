@@ -106,7 +106,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<HotelListItem> listManagedHotels(String name) {
-		User user = userDao.find(name);
+		User user = userDao.getByName(name);
 		return itemize(hotelDao.findManagedHotels(user));
 	}
 
@@ -130,7 +130,7 @@ public class HotelServiceImpl implements HotelService {
 	public void addComment(Integer hotelId, String name, int note, String text) {
 		User user = null;
 		if (name != null) {
-			user = userDao.find(name);
+			user = userDao.getByName(name);
 		}
 		Hotel hotel = hotelDao.getById(hotelId);
 		hotel.createComment(user, note, text);

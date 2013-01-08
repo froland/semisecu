@@ -22,7 +22,7 @@ public class UserDaoJpa extends SimpleJPA<Integer, User> implements UserDao {
 	}
 
 	@Override
-	public User find(String name) {
+	public User getByName(String name) {
 		try {
 			return em.createQuery("from User where name=:name", User.class)
 					.setParameter("name", name).getSingleResult();

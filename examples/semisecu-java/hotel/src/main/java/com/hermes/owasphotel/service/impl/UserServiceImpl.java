@@ -18,6 +18,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
 	@Override
 	public User getById(Integer id) {
 		return userDao.getById(id);
@@ -25,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getByName(String name) {
-		return userDao.find(name);
+		return userDao.getByName(name);
 	}
 
 	@Override

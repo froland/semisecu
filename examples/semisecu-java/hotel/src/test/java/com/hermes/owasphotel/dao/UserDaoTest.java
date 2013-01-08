@@ -30,8 +30,8 @@ public class UserDaoTest extends SimpleDaoTestBase<Integer, User> {
 		User user = new User(name, "a");
 		userDao.save(user);
 		userDao.flush();
-		assertNull(userDao.find(name + "__"));
-		User found = userDao.find(name);
+		assertNull(userDao.getByName(name + "__"));
+		User found = userDao.getByName(name);
 		checkEquals(user, found);
 	}
 
