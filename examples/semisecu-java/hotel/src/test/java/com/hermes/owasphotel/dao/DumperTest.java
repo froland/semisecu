@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.StringWriter;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,7 +14,7 @@ public class DumperTest extends DaoTestBase {
 	private Dumper dumper;
 
 	@Test
-	public void testListTablesAndColumns() throws SQLException {
+	public void testListTablesAndColumns() throws Exception {
 		List<String> tables = dumper.listTables();
 		assertFalse("No tables found", tables.isEmpty());
 		for (String table : tables) {

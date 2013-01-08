@@ -8,12 +8,13 @@ import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.DatabaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,30 +28,29 @@ public abstract class DaoTestBase {
 	@Autowired
 	private String liquibaseChangeLog;
 
+	private Liquibase liquibase;
+
 	DaoTestBase() {
 		// constructor is default to avoid inheriting from non-dao packages
 	}
 
 	@Before
-	public void initializeLiquibase() throws Exception {
-		initializeLiquibase(dataSource, liquibaseChangeLog);
+	public void initializeDB() throws Exception {
+		liquibase = initializeLiquibase(dataSource, liquibaseChangeLog);
+		liquibase.update("");
 	}
 
-	public static void initializeLiquibase(DataSource dataSource,
+	@After
+	public void closeDB() throws DatabaseException {
+		liquibase.getDatabase().close();
+	}
+
+	public static Liquibase initializeLiquibase(DataSource dataSource,
 			String changeLogFile) throws Exception {
 		Connection conn = dataSource.getConnection();
 		Database database = DatabaseFactory.getInstance()
 				.findCorrectDatabaseImplementation(new JdbcConnection(conn));
-		Liquibase liquibase = new Liquibase(changeLogFile,
-				new ClassLoaderResourceAccessor(), database);
-		liquibase.dropAll();
-		liquibase.update("");
-		database.close();
-	}
-
-	public static void initializeLiquibase(ApplicationContext ctx)
-			throws Exception {
-		initializeLiquibase(ctx.getBean(DataSource.class),
-				ctx.getBean("liquibaseChangeLog", String.class));
+		return new Liquibase(changeLogFile, new ClassLoaderResourceAccessor(),
+				database);
 	}
 }

@@ -29,7 +29,7 @@
 		<database.username>sa</database.username>
 		<database.password></database.password>
 		<database.test.driver>${database.driver}</database.test.driver>
-		<database.test.url>jdbc:h2:mem:testdb-${project.name};DB_CLOSE_DELAY=-1</database.test.url>
+		<database.test.url>jdbc:h2:mem:testdb-${project.name}</database.test.url>
 		<database.test.username>${database.username}</database.test.username>
 		<database.test.password>${database.password}</database.test.password>
 	</properties>

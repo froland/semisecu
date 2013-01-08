@@ -50,4 +50,9 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	 * <p>After this call the inserted objects will have their ids.</p>
 	 */
 	public void flush();
+	
+	/**
+	 * Invalidates caches.
+	 */
+	public void clear();
 }

@@ -2,12 +2,8 @@ package com.hermes.owasphotel.service.impl;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -20,8 +16,6 @@ import com.hermes.owasphotel.service.AdminService;
 @Transactional
 @PreAuthorize("hasRole('admin')")
 public class AdminServiceImpl implements AdminService {
-	private static final Logger logger = LoggerFactory
-			.getLogger(AdminServiceImpl.class);
 
 	@Autowired
 	private Dumper dumper;
@@ -42,23 +36,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<String> listTables() {
-		try {
-			return dumper.listTables();
-		} catch (SQLException e) {
-			logger.error("Failed to list tables", e);
-			return new ArrayList<String>();
-		}
+		return dumper.listTables();
 	}
 
 	@Override
 	public List<String> listColumns(String tableName) {
-		List<String> list;
-		try {
-			list = dumper.listColumns(tableName);
-		} catch (SQLException e) {
-			logger.error("Failed to list columns");
-			return new ArrayList<String>();
-		}
+		List<String> list = dumper.listColumns(tableName);
 		// mask some columns
 		if ("USER".equalsIgnoreCase(tableName)) {
 			list.remove("PASSWORD");

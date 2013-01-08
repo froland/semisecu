@@ -39,14 +39,7 @@ public class Dumper {
 	public void dump(String tableName, String[] columns, Writer w)
 			throws IOException, DataAccessException {
 		if (columns == null || columns.length == 0) {
-			try {
-				columns = listColumns(tableName).toArray(new String[0]);
-			} catch (SQLException e) {
-				throw new DataAccessException(
-						"Failed to get the column list of " + tableName, e) {
-					private static final long serialVersionUID = 1L;
-				};
-			}
+			columns = listColumns(tableName).toArray(new String[0]);
 		}
 		JdbcTemplate select = new JdbcTemplate(dataSource);
 		StringBuilder query = new StringBuilder("select ");
@@ -67,7 +60,7 @@ public class Dumper {
 		}
 	}
 
-	public List<String> listTables() throws SQLException {
+	public List<String> listTables() {
 		ArrayList<String> names = new ArrayList<String>();
 		Connection c = null;
 		ResultSet rs = null;
@@ -79,16 +72,28 @@ public class Dumper {
 				names.add(rs.getString("TABLE_NAME"));
 			}
 			rs.close();
+		} catch (SQLException e) {
+			throw new DataAccessException("Failed to list tables") {
+				private static final long serialVersionUID = 1L;
+			};
 		} finally {
 			if (rs != null)
-				rs.close();
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			if (c != null)
-				c.close();
+				try {
+					c.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return names;
 	}
 
-	public List<String> listColumns(String tableName) throws SQLException {
+	public List<String> listColumns(String tableName) {
 		ArrayList<String> names = new ArrayList<String>();
 		Connection c = null;
 		ResultSet rs = null;
@@ -99,11 +104,24 @@ public class Dumper {
 			while (rs.next()) {
 				names.add(rs.getString("COLUMN_NAME"));
 			}
+		} catch (SQLException e) {
+			throw new DataAccessException("Failed to list columns of table "
+					+ tableName) {
+				private static final long serialVersionUID = 1L;
+			};
 		} finally {
 			if (rs != null)
-				rs.close();
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			if (c != null)
-				c.close();
+				try {
+					c.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return names;
 	}

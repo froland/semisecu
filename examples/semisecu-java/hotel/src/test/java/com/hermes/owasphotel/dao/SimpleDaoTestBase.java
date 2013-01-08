@@ -19,17 +19,28 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 	public void testDAO() {
 		SimpleDao<I, T> dao = getDao();
 		T saved = createEntity();
+
+		// save
 		dao.save(saved);
 		dao.flush();
-		assertNotNull("ID not generated", saved.getId());
-		assertTrue("FindAll must contains DAO", dao.findAll().contains(saved));
-		T found = dao.getById(saved.getId());
+		I id = saved.getId();
+		assertNotNull("ID not generated", id);
+
+		// load
+		dao.clear();
+		T found = dao.getById(id);
 		assertNotNull("Saved object not found", found);
 		checkEquals(saved, found);
+
+		// test findAll()
+		assertTrue("findAll() must contain the object",
+				dao.findAll().contains(saved));
+
+		// delete
 		dao.delete(found);
 		dao.flush();
+		assertNull("Deleted object found", dao.getById(id));
 		assertFalse("Not deleted", dao.findAll().contains(saved));
-		assertNull("Deleted object found", dao.getById(saved.getId()));
 	}
 
 	protected void checkEquals(T expected, T found) {
@@ -37,8 +48,8 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 			return;
 		assertNotNull("No found object", found);
 		assertEquals("Not same ID", expected.getId().equals(found.getId()));
-		assertTrue(expected.hashCode()==found.hashCode());
-		assertTrue(expected.equals(found));
+		assertEquals(expected, found);
+		assertEquals(expected.hashCode(), found.hashCode());
 	}
 
 	protected abstract SimpleDao<I, T> getDao();

@@ -80,4 +80,10 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 	public void flush() {
 		em.flush();
 	}
+
+	@Transactional(propagation = Propagation.MANDATORY)
+	@Override
+	public void clear() {
+		em.clear();
+	}
 }
