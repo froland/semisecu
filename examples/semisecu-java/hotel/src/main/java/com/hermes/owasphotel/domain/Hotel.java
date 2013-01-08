@@ -29,9 +29,8 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] image;
 
-	private String address;
-	private String city;
-	private String country;
+	
+	private Address completeAddress;
 
 	private String telephone;
 	private String email;
@@ -58,6 +57,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	public Hotel(String name, User manager) {
 		setName(name);
 		this.manager = manager;
+		this.completeAddress = new Address();
 	}
 
 	public String getName() {
@@ -78,28 +78,28 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		this.image = image;
 	}
 
-	public String getAddress() {
-		return address;
+	public Address getCompleteAddress() {
+		return completeAddress;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setCompleteAddress(Address address) {
+		this.completeAddress = address;
 	}
 
 	public String getCity() {
-		return city;
+		return getCompleteAddress().getCity();
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.getCompleteAddress().setCity(city);
 	}
 
 	public String getCountry() {
-		return country;
+		return getCompleteAddress().getCountry();
 	}
 
 	public void setCountry(String country) {
-		this.country = country;
+		this.getCompleteAddress().setCountry(country);
 	}
 
 	public String getEmail() {

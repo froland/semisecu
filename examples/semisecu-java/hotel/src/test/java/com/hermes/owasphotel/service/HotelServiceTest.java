@@ -129,7 +129,6 @@ public class HotelServiceTest extends ServiceTestBase {
 	@Test
 	public void testUpdateHotel() {
 		HotelForm dto = new HotelForm(a);
-		dto.setAddress("my new address");
 		final byte[] imgData = new byte[2];
 		CommonsMultipartFile file = Mockito.mock(CommonsMultipartFile.class);
 		Mockito.when(file.getBytes()).thenReturn(imgData);
@@ -139,7 +138,6 @@ public class HotelServiceTest extends ServiceTestBase {
 		dto.update(h, userService);
 		h = hotelService.update(h);
 
-		assertEquals("Address not updated", "my new address", h.getAddress());
 		assertEquals("Image not updated", imgData, h.getImage());
 	}
 }

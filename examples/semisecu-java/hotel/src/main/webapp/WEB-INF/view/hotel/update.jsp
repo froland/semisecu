@@ -58,9 +58,16 @@
 				</div>
 				
 				<div class="control-group">
-					<label class="control-label" for="hotelAddress">Address</label>
+					<label class="control-label" for="hotelStreet">Street</label>
 					<div class="controls">
-						<form:textarea path="address" id="hotelAddress" />
+						<form:textarea path="street" id="hotelStreet" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelNumber">Number</label>
+					<div class="controls">
+						<form:input path="number" id="hotelNumber" />
 					</div>
 				</div>
 				
@@ -68,6 +75,13 @@
 					<label class="control-label" for="hotelCity">City</label>
 					<div class="controls">
 						<form:input path="city" id="hotelCity" />
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="hotelZIP">ZIP code</label>
+					<div class="controls">
+						<form:input path="ZIPCode" id="hotelZIP" />
 					</div>
 				</div>
 				
