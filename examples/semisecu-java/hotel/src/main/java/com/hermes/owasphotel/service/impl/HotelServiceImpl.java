@@ -54,13 +54,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel getById(Integer id) {
-		Hotel h = hotelDao.getById(id);
-		if (h == null)
-			return null;
-		// load comments
-		h.getComments().size();
-
-		return h;
+		return hotelDao.getById(id);
 	}
 
 	@Override
@@ -100,8 +94,8 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public List<HotelListItem> listTopNoted(int count) {
 		List<Hotel> lh = hotelDao.findApprovedHotels(true);
-		Collections.sort(lh, new HotelAverageNoteComparator());	
-		if(lh.size() > count)
+		Collections.sort(lh, new HotelAverageNoteComparator());
+		if (lh.size() > count)
 			return itemize(lh.subList(0, count));
 		return itemize(lh);
 	}
@@ -152,14 +146,22 @@ public class HotelServiceImpl implements HotelService {
 		User user = null;
 		if (name != null) {
 			user = userDao.getByName(name);
+			if (user == null)
+				throw new IllegalArgumentException("User not found:" + name);
 		}
 		Hotel hotel = hotelDao.getById(hotelId);
+		if (hotel == null)
+			throw new IllegalArgumentException("Hotel does not exist: id="
+					+ hotelId);
 		hotel.createComment(user, note, text);
 	}
 
 	@Override
 	public void deleteComment(Integer hotelId, int commentSeq) {
 		Hotel hotel = hotelDao.getById(hotelId);
+		if (hotel == null)
+			throw new IllegalArgumentException("Hotel does not exist: id="
+					+ hotelId);
 		Comment comment = null;
 		try {
 			comment = hotel.getComments().get(commentSeq - 1);
@@ -195,6 +197,10 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public void setHotelImage(Integer hotelId, byte[] image) {
-		hotelDao.getById(hotelId).setImage(image);
+		Hotel hotel = hotelDao.getById(hotelId);
+		if (hotel == null)
+			throw new IllegalArgumentException("Hotel does not exist: id="
+					+ hotelId);
+		hotel.setImage(image);
 	}
 }

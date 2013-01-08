@@ -180,6 +180,8 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public String viewHotel(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.getById(id);
+		if (hotel == null)
+			throw new IllegalArgumentException("Hotel not found: id=" + id);
 		model.addAttribute("hotel", hotel);
 		return "hotel/view";
 	}
@@ -222,8 +224,9 @@ public class HotelController {
 	}
 
 	private static void checkEdit(Hotel hotel, User user) {
+		if (hotel == null)
+			throw new IllegalArgumentException("Hotel not found");
 		if (user == null
-				|| hotel == null
 				|| !(user.equals(hotel.getManager()) || user.getRoles()
 						.contains(Role.ADMIN)))
 			throw new AccessDeniedException("Cannot edit that hotel");

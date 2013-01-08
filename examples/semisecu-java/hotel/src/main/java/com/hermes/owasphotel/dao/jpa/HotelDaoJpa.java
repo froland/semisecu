@@ -31,14 +31,12 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 		return em.createQuery(query.toString(), Hotel.class).getResultList();
 	}
 
-
 	@Override
 	public Hotel getByName(String search) {
-		List<Hotel> list = em
+		return em
 				.createQuery("from Hotel h where lower(h.name) = :t",
 						Hotel.class).setParameter("t", search.toLowerCase())
-				.getResultList();
-		return list.size() == 1 ? list.get(0) : null;
+				.getSingleResult();
 	}
 
 	@Override

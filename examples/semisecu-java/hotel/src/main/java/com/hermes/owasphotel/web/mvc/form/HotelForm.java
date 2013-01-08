@@ -51,7 +51,6 @@ public class HotelForm {
 		city = hotel.getCompleteAddress().getCity();
 		country = hotel.getCompleteAddress().getCountry();
 
-		
 		telephone = hotel.getTelephone();
 		email = hotel.getEmail();
 		stars = hotel.getStars();
@@ -73,7 +72,10 @@ public class HotelForm {
 		h.setDescriptionHTML(descriptionHTML);
 
 		if (userService != null) {
-			h.setManager(userService.getByName(this.manager));
+			User manager = userService.getByName(this.manager);
+			if (manager != null) {
+				h.setManager(manager);
+			}
 		}
 
 		if (deleteFile) {

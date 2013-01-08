@@ -5,9 +5,9 @@ public class HotelListItem {
 	private int id;
 	private String name;
 	private int nbComments;
-	private Double note;
+	private float note;
 
-	public HotelListItem(int id, String hotelName, int nbComments, Double note) {
+	public HotelListItem(int id, String hotelName, int nbComments, float note) {
 		this.id = id;
 		this.name = hotelName;
 		this.nbComments = nbComments;
@@ -34,11 +34,11 @@ public class HotelListItem {
 		this.nbComments = nbComments;
 	}
 
-	public Double getNote() {
+	public float getNote() {
 		return note;
 	}
 
-	public void setNote(Double note) {
+	public void setNote(float note) {
 		this.note = note;
 	}
 

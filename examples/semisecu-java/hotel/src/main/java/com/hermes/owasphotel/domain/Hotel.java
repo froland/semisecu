@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -29,7 +30,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] image;
 
-	
+	@Embedded
 	private Address completeAddress;
 
 	private String telephone;
@@ -39,7 +40,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	private Integer stars;
 
-	@Column(name="approved", columnDefinition = "tinyint default false")
+	@Column(name = "approved", columnDefinition = "tinyint default false")
 	private boolean approved = false;
 
 	@ManyToOne
@@ -171,55 +172,50 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		}
 	}
 
-	public Comment createComment(User user, int note, String text)
-	{
+	public Comment createComment(User user, int note, String text) {
 		Comment c = new Comment(this, user);
 		c.setNote(note);
 		c.setText(text);
 		return c;
 	}
-	
-	
 
-	public Double getAverageNote() {
-		double note = 0.0;
+	public float getAverageNote() {
+		float note = 0.0f;
 		int nbComment = 0;
 		for (Comment c : getComments()) {
-			if(!c.isDeleted())
-			{
+			if (!c.isDeleted()) {
 				note += c.getNote();
 				nbComment++;
 			}
 		}
-		return note/nbComment;
+		return note / nbComment;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof Hotel))
 			return false;
 		Hotel other = (Hotel) obj;
 		boolean toReturn = true;
-		
-		if(other.getCity() == null || getCity() == null)
+
+		if (other.getCity() == null || getCity() == null)
 			toReturn &= (other.getCity() == null && getCity() == null);
 		else
 			toReturn &= other.getCity().equals(this.getCity());
-		
-		if(other.getName() == null || getName() == null)
+
+		if (other.getName() == null || getName() == null)
 			toReturn &= (other.getName() == null && getName() == null);
 		else
-			toReturn &= other.getName().equals(this.getName());		
+			toReturn &= other.getName().equals(this.getName());
 
-		if(other.getCountry() == null || getCountry() == null)
+		if (other.getCountry() == null || getCountry() == null)
 			toReturn &= (other.getCountry() == null && getCountry() == null);
 		else
 			toReturn &= other.getCountry().equals(this.getCountry());
-		
-			
+
 		return toReturn;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return this.getName().hashCode();
