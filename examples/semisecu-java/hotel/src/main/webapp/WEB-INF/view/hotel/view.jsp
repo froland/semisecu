@@ -68,13 +68,13 @@
 					<sec:authorize access="hasRole('admin')">
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
-					<input type="hidden" name="delete" value="${comment.sequence}" />
+					<input type="hidden" name="delete" value="${comment.id}" />
 					<button type="submit" class="btn btn-danger"> <i
 											class="icon-trash icon-white"></i> Delete</button>
 					</form>
 					</sec:authorize>
 					</div>
-					${comment.text}
+					<c:out value="${comment.text}" />
 				</div>
 			</c:if>
 			</c:forEach>

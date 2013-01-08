@@ -48,8 +48,9 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	private User manager;
 
 	@Basic(fetch = FetchType.EAGER)
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel")
-	@OrderBy("sequence")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "hotel_id", nullable = false)
+	@OrderBy("id")
 	private List<Comment> comments = new ArrayList<Comment>();
 
 	Hotel() {
@@ -172,9 +173,10 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	}
 
 	public Comment createComment(User user, int note, String text) {
-		Comment c = new Comment(this, user);
+		Comment c = new Comment(user);
 		c.setNote(note);
 		c.setText(text);
+		comments.add(c);
 		return c;
 	}
 

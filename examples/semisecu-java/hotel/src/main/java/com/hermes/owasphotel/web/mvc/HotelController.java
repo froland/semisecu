@@ -199,7 +199,7 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
 	@PreAuthorize("hasRole('admin')")
 	public String deleteComment(@PathVariable("id") Integer hotelId,
-			@RequestParam("delete") int comment) {
+			@RequestParam("delete") Integer comment) {
 		hotelService.deleteComment(hotelId, comment);
 		return redirectTo(hotelId);
 	}

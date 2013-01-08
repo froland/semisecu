@@ -1,33 +1,22 @@
 package com.hermes.owasphotel.domain;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
-@IdClass(CommentID.class)
-@Table(name = "comment")
-public class Comment {
-
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "hotel_id", nullable = false)
-	private Hotel hotel;
-	@Id
-	@Column(name = "seq")
-	private int sequence;
+@Table(name = "COMMENT")
+@SequenceGenerator(name = "id_seq", sequenceName = "COMMENT_SEQ")
+public class Comment extends IdentifiableEntity<Integer> {
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "when")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -41,33 +30,16 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
-	
-	
-	@Column(name="deleted", columnDefinition = "tinyint default false")
+
+	@Column(name = "deleted", columnDefinition = "tinyint default false")
 	private boolean deleted = false;
 
 	Comment() {
 	}
 
-	Comment(Hotel hotel, User user) {
-		if (hotel == null)
-			throw new IllegalArgumentException("hotel is null");
-		this.hotel = hotel;
+	Comment(User user) {
 		this.user = user;
 		this.date = new Date();
-
-		// add to the comment list
-		List<Comment> comments = hotel.getComments();
-		this.sequence = comments.size() + 1;
-		comments.add(this);
-	}
-
-	public Hotel getHotel() {
-		return hotel;
-	}
-
-	public int getSequence() {
-		return sequence;
 	}
 
 	public int getNote() {
@@ -106,25 +78,5 @@ public class Comment {
 
 	public void delete() {
 		this.deleted = true;
-	}
-}
-
-class CommentID implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	public Integer hotel;
-	public int sequence;
-
-	@Override
-	public boolean equals(Object obj) {
-		CommentID c = obj instanceof CommentID ? (CommentID) obj : null;
-		return c != null
-				&& (c.hotel == hotel || (hotel != null && hotel.equals(c.hotel)))
-				&& c.sequence == sequence;
-	}
-
-	@Override
-	public int hashCode() {
-		return hotel.hashCode() + sequence;
 	}
 }

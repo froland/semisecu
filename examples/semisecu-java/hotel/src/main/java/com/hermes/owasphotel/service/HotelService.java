@@ -26,7 +26,7 @@ public interface HotelService {
 
 	public void addComment(Integer hotelId, String name, int note, String text);
 
-	public void deleteComment(Integer hotelId, int commentSeq);
+	public void deleteComment(Integer hotelId, Integer commentId);
 
 	public Hotel update(Hotel hotel);
 

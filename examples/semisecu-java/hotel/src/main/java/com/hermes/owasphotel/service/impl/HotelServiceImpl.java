@@ -163,33 +163,18 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void deleteComment(Integer hotelId, int commentSeq) {
+	public void deleteComment(Integer hotelId, Integer commentId) {
+		if (commentId == null)
+			throw new IllegalArgumentException("No comment id given to delete");
 		Hotel hotel = hotelDao.getById(hotelId);
 		if (hotel == null)
 			throw new IllegalArgumentException("Hotel does not exist: id="
 					+ hotelId);
-		Comment comment = null;
-		try {
-			comment = hotel.getComments().get(commentSeq - 1);
-			if (comment.getSequence() != commentSeq) {
-				// not 1-indexed
-				comment = null;
+		for (Comment c : hotel.getComments()) {
+			if (commentId.equals(c.getId())) {
+				c.delete();
+				return;
 			}
-		} catch (IndexOutOfBoundsException e) {
-			comment = null;
-		}
-		if (comment == null) {
-			for (Comment c : hotel.getComments()) {
-				if (c.getSequence() == commentSeq) {
-					comment = c;
-					break;
-				}
-			}
-		}
-
-		// mark as deleted
-		if (comment != null) {
-			comment.delete();
 		}
 	}
 

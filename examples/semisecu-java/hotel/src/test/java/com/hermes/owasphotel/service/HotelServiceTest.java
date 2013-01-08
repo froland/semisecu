@@ -3,7 +3,9 @@ package com.hermes.owasphotel.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -87,13 +89,22 @@ public class HotelServiceTest {
 		int seq = 8;
 		Hotel hotel = Mockito.mock(Hotel.class);
 		Mockito.when(hotelDao.getById(1)).thenReturn(hotel);
-		Comment comment = Mockito.mock(Comment.class);
-		Mockito.when(comment.getSequence()).thenReturn(seq);
+		Mockito.doCallRealMethod()
+				.when(hotel)
+				.createComment(Mockito.any(User.class), Mockito.anyInt(),
+						Mockito.anyString());
+		ArrayList<Comment> commentList = new ArrayList<Comment>();
+		ReflectionTestUtils.setField(hotel, "comments", commentList);
 		Mockito.when(hotel.getComments()).thenReturn(
-				Collections.unmodifiableList(Arrays.asList(comment)));
+				Collections.unmodifiableList(commentList));
+
+		ReflectionTestUtils.setField(hotel, "comments", commentList);
+		Comment comment = hotel.createComment(Mockito.mock(User.class), 5,
+				"hello world");
+		ReflectionTestUtils.setField(comment, "id", seq);
 
 		hotelService.deleteComment(1, seq);
 
-		Mockito.verify(comment).delete();
+		assertTrue("Comment not deleted", comment.isDeleted());
 	}
 }

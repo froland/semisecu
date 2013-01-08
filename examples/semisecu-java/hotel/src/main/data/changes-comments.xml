@@ -11,8 +11,8 @@
 			<column name="HOTEL_ID" type="INT">
 				<constraints nullable="false" />
 			</column>
-			<column name="SEQ" type="INT">
-				<constraints nullable="false" />
+			<column name="ID" type="INT">
+				<constraints primaryKey="true" />
 			</column>
 			<column name="WHEN" type="TIMESTAMP" />
 			<column name="USER_ID" type="INT">
@@ -26,7 +26,7 @@
 				<constraints nullable="false" />
 			</column>
 		</createTable>
-		<addPrimaryKey tableName="COMMENT" columnNames="HOTEL_ID, SEQ" />
+		<createSequence sequenceName="COMMENT_SEQ" />
 		<addForeignKeyConstraint constraintName="FK_COMMENTS_HOTELID"
 			referencedTableName="HOTEL" baseColumnNames="HOTEL_ID" baseTableName="COMMENT"
 			referencedColumnNames="ID" />
