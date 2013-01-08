@@ -60,6 +60,30 @@ public class HotelController {
 	@Autowired
 	private HttpServletRequest request;
 
+	public HotelService getHotelService() {
+		return hotelService;
+	}
+
+	public void setHotelService(HotelService hotelService) {
+		this.hotelService = hotelService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
 	/**
 	 * Initializes the editors.
 	 * 
@@ -164,12 +188,8 @@ public class HotelController {
 			Authentication user, @RequestParam String text,
 			@RequestParam int note)
 			throws MissingServletRequestParameterException {
-		if (hotelId != null && text != null) {
-			hotelService.addComment(hotelId,
-					user == null ? null : user.getName(), note, text);
-		} else {
-			throw new MissingServletRequestParameterException("name", "String");
-		}
+		hotelService.addComment(hotelId, user == null ? null : user.getName(),
+				note, text);
 		return redirectTo(hotelId);
 	}
 

@@ -44,6 +44,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		// property editor for dates
@@ -163,4 +171,5 @@ public class UserController {
 		User user = userService.enableUser(id, enable);
 		return redirectTo(user);
 	}
+
 }

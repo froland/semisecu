@@ -1,94 +1,149 @@
 package com.hermes.owasphotel.web.mvc;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.mockito.internal.invocation.Invocation;
+import org.mockito.internal.verification.api.VerificationData;
+import org.mockito.verification.VerificationMode;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.UserForm;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = UserControllerTest.Config.class)
 public class UserControllerTest extends ControllerTestBase<UserController> {
+
+	private UserService userService;
+
 	public UserControllerTest() {
 		super(UserController.class);
 	}
 
+	@Override
+	@Before
+	public void initController() throws Exception {
+		super.initController();
+		controller.setUserService(userService = createUserService());
+	}
+
+	private UserService createUserService() {
+		UserService service = Mockito.mock(UserService.class);
+		User a = new User("a", "a");
+		Mockito.when(service.getById(1)).thenReturn(a);
+		Mockito.when(service.getByName(a.getName())).thenReturn(a);
+		return service;
+	}
+
 	@Test
 	public void viewUsers() throws Exception {
-		request(HttpMethod.GET, "/user");
-		assertNotNull(mav.getViewName());
-		assertType(mav, "users", List.class);
+		Model model = createModel();
+		List<User> userList = new ArrayList<User>();
+		Mockito.when(userService.findAll()).thenReturn(userList);
+
+		assertNotNull(controller.viewList(model));
+		assertSame(userList, model.asMap().get("users"));
 	}
 
 	@Test
 	public void viewUser() throws Exception {
-		request(HttpMethod.GET, "/user/a");
-		assertResponse(HttpStatus.OK);
-		assertType(mav, "user", User.class);
+		Model model = createModel();
+
+		assertNotNull(controller.viewUser(model, "a"));
+		assertType(model.asMap(), "user", User.class);
 	}
 
 	@Test
 	public void viewUpdateUser() throws Exception {
-		authentify("a", null, "user");
-		request(HttpMethod.GET, "/user/update/1");
-		assertResponse(HttpStatus.OK);
-		assertType(mav, "user", UserForm.class);
+		Model model = createModel();
+		Integer id = 1;
+		Authentication auth = createAuthentication("a", "user");
+
+		assertNotNull(controller.viewUpdateUser(model, id, auth));
+		assertType(model.asMap(), "user", UserForm.class);
 	}
 
 	@Test
 	public void postUpdateUser() throws Exception {
-		authentify("a", null, "user");
-		request.setParameter("name", "updateName");
-		request(HttpMethod.POST, "/user/update/1");
-		assertNoBindingErrors(mav);
-		assertRedirect(mav);
+		Integer id = 1;
+		Authentication auth = createAuthentication("a", "user");
+		UserForm form = new UserForm(userService.getById(id));
+		BindingResult binding = createBindingResult("form");
+		User u = userService.getById(1);
+		Mockito.when(userService.update(u)).thenReturn(u);
+
+		assertRedirect(controller.updateUser(id, auth, form, binding));
+		Mockito.verify(userService).update(Mockito.any(User.class));
 	}
 
 	@Test(expected = AccessDeniedException.class)
 	public void viewUpdateOtherUser() throws Exception {
-		request(HttpMethod.GET, "/user/update/1");
+		Model model = createModel();
+		Integer id = 1;
+		Authentication auth = createAuthentication("b", "user");
+
+		controller.viewUpdateUser(model, id, auth);
 	}
 
-	@Test(expected = IllegalArgumentException.class) // TODO
+	@Test(expected = AccessDeniedException.class)
 	public void viewUpdateIncorrectUser() throws Exception {
-		request(HttpMethod.GET, "/user/update/2");
+		Model model = createModel();
+		Integer id = 2;
+		Authentication auth = createAuthentication("a", "user");
+
+		controller.viewUpdateUser(model, id, auth);
 	}
 
 	@Test
 	public void postEnable() throws Exception {
-		request.addParameter("enable", "true");
-		request(HttpMethod.POST, "/user/enable/1");
-		assertRedirect(mav);
+		assertRedirect(controller.enableUser(1, true));
+
+		Mockito.verify(userService).enableUser(1, true);
 	}
 
-	@Test(expected = HttpRequestMethodNotSupportedException.class)
-	public void getEnable() throws Exception {
-		request.addParameter("enable", "true");
-		request(HttpMethod.GET, "/user/enable/1");
+	private User getUserServiceUpdatedUser() {
+		final AtomicReference<User> updatedUser = new AtomicReference<User>();
+		VerificationMode updatedUserVerification = new VerificationMode() {
+			@Override
+			public void verify(VerificationData data) {
+				for (Invocation inv : data.getAllInvocations()) {
+					if (!data.getWanted().matches(inv))
+						continue;
+					if (updatedUser.get() != null)
+						throw new IllegalStateException("Already updated");
+					updatedUser.set((User) inv.getArguments()[0]);
+				}
+			}
+		};
+		Mockito.verify(userService, updatedUserVerification).update(
+				Mockito.any(User.class));
+		return updatedUser.get();
 	}
-	
-	/*
+
 	@Test
-	public void testUpdate() {
+	public void updateWithForm() {
 		User u = new User("a", "p");
-		userService.save(u);
+		Mockito.when(userService.update(u)).thenReturn(u);
+		Mockito.when(userService.getById(5)).thenReturn(u);
+		Authentication auth = createAuthentication(u.getName(), u.getRoles()
+				.toArray(new String[0]));
 
 		// create the form
+		Mockito.mock(UserForm.class);
 		UserForm user = new UserForm(u);
 		assertNull("The old password was read from the user",
 				user.getOldPassword());
@@ -97,27 +152,50 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		// update the e-mail
 		String newEmail = "hello@test.com";
 		user.setEmail(newEmail);
-		// u = userService.update(user, false); // TODO
-		assertEquals("Failed to update the e-mail", newEmail, u.getEmail());
-		assertTrue("Password updated with e-mail", u.checkPassword("p"));
+		controller.updateUser(5, auth, user, createBindingResult("user"));
+
+		User updatedUser = getUserServiceUpdatedUser();
+		assertEquals("Failed to update the e-mail", newEmail,
+				updatedUser.getEmail());
+		assertTrue("Password updated with e-mail",
+				updatedUser.checkPassword("p"));
+	}
+
+	@Test
+	public void testUpdatePasswordWithoutOldPassword() {
+		User u = new User("a", "p");
+		Mockito.when(userService.update(u)).thenReturn(u);
+		Mockito.when(userService.getById(5)).thenReturn(u);
+		Authentication auth = createAuthentication(u.getName(), u.getRoles()
+				.toArray(new String[0]));
+
+		// update without giving the old password
+		UserForm user = new UserForm(u);
+		user.setPassword("z");
+		user.setRetypedPassword("z");
+		controller.updateUser(5, auth, user, createBindingResult("user"));
+
+		u = getUserServiceUpdatedUser();
+		assertTrue("Password updated without giving the old password",
+				u.checkPassword("p"));
 	}
 
 	@Test
 	public void testUpdatePassword() {
 		User u = new User("a", "p");
-		userService.save(u);
-		UserForm user = new UserForm(u);
+		Mockito.when(userService.update(u)).thenReturn(u);
+		Mockito.when(userService.getById(5)).thenReturn(u);
+		Authentication auth = createAuthentication(u.getName(), u.getRoles()
+				.toArray(new String[0]));
 
 		// update without giving the old password
+		UserForm user = new UserForm(u);
+		user.setOldPassword("p");
 		user.setPassword("z");
 		user.setRetypedPassword("z");
-		// u = userService.update(user, false); // TODO
-		assertTrue("Password updated without giving the old password",
-				u.checkPassword("p"));
+		controller.updateUser(5, auth, user, createBindingResult("user"));
 
-		// update
-		user.setOldPassword("p");
-		// u = userService.update(user, false); // TODO
+		u = getUserServiceUpdatedUser();
 		assertFalse("Password not updated", u.checkPassword("p"));
 		assertTrue("New password is not working", u.checkPassword("z"));
 	}
@@ -125,32 +203,18 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	@Test
 	public void testUpdatePasswordAsAdmin() {
 		User u = new User("a", "p");
-		userService.save(u);
-		UserForm user = new UserForm(u);
+		Mockito.when(userService.update(u)).thenReturn(u);
+		Mockito.when(userService.getById(5)).thenReturn(u);
+		Authentication auth = createAuthentication("someadmin", "user", "admin");
 
 		// update without giving the old password (as admin)
+		UserForm user = new UserForm(u);
 		user.setPassword("z");
 		user.setRetypedPassword("z");
-		// u = userService.update(user, true); // TODO
+		controller.updateUser(5, auth, user, createBindingResult("user"));
+
+		u = getUserServiceUpdatedUser();
 		assertTrue("New password is not working", u.checkPassword("z"));
 	}
-	*/
 
-	@Configuration
-	@Import(ControllerTestBase.WebConfiguration.class)
-	public static class Config {
-		@Bean
-		public UserController userController() {
-			return new UserController();
-		}
-
-		@Bean
-		public UserService userService() {
-			UserService service = Mockito.mock(UserService.class);
-			User a = new User("a", "a");
-			Mockito.when(service.getById(1)).thenReturn(a);
-			Mockito.when(service.getByName(a.getName())).thenReturn(a);
-			return service;
-		}
-	}
 }

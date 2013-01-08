@@ -1,22 +1,16 @@
 package com.hermes.owasphotel.web.mvc;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.security.core.Authentication;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.test.web.ModelAndViewAssert;
+import org.springframework.ui.Model;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
@@ -24,100 +18,88 @@ import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.HotelForm;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = HotelControllerTest.Config.class)
 public class HotelControllerTest extends ControllerTestBase<HotelController> {
+
+	private HotelService hotelService;
+	private UserService userService;
+
 	public HotelControllerTest() {
 		super(HotelController.class);
 	}
 
+	@Override
+	@Before
+	public void initController() throws Exception {
+		super.initController();
+		controller.setHotelService(hotelService = Mockito
+				.mock(HotelService.class));
+		controller
+				.setUserService(userService = Mockito.mock(UserService.class));
+		controller.setRequest(request);
+	}
+
 	@Test
 	public void viewHotels() throws Exception {
-		request(HttpMethod.GET, "/hotel");
-		ModelAndViewAssert.assertViewName(mav, "hotel/list");
-		assertType(mav, "hotels", List.class);
+		Model model = createModel();
+
+		assertEquals("hotel/list", controller.viewHotels(model, 0));
+		assertType(model.asMap(), "hotels", List.class);
 	}
 
 	@Test
 	public void viewHotel() throws Exception {
-		request(HttpMethod.GET, "/hotel/1");
-		ModelAndViewAssert.assertViewName(mav, "hotel/view");
-		assertType(mav, "hotel", Hotel.class);
+		Model model = createModel();
+		Mockito.when(hotelService.getById(1)).thenReturn(
+				Mockito.mock(Hotel.class));
+
+		assertEquals("hotel/view", controller.viewHotel(model, 1));
+		assertType(model.asMap(), "hotel", Hotel.class);
 	}
 
 	@Test
 	public void postComment() throws Exception {
-		request.addParameter("text", "hello");
-		request.addParameter("name", "me");
-		request.addParameter("note", "8");
-		request(HttpMethod.POST, "/hotel/1/comment");
-		assertResponse(HttpStatus.OK);
-		assertNoBindingErrors(mav);
+		Authentication auth = null;
+
+		assertRedirect(controller.addComment(1, auth, "hello world", 5));
+		Mockito.verify(hotelService).addComment(1, null, 5, "hello world");
+	}
+
+	private Hotel createTestHotel() {
+		User manager = new User("manager", "m");
+		Mockito.when(userService.getByName("manager")).thenReturn(manager);
+		Hotel h = new Hotel("test", manager);
+		return h;
 	}
 
 	@Test
 	public void viewUpdateHotel() throws Exception {
-		authentify("manager", null, "user");
-		request(HttpMethod.GET, "/hotel/1/update");
-		assertResponse(HttpStatus.OK);
-		assertType(mav, "hotel", HotelForm.class);
+		Model model = createModel();
+		Authentication auth = createAuthentication("manager", "user");
+		Hotel hotel = createTestHotel();
+		Mockito.when(hotelService.getById(1)).thenReturn(hotel);
+
+		assertNotNull(controller.viewUpdateHotel(model, auth, 1));
+		assertType(model.asMap(), "hotel", HotelForm.class);
 	}
 
 	@Test
 	public void postUpdateHotel() throws Exception {
-		authentify("manager", null, "user");
-		request.setParameter("address", "updateAddress");
-		request.setParameter("name", "updateName");
-		request.setParameter("stars", "3");
-		request(HttpMethod.POST, "/hotel/1/update");
-		assertNoBindingErrors(mav);
-		assertRedirect(mav);
+		Model model = createModel();
+		Authentication auth = createAuthentication("manager", "user");
+		Hotel hotel = createTestHotel();
+		ReflectionTestUtils.setField(hotel, "id", 1);
+		Mockito.when(hotelService.getById(1)).thenReturn(hotel);
+		Mockito.when(hotelService.update(hotel)).thenReturn(hotel);
+		HotelForm form = new HotelForm(hotel);
+
+		assertRedirect(controller.updateHotel(model, auth, 1, form,
+				createBindingResult("hotel")));
+		Mockito.verify(hotelService).update(Mockito.any(Hotel.class));
 	}
 
 	@Test
 	public void postApprove() throws Exception {
-		request(HttpMethod.POST, "/hotel/1/approve");
-		assertNoBindingErrors(mav);
-		assertRedirect(mav);
-	}
-
-	@Configuration
-	@Import(ControllerTestBase.WebConfiguration.class)
-	public static class Config {
-		static final User manager = new User("manager", "m");
-
-		@Bean
-		public HotelController hotelController() {
-			return new HotelController();
-		}
-
-		@Bean
-		public UserService userService() {
-			UserService service = Mockito.mock(UserService.class);
-			Mockito.when(service.getByName("a")).thenReturn(new User("a", "a"));
-			Mockito.when(service.getByName(manager.getName())).thenReturn(manager);
-			return service;
-		}
-
-		@Bean
-		public HotelService hotelService() {
-			HotelService service = Mockito.mock(HotelService.class);
-			Hotel h = new Hotel("h", manager);
-			ReflectionTestUtils.setField(h, "id", 1);
-			assert h.getId() != null : "h.id not set";
-			Mockito.when(service.getById(h.getId())).thenReturn(h);
-			Mockito.when(service.getByName(h.getName())).thenReturn(h);
-			// TODO
-//			Mockito.when(
-//					service.update(Mockito.eq(h.getId()),
-//							Mockito.any(HotelForm.class))).thenReturn(h);
-
-			return service;
-		}
-
-		@Bean
-		public HttpServletRequest servletRequest() {
-			return new MockHttpServletRequest();
-		}
+		assertRedirect(controller.approveHotel(1));
+		Mockito.verify(hotelService).approve(1);
 	}
 }

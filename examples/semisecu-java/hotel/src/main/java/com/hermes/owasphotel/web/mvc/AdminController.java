@@ -25,6 +25,14 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
+	public AdminService getAdminService() {
+		return adminService;
+	}
+
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "export")
 	public void export(HttpServletResponse response,
 			@RequestParam String tableName,
