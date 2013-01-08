@@ -34,6 +34,7 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.HotelListItem;
+import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
@@ -224,7 +225,7 @@ public class HotelController {
 		if (user == null
 				|| hotel == null
 				|| !(user.equals(hotel.getManager()) || user.getRoles()
-						.contains("admin")))
+						.contains(Role.ADMIN)))
 			throw new AccessDeniedException("Cannot edit that hotel");
 	}
 

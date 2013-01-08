@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.UserForm;
@@ -47,6 +48,15 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		Mockito.when(service.getById(1)).thenReturn(a);
 		Mockito.when(service.getByName(a.getName())).thenReturn(a);
 		return service;
+	}
+
+	protected Authentication createAuthentication(User user) {
+		ArrayList<String> roles = new ArrayList<String>();
+		for (Role role : user.getRoles()) {
+			roles.add(role.toString());
+		}
+		return createAuthentication(user.getName(),
+				roles.toArray(new String[roles.size()]));
 	}
 
 	@Test
@@ -144,8 +154,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
-		Authentication auth = createAuthentication(u.getName(), u.getRoles()
-				.toArray(new String[0]));
+		Authentication auth = createAuthentication(u);
 
 		// create the form
 		Mockito.mock(UserForm.class);
@@ -171,8 +180,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
-		Authentication auth = createAuthentication(u.getName(), u.getRoles()
-				.toArray(new String[0]));
+		Authentication auth = createAuthentication(u);
 
 		// update without giving the old password
 		UserForm user = new UserForm(u);
@@ -190,8 +198,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
-		Authentication auth = createAuthentication(u.getName(), u.getRoles()
-				.toArray(new String[0]));
+		Authentication auth = createAuthentication(u);
 
 		// update without giving the old password
 		UserForm user = new UserForm(u);

@@ -30,21 +30,21 @@ public class User extends IdentifiableEntity<Integer> {
 	private String password;
 	private String email;
 
-	@Column(name= "enabled", columnDefinition = "tinyint default false")
+	@Column(name = "enabled", columnDefinition = "tinyint default true")
 	private boolean enabled = true;
 
-	@ElementCollection(fetch = FetchType.EAGER, targetClass=Roles.class)
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
 	@CollectionTable(joinColumns = @JoinColumn(name = "user_id"), name = "ROLE")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "name")
-	private Set<Roles> roles = new HashSet<Roles>();
+	private Set<Role> roles = new HashSet<Role>();
 
 	User() {
 	}
 
 	public User(String name, String password) {
 		setName(name);
-		roles.add(Roles.user);
+		roles.add(Role.USER);
 		setPassword(password, null, false);
 	}
 
@@ -98,39 +98,38 @@ public class User extends IdentifiableEntity<Integer> {
 	public boolean isEnabled() {
 		return enabled;
 	}
-	
+
 	public void enable() {
 		this.enabled = true;
 	}
-	
+
 	public void disable() {
 		this.enabled = false;
 	}
-	
 
 	public boolean isAdmin() {
-		return roles.contains(Roles.admin);
+		return roles.contains(Role.ADMIN);
 	}
 
 	public void setAdmin(boolean isAdmin) {
 		if (isAdmin) {
-				roles.add(Roles.admin);
+			roles.add(Role.ADMIN);
 		} else {
-			roles.remove(Roles.admin);
+			roles.remove(Role.ADMIN);
 		}
 	}
 
-	public List<Roles> getRoles() {
-		return new ArrayList<Roles>(roles);
+	public List<Role> getRoles() {
+		return new ArrayList<Role>(roles);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof User))
 			return false;
 		return getName().equals(((User) obj).getName());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return getName().hashCode();

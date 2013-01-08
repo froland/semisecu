@@ -30,7 +30,7 @@ public class UserTest {
 	@Test
 	public void newUserHasUserRole() {
 		User a = new User("a", "pass");
-		assertTrue("Check role user", a.getRoles().contains(Roles.user));
+		assertTrue("Check role user", a.getRoles().contains(Role.USER));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -60,9 +60,9 @@ public class UserTest {
 		a.setAdmin(true);
 		assertTrue(a.isAdmin());
 		assertTrue("The admin role should be present when admin", a.getRoles()
-				.contains(Roles.admin));
+				.contains(Role.ADMIN));
 		a.setAdmin(false);
 		assertFalse(a.isAdmin());
-		assertFalse(a.getRoles().contains(Roles.admin));
+		assertFalse(a.getRoles().contains(Role.ADMIN));
 	}
 }
