@@ -110,7 +110,9 @@
 					<label class="control-label" for="hotelStars">Stars</label>
 					<div class="controls">
 						<form:select path="stars" id="hotelStars">
-						<t:selectOptions end="5" begin="1" />
+						<c:forEach var="i" begin="1" end="5">
+						<form:option value="${i}" />
+						</c:forEach>
 						</form:select>
 					</div>
 				</div>

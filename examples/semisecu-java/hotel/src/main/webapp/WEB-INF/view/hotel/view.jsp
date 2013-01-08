@@ -86,7 +86,9 @@
 					<h4>New comment</h4>
 					<label for="commentNote">Note:</label>
 					<select name="note" id="commentNote">
-					<t:selectOptions end="10" value="5" />
+					<c:forEach var="i" begin="1" end="10">
+					<option value="${i}">${i}</option>
+					</c:forEach>
 					</select>
 					<br />
 					<label for="commentText">Text:</label>

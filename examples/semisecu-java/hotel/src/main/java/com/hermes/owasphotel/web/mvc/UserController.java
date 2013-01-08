@@ -129,8 +129,11 @@ public class UserController {
 		} catch (PersistenceException e) {
 			binding.addError(new ObjectError("User", "User " + dto.getName()
 					+ " already exists "));
-			return "user/update";
+		} catch (IllegalArgumentException e) {
+			binding.addError(new ObjectError("User", "Invalid parameters: "
+					+ e.getMessage()));
 		}
+		return "user/update";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")
