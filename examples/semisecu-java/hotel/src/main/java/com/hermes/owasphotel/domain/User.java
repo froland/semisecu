@@ -1,7 +1,9 @@
 package com.hermes.owasphotel.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -35,7 +37,7 @@ public class User extends IdentifiableEntity<Integer> {
 	@CollectionTable(joinColumns = @JoinColumn(name = "user_id"), name = "ROLE")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "name")
-	private List<Roles> roles = new ArrayList<Roles>();
+	private Set<Roles> roles = new HashSet<Roles>();
 
 	User() {
 	}
@@ -107,7 +109,6 @@ public class User extends IdentifiableEntity<Integer> {
 
 	public void setAdmin(boolean isAdmin) {
 		if (isAdmin) {
-			if (!roles.contains(Roles.admin))
 				roles.add(Roles.admin);
 		} else {
 			roles.remove(Roles.admin);
