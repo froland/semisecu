@@ -7,15 +7,30 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class UserTest {
+	
 	@Test
-	public void testCreate() {
+	public void newUserName() {
 		User a = new User("a", "pass");
 		assertEquals("Name is ignored", "a", a.getName());
+	}
+	
+	@Test
+	public void newUserPassword() {
+		User a = new User("a", "pass");
 		assertTrue("Password check failed",
 				a.checkPassword("pass") && !a.checkPassword("a"));
+	}
+	
+	@Test
+	public void newUserIsNotAdmin() {
+		User a = new User("a", "pass");
 		assertFalse("By default the user is not an admin", a.isAdmin());
-
-		assertTrue("Check role user", a.getRoles().contains(User.ROLE_USER));
+	}
+	
+	@Test
+	public void newUserHasUserRole() {
+		User a = new User("a", "pass");
+		assertTrue("Check role user", a.getRoles().contains(Roles.user));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -32,9 +47,9 @@ public class UserTest {
 	public void testSetEnabled() {
 		User a = new User("a", "pass");
 		assertTrue("By default the user is enabled", a.isEnabled());
-		a.setEnabled(false);
+		a.disable();
 		assertFalse(a.isEnabled());
-		a.setEnabled(true);
+		a.enable();
 		assertTrue(a.isEnabled());
 	}
 
@@ -45,9 +60,9 @@ public class UserTest {
 		a.setAdmin(true);
 		assertTrue(a.isAdmin());
 		assertTrue("The admin role should be present when admin", a.getRoles()
-				.contains(User.ROLE_ADMIN));
+				.contains(Roles.admin));
 		a.setAdmin(false);
 		assertFalse(a.isAdmin());
-		assertFalse(a.getRoles().contains(User.ROLE_ADMIN));
+		assertFalse(a.getRoles().contains(Roles.admin));
 	}
 }

@@ -66,9 +66,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User enableUser(Integer id, boolean enable) {
+	public User enableUser(Integer id) {
 		User u = userDao.getById(id);
-		u.setEnabled(enable);
+		u.enable();
+		return u;
+	}
+	
+	@Override
+	public User disableUser(Integer id) {
+		User u = userDao.getById(id);
+		u.disable();
 		return u;
 	}
 }

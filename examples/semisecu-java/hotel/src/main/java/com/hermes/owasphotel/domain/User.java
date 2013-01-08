@@ -1,12 +1,16 @@
 package com.hermes.owasphotel.domain;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
@@ -20,8 +24,6 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 @SequenceGenerator(name = "id_seq", sequenceName = "USERS_SEQ")
 public class User extends IdentifiableEntity<Integer> {
 	private static final long serialVersionUID = 1L;
-	public static final String ROLE_USER = "user";
-	public static final String ROLE_ADMIN = "admin";
 
 	@Column(unique = true)
 	private String name;
@@ -31,17 +33,18 @@ public class User extends IdentifiableEntity<Integer> {
 	@Column(name= "enabled", columnDefinition = "tinyint default false")
 	private boolean enabled = true;
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.EAGER, targetClass=Roles.class)
 	@CollectionTable(joinColumns = @JoinColumn(name = "user_id"), name = "ROLE")
+	@Enumerated(EnumType.STRING)
 	@Column(name = "name")
-	private List<String> roles = new ArrayList<String>();
+	private Set<Roles> roles = new HashSet<Roles>();
 
 	User() {
 	}
 
 	public User(String name, String password) {
 		setName(name);
-		roles.add(ROLE_USER);
+		roles.add(Roles.user);
 		setPassword(password, null, false);
 	}
 
@@ -95,26 +98,30 @@ public class User extends IdentifiableEntity<Integer> {
 	public boolean isEnabled() {
 		return enabled;
 	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	
+	public void enable() {
+		this.enabled = true;
 	}
+	
+	public void disable() {
+		this.enabled = false;
+	}
+	
 
 	public boolean isAdmin() {
-		return roles.contains(ROLE_ADMIN);
+		return roles.contains(Roles.admin);
 	}
 
 	public void setAdmin(boolean isAdmin) {
 		if (isAdmin) {
-			if (!roles.contains(ROLE_ADMIN))
-				roles.add(ROLE_ADMIN);
+				roles.add(Roles.admin);
 		} else {
-			roles.remove(ROLE_ADMIN);
+			roles.remove(Roles.admin);
 		}
 	}
 
-	public List<String> getRoles() {
-		return new ArrayList<String>(roles);
+	public List<Roles> getRoles() {
+		return new ArrayList<Roles>(roles);
 	}
 	
 	@Override

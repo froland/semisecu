@@ -18,8 +18,10 @@ public class HotelForm {
 	@NotEmpty(message = "The name of the hotel may not be blank")
 	private String name;
 
-	private String address;
+	private String street;
+	private String number;
 	private String city;
+	private String ZIPCode;
 	private String country;
 
 	private String telephone;
@@ -43,11 +45,13 @@ public class HotelForm {
 	public HotelForm(Hotel hotel) {
 		id = hotel.getId();
 		name = hotel.getName();
+		street = hotel.getCompleteAddress().getStreet();
+		number = hotel.getCompleteAddress().getNumber();
+		ZIPCode = hotel.getCompleteAddress().getZIPCode();
+		city = hotel.getCompleteAddress().getCity();
+		country = hotel.getCompleteAddress().getCountry();
 
-		address = hotel.getAddress();
-		city = hotel.getCity();
-		country = hotel.getCountry();
-
+		
 		telephone = hotel.getTelephone();
 		email = hotel.getEmail();
 		stars = hotel.getStars();
@@ -58,7 +62,9 @@ public class HotelForm {
 
 	public void update(Hotel h, UserService userService) {
 		h.setName(name);
-		h.setAddress(address);
+		h.getCompleteAddress().setStreet(street);
+		h.getCompleteAddress().setNumber(number);
+		h.getCompleteAddress().setZIPCode(ZIPCode);
 		h.setCity(city);
 		h.setCountry(country);
 		h.setTelephone(telephone);
@@ -93,14 +99,6 @@ public class HotelForm {
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -127,6 +125,30 @@ public class HotelForm {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getZIPCode() {
+		return ZIPCode;
+	}
+
+	public void setZIPCode(String zIPCode) {
+		ZIPCode = zIPCode;
 	}
 
 	public void setEmail(String email) {

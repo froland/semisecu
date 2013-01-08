@@ -31,7 +31,7 @@
 			<p>Average note:
 				<t:hotel.stars value="${hotel.averageNote}" max="10" />
 			</p>
-			<p>Address: <br />${hotel.address}<br />${hotel.city} ${hotel.country}</p>
+			<p>Address: <br />${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} ${hotel.country}</p>
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
