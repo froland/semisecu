@@ -44,7 +44,6 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 
 	private List<Hotel> multipleHotels;
 	private List<Hotel> multipleHotelsManaged;
-	private Hotel multipleTopNotedHotel;
 	private User multipleManager;
 
 	private void initializeMultipleHotels() {
@@ -54,7 +53,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		userDao.save(multipleManager);
 		userDao.flush();
 
-		multipleTopNotedHotel = addMultipleHotel("top", multipleManager, 10);
+		addMultipleHotel("top", multipleManager, 10);
 		addMultipleHotel("h1", multipleManager);
 
 		User other = new User("ben", "ben");
@@ -112,9 +111,8 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		Hotel found = hotelDao.getByName("my hotel");
 		checkEquals(h, found);
 	}
-	
-	private Hotel persistMyHotel()
-	{
+
+	private Hotel persistMyHotel() {
 		Hotel h = createEntity();
 		h.setName("my hotel");
 		hotelDao.save(h);
@@ -125,37 +123,36 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	@Test
 	public void findFullSearchQuery() {
 		Hotel h = persistMyHotel();
-		
+
 		List<Hotel> list = hotelDao.findSearchQuery("hot", true, 2);
 		assertTrue(list.contains(h));
 	}
-	
+
 	@Test
 	public void findSearchQueryInsensitive() {
 		Hotel h = persistMyHotel();
-		
+
 		List<Hotel> list = hotelDao.findSearchQuery("HOT", true, 2);
 		assertTrue("Query should be case-insensitive", list.contains(h));
 	}
-	
+
 	@Test
 	public void findSearchQuery() {
 		Hotel h = persistMyHotel();
-		
+
 		List<Hotel> list = hotelDao.findSearchQuery("my", false, 2);
 		assertTrue(list.contains(h));
-				
+
 	}
-	
+
 	@Test
 	public void findSearchQueryNoMatch() {
 		Hotel h = persistMyHotel();
-		
+
 		List<Hotel> list = hotelDao.findSearchQuery("hot", false, 2);
 		assertFalse(list.contains(h));
-				
+
 	}
-	
 
 	@Test
 	public void testAverageNote() {
@@ -173,10 +170,9 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 
 		assertEquals(note, h.getAverageNote(), 0.1d);
 	}
-	
-	@Test(expected=PersistenceException.class)
-	public void unicity()
-	{
+
+	@Test(expected = PersistenceException.class)
+	public void unicity() {
 		User u = new User("u", "u");
 		userDao.save(u);
 		Hotel h1 = new Hotel("test", u);

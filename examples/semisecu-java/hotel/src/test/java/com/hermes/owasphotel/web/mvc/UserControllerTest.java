@@ -51,12 +51,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	}
 
 	protected Authentication createAuthentication(User user) {
-		ArrayList<String> roles = new ArrayList<String>();
-		for (Role role : user.getRoles()) {
-			roles.add(role.toString());
-		}
 		return createAuthentication(user.getName(),
-				roles.toArray(new String[roles.size()]));
+				user.getRoles().toArray(new Role[0]));
 	}
 
 	@Test
@@ -81,7 +77,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	public void viewUpdateUser() throws Exception {
 		Model model = createModel();
 		Integer id = 1;
-		Authentication auth = createAuthentication("a", "user");
+		Authentication auth = createAuthentication("a", Role.USER);
 
 		assertNotNull(controller.viewUpdateUser(model, id, auth));
 		assertType(model.asMap(), "user", UserForm.class);
@@ -90,7 +86,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	@Test
 	public void postUpdateUser() throws Exception {
 		Integer id = 1;
-		Authentication auth = createAuthentication("a", "user");
+		Authentication auth = createAuthentication("a", Role.USER);
 		UserForm form = new UserForm(userService.getById(id));
 		BindingResult binding = createBindingResult("form");
 		User u = userService.getById(1);
@@ -104,7 +100,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	public void viewUpdateOtherUser() throws Exception {
 		Model model = createModel();
 		Integer id = 1;
-		Authentication auth = createAuthentication("b", "user");
+		Authentication auth = createAuthentication("b", Role.USER);
 
 		controller.viewUpdateUser(model, id, auth);
 	}
@@ -113,7 +109,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	public void viewUpdateIncorrectUser() throws Exception {
 		Model model = createModel();
 		Integer id = 2;
-		Authentication auth = createAuthentication("a", "user");
+		Authentication auth = createAuthentication("a", Role.USER);
 
 		controller.viewUpdateUser(model, id, auth);
 	}
@@ -217,7 +213,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
-		Authentication auth = createAuthentication("someadmin", "user", "admin");
+		Authentication auth = createAuthentication("someadmin", Role.USER,
+				Role.ADMIN);
 
 		// update without giving the old password (as admin)
 		UserForm user = new UserForm(u);

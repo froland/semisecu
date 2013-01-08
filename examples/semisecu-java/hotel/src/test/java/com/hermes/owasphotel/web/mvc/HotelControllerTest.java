@@ -13,6 +13,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.Model;
 
 import com.hermes.owasphotel.domain.Hotel;
+import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
@@ -74,7 +75,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 	@Test
 	public void viewUpdateHotel() throws Exception {
 		Model model = createModel();
-		Authentication auth = createAuthentication("manager", "user");
+		Authentication auth = createAuthentication("manager", Role.USER);
 		Hotel hotel = createTestHotel();
 		Mockito.when(hotelService.getById(1)).thenReturn(hotel);
 
@@ -85,7 +86,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 	@Test
 	public void postUpdateHotel() throws Exception {
 		Model model = createModel();
-		Authentication auth = createAuthentication("manager", "user");
+		Authentication auth = createAuthentication("manager", Role.USER);
 		Hotel hotel = createTestHotel();
 		ReflectionTestUtils.setField(hotel, "id", 1);
 		Mockito.when(hotelService.getById(1)).thenReturn(hotel);

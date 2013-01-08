@@ -9,22 +9,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.ui.Model;
 
+import com.hermes.owasphotel.domain.Role;
+
 class Utils {
 	private Utils() {
 	}
 
-	public static boolean hasRole(Authentication auth, String role) {
+	public static boolean hasRole(Authentication auth, Role role) {
 		if (auth == null)
 			return false;
 		return hasRole(auth.getAuthorities(), role);
 	}
 
 	public static boolean hasRole(Iterable<? extends GrantedAuthority> auth,
-			String role) {
+			Role role) {
 		if (auth == null || role == null)
 			return false;
 		for (GrantedAuthority a : auth) {
-			if (role.equals(a.getAuthority()))
+			if (role.toString().equals(a.getAuthority()))
 				return true;
 		}
 		return false;

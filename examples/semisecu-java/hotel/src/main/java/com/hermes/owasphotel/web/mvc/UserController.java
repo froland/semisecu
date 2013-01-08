@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.UserForm;
@@ -72,7 +73,7 @@ public class UserController {
 		if (auth == null
 				|| user == null
 				|| !(auth.getName().equals(user.getName()) || Utils.hasRole(
-						auth, "admin")))
+						auth, Role.ADMIN)))
 			throw new AccessDeniedException("Cannot edit that profile");
 	}
 
@@ -95,6 +96,8 @@ public class UserController {
 	@PreAuthorize("hasRole('admin') or #name == authentication.name")
 	public String viewUser(Model model, @PathVariable String name) {
 		User user = userService.getByName(name);
+		if (user == null)
+			throw new IllegalArgumentException("User not found: name=" + name);
 		model.addAttribute("user", user);
 		return "user/view";
 	}
@@ -140,7 +143,7 @@ public class UserController {
 		checkEditProfile(user, auth);
 		try {
 			boolean asAdmin = !auth.getName().equals(user.getName())
-					&& Utils.hasRole(auth, "admin");
+					&& Utils.hasRole(auth, Role.ADMIN);
 			String oldName = user.getName();
 
 			// update the user

@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.MapBindingResult;
 
+import com.hermes.owasphotel.domain.Role;
+
 public abstract class ControllerTestBase<T> {
 
 	protected MockHttpServletRequest request;
@@ -46,9 +48,13 @@ public abstract class ControllerTestBase<T> {
 	}
 
 	protected Authentication createAuthentication(Object principal,
-			String... roles) {
+			Role... roles) {
+		String[] roles_str = new String[roles.length];
+		for (int i = 0; i < roles.length; i++) {
+			roles_str[i] = roles[i].toString();
+		}
 		return new UsernamePasswordAuthenticationToken(principal, null,
-				AuthorityUtils.createAuthorityList(roles));
+				AuthorityUtils.createAuthorityList(roles_str));
 	}
 
 	protected BindingResult createBindingResult(String objectName) {
