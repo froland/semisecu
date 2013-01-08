@@ -36,6 +36,22 @@ public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private UserDao userDao;
 
+	public HotelDao getHotelDao() {
+		return hotelDao;
+	}
+
+	public void setHotelDao(HotelDao hotelDao) {
+		this.hotelDao = hotelDao;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
 	@Override
 	public Hotel getById(Integer id) {
 		Hotel h = hotelDao.getById(id);
@@ -65,8 +81,8 @@ public class HotelServiceImpl implements HotelService {
 	private List<HotelListItem> itemize(List<Hotel> lh) {
 		List<HotelListItem> result = new LinkedList<HotelListItem>();
 		for (Hotel hotel : lh) {
-			result.add(new HotelListItem(hotel.getId(), hotel.getName(),
-					hotel.getNbComments(false), hotel.getAverageNote()));
+			result.add(new HotelListItem(hotel.getId(), hotel.getName(), hotel
+					.getNbComments(false), hotel.getAverageNote()));
 		}
 		return result;
 	}
@@ -111,7 +127,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<HotelListItem> listManagedHotels(String name) {
-		User user = userDao.find(name);
+		User user = userDao.getByName(name);
 		return itemize(hotelDao.findManagedHotels(user));
 	}
 
@@ -135,7 +151,7 @@ public class HotelServiceImpl implements HotelService {
 	public void addComment(Integer hotelId, String name, int note, String text) {
 		User user = null;
 		if (name != null) {
-			user = userDao.find(name);
+			user = userDao.getByName(name);
 		}
 		Hotel hotel = hotelDao.getById(hotelId);
 		hotel.createComment(user, note, text);

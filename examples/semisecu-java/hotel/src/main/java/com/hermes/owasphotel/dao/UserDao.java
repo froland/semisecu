@@ -10,5 +10,5 @@ import com.hermes.owasphotel.domain.User;
  */
 public interface UserDao extends SimpleDao<Integer, User> {
 
-	public User find(String name);
+	public User getByName(String name);
 }

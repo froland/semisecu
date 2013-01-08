@@ -9,7 +9,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,18 +26,18 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private Dumper dumper;
 
+	public Dumper getDumper() {
+		return dumper;
+	}
+
+	public void setDumper(Dumper dumper) {
+		this.dumper = dumper;
+	}
+
 	@Override
 	public void dumpToWriter(String tableName, String[] columns, Writer w)
 			throws IOException {
-		try {
-			dumper.dump(tableName, columns, w);
-		} catch (DataAccessException e) {
-			logger.error("Dump failed", e);
-		} catch (IOException e) {
-			logger.error("Dump failed", e);
-		} catch (SQLException e) {
-			logger.error("Dump failed", e);
-		}
+		dumper.dump(tableName, columns, w);
 	}
 
 	@Override

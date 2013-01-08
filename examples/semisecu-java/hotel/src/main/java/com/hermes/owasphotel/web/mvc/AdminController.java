@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,23 +28,13 @@ public class AdminController {
 	@RequestMapping(method = RequestMethod.GET, value = "export")
 	public void export(HttpServletResponse response,
 			@RequestParam String tableName,
-			@RequestParam("col") String[] columns) {
+			@RequestParam("col") String[] columns) throws IOException {
 
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition",
 				"attachment;filename=dumpTable" + tableName + ".csv");
-		try {
-			adminService.dumpToWriter(tableName, columns, response.getWriter());
-		} catch (DataAccessException e) {
-			try {
-				response.sendError(HttpStatus.NOT_FOUND.value(),
-						"Unable to fetch data");
-			} catch (IOException e1) {
-				e.printStackTrace();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+		adminService.dumpToWriter(tableName, columns, response.getWriter());
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "export/tableList")
