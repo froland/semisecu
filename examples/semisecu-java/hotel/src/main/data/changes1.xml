@@ -83,7 +83,7 @@
 			<column name="stars" type="INT">
 				<constraints nullable="true" />
 			</column>
-			<column name="approved" type="INT" defaultValueBoolean="false">
+			<column name="approved" type="TINYINT" defaultValueBoolean="false">
 				<constraints nullable="false" />
 			</column>
 		</createTable>

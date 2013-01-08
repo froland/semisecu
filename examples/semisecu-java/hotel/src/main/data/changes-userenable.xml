@@ -6,7 +6,7 @@
 
 	<changeSet id="userEnable" author="k">
 		<addColumn tableName="USER">
-			<column name="ENABLED" type="INT" defaultValueNumeric="1" />
+			<column name="ENABLED" type="TINYINT" defaultValueBoolean="true" />
 		</addColumn>
 	</changeSet>
 

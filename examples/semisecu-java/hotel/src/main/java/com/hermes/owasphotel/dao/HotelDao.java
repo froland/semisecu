@@ -14,8 +14,6 @@ import com.hermes.owasphotel.domain.User;
 public interface HotelDao extends SimpleDao<Integer, Hotel> {
 	public List<Hotel> findApprovedHotels(boolean approved);
 
-	public List<Hotel> findTopNotedHotels(int count);
-
 	public Hotel getByName(String search);
 
 	public List<Hotel> findSearchQuery(String search, boolean fullSearch,

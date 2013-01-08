@@ -33,16 +33,6 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 
 
 	@Override
-	public List<Hotel> findTopNotedHotels(int count) {
-		return em
-				.createQuery(
-						"select h from Hotel h left join h.comments n"
-								+ " where h.approved != 0 group by h"
-								+ " order by avg(n.note) desc", Hotel.class)
-				.setMaxResults(count).getResultList();
-	}
-
-	@Override
 	public Hotel getByName(String search) {
 		List<Hotel> list = em
 				.createQuery("from Hotel h where lower(h.name) = :t",

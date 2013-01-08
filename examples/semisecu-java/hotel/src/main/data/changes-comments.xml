@@ -18,12 +18,11 @@
 			<column name="USER_ID" type="INT">
 				<constraints nullable="true" />
 			</column>
-			<column name="USER_NAME" type="VARCHAR2(50)" />
 			<column name="NOTE" type="INT">
 				<constraints nullable="false" />
 			</column>
 			<column name="TEXT" type="VARCHAR2(500)" />
-			<column name="DELETED" type="INT" defaultValueBoolean="false">
+			<column name="DELETED" type="tinyint" defaultValueBoolean="false">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
