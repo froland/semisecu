@@ -160,7 +160,11 @@ public class UserController {
 	@PreAuthorize("hasRole('admin')")
 	public String enableUser(@PathVariable Integer id,
 			@RequestParam boolean enable) {
-		User user = userService.enableUser(id, enable);
+		User user;
+		if (enable)
+			user = userService.enableUser(id);
+		else
+			user = userService.disableUser(id);
 		return redirectTo(user);
 	}
 }

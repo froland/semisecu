@@ -98,10 +98,15 @@ public class User extends IdentifiableEntity<Integer> {
 	public boolean isEnabled() {
 		return enabled;
 	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	
+	public void enable() {
+		this.enabled = true;
 	}
+	
+	public void disable() {
+		this.enabled = false;
+	}
+	
 
 	public boolean isAdmin() {
 		return roles.contains(Roles.admin);

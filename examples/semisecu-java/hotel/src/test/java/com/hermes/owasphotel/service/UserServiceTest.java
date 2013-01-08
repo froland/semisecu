@@ -35,10 +35,10 @@ public class UserServiceTest {
 	@Test
 	public void enable() {
 		User user = new User("a", "a");
-		user.setEnabled(false);
+		user.disable();
 		Mockito.when(userDao.getById(1)).thenReturn(user);
 
-		userService.enableUser(1, true);
+		userService.enableUser(1);
 
 		assertTrue(user.isEnabled());
 	}
@@ -46,10 +46,10 @@ public class UserServiceTest {
 	@Test
 	public void disable() {
 		User user = new User("a", "a");
-		user.setEnabled(true);
+		user.enable();
 		Mockito.when(userDao.getById(1)).thenReturn(user);
 
-		userService.enableUser(1, false);
+		userService.disableUser(1);
 
 		assertFalse(user.isEnabled());
 	}

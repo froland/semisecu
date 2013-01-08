@@ -32,9 +32,9 @@ public class UserTest {
 	public void testSetEnabled() {
 		User a = new User("a", "pass");
 		assertTrue("By default the user is enabled", a.isEnabled());
-		a.setEnabled(false);
+		a.disable();
 		assertFalse(a.isEnabled());
-		a.setEnabled(true);
+		a.enable();
 		assertTrue(a.isEnabled());
 	}
 
