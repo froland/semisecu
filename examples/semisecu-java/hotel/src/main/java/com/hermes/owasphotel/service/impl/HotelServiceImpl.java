@@ -35,6 +35,22 @@ public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private UserDao userDao;
 
+	public HotelDao getHotelDao() {
+		return hotelDao;
+	}
+
+	public void setHotelDao(HotelDao hotelDao) {
+		this.hotelDao = hotelDao;
+	}
+
+	public UserDao getUserDao() {
+		return userDao;
+	}
+
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
 	@Override
 	public Hotel getById(Integer id) {
 		Hotel h = hotelDao.getById(id);
@@ -64,8 +80,8 @@ public class HotelServiceImpl implements HotelService {
 	private List<HotelListItem> itemize(List<Hotel> lh) {
 		List<HotelListItem> result = new LinkedList<HotelListItem>();
 		for (Hotel hotel : lh) {
-			result.add(new HotelListItem(hotel.getId(), hotel.getName(),
-					hotel.getNbComments(false), hotel.getAverageNote()));
+			result.add(new HotelListItem(hotel.getId(), hotel.getName(), hotel
+					.getNbComments(false), hotel.getAverageNote()));
 		}
 		return result;
 	}
