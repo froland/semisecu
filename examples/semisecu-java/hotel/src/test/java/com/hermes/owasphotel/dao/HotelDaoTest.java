@@ -13,7 +13,6 @@ import javax.persistence.PersistenceException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 
@@ -37,8 +36,8 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		Hotel h = new Hotel("h", u);
 		User me = new User("me", "me");
 		userDao.save(me);
-		userDao.flush();
 		h.createComment(me, 1, "");
+		h.setCountry("H country");
 		return h;
 	}
 
@@ -102,10 +101,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 
 	@Test
 	public void findByName() {
-		Hotel h = createEntity();
-		h.setName("my hotel");
-		hotelDao.save(h);
-		hotelDao.flush();
+		Hotel h = persistMyHotel();
 
 		assertNull(hotelDao.getByName("___xyz"));
 		Hotel found = hotelDao.getByName("my hotel");
@@ -154,23 +150,6 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 
 	}
 
-	@Test
-	public void testAverageNote() {
-		Hotel h = createEntity();
-		h.createComment(null, 8, "");
-		h.createComment(null, 3, "");
-		h.createComment(null, 7, "");
-		double note = 0;
-		for (Comment c : h.getComments()) {
-			note += c.getNote();
-		}
-		note /= h.getComments().size();
-		hotelDao.save(h);
-		hotelDao.flush();
-
-		assertEquals(note, h.getAverageNote(), 0.1d);
-	}
-
 	@Test(expected = PersistenceException.class)
 	public void unicity() {
 		User u = new User("u", "u");
@@ -187,4 +166,10 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		hotelDao.flush();
 	}
 
+	@Override
+	protected void checkEquals(Hotel expected, Hotel found) {
+		super.checkEquals(expected, found);
+		assertEquals(expected.getCountry(), found.getCountry());
+		assertEquals(expected.getImage(), found.getImage());
+	}
 }

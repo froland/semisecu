@@ -31,7 +31,7 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	private byte[] image;
 
 	@Embedded
-	private Address completeAddress;
+	private Address completeAddress = new Address();
 
 	private String telephone;
 	private String email;
@@ -58,7 +58,6 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	public Hotel(String name, User manager) {
 		setName(name);
 		this.manager = manager;
-		this.completeAddress = new Address();
 	}
 
 	public String getName() {

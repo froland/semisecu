@@ -43,16 +43,15 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 		assertFalse("Not deleted", dao.findAll().contains(saved));
 	}
 
+	protected abstract T createEntity();
+
 	protected void checkEquals(T expected, T found) {
-		if (expected == found)
-			return;
 		assertNotNull("No found object", found);
-		assertEquals("Not same ID", expected.getId().equals(found.getId()));
+		assertEquals("Not same ID", expected.getId(), found.getId());
 		assertEquals(expected, found);
 		assertEquals(expected.hashCode(), found.hashCode());
 	}
 
 	protected abstract SimpleDao<I, T> getDao();
 
-	protected abstract T createEntity();
 }

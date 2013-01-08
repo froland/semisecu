@@ -1,6 +1,7 @@
 package com.hermes.owasphotel.dao;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.persistence.PersistenceException;
 
@@ -43,5 +44,12 @@ public class UserDaoTest extends SimpleDaoTestBase<Integer, User> {
 		userDao.flush();
 		userDao.save(u2);
 		userDao.flush();
+	}
+
+	@Override
+	protected void checkEquals(User expected, User found) {
+		super.checkEquals(expected, found);
+		assertTrue("Invalid roles in the found user", found.getRoles()
+				.containsAll(expected.getRoles()));
 	}
 }

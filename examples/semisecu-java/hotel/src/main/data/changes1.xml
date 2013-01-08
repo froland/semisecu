@@ -37,11 +37,11 @@
 		</insert>
 		<insert tableName="ROLE">
 			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
-			<column name="NAME">admin</column>
+			<column name="NAME">ADMIN</column>
 		</insert>
 		<insert tableName="ROLE">
 			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
-			<column name="NAME">user</column>
+			<column name="NAME">USER</column>
 		</insert>
 		<insert tableName="USER">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
@@ -52,7 +52,7 @@
 		</insert>
 		<insert tableName="ROLE">
 			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
-			<column name="NAME">user</column>
+			<column name="NAME">USER</column>
 		</insert>
 		<insert tableName="USER">
 			<column name="ID" valueComputed="USERS_SEQ.NEXTVAL" />
@@ -62,7 +62,7 @@
 		</insert>
 		<insert tableName="ROLE">
 			<column name="USER_ID" valueComputed="USERS_SEQ.CURRVAL" />
-			<column name="NAME">user</column>
+			<column name="NAME">USER</column>
 		</insert>
 	</changeSet>
 
