@@ -40,7 +40,8 @@ public class Hotel extends IdentifiableEntity<Integer> {
 
 	private Integer stars;
 
-	private int approved;
+	@Column(name="approved", columnDefinition = "tinyint default false")
+	private boolean approved = false;
 
 	@ManyToOne
 	@JoinColumn(name = "created_by")
@@ -138,11 +139,11 @@ public class Hotel extends IdentifiableEntity<Integer> {
 	}
 
 	public boolean isApproved() {
-		return approved != 0;
+		return approved;
 	}
 
 	public void approveHotel() {
-		this.approved = 1;
+		this.approved = true;
 	}
 
 	public User getManager() {

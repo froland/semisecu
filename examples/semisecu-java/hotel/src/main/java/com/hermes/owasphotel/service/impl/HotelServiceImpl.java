@@ -1,6 +1,7 @@
 package com.hermes.owasphotel.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -98,7 +99,11 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public List<HotelListItem> listTopNoted(int count) {
-		return itemize(hotelDao.findTopNotedHotels(count));
+		List<Hotel> lh = hotelDao.findApprovedHotels(true);
+		Collections.sort(lh, new HotelAverageNoteComparator());	
+		if(lh.size() > count)
+			return itemize(lh.subList(0, count));
+		return itemize(lh);
 	}
 
 	@Override

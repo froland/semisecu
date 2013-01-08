@@ -28,7 +28,8 @@ public class User extends IdentifiableEntity<Integer> {
 	private String password;
 	private String email;
 
-	private int enabled = 1;
+	@Column(name= "enabled", columnDefinition = "tinyint default false")
+	private boolean enabled = true;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(joinColumns = @JoinColumn(name = "user_id"), name = "ROLE")
@@ -92,11 +93,11 @@ public class User extends IdentifiableEntity<Integer> {
 	}
 
 	public boolean isEnabled() {
-		return enabled != 0;
+		return enabled;
 	}
 
 	public void setEnabled(boolean enabled) {
-		this.enabled = enabled ? 1 : 0;
+		this.enabled = enabled;
 	}
 
 	public boolean isAdmin() {

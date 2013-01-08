@@ -102,20 +102,6 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Test
-	public void findTopHotels() {
-		initializeMultipleHotels();
-		List<Hotel> top = hotelDao.findTopNotedHotels(3);
-		int count = Math.min(3, multipleHotels.size());
-		assertEquals("Invalid number of top hotels", count, top.size());
-		checkEquals(multipleTopNotedHotel, top.get(0));
-		for (int i = 1; i < count; i++) {
-			assertTrue("Invalid order at index: " + (i - 1) + "-" + i,
-					top.get(i - 1).getAverageNote() > top.get(i)
-							.getAverageNote());
-		}
-	}
-
-	@Test
 	public void findByName() {
 		Hotel h = createEntity();
 		h.setName("my hotel");

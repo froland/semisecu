@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @IdClass(CommentID.class)
 @Table(name = "comment")
@@ -40,7 +42,10 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
-	private int deleted = 0;
+	
+	
+	@Column(name="deleted", columnDefinition = "tinyint default false")
+	private boolean deleted = false;
 
 	Comment() {
 	}
@@ -97,11 +102,11 @@ public class Comment {
 	}
 
 	public boolean isDeleted() {
-		return deleted != 0;
+		return deleted;
 	}
 
 	public void delete() {
-		this.deleted = 1;
+		this.deleted = true;
 	}
 }
 
