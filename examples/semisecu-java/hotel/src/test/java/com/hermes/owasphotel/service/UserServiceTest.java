@@ -25,7 +25,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testFind() {
+	public void find() {
 		User user = Mockito.mock(User.class);
 		Mockito.when(userDao.getById(1)).thenReturn(user);
 
@@ -33,7 +33,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testEnable() {
+	public void enable() {
 		User user = new User("a", "a");
 		user.setEnabled(false);
 		Mockito.when(userDao.getById(1)).thenReturn(user);
@@ -44,7 +44,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testDisable() {
+	public void disable() {
 		User user = new User("a", "a");
 		user.setEnabled(true);
 		Mockito.when(userDao.getById(1)).thenReturn(user);

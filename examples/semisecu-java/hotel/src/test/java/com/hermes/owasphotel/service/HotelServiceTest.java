@@ -36,7 +36,7 @@ public class HotelServiceTest {
 	}
 
 	@Test
-	public void testListAll() {
+	public void listAllItems() {
 		Hotel hotel = new Hotel("h", new User("a", "a"));
 		ReflectionTestUtils.setField(hotel, "id", 1);
 		Mockito.when(hotelDao.findAll()).thenReturn(Arrays.asList(hotel));
@@ -49,7 +49,7 @@ public class HotelServiceTest {
 	}
 
 	@Test
-	public void testListManaged() {
+	public void listManaged() {
 		User user = Mockito.mock(User.class);
 		Mockito.when(userDao.getByName("k")).thenReturn(user);
 
@@ -68,7 +68,7 @@ public class HotelServiceTest {
 	}
 
 	@Test
-	public void testAddComment() {
+	public void addComment() {
 		String username = "k";
 		User user = Mockito.mock(User.class);
 		int note = 5;
@@ -83,7 +83,7 @@ public class HotelServiceTest {
 	}
 
 	@Test
-	public void testDeleteComment() {
+	public void deleteComment() {
 		int seq = 8;
 		Hotel hotel = Mockito.mock(Hotel.class);
 		Mockito.when(hotelDao.getById(1)).thenReturn(hotel);

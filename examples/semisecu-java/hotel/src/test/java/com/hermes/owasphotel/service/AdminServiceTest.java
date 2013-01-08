@@ -33,14 +33,14 @@ public class AdminServiceTest {
 	}
 
 	@Test
-	public void testListTablesColumns() throws Exception {
+	public void listTablesColumns() throws Exception {
 		assertTrue(adminService.listTables().contains("t2"));
 		assertTrue(adminService.listColumns("t1").containsAll(
 				Arrays.asList("a", "b", "c")));
 	}
 
 	@Test
-	public void testDump() throws Exception {
+	public void dumpCalled() throws Exception {
 		final String table = "t1";
 		final String[] columns = new String[] { "a", "b" };
 		StringWriter sw = new StringWriter();
