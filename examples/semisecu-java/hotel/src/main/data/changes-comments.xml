@@ -37,7 +37,7 @@
 			alter table COMMENT
 			add constraint CK_COMMENT_NOTE
 			check (note
-			between 1 and 10);
+			between 1 and 5);
 		</sql>
 
 	</changeSet>

@@ -44,7 +44,7 @@
 			<br />
 			<label class="checkbox">
 			<input type="checkbox" name="deleteFile" />
-			Delete the file</label>
+			Remove the picture</label>
 		</div>
 		</div>
 				<div class="span5 offset1">

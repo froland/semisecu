@@ -4,17 +4,18 @@
 
 <table class="table table-striped">
 	<tr>
-		<th>Hotel name</th>
-		<th>Note</th>
-		<th>Comments</th>
+		<th>Name</th>
+		<th>E-mail</th>
+		<th>
+			<!-- Enable -->
+		</th>
 	</tr>
-	<c:forEach var="hotel" items="${hotels}">
+	<c:forEach var="user" items="${users}">
 		<tr>
-			<td><a href="<c:url value="/hotel/${hotel.id}"/>"><c:out
-						value="${hotel.name}" /></a></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="2"
-					value="${hotel.note }" /></td>
-			<td><c:out value="${hotel.nbComments}" /></td>
+			<td><a href="<c:url value="/user/${user.id}"/>"><c:out
+						value="${user.name}" /></a></td>
+			<td><c:out value="${user.email}" /></td>
+			<td><t:user.enable user="${user}" /></td>
 		</tr>
 	</c:forEach>
 </table>

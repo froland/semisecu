@@ -27,3 +27,7 @@ div.newComment {
 	padding: 0.3em;
 	border: 1px solid #e5e5e5;
 }
+
+form.enableUser {
+	margin: 0px;
+}

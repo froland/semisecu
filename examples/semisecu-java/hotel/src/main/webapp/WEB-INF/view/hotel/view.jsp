@@ -26,18 +26,19 @@
 					class="hotelImage" />
 		</div>
 		<div class="span4">
-			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
+			<p>Rating: <t:hotel.stars value="${hotel.stars}" />
 			</p>
 			<p>Average note:
-				<t:hotel.stars value="${hotel.averageNote}" max="10" />
+				<t:hotel.stars value="${hotel.averageNote}" max="5" />
 			</p>
 			<p>Address: <br />${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} ${hotel.country}</p>
 			<p>Telephone: ${hotel.telephone}</p>
 			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</p>
-			<p>Manager: <a
-						href="<c:url value="/user/${hotel.manager.name}"/>">${hotel.manager.name}</a>
-			</p>
+			<sec:authorize access="hasRole('ADMIN')">
+				<p>Manager: <a href="<c:url value="/user/${hotel.manager.id}"/>">${hotel.manager.name}</a>
+					</p>
+			</sec:authorize>
 		</div>
 		</div>
 		<div class="row">
@@ -63,8 +64,8 @@
 					<div>
 					<c:out value="${comment.userName}" /> commented on
 					<fmt:formatDate value="${comment.date}" type="both" />
-					<span style="float: right;">Note: <t:hotel.stars
-									value="${comment.note}" max="10" /></span>
+					<span class="offset2">Note: <t:hotel.stars
+									value="${comment.note}" max="5" /></span>
 					<sec:authorize access="hasRole('ADMIN')">
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
@@ -86,7 +87,7 @@
 					<h4>New comment</h4>
 					<label for="commentNote">Note:</label>
 					<select name="note" id="commentNote">
-					<c:forEach var="i" begin="1" end="10">
+					<c:forEach var="i" begin="1" end="5">
 					<option value="${i}">${i}</option>
 					</c:forEach>
 					</select>

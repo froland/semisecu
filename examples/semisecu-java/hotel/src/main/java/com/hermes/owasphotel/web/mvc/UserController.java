@@ -32,6 +32,7 @@ import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.UserForm;
+import com.hermes.owasphotel.web.security.UserAuthentication;
 
 /**
  * Controller for users.
@@ -65,7 +66,7 @@ public class UserController {
 	private static String redirectTo(User user) {
 		String r = "redirect:/user";
 		if (user != null)
-			r += "/" + user.getName();
+			r += "/" + user.getId();
 		return r;
 	}
 
@@ -82,6 +83,7 @@ public class UserController {
 	public String viewList(Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
+		model.addAttribute("userTableType", "userTableEnable.jsp");
 		return "user/list";
 	}
 
@@ -92,12 +94,12 @@ public class UserController {
 		return userService.getNames(prefix);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "{name}")
-	@PreAuthorize("hasRole('ADMIN') or #name == authentication.name")
-	public String viewUser(Model model, @PathVariable String name) {
-		User user = userService.getByName(name);
+	@RequestMapping(method = RequestMethod.GET, value = "{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public String viewUser(Model model, @PathVariable Integer id) {
+		User user = userService.getById(id);
 		if (user == null)
-			throw new IllegalArgumentException("User not found: name=" + name);
+			throw new IllegalArgumentException("User not found");
 		model.addAttribute("user", user);
 		return "user/view";
 	}
@@ -158,9 +160,15 @@ public class UserController {
 			if (!asAdmin && !oldName.equals(user.getName())) {
 				SecurityContext ctx = SecurityContextHolder.getContext();
 				assert auth == ctx.getAuthentication();
-				ctx.setAuthentication(new UsernamePasswordAuthenticationToken(
-						dto.getName(), auth.getCredentials(), auth
-								.getAuthorities()));
+				if (auth instanceof UserAuthentication) {
+					((UserAuthentication) auth).refresh(userService);
+				} else if (auth instanceof UsernamePasswordAuthenticationToken) {
+					ctx.setAuthentication(new UsernamePasswordAuthenticationToken(
+							dto.getName(), auth.getCredentials(), auth
+									.getAuthorities()));
+				} else {
+					// not handled
+				}
 			}
 
 			return redirectTo(user);

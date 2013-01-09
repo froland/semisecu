@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -112,7 +113,10 @@ public class HotelController {
 	}
 
 	private <E> PagedListHolder<E> setPagedList(Model model, String name,
-			List<E> list) {
+			List<E> list, String title) {
+		if (title != null) {
+			model.addAttribute("pageTitle", title);
+		}
 		return Utils.setPagedList(request, model, name, list, PAGE_COUNT);
 	}
 
@@ -120,14 +124,14 @@ public class HotelController {
 	public String viewHotels(Model model,
 			@RequestParam(defaultValue = "0") int page) {
 		List<HotelListItem> hotels = hotelService.listApproved();
-		setPagedList(model, "hotels", hotels);
+		setPagedList(model, "hotels", hotels, null);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
 		List<HotelListItem> hotels = hotelService.listAll();
-		setPagedList(model, "hotels", hotels);
+		setPagedList(model, "hotels", hotels, "All hotels");
 		return "hotel/list";
 	}
 
@@ -135,15 +139,15 @@ public class HotelController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public String viewHotelsNotApproved(Model model) {
 		List<HotelListItem> hotels = hotelService.listNotApproved();
-		setPagedList(model, "hotels", hotels);
+		setPagedList(model, "hotels", hotels, "Hotels to approve");
+		model.addAttribute("hotelTableType", "hotelTableApprove.jsp");
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
 		List<HotelListItem> hotels = hotelService.listTopNoted(TOP_COUNT);
-		model.addAttribute("hotels", hotels);
-		model.addAttribute("pageTitle", "Top " + TOP_COUNT + " hotels");
+		setPagedList(model, "hotels", hotels, "Top " + TOP_COUNT + " hotels");
 		return "hotel/list";
 	}
 
@@ -166,8 +170,7 @@ public class HotelController {
 
 		// return the result list
 		List<HotelListItem> hotels = hotelService.listSearchQuery(search);
-		setPagedList(model, "hotels", hotels);
-		model.addAttribute("pageTitle", "Search: " + search);
+		setPagedList(model, "hotels", hotels, "Search: " + search);
 		return "hotel/list";
 	}
 
@@ -255,11 +258,17 @@ public class HotelController {
 			@Valid @ModelAttribute("hotel") HotelForm dto, BindingResult result) {
 		Hotel hotel = hotelService.getById(hotelId);
 		checkEdit(hotel, getUser(auth));
+		try {
+			if (!result.hasErrors())
+				dto.update(hotel, userService);
+		} catch (IllegalArgumentException e) {
+			result.addError(new ObjectError("Hotel", "Invalid parameter: "
+					+ e.getMessage()));
+		}
 		if (result.hasErrors()) {
 			dto.setId(hotelId);
 			return "hotel/update";
 		}
-		dto.update(hotel, userService);
 		hotel = hotelService.update(hotel);
 		return redirectTo(hotel.getId());
 	}

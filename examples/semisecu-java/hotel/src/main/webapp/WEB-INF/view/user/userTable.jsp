@@ -10,7 +10,7 @@
 	</tr>
 	<c:forEach var="user" items="${users}">
 		<tr>
-			<td><a href="<c:url value="/user/${user.name}"/>"><c:out
+			<td><a href="<c:url value="/user/${user.id}"/>"><c:out
 						value="${user.name}" /></a> <c:if test="${!user.enabled}">
 					<span class="text-warning">(disabled)</span>
 				</c:if></td>

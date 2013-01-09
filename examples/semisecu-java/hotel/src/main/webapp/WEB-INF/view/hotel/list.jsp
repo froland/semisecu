@@ -8,14 +8,15 @@
 <c:if test="${empty pageTitle}">
 	<c:set var="pageTitle" value="Hotels" />
 </c:if>
+<c:if test="${empty hotelTableType}">
+	<c:set var="hotelTableType" value="hotelTable.jsp" />
+</c:if>
 <t:page.template>
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
 	<jsp:attribute name="title">${pageTitle}</jsp:attribute>
 	<jsp:body>
-	    <jsp:include page="hotelTable.jsp">
-    		<jsp:param name="hotels" value="${hotels}" />
-    	</jsp:include>
+	    <jsp:include page="${hotelTableType}" />
 	</jsp:body>
 </t:page.template>
