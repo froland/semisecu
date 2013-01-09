@@ -30,7 +30,6 @@
 			<p>Stars: <t:hotel.stars value="${hotel.stars}" />
 			</p>
 			<p>Average note:
-				${hotel.printableNote}
 				<t:noteBar noted="${hotel}" />	
 			</p>
 			<p>Address: <br />${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} ${hotel.country}</p>
@@ -65,8 +64,7 @@
 					<div>
 					<c:out value="${comment.userName}" /> commented on
 					<fmt:formatDate value="${comment.date}" type="both" />
-					<span style="float: right;">Note: <t:hotel.stars
-									value="${comment.note}" max="10" /></span>
+					<span style="float: right;">Note: <t:noteBar noted="${comment}" /></span>
 					<sec:authorize access="hasRole('ADMIN')">
 					<form method="POST"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
