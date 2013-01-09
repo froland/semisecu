@@ -5,17 +5,21 @@
 <table class="table table-striped">
 	<tr>
 		<th>Hotel name</th>
-		<th><!-- approve --></th>
+		<th>
+			<!-- approve -->
+		</th>
 	</tr>
 	<c:forEach var="hotel" items="${hotels}">
 		<tr>
-			<td><a href="<c:url value="/hotel/${hotel.id}"/>"><c:out
+			<td><img src="<c:url value="/hotel/${hotel.id}/image"/>" alt=""
+				class="hotelImageTiny" /><a
+				href="<c:url value="/hotel/${hotel.id}"/>"><c:out
 						value="${hotel.name}" /></a></td>
 			<td>
-			<form method="POST"
+				<form method="POST"
 					action="<c:url value="/hotel/${hotel.id}/approve"/>">
-				<input type="submit" value="Approve hotel" class="btn btn-success" />
-			</form>
+					<input type="submit" value="Approve hotel" class="btn btn-success" />
+				</form>
 			</td>
 		</tr>
 	</c:forEach>

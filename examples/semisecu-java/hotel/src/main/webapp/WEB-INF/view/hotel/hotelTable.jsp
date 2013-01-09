@@ -10,7 +10,9 @@
 	</tr>
 	<c:forEach var="hotel" items="${hotels}">
 		<tr>
-			<td><a href="<c:url value="/hotel/${hotel.id}"/>"><c:out
+			<td><img src="<c:url value="/hotel/${hotel.id}/image"/>" alt=""
+				class="hotelImageTiny" /><a
+				href="<c:url value="/hotel/${hotel.id}"/>"><c:out
 						value="${hotel.name}" /></a></td>
 			<td><fmt:formatNumber type="number" maxFractionDigits="2"
 					value="${hotel.note }" /></td>

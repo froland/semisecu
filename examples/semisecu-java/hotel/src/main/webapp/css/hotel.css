@@ -9,6 +9,10 @@ body {
 img.hotelImage {
 	width: 200px;
 }
+img.hotelImageTiny {
+	height: 4em;
+	margin: 0em 1em;
+}
 
 div.comment {
 	padding: 19px 29px 29px;
