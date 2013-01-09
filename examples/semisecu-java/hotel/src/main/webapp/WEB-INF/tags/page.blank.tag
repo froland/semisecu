@@ -13,6 +13,8 @@
 	rel="stylesheet" />
 <link href="<c:url value="/css/hotel.css"/>" type="text/css"
 	rel="stylesheet" />
+<link href="<c:url value="/css/bar.css"/>" type="text/css"
+	rel="stylesheet" />
 <script src="<c:url value="/js/jquery.js"/>"></script>
 <%-- jQuery can be found at: http://code.jquery.com/ --%>
 <script src="<c:url value="/js/bootstrap.js"/>"></script>

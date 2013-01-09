@@ -1,5 +1,6 @@
 package com.hermes.owasphotel.domain;
 
+import java.text.NumberFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "COMMENT")
 @SequenceGenerator(name = "id_seq", sequenceName = "COMMENT_SEQ")
-public class Comment extends IdentifiableEntity<Integer> {
+public class Comment extends IdentifiableEntity<Integer> implements Noted{
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "when")
@@ -78,5 +79,17 @@ public class Comment extends IdentifiableEntity<Integer> {
 
 	public void delete() {
 		this.deleted = true;
+	}
+
+	@Override
+	public String getPrintableNote() {
+		NumberFormat nf = NumberFormat.getIntegerInstance();
+		return nf.format(getNote())+"/"+nf.format(MAX_NOTE);
+	}
+
+	@Override
+	public String getNoteBarLength() {
+		NumberFormat nf = NumberFormat.getIntegerInstance();
+		return nf.format(100*getNote()/MAX_NOTE);
 	}
 }
