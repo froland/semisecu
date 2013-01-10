@@ -49,7 +49,7 @@ public class HotelTest {
 	@Test
 	public void testAddComment() {
 		Hotel h = new Hotel("h", new User("a", "a"));
-		Comment c1 = h.createComment(new User("b", "b"), 0, "hello");
+		Comment c1 = h.createComment(new User("b", "b"), 5, "hello");
 		assertEquals("b", c1.getUserName());
 		assertTrue("Comment not added", h.getComments().contains(c1));
 	}

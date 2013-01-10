@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.HotelListItem;
@@ -192,18 +193,21 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment")
 	public String addComment(@PathVariable("id") Integer hotelId,
 			Authentication user, @RequestParam String text,
-			@RequestParam int note)
+			@RequestParam int note, RedirectAttributes redirectAttrs)
 			throws MissingServletRequestParameterException {
 		hotelService.addComment(hotelId, user == null ? null : user.getName(),
 				note, text);
+		Utils.successMessage(redirectAttrs, "Comment added.");
 		return redirectTo(hotelId);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteComment(@PathVariable("id") Integer hotelId,
-			@RequestParam("delete") Integer comment) {
+			@RequestParam("delete") Integer comment,
+			RedirectAttributes redirectAttrs) {
 		hotelService.deleteComment(hotelId, comment);
+		Utils.successMessage(redirectAttrs, "Comment deleted.");
 		return redirectTo(hotelId);
 	}
 
@@ -216,13 +220,16 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.POST, value = "create")
 	@PreAuthorize("hasRole('USER')")
 	public String createHotel(@Valid @ModelAttribute("hotel") HotelForm dto,
-			BindingResult binding, Authentication auth) {
+			BindingResult binding, Authentication auth,
+			RedirectAttributes redirectAttrs) {
 		if (binding.hasErrors()) {
 			return "hotel/update";
 		}
 		User user = getUser(auth);
 		Hotel hotel = dto.makeNew(user);
 		hotelService.save(hotel);
+		Utils.successMessage(redirectAttrs, "Hotel '" + hotel.getName()
+				+ "' created.");
 		return redirectTo(hotel.getId());
 	}
 
@@ -255,7 +262,8 @@ public class HotelController {
 	@PreAuthorize("isAuthenticated()")
 	public String updateHotel(Model model, Authentication auth,
 			@PathVariable("id") Integer hotelId,
-			@Valid @ModelAttribute("hotel") HotelForm dto, BindingResult result) {
+			@Valid @ModelAttribute("hotel") HotelForm dto,
+			BindingResult result, RedirectAttributes redirectAttrs) {
 		Hotel hotel = hotelService.getById(hotelId);
 		checkEdit(hotel, getUser(auth));
 		try {
@@ -270,13 +278,16 @@ public class HotelController {
 			return "hotel/update";
 		}
 		hotel = hotelService.update(hotel);
+		Utils.successMessage(redirectAttrs, "Hotel updated.");
 		return redirectTo(hotel.getId());
 	}
 
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/approve")
 	@PreAuthorize("hasRole('ADMIN')")
-	public String approveHotel(@PathVariable("id") Integer hotelId) {
+	public String approveHotel(@PathVariable("id") Integer hotelId,
+			RedirectAttributes redirectAttrs) {
 		hotelService.approve(hotelId);
+		Utils.successMessage(redirectAttrs, "Hotel approved.");
 		return redirectTo(hotelId);
 	}
 

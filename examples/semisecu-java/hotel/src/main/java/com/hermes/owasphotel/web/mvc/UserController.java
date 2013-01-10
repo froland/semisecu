@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.PersistenceException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
@@ -95,8 +96,9 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String viewUser(Model model, @PathVariable Integer id) {
+	@PreAuthorize("hasRole('ADMIN') or #id == #auth.principal.id")
+	public String viewUser(Model model, @PathVariable Integer id,
+			Authentication auth) {
 		User user = userService.getById(id);
 		if (user == null)
 			throw new IllegalArgumentException("User not found");
@@ -120,27 +122,34 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "create")
 	public String createUser(@Valid @ModelAttribute("user") UserForm dto,
-			BindingResult binding) {
-		if (binding.hasErrors()) {
-			return "user/update";
-		}
-		try {
-			User user = dto.makeNew();
-			userService.save(user);
-			return redirectTo(user);
-		} catch (PersistenceException e) {
-			binding.addError(new ObjectError("User", "User " + dto.getName()
-					+ " already exists "));
-		} catch (IllegalArgumentException e) {
-			binding.addError(new ObjectError("User", "Invalid parameters: "
-					+ e.getMessage()));
+			BindingResult binding, RedirectAttributes redirectAttrs) {
+		if (!binding.hasErrors()) {
+			try {
+				User user = dto.makeNew();
+				userService.save(user);
+
+				// authenticate the user
+				SecurityContext ctx = SecurityContextHolder.getContext();
+				ctx.setAuthentication(new UserAuthentication(user));
+
+				Utils.successMessage(redirectAttrs, "User '" + user.getName()
+						+ "' created");
+				return redirectTo(user);
+			} catch (DataIntegrityViolationException e) {
+				binding.addError(new ObjectError("user", "User "
+						+ dto.getName() + " already exists "));
+			} catch (IllegalArgumentException e) {
+				binding.addError(new ObjectError("user", "Invalid parameters: "
+						+ e.getMessage()));
+			}
 		}
 		return "user/update";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")
 	public String updateUser(@PathVariable Integer id, Authentication auth,
-			@Valid @ModelAttribute("user") UserForm dto, BindingResult binding) {
+			@Valid @ModelAttribute("user") UserForm dto, BindingResult binding,
+			RedirectAttributes redirectAttrs) {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
@@ -156,7 +165,7 @@ public class UserController {
 			dto.updatePassword(user, asAdmin);
 			user = userService.update(user);
 
-			// re-authentify the user
+			// re-authenticate the user
 			if (!asAdmin && !oldName.equals(user.getName())) {
 				SecurityContext ctx = SecurityContextHolder.getContext();
 				assert auth == ctx.getAuthentication();
@@ -171,6 +180,7 @@ public class UserController {
 				}
 			}
 
+			Utils.successMessage(redirectAttrs, "User updated.");
 			return redirectTo(user);
 		} catch (IllegalArgumentException e) {
 			binding.addError(new ObjectError("User", e.getMessage()));
@@ -181,12 +191,15 @@ public class UserController {
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "enable/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String enableUser(@PathVariable Integer id,
-			@RequestParam boolean enable) {
+			@RequestParam boolean enable, RedirectAttributes redirectAttrs) {
 		User user;
-		if (enable)
+		if (enable) {
 			user = userService.enableUser(id);
-		else
+		} else {
 			user = userService.disableUser(id);
+		}
+		Utils.successMessage(redirectAttrs, "User '" + user.getName() + "' "
+				+ (enable ? "enabled" : "disabled"));
 		return redirectTo(user);
 	}
 

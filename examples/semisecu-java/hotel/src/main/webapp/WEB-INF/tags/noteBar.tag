@@ -11,5 +11,5 @@
 		</div>
 	</div>
 		<div class="progress-level" style="width: <fmt:formatNumber type="number" maxFractionDigits="0"
-					value="${noted.noteBarLength}" />%"> </div>
+					value="${100 * noted.noteValue / noted.maxNote}" />%"> </div>
 </div>

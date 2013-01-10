@@ -83,6 +83,11 @@
 		</c:otherwise>
 	</c:choose>
 	<h1>${title}</h1>
+	<c:if test="${not empty SUCCESS_MESSAGE }">
+	<div class="alert alert-success">
+		<c:out value="${SUCCESS_MESSAGE}" />
+	</div>
+	</c:if>
 	<div id="body" style="max-width:1024px; margin-left: auto ;
   margin-right: auto ;">
 		<jsp:doBody />

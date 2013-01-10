@@ -71,7 +71,7 @@ public class HotelForm {
 		h.setStars(stars);
 		h.setDescriptionHTML(descriptionHTML);
 
-		if (userService != null) {
+		if (userService != null && this.manager != null) {
 			User manager = userService.getByName(this.manager);
 			if (manager == null)
 				throw new IllegalArgumentException("Manager user ("

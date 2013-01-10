@@ -1,6 +1,5 @@
 package com.hermes.owasphotel.domain;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,9 +21,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "HOTEL")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
-public class Hotel extends IdentifiableEntity<Integer> implements Noted{
+public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 	private static final long serialVersionUID = 1L;
-	private static final double MAX_NOTE = 5.0D;
+	private static final Float MAX_NOTE = 5.0f;
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -135,9 +134,10 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted{
 	}
 
 	public void setStars(Integer stars) {
-		if (stars != null && (stars.intValue() > 5 || stars.intValue() < 0)) {
+		if (stars != null && (stars > MAX_NOTE || stars.intValue() < 0)) {
 			throw new IllegalArgumentException(
-					"The number of stars must be between 0 and 5");
+					"The number of stars must be between 0 and "
+							+ MAX_NOTE.intValue());
 		}
 		this.stars = stars;
 	}
@@ -196,20 +196,15 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted{
 			return 0.0f;
 		return note / nbComment;
 	}
-	
-	public Float getNoteValue()
-	{	
+
+	@Override
+	public Float getNoteValue() {
 		return new Float(getAverageNote());
 	}
-	
-	public Float getNoteBarLength()
-	{
-		return new Float( (100*getAverageNote()/MAX_NOTE));
-	}
-	
-	public Float getMaxNote()
-	{
-		return new Float(MAX_NOTE);
+
+	@Override
+	public Float getMaxNote() {
+		return MAX_NOTE;
 	}
 
 	@Override

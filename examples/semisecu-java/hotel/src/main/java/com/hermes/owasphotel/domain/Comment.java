@@ -1,6 +1,5 @@
 package com.hermes.owasphotel.domain;
 
-import java.text.NumberFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,9 +15,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "COMMENT")
 @SequenceGenerator(name = "id_seq", sequenceName = "COMMENT_SEQ")
-public class Comment extends IdentifiableEntity<Integer> implements Noted{
+public class Comment extends IdentifiableEntity<Integer> implements Noted {
 	private static final long serialVersionUID = 1L;
-	private static final double MAX_NOTE = 5.0D;
+	private static final Float MAX_NOTE = 5.0f;
 
 	@Column(name = "when")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -49,6 +48,8 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted{
 	}
 
 	public void setNote(int note) {
+		if (note < 1 || note > MAX_NOTE)
+			throw new NullPointerException("Invalid note");
 		this.note = note;
 	}
 
@@ -86,14 +87,9 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted{
 	public Float getNoteValue() {
 		return new Float(getNote());
 	}
-	
-	public Float getMaxNote()
-	{
-		return new Float(MAX_NOTE);
-	}
 
 	@Override
-	public Float getNoteBarLength() {
-		return new Float(100*getNote()/MAX_NOTE);
+	public Float getMaxNote() {
+		return MAX_NOTE;
 	}
 }
