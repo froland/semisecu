@@ -6,16 +6,16 @@
 	<tr>
 		<th>Name</th>
 		<th>E-mail</th>
-		<th>Roles</th>
+		<th>
+			<!-- Enable -->
+		</th>
 	</tr>
 	<c:forEach var="user" items="${users}">
 		<tr>
 			<td><a href="<c:url value="/user/${user.id}"/>"><c:out
-						value="${user.name}" /></a> <c:if test="${!user.enabled}">
-					<span class="text-warning">(disabled)</span>
-				</c:if></td>
+						value="${user.name}" /></a></td>
 			<td><c:out value="${user.email}" /></td>
-			<td><t:list items="${user.roles}" /></td>
+			<td><t:user.enable user="${user}" /></td>
 		</tr>
 	</c:forEach>
 </table>

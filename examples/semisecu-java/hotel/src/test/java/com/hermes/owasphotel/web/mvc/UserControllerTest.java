@@ -69,7 +69,7 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	public void viewUser() throws Exception {
 		Model model = createModel();
 
-		assertNotNull(controller.viewUser(model, "a"));
+		assertNotNull(controller.viewUser(model, 1));
 		assertType(model.asMap(), "user", User.class);
 	}
 

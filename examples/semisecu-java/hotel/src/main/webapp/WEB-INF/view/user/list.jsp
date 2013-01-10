@@ -5,12 +5,15 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<c:if test="${empty userTableType}">
+	<c:set var="userTableType" value="userTable.jsp" />
+</c:if>
 <t:page.template>
 	<jsp:attribute name="title">User list</jsp:attribute>
 	<jsp:attribute name="navigation">
 		<t:navigation.admin />
 	</jsp:attribute>
 	<jsp:body>
-	    <jsp:include page="userTable.jsp" />
+	    <jsp:include page="${userTableType}" />
 	</jsp:body>
 </t:page.template>

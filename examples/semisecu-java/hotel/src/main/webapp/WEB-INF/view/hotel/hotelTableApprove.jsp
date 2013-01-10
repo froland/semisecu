@@ -5,8 +5,9 @@
 <table class="table table-striped">
 	<tr>
 		<th>Hotel name</th>
-		<th>Note</th>
-		<th>Comments</th>
+		<th>
+			<!-- approve -->
+		</th>
 	</tr>
 	<c:forEach var="hotel" items="${hotels}">
 		<tr>
@@ -14,9 +15,12 @@
 				class="hotelImageTiny" /><a
 				href="<c:url value="/hotel/${hotel.id}"/>"><c:out
 						value="${hotel.name}" /></a></td>
-			<td><fmt:formatNumber type="number" maxFractionDigits="2"
-					value="${hotel.note }" /></td>
-			<td><c:out value="${hotel.nbComments}" /></td>
+			<td>
+				<form method="POST"
+					action="<c:url value="/hotel/${hotel.id}/approve"/>">
+					<input type="submit" value="Approve hotel" class="btn btn-success" />
+				</form>
+			</td>
 		</tr>
 	</c:forEach>
 </table>

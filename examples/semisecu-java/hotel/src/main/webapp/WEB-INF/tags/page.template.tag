@@ -21,17 +21,17 @@
 				<sec:authorize access="isAuthenticated()">
 					<div class="btn-group">
 						<a class="btn btn-primary"
-								href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>"><i
+								href="<c:url value="/user/${pageContext['request'].userPrincipal.id}"/>"><i
 								class="icon-user icon-white"></i> <sec:authentication property="name" /></a>
 						<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
 								href="#"><span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a
-									href="<c:url value="/user/${pageContext['request'].userPrincipal.name}"/>">View
+									href="<c:url value="/user/${pageContext['request'].userPrincipal.id}"/>">View
 									profile</a></li>
 							<sec:authorize access="hasRole('ADMIN')">
-								<li><a href="<c:url value="/admin"/>">Administration
-										page</a></li>
+								<li><a href="<c:url value="/user"/>">User list</a></li>
+								<li><a href="<c:url value="/admin"/>">Administration page</a></li>
 							</sec:authorize>
 							<li><a href="<c:url value="/logout"/>">Log out</a></li>
 
@@ -41,7 +41,7 @@
 				<sec:authorize access="!isAuthenticated()">
 					<a class="btn btn-primary" href="<c:url value="/login"/>">Log
 						in</a>
-					<a class="btn btn-info" href="<c:url value="/user/create"/>">Register</a>
+					<a class="btn btn-info" href="<c:url value="/user/create"/>">Sign up</a>
 				</sec:authorize>
 			</div>
 		</div>

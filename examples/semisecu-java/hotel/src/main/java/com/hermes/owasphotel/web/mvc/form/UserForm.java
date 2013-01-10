@@ -1,9 +1,9 @@
 package com.hermes.owasphotel.web.mvc.form;
 
 import org.apache.bval.constraints.Email;
-import org.apache.bval.constraints.NotEmpty;
 
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.validation.NotBlank;
 import com.hermes.owasphotel.validation.SameValue;
 
 @SameValue(fieldNames = { "password", "retypedPassword" }, message = "Both passwords are not equal")
@@ -11,7 +11,7 @@ public class UserForm {
 
 	private Integer id;
 
-	@NotEmpty(message = "Your name may not be blank")
+	@NotBlank(message = "Your name may not be blank")
 	private String name;
 
 	private String oldPassword;

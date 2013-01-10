@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<bean:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:bean="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
@@ -11,7 +11,8 @@
 	<!-- HTTP security configurations -->
 	<http use-expressions="true">
 		<form-login login-processing-url="/logincheck" login-page="/login"
-			authentication-failure-url="/login?error=1" />
+			authentication-failure-url="/login?error=1" default-target-url="/"
+			always-use-default-target="true" />
 		<logout logout-url="/logout" />
 		<!-- Configure these elements to secure URIs in your application -->
 		<!-- <intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')" 
@@ -23,12 +24,21 @@
 
 	<!-- Configure Authentication mechanism -->
 	<authentication-manager alias="authenticationManager">
-		<authentication-provider>
+		<authentication-provider ref="UserAuthenticationProvider">
 			<!-- <password-encoder base64="false" hash="plaintext" /> -->
-			<password-encoder hash="md5" />
-			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select name, password, enabled from user where name=?"
-				authorities-by-username-query="select u.name, r.name from user u, role r where u.id=r.user_id and u.name=?" />
+			<!-- <password-encoder hash="md5" /> -->
+			<!-- <jdbc-user-service data-source-ref="dataSource" -->
+			<!-- users-by-username-query="select name, password, enabled from user 
+				where name=?" -->
+			<!-- authorities-by-username-query="select u.name, r.name from user u, 
+				role r where u.id=r.user_id and u.name=?" /> -->
 		</authentication-provider>
 	</authentication-manager>
-</beans:beans>
+
+	<!-- Custom AuthenticationProvider -->
+	<bean:bean id="UserAuthenticationProvider"
+		class="com.hermes.owasphotel.web.security.UserAuthenticationProvider" />
+
+	<!-- Force re-authentication on each page -->
+	<bean:bean class="com.hermes.owasphotel.web.security.ForceAuthCheck" />
+</bean:beans>

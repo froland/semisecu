@@ -12,10 +12,6 @@
 	<jsp:attribute name="title">Administration</jsp:attribute>
 	<jsp:body>
 		<div>
-			<h2>List the users</h2>
-			<a href="<c:url value="/user" />">User list</a>
-		</div>
-		<div>
 			<h2>Export a table</h2>
 			<form action="<c:url value='/admin/export' />" method="get">
 				<label for="tableName">Table name</label>

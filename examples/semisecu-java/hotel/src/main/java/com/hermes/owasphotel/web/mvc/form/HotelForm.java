@@ -5,17 +5,17 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.apache.bval.constraints.Email;
-import org.apache.bval.constraints.NotEmpty;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
+import com.hermes.owasphotel.validation.NotBlank;
 
 public class HotelForm {
 	private Integer id;
 
-	@NotEmpty(message = "The name of the hotel may not be blank")
+	@NotBlank(message = "The name of the hotel may not be blank")
 	private String name;
 
 	private String street;
@@ -25,7 +25,7 @@ public class HotelForm {
 	private String country;
 
 	private String telephone;
-	@Email
+	@Email(message = "Invalid e-mail address")
 	private String email;
 	@Min(0)
 	@Max(5)
@@ -73,9 +73,10 @@ public class HotelForm {
 
 		if (userService != null) {
 			User manager = userService.getByName(this.manager);
-			if (manager != null) {
-				h.setManager(manager);
-			}
+			if (manager == null)
+				throw new IllegalArgumentException("Manager user ("
+						+ this.manager + ") does not exist");
+			h.setManager(manager);
 		}
 
 		if (deleteFile) {
