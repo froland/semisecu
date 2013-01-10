@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <t:page.template>
@@ -26,21 +27,24 @@
 					class="hotelImage" />
 		</div>
 		<div class="span4">
-			<p>Rating: <t:hotel.stars value="${hotel.stars}" />
-			</p>
-			<p>Average note:
-				<t:noteBar noted="${hotel}" />
-			</p>
-			<p>Address: <br />${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} ${hotel.country}</p>
-			<p>Telephone: ${hotel.telephone}</p>
-			<p>Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
-			</p>
+			<div>
+			<div>Rating: <t:hotel.stars value="${hotel.stars}" />
+			</div>
+
+			<div style="line-height: 39px;">Average note:<span style="float: right; padding-right: 60px;"><t:noteBar noted="${hotel}" /></span></div>
+
+			<div >Address: <div>${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} <br />${fn:toUpperCase(hotel.country)}</div></div> 
+			
+			<div >Telephone: ${hotel.telephone}</div>
+			<div >Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
+			</div>
 			<sec:authorize access="hasRole('ADMIN')">
-				<p>Manager: <a href="<c:url value="/user/${hotel.manager.id}"/>">${hotel.manager.name}</a>
-					</p>
+				<div style="float: left;">Manager: <a href="<c:url value="/user/${hotel.manager.id}"/>">${hotel.manager.name}</a>
+					</div>
 			</sec:authorize>
-		</div>
-		</div>
+			</div>
+			</div>
+			</div>
 		<div class="row">
 			<div class="span10 offset1">
 			${hotel.descriptionHTML}

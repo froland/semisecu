@@ -83,7 +83,8 @@
 		</c:otherwise>
 	</c:choose>
 	<h1>${title}</h1>
-	<div id="body">
+	<div id="body" style="max-width:1024px; margin-left: auto ;
+  margin-right: auto ;">
 		<jsp:doBody />
 	</div>
 </jsp:body>
