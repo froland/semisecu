@@ -1,0 +1,37 @@
+.progress-bar {
+   background: url(/owasphotel/img/percentage-bg.png) no-repeat left center;
+   width: 316px;
+   height: 39px;
+   margin: 0 auto;
+   position: relative;
+	}
+.progress-level {
+   background: url(/owasphotel/img/progress.png) no-repeat left center;
+   height: 39px;
+   display: table-cell; 
+   vertical-align: middle; 
+   position:absolute; 
+   z-index: 1;
+	}
+	
+.progress-text-holder {
+	position:absolute; 
+	z-index: 2; 
+	vertical-align: middle; 
+	text-align: center; 
+	width: 100%; 
+	height: 39px; 
+	background: rgb(255, 255, 255) transparent;
+}
+
+.progress-text-table {
+	display: table; 
+	width: 100%; 
+	height:39px;
+}
+
+.progress-text-paragraph {
+	display: table-cell; 
+	vertical-align: middle; 
+	text-align: center;
+}

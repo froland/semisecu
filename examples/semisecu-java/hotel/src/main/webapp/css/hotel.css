@@ -35,3 +35,9 @@ div.newComment {
 form.enableUser {
 	margin: 0px;
 }
+
+.comment-header {
+	background: rgba(0, 0, 255, 0.2); 
+	line-height: 39px; 
+	padding-left:10px;
+}

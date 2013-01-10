@@ -29,7 +29,7 @@
 			<p>Rating: <t:hotel.stars value="${hotel.stars}" />
 			</p>
 			<p>Average note:
-				<t:hotel.stars value="${hotel.averageNote}" max="5" />
+				<t:noteBar noted="${hotel}" />
 			</p>
 			<p>Address: <br />${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} ${hotel.country}</p>
 			<p>Telephone: ${hotel.telephone}</p>
@@ -61,19 +61,27 @@
 			<c:forEach var="comment" items="${hotel.comments}">
 			<c:if test="${!comment.deleted}">
 				<div class="comment">
-					<div>
+					<div class="comment-header">
+
 					<c:out value="${comment.userName}" /> commented on
 					<fmt:formatDate value="${comment.date}" type="both" />
-					<span class="offset2">Note: <t:hotel.stars
-									value="${comment.note}" max="5" /></span>
+
+					<span style="float: right;"><t:noteBar noted="${comment}" />	</span>
+					
 					<sec:authorize access="hasRole('ADMIN')">
-					<form method="POST"
+
+					<form method="POST" style="float: right;"
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
 					<input type="hidden" name="delete" value="${comment.id}" />
-					<button type="submit" class="btn btn-danger"> <i
-											class="icon-trash icon-white"></i> Delete</button>
+					<button type="submit" class="btn-small btn-danger"> <i
+											class="icon-trash icon-white"></i></button>
 					</form>
+
 					</sec:authorize>
+
+
+					
+
 					</div>
 					<c:out value="${comment.text}" />
 				</div>

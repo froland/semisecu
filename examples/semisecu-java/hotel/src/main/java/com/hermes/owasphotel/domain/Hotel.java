@@ -1,5 +1,6 @@
 package com.hermes.owasphotel.domain;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,8 +22,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "HOTEL")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
-public class Hotel extends IdentifiableEntity<Integer> {
+public class Hotel extends IdentifiableEntity<Integer> implements Noted{
 	private static final long serialVersionUID = 1L;
+	private static final double MAX_NOTE = 5.0D;
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -193,6 +195,21 @@ public class Hotel extends IdentifiableEntity<Integer> {
 		if (nbComment == 0) // avoid returning NaN
 			return 0.0f;
 		return note / nbComment;
+	}
+	
+	public Float getNoteValue()
+	{	
+		return new Float(getAverageNote());
+	}
+	
+	public Float getNoteBarLength()
+	{
+		return new Float( (100*getAverageNote()/MAX_NOTE));
+	}
+	
+	public Float getMaxNote()
+	{
+		return new Float(MAX_NOTE);
 	}
 
 	@Override
