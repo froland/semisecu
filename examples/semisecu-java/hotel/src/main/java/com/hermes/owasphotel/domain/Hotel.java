@@ -24,6 +24,7 @@ import javax.persistence.Table;
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
 public class Hotel extends IdentifiableEntity<Integer> implements Noted{
 	private static final long serialVersionUID = 1L;
+	private static final double MAX_NOTE = 5.0D;
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -196,16 +197,19 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted{
 		return note / nbComment;
 	}
 	
-	public String getPrintableNote()
-	{
-		NumberFormat nf = NumberFormat.getIntegerInstance();
-		return nf.format(getAverageNote())+"/"+nf.format(MAX_NOTE);
+	public Float getNoteValue()
+	{	
+		return new Float(getAverageNote());
 	}
 	
-	public String getNoteBarLength()
+	public Float getNoteBarLength()
 	{
-		NumberFormat nf = NumberFormat.getIntegerInstance();
-		return nf.format(100*getAverageNote()/MAX_NOTE);
+		return new Float( (100*getAverageNote()/MAX_NOTE));
+	}
+	
+	public Float getMaxNote()
+	{
+		return new Float(MAX_NOTE);
 	}
 
 	@Override

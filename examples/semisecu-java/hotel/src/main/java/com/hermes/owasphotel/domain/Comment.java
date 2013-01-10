@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "id_seq", sequenceName = "COMMENT_SEQ")
 public class Comment extends IdentifiableEntity<Integer> implements Noted{
 	private static final long serialVersionUID = 1L;
+	private static final double MAX_NOTE = 5.0D;
 
 	@Column(name = "when")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -82,14 +83,17 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted{
 	}
 
 	@Override
-	public String getPrintableNote() {
-		NumberFormat nf = NumberFormat.getIntegerInstance();
-		return nf.format(getNote())+"/"+nf.format(MAX_NOTE);
+	public Float getNoteValue() {
+		return new Float(getNote());
+	}
+	
+	public Float getMaxNote()
+	{
+		return new Float(MAX_NOTE);
 	}
 
 	@Override
-	public String getNoteBarLength() {
-		NumberFormat nf = NumberFormat.getIntegerInstance();
-		return nf.format(100*getNote()/MAX_NOTE);
+	public Float getNoteBarLength() {
+		return new Float(100*getNote()/MAX_NOTE);
 	}
 }
