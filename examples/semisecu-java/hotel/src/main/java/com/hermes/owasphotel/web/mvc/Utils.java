@@ -8,10 +8,11 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hermes.owasphotel.domain.Role;
 
-class Utils {
+final class Utils {
 	private Utils() {
 	}
 
@@ -48,5 +49,15 @@ class Utils {
 		model.addAttribute(name, paged.getPageList());
 		model.addAttribute("pagedListHolder", paged);
 		return paged;
+	}
+
+	public static void successMessage(RedirectAttributes redirectAttrs,
+			String message) {
+		final String MSG_KEY = "SUCCESS_MESSAGE";
+		Object oldMsg = redirectAttrs.getFlashAttributes().get(MSG_KEY);
+		if (oldMsg != null) {
+			message = oldMsg.toString() + "\n" + message;
+		}
+		redirectAttrs.addFlashAttribute(MSG_KEY, message);
 	}
 }

@@ -18,6 +18,8 @@ import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.MapBindingResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import com.hermes.owasphotel.domain.Role;
 
@@ -59,6 +61,10 @@ public abstract class ControllerTestBase<T> {
 
 	protected BindingResult createBindingResult(String objectName) {
 		return new MapBindingResult(new TreeMap<String, Object>(), objectName);
+	}
+
+	protected RedirectAttributes createRedirectAttributes() {
+		return new RedirectAttributesModelMap();
 	}
 
 	public static <T> T assertType(Object obj, Class<T> type) {

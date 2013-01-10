@@ -69,7 +69,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	public void viewUser() throws Exception {
 		Model model = createModel();
 
-		assertNotNull(controller.viewUser(model, 1));
+		assertNotNull(controller.viewUser(model, 1,
+				createAuthentication(userService.getById(1))));
 		assertType(model.asMap(), "user", User.class);
 	}
 
@@ -92,7 +93,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		User u = userService.getById(1);
 		Mockito.when(userService.update(u)).thenReturn(u);
 
-		assertRedirect(controller.updateUser(id, auth, form, binding));
+		assertRedirect(controller.updateUser(id, auth, form, binding,
+				createRedirectAttributes()));
 		Mockito.verify(userService).update(Mockito.any(User.class));
 	}
 
@@ -116,13 +118,15 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 
 	@Test
 	public void postEnable() throws Exception {
-		assertRedirect(controller.enableUser(1, true));
+		assertRedirect(controller.enableUser(1, true,
+				createRedirectAttributes()));
 		Mockito.verify(userService).enableUser(1);
 	}
 
 	@Test
 	public void postDisable() throws Exception {
-		assertRedirect(controller.enableUser(1, false));
+		assertRedirect(controller.enableUser(1, false,
+				createRedirectAttributes()));
 		Mockito.verify(userService).disableUser(1);
 	}
 
@@ -162,7 +166,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		// update the e-mail
 		String newEmail = "hello@test.com";
 		user.setEmail(newEmail);
-		controller.updateUser(5, auth, user, createBindingResult("user"));
+		controller.updateUser(5, auth, user, createBindingResult("user"),
+				createRedirectAttributes());
 
 		User updatedUser = getUserServiceUpdatedUser();
 		assertEquals("Failed to update the e-mail", newEmail,
@@ -182,7 +187,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		UserForm user = new UserForm(u);
 		user.setPassword("z");
 		user.setRetypedPassword("z");
-		controller.updateUser(5, auth, user, createBindingResult("user"));
+		controller.updateUser(5, auth, user, createBindingResult("user"),
+				createRedirectAttributes());
 
 		u = getUserServiceUpdatedUser();
 		assertTrue("Password updated without giving the old password",
@@ -201,7 +207,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		user.setOldPassword("p");
 		user.setPassword("z");
 		user.setRetypedPassword("z");
-		controller.updateUser(5, auth, user, createBindingResult("user"));
+		controller.updateUser(5, auth, user, createBindingResult("user"),
+				createRedirectAttributes());
 
 		u = getUserServiceUpdatedUser();
 		assertFalse("Password not updated", u.checkPassword("p"));
@@ -220,7 +227,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		UserForm user = new UserForm(u);
 		user.setPassword("z");
 		user.setRetypedPassword("z");
-		controller.updateUser(5, auth, user, createBindingResult("user"));
+		controller.updateUser(5, auth, user, createBindingResult("user"),
+				createRedirectAttributes());
 
 		u = getUserServiceUpdatedUser();
 		assertTrue("New password is not working", u.checkPassword("z"));

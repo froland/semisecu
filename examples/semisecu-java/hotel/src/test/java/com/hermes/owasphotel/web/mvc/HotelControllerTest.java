@@ -61,7 +61,8 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 	public void postComment() throws Exception {
 		Authentication auth = null;
 
-		assertRedirect(controller.addComment(1, auth, "hello world", 5));
+		assertRedirect(controller.addComment(1, auth, "hello world", 5,
+				createRedirectAttributes()));
 		Mockito.verify(hotelService).addComment(1, null, 5, "hello world");
 	}
 
@@ -94,13 +95,13 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 		HotelForm form = new HotelForm(hotel);
 
 		assertRedirect(controller.updateHotel(model, auth, 1, form,
-				createBindingResult("hotel")));
+				createBindingResult("hotel"), createRedirectAttributes()));
 		Mockito.verify(hotelService).update(Mockito.any(Hotel.class));
 	}
 
 	@Test
 	public void postApprove() throws Exception {
-		assertRedirect(controller.approveHotel(1));
+		assertRedirect(controller.approveHotel(1, createRedirectAttributes()));
 		Mockito.verify(hotelService).approve(1);
 	}
 }
