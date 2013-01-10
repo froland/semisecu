@@ -118,6 +118,9 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 
 	@Test
 	public void postEnable() throws Exception {
+		User user = userService.getById(1);
+		Mockito.when(userService.enableUser(1)).thenReturn(user);
+
 		assertRedirect(controller.enableUser(1, true,
 				createRedirectAttributes()));
 		Mockito.verify(userService).enableUser(1);
@@ -125,6 +128,9 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 
 	@Test
 	public void postDisable() throws Exception {
+		User user = userService.getById(1);
+		Mockito.when(userService.disableUser(1)).thenReturn(user);
+
 		assertRedirect(controller.enableUser(1, false,
 				createRedirectAttributes()));
 		Mockito.verify(userService).disableUser(1);

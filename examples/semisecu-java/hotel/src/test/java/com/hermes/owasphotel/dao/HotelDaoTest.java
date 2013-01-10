@@ -52,15 +52,15 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		userDao.save(multipleManager);
 		userDao.flush();
 
-		addMultipleHotel("top", multipleManager, 10);
+		addMultipleHotel("top", multipleManager, 5);
 		addMultipleHotel("h1", multipleManager);
 
 		User other = new User("ben", "ben");
 		userDao.save(other);
 		userDao.flush();
 
-		addMultipleHotel("h2", other, 8);
-		addMultipleHotel("h3", other, 3, 5);
+		addMultipleHotel("h2", other, 4);
+		addMultipleHotel("h3", other, 1, 3);
 	}
 
 	private Hotel addMultipleHotel(String name, User manager, int... notes) {
@@ -111,9 +111,21 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	private Hotel persistMyHotel() {
 		Hotel h = createEntity();
 		h.setName("my hotel");
+		h.approveHotel();
 		hotelDao.save(h);
 		hotelDao.flush();
 		return h;
+	}
+
+	@Test
+	public void findNotApproved() {
+		Hotel h = createEntity();
+		h.setName("test");
+		hotelDao.save(h);
+		hotelDao.flush();
+
+		List<Hotel> list = hotelDao.findSearchQuery("test", false, 1);
+		assertFalse("Found a not approved hotel", list.contains(h));
 	}
 
 	@Test
@@ -138,7 +150,6 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 
 		List<Hotel> list = hotelDao.findSearchQuery("my", false, 2);
 		assertTrue(list.contains(h));
-
 	}
 
 	@Test
@@ -147,7 +158,6 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 
 		List<Hotel> list = hotelDao.findSearchQuery("hot", false, 2);
 		assertFalse(list.contains(h));
-
 	}
 
 	@Test(expected = PersistenceException.class)
