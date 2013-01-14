@@ -1,4 +1,4 @@
-# Code-review 2013-03-04 #
+# Code-review 2013-01-04 #
 
 * Dans les tests unitaires JUnit4, il est inutile de préfixer les méthodes de test par *test*. Au contraire, cela crée un bruit génant lors de la lecture.
 
@@ -74,3 +74,76 @@
   * dumpToWriter()
     * Pourquoi catcher SQLException si on utilise un DAO Spring qui n'est pas censé retourner autre chose que des DataAccessException ?
     * L'exécution du code peut-elle vraiment poursuivre après ces erreurs ? Si non, il faut relancer une exception. Logger ne suffit pas.
+
+
+# Code-review 2013-01-14 #
+
+* Remarques générales
+  * La plupart des écrans actuels peuvent aficher plus de 80 caractères par ligne.
+  * Attention à utiliser une indentation correcte et ne pas se laisser abuser par les réglages par défaut d'Eclipse.
+  * Il faut éviter les noms de variable sans signification.
+  * Dans les tests, il faut tester le comportement et pas l'implémentation. Cela doit également se voir dans le choix des noms de méthode.
+  * La Javadoc est presque absent partout. Et là où elle est présente, elle n'apporte aucune info (@author).
+
+* DumperTest
+  * .toArray(new String[0]) est inefficace. Demander explications orales.
+* UserDaoTest
+  * Quel est le sens du test sur les rôles dans .checkEquals ?
+* HotelTest
+  * .testStars()
+    * Il y a plusieurs tests dans la même methode. --> bad practice
+    * Variable inutile : Integer s = 3
+* AdminServiceTest
+  * .dumpCalled utilise une construction complexe pour ne pas tester grand chose au final. Quelle est l'intention ?
+  * initService: variable inutile
+    <code>
+      AdminServiceImpl adminService = new AdminServiceImpl();
+      this.adminService = adminService;
+    </code>
+* HotelServiceTest
+  * .listAllItems: Il est inutile de mettre à jour l'id de l'hôtel par réflexion.
+  * .testApprove: ne pas utiliser de mock pour Hotel. Il ne faut utiliser un mock que lorsqu'il est difficile d'utiliser directement l'objet souhaité (par exemple, un DAO). Il est plus intéressant de tester l'état du système après l'appel de la méthode (<code>hotel.isApproved()</code>) que de vérifier l'implémentation de la méthode (<code>mock.verify()</code>).
+  * .deleteComment est à réécrire pour les raisons expliquées ci-avant.
+* AdminControllerTest
+  * <code>controller.setAdminService(adminService = Mockito.mock(AdminService.class))</code> est une construction à éviter car elle fait 2 choses en même temps.
+* HotelControllerTest
+  * .createTestHotel: inutile d'utiliser une variable juste avant le return.
+* UserControllerTest
+  * .postUpdateUser: fausse constante <code>Integer id = 1</code>.
+  * .getUserServiceUpdatedUser: On fait joujou ? C'est la grosse Bertha anti-tsétsé ?
+  * .updateWithForm: Ça sert à quoi <code>Mockito.mock(UserForm.class)</code> ?
+* HotelDaoJpa
+  * .findApprovedHotels ne doit pas utiliser la représentation interne 0 au lieu de false dans le JPQL.
+* SimpleJPA
+  * Très mauvaise idée d'utiliser @Transactional dans un DAO. A fortiori dans tous.
+* Dumper
+  * listTables: Ne jamais utiliser e.printStackTrace. 1° Ça imprime dans la console du serveur sans timestamp, ce qui est inutilisable. 2° C'est un appel synchrone.
+  * La gestion des exceptions n'est pas très élégante.
+  * La gestion de la fermeture des ressources JDBC est dupliquée.
+  * Pourquoi ne pas utiliser un JDBCTemplate partout ?
+* Address
+  * Non-respect de la convention de nommage pour ZIPCode (--> zipCode).
+  * Pour un value object, il est préférable de chéer un objet immuable.
+  * Attention, cet objet n'est pas sérializable ! Or il est embarqué par la classe Hotel qui, elle, est sérializable.
+* Hotel
+  * Quel est le problème avec la liste des commentaires ?
+  * Quelle est l'utilité de setCountry et setCity ? NPE si address est null.
+  * Quel est l'utilité de l'interface Noted ?
+  * Méthode equals() illisible. Utilisez commons-lang ou guava pour gagner du temps.
+  * Méthode hashcode() non cohérente avec equals() == problème en perspective, surtout avec les collections.
+* HotelListItem
+  * Ressemble plus à un DTO qu'à un objet du domaine. --> Déplacez-le dans service ou dao selon l'usage.
+* HotelServiceImpl
+  * getById(): Mieux vaut solutionner le problème à la source qu'utiliser des bidouilles pareilles.
+  * itemize(): Quel est l'intérêt de cette méthode ? Pourquoi utiliser un DTO ici ?
+  * listManagedHotels(String name) --> listManagedHotels(String userName)
+  * addComment(): Si on regarde bien tout ce qui est fait ici, on se rend compte que, dans le DAO, on catch une exception pour retourner null. Et dans le service on teste null pour retourner une exception. N'est-ce pas un peu «overkill» ?
+  * deleteComment(): Le code fait une première requête DB pour récupérer l'Hotel puis une requête par commentaire (puisque liste en lazy loading), tout ça pour supprimer un commentaire dont on a déjà l'id. Ne serait-il pas plus simple de faire un « delete from Comment comment where comment.id = :id » dans un DAO ? Ça me parait moins gourmand en appels DB (et accessoirement en mémoire pour l'instanciation des classes qui ne sont même pas utilisées).
+  * setHotelImage(): Même remarque que pour deleteComment() pour la gestion des exceptions.
+* UserServiceImpl
+  * enableUser() et disableUser() : Pourquoi retourner le User ?
+* SameValueValidator
+  * isValid() : Évitez catch(Exception e), soyez plus précis sous peine de ne pas pouvoir faire facilement la différence entre une erreur d'entrée utilisateur et une erreur de programmation.
+* AdminController
+  * Dans export(), Le MIME-TYPE correct pour un fichier csv est «text/csv» et non «application/octet-stream».
+  * Dans viewAdmin(), peut-on vraiment continuer après les exceptions ?
