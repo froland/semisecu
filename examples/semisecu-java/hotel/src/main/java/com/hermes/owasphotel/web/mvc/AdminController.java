@@ -38,7 +38,7 @@ public class AdminController {
 			@RequestParam String tableName,
 			@RequestParam("col") String[] columns) throws IOException {
 
-		response.setContentType("application/octet-stream");
+		response.setContentType("text/csv");
 		response.setHeader("Content-Disposition",
 				"attachment;filename=dumpTable" + tableName + ".csv");
 
@@ -69,10 +69,9 @@ public class AdminController {
 		String tablesJSON = "[]";
 		try {
 			tablesJSON = new ObjectMapper().writeValueAsString(tables);
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			// write no tables
+			tablesJSON = "[]";
 		}
 		model.addAttribute("tables", tablesJSON);
 		return "admin/view";

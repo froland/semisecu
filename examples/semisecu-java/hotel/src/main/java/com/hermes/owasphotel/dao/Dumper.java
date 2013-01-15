@@ -97,7 +97,7 @@ public class Dumper {
 									schemaPattern, tableName, null);
 							ArrayList<String> names = new ArrayList<String>();
 							while (rs.next()) {
-								names.add(rs.getString("TABLE_NAME"));
+								names.add(rs.getString("COLUMN_NAME"));
 							}
 							return names;
 						} finally {

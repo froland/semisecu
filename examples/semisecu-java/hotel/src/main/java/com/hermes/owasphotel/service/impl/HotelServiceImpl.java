@@ -130,8 +130,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<HotelListItem> listManagedHotels(String name) {
-		User user = userDao.getByName(name);
+	public List<HotelListItem> listManagedHotels(String userName) {
+		User user = userDao.getByName(userName);
 		return itemize(hotelDao.findManagedHotels(user));
 	}
 

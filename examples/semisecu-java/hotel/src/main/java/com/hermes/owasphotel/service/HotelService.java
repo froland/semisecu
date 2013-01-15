@@ -43,5 +43,5 @@ public interface HotelService {
 
 	public List<HotelListItem> listSearchQuery(String search);
 
-	public List<HotelListItem> listManagedHotels(String name);
+	public List<HotelListItem> listManagedHotels(String userName);
 }
