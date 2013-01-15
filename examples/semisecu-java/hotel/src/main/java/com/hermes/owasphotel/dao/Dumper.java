@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -61,68 +62,49 @@ public class Dumper {
 	}
 
 	public List<String> listTables() {
-		ArrayList<String> names = new ArrayList<String>();
-		Connection c = null;
-		ResultSet rs = null;
-		try {
-			c = dataSource.getConnection();
-			rs = c.getMetaData().getTables(null, schemaPattern, null,
-					new String[] { "TABLE" });
-			while (rs.next()) {
-				names.add(rs.getString("TABLE_NAME"));
-			}
-			rs.close();
-		} catch (SQLException e) {
-			throw new DataAccessException("Failed to list tables") {
-				private static final long serialVersionUID = 1L;
-			};
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			if (c != null)
-				try {
-					c.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-		}
-		return names;
+		return new JdbcTemplate(dataSource)
+				.execute(new ConnectionCallback<List<String>>() {
+					@Override
+					public List<String> doInConnection(Connection con)
+							throws SQLException, DataAccessException {
+						ResultSet rs = null;
+						try {
+							rs = con.getMetaData().getTables(null,
+									schemaPattern, null,
+									new String[] { "TABLE" });
+							ArrayList<String> names = new ArrayList<String>();
+							while (rs.next()) {
+								names.add(rs.getString("TABLE_NAME"));
+							}
+							return names;
+						} finally {
+							if (rs != null)
+								rs.close();
+						}
+					}
+				});
 	}
 
-	public List<String> listColumns(String tableName) {
-		ArrayList<String> names = new ArrayList<String>();
-		Connection c = null;
-		ResultSet rs = null;
-		try {
-			c = dataSource.getConnection();
-			rs = c.getMetaData().getColumns(null, schemaPattern, tableName,
-					null);
-			while (rs.next()) {
-				names.add(rs.getString("COLUMN_NAME"));
-			}
-		} catch (SQLException e) {
-			throw new DataAccessException("Failed to list columns of table "
-					+ tableName) {
-				private static final long serialVersionUID = 1L;
-			};
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			if (c != null)
-				try {
-					c.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-		}
-		return names;
+	public List<String> listColumns(final String tableName) {
+		return new JdbcTemplate(dataSource)
+				.execute(new ConnectionCallback<List<String>>() {
+					@Override
+					public List<String> doInConnection(Connection con)
+							throws SQLException, DataAccessException {
+						ResultSet rs = null;
+						try {
+							rs = con.getMetaData().getColumns(null,
+									schemaPattern, tableName, null);
+							ArrayList<String> names = new ArrayList<String>();
+							while (rs.next()) {
+								names.add(rs.getString("TABLE_NAME"));
+							}
+							return names;
+						} finally {
+							if (rs != null)
+								rs.close();
+						}
+					}
+				});
 	}
 }
