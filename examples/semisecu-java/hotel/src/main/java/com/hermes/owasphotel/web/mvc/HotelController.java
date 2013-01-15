@@ -35,9 +35,9 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelListItem;
 import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.HotelListItem;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.HotelForm;

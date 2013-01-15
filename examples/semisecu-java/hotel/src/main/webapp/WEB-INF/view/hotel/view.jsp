@@ -33,7 +33,7 @@
 
 			<div style="line-height: 39px;">Average note:<span style="float: right; padding-right: 60px;"><t:noteBar noted="${hotel}" /></span></div>
 
-			<div >Address: <div>${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} <br />${fn:toUpperCase(hotel.country)}</div></div> 
+			<div >Address: <div>${hotel.address.street} ${hotel.address.number}<br />${hotel.address.zipCode} ${hotel.address.city} <br />${fn:toUpperCase(hotel.address.country)}</div></div> 
 			
 			<div >Telephone: ${hotel.telephone}</div>
 			<div >Email: <a href="mailto:${hotel.email}">${hotel.email}</a>

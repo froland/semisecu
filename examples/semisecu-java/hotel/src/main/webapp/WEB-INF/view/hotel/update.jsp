@@ -79,9 +79,9 @@
 				</div>
 				
 				<div class="control-group">
-					<label class="control-label" for="hotelZIP">ZIP code</label>
+					<label class="control-label" for="hotelZIP">ZIP Code</label>
 					<div class="controls">
-						<form:input path="ZIPCode" id="hotelZIP" />
+						<form:input path="zipCode" id="hotelZIP" />
 					</div>
 				</div>
 				

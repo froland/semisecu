@@ -1,48 +1,102 @@
 package com.hermes.owasphotel.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 @Embeddable
 @Access(AccessType.PROPERTY)
-public class Address {
+public final class Address implements Serializable {
+	private static final long serialVersionUID = -5781461909685717465L;
+
 	private String street;
 	private String number;
 	private String city;
-	private String ZIPCode;
+	private String zipCode;
 	private String country;
-	
-	
+
+	// default setters added for hibernate
+
+	Address() {
+	}
+
+	public Address(String street, String number, String city, String zipCode,
+			String country) {
+		this.street = street;
+		this.number = number;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.country = country;
+	}
+
 	public String getStreet() {
 		return street;
 	}
-	public void setStreet(String street) {
+
+	void setStreet(String street) {
 		this.street = street;
 	}
+
 	public String getNumber() {
 		return number;
 	}
-	public void setNumber(String number) {
+
+	void setNumber(String number) {
 		this.number = number;
 	}
+
 	public String getCity() {
 		return city;
 	}
-	public void setCity(String city) {
+
+	void setCity(String city) {
 		this.city = city;
 	}
-	public String getZIPCode() {
-		return ZIPCode;
+
+	public String getZipCode() {
+		return zipCode;
 	}
-	public void setZIPCode(String zIPCode) {
-		ZIPCode = zIPCode;
+
+	void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
+
 	public String getCountry() {
 		return country;
 	}
-	public void setCountry(String country) {
+
+	void setCountry(String country) {
 		this.country = country;
 	}
-	
+
+	@Override
+	public final boolean equals(Object obj) {
+		return obj instanceof Address && equals((Address) obj);
+	}
+
+	public boolean equals(Address address) {
+		return address != null
+				&& ObjectUtils.equals(getCity(), address.getCity())
+				&& ObjectUtils.equals(getCountry(), address.getCountry())
+				&& ObjectUtils.equals(getNumber(), address.getNumber())
+				&& ObjectUtils.equals(getStreet(), address.getStreet())
+				&& ObjectUtils.equals(getZipCode(), address.getZipCode());
+	}
+
+	@Override
+	public int hashCode() {
+		return ObjectUtils.hashCodeMulti(getCity(), getCountry(), getNumber(),
+				getStreet(), getZipCode());
+	}
+
+	@Override
+	public String toString() {
+		return "Address[\n" + getStreet() + " " + getNumber() + "\n"
+				+ getZipCode() + " " + getCity() + "\n" + getCountry() + "]";
+	}
+
 }

@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
@@ -125,14 +126,15 @@ public class User extends IdentifiableEntity<Integer> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof User))
+		if (!(obj instanceof User))
 			return false;
-		return getName().equals(((User) obj).getName());
+		User other = (User) obj;
+		return ObjectUtils.equals(getName(), other.getName());
 	}
 
 	@Override
 	public int hashCode() {
-		return getName().hashCode();
+		return super.hashCode() + ObjectUtils.hashCode(getName());
 	}
 
 }

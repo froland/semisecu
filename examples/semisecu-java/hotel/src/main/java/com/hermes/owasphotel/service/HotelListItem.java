@@ -1,4 +1,6 @@
-package com.hermes.owasphotel.domain;
+package com.hermes.owasphotel.service;
+
+import com.hermes.owasphotel.domain.Hotel;
 
 public class HotelListItem {
 

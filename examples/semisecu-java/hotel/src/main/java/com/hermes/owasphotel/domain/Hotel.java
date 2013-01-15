@@ -18,6 +18,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 @Entity
 @Table(name = "HOTEL")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
@@ -33,7 +35,7 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 	private byte[] image;
 
 	@Embedded
-	private Address completeAddress = new Address();
+	private Address address;
 
 	private String telephone;
 	private String email;
@@ -81,28 +83,12 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 		this.image = image;
 	}
 
-	public Address getCompleteAddress() {
-		return completeAddress;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setCompleteAddress(Address address) {
-		this.completeAddress = address;
-	}
-
-	public String getCity() {
-		return getCompleteAddress().getCity();
-	}
-
-	public void setCity(String city) {
-		this.getCompleteAddress().setCity(city);
-	}
-
-	public String getCountry() {
-		return getCompleteAddress().getCountry();
-	}
-
-	public void setCountry(String country) {
-		this.getCompleteAddress().setCountry(country);
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public String getEmail() {
@@ -209,31 +195,16 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null || !(obj instanceof Hotel))
+		if (!(obj instanceof Hotel))
 			return false;
 		Hotel other = (Hotel) obj;
-		boolean toReturn = true;
 
-		if (other.getCity() == null || getCity() == null)
-			toReturn &= (other.getCity() == null && getCity() == null);
-		else
-			toReturn &= other.getCity().equals(this.getCity());
-
-		if (other.getName() == null || getName() == null)
-			toReturn &= (other.getName() == null && getName() == null);
-		else
-			toReturn &= other.getName().equals(this.getName());
-
-		if (other.getCountry() == null || getCountry() == null)
-			toReturn &= (other.getCountry() == null && getCountry() == null);
-		else
-			toReturn &= other.getCountry().equals(this.getCountry());
-
-		return toReturn;
+		return ObjectUtils.equals(getName(), other.getName())
+				&& ObjectUtils.equals(getAddress(), other.getAddress());
 	}
 
 	@Override
 	public int hashCode() {
-		return this.getName().hashCode();
+		return super.hashCode() + ObjectUtils.hashCode(getName());
 	}
 }

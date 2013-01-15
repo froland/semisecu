@@ -13,6 +13,7 @@ import javax.persistence.PersistenceException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hermes.owasphotel.domain.Address;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 
@@ -37,7 +38,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		User me = new User("me", "me");
 		userDao.save(me);
 		h.createComment(me, 1, "");
-		h.setCountry("H country");
+		h.setAddress(new Address("", "", "", "", "H country"));
 		return h;
 	}
 
@@ -165,13 +166,11 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 		User u = new User("u", "u");
 		userDao.save(u);
 		Hotel h1 = new Hotel("test", u);
-		h1.setCity("");
-		h1.setCountry("");
+		h1.setAddress(new Address("", "", "", "", ""));
 		hotelDao.save(h1);
 		hotelDao.flush();
 		Hotel h2 = new Hotel("test", u);
-		h2.setCity("");
-		h2.setCountry("");
+		h2.setAddress(new Address("", "", "", "", ""));
 		hotelDao.save(h2);
 		hotelDao.flush();
 	}
@@ -179,7 +178,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	@Override
 	protected void checkLoadedEntity(Hotel expected, Hotel found) {
 		super.checkLoadedEntity(expected, found);
-		assertEquals(expected.getCountry(), found.getCountry());
+		assertEquals(expected.getAddress(), found.getAddress());
 		assertEquals(expected.getImage(), found.getImage());
 		assertEquals(expected.getComments().size(), found.getComments().size());
 	}

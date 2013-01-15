@@ -18,7 +18,6 @@ import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelListItem;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.impl.HotelServiceImpl;
 
