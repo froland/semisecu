@@ -7,6 +7,10 @@ public class HotelListItem {
 	private int nbComments;
 	private float note;
 
+	public HotelListItem(Hotel h) {
+		this(h.getId(), h.getName(), h.getNbComments(false), h.getAverageNote());
+	}
+
 	public HotelListItem(int id, String hotelName, int nbComments, float note) {
 		this.id = id;
 		this.name = hotelName;

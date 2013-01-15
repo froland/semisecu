@@ -105,7 +105,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 
 		assertNull(hotelDao.getByName("___xyz"));
 		Hotel found = hotelDao.getByName("my hotel");
-		checkEquals(h, found);
+		checkLoadedEntity(h, found);
 	}
 
 	private Hotel persistMyHotel() {
@@ -177,8 +177,8 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Override
-	protected void checkEquals(Hotel expected, Hotel found) {
-		super.checkEquals(expected, found);
+	protected void checkLoadedEntity(Hotel expected, Hotel found) {
+		super.checkLoadedEntity(expected, found);
 		assertEquals(expected.getCountry(), found.getCountry());
 		assertEquals(expected.getImage(), found.getImage());
 		assertEquals(expected.getComments().size(), found.getComments().size());

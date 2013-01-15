@@ -26,8 +26,8 @@ public class AdminControllerTest extends ControllerTestBase<AdminController> {
 	@Before
 	public void initController() throws Exception {
 		super.initController();
-		controller.setAdminService(adminService = Mockito
-				.mock(AdminService.class));
+		adminService = Mockito.mock(AdminService.class);
+		controller.setAdminService(adminService);
 	}
 
 	@Test
