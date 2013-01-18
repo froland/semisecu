@@ -45,7 +45,7 @@
 				</sec:authorize>
 			</div>
 		</div>
-		<div class="span2">
+		<div class="span2 offset1">
 		<form action="<c:url value="/hotel/search"/>" method="get" class="form-search pull-right">
 		<div class="input-append">
 			<input type="text" name="t" title="Search for a hotel"

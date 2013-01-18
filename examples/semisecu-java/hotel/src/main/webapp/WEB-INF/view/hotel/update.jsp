@@ -65,7 +65,7 @@
 					<form:input path="number" placeholder="Number" size="6" cssClass="address-field"/>
 
 					<br />
-					<form:input path="ZIPCode" placeholder="ZIP" size="6" cssClass="address-field"/>
+					<form:input path="zipCode" placeholder="ZIP" size="6" cssClass="address-field"/>
 					<form:input path="city" placeholder="City" cssClass="address-field"/>
 					
 					<form:input path="country" placeholder="Country" cssClass="address-field"/>
