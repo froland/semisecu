@@ -29,7 +29,8 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	@Override
 	public List<Hotel> findApprovedHotels(boolean approved) {
 		return em
-				.createQuery("from Hotel where approved = :approved order by name",
+				.createQuery(
+						"from Hotel where approved = :approved order by name",
 						Hotel.class).setParameter("approved", approved)
 				.getResultList();
 	}
@@ -47,20 +48,30 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 			return null;
 		}
 	}
-
+	
 	@Override
 	public List<Hotel> findSearchQuery(String search, boolean fullSearch,
 			int maxResults) {
+		/* Changed to case sensitive search in order to have insensitive search use toLowerCase
+		on search and on h.name in jpql
+		*/
 		// build the like string
-		String like = search.toLowerCase() + "%";
+		String like = search + "%";
 		if (fullSearch) {
 			like = "%" + like;
 		}
 		// build the query
-		TypedQuery<Hotel> query = em
-				.createQuery(
-						"select h from Hotel h where h.approved is true and lower(h.name) like :t order by h.name",
-						Hotel.class).setParameter("t", like);
+
+		/*
+		 * Corrected code:
+		 * 
+		 * TypedQuery<Hotel> query = em .createQuery(
+		 * "select h from Hotel h where h.approved is true and h.name like :t order by h.name"
+		 * , Hotel.class).setParameter("t", like);
+		 */
+		String jpql = "select h from Hotel h where h.approved is true and h.name like '"
+				+ like + "' order by h.name";
+		TypedQuery<Hotel> query = em.createQuery(jpql, Hotel.class);
 		if (maxResults > 0)
 			query = query.setMaxResults(maxResults);
 		return query.getResultList();
