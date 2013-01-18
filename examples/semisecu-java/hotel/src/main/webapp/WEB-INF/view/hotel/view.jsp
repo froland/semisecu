@@ -34,8 +34,7 @@
 			<div >Average note:<t:noteBar noted="${hotel}" /></div>
 
 			<div >Address: <div>${hotel.address.street} ${hotel.address.number}<br />${hotel.address.zipCode} ${hotel.address.city} <br />${fn:toUpperCase(hotel.address.country)}</div></div> 
-			
-			<tr></table>
+
 			</div>
 			<div >Telephone: ${hotel.telephone}</div>
 			<div >Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
@@ -46,7 +45,7 @@
 			</sec:authorize>
 			</div>
 			</div>
-			</div>
+
 		<div class="row">
 			<div class="span10 offset1">
 			${hotel.descriptionHTML}
