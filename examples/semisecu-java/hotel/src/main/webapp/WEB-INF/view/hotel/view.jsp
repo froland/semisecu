@@ -10,7 +10,9 @@
 	<jsp:attribute name="navigation">
 		<t:navigation.hotel />
 	</jsp:attribute>
-	<jsp:attribute name="title">Hotel: ${hotel.name}</jsp:attribute>
+	<jsp:attribute name="title">Hotel: <c:out
+			value="${hotel.name}" />
+	</jsp:attribute>
 	<jsp:body>
 		<c:if test="${!hotel.approved}">
 			<p class="alert">The hotel is not approved!</p>
@@ -30,18 +32,29 @@
 			<div>
 			<div>Rating: <t:hotel.stars value="${hotel.stars}" />
 			</div>
-
-			<div >Average note:<t:noteBar noted="${hotel}" /></div>
-
-			<div >Address: <div>${hotel.address.street} ${hotel.address.number}<br />${hotel.address.zipCode} ${hotel.address.city} <br />${fn:toUpperCase(hotel.address.country)}</div></div> 
-
+			<div>Average note: <t:noteBar noted="${hotel}" />
 			</div>
-			<div >Telephone: ${hotel.telephone}</div>
-			<div >Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
+			<div>Address: <div>
+							<c:out value="${hotel.address.street}" /> <c:out
+								value="${hotel.address.number}" />
+							<br />
+				<c:out value="${hotel.address.zipCode}" /> <c:out
+								value="${hotel.address.city}" />
+							<br />
+				<c:out value="${fn:toUpperCase(hotel.address.country)}" />
+			</div>
+					</div>
+			</div>
+			<div>Telephone: <c:out value="${hotel.telephone}" />
+				</div>
+			<div>Email: <a href="mailto:${hotel.email}"><c:out
+							value="${hotel.email}" /></a>
 			</div>
 			<sec:authorize access="hasRole('ADMIN')">
-				<div style="float: left;">Manager: <a href="<c:url value="/user/${hotel.manager.id}"/>">${hotel.manager.name}</a>
-					</div>
+				<div>Manager: <a
+							href="<c:url value="/user/${hotel.manager.id}"/>"><c:out
+								value="${hotel.manager.name}" /></a>
+				</div>
 			</sec:authorize>
 			</div>
 			</div>
@@ -79,7 +92,8 @@
 									action="<c:url value="/hotel/${hotel.id}/comment"/>">
 					<input type="hidden" name="delete" value="${comment.id}" />
 					<button type="submit" class="btn-small btn-danger"> <i
-											class="icon-trash icon-white"></i></button>
+											class="icon-trash icon-white"></i>
+									</button>
 					</form>
 
 					</sec:authorize>

@@ -1,6 +1,11 @@
 Java: Broken Session Management
 ===============================
 
+Linked attack
+-------------
+
+- XSS
+
 Scenario summary
 ----------------
 
@@ -47,5 +52,5 @@ he can get credentials. However you can mitigate the impact of the
 usage of a stolen session ID by limiting the number of sessions per
 user (e.g. in Spring:
 <http://javarevisited.blogspot.be/2012/03/spring-security-example-tutorial-how-to.html>
-), setup a timeout on session, put an accessible logout button on
-every page and ask for re-authentication before doing something important.
+), setting a timeout on session, putting an accessible logout button on
+every page and asking for re-authentication before doing something important.

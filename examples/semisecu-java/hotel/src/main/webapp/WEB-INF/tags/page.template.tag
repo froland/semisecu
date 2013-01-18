@@ -12,7 +12,7 @@
 	description="Additional elements for the head"%>
 <t:page.blank title="${title}" head="${head}">
 	<jsp:body>
-	<div class="row-fluid centered-column">
+	<div class="row-fluid">
 		<div class="span4">
 			<h1>OwaspHotel</h1>
 		</div>
@@ -68,7 +68,7 @@
 	</div>
 	<c:choose>
 		<c:when test="${empty navigation}">
-		<div class="navbar centered-column">
+		<div class="navbar">
 			<div class="navbar-inner">
 			<ul class="nav">
 			<li><a href="<c:url value="/"/>"><i class="icon-home"></i>Return to home</a></li>
@@ -77,19 +77,18 @@
 		</div>
 		</c:when>
 		<c:otherwise>
-			<div id="navigation" class="centered-column">
+			<div id="navigation">
 				<jsp:invoke fragment="navigation" />
 			</div>
 		</c:otherwise>
 	</c:choose>
-	<h1 class="centered-column">${title}</h1>
+	<h1><c:out value="${title}" /></h1>
 	<c:if test="${not empty SUCCESS_MESSAGE }">
-	<div class="alert alert-success" style="max-width:1024px; margin-left: auto ;
-  margin-right: auto ;">
+	<div class="alert alert-success">
 		<c:out value="${SUCCESS_MESSAGE}" />
 	</div>
 	</c:if>
-	<div id="body" class="centered-column">
+	<div id="body">
 		<jsp:doBody />
 	</div>
 </jsp:body>

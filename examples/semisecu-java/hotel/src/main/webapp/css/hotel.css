@@ -1,14 +1,18 @@
 /**
  * Additional rules for the OWASP Hotel web page.
  */
-
 body {
-	margin: 1em;
+	max-width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 img.hotelImage {
 	width: 200px;
 }
+
 img.hotelImageTiny {
 	height: 4em;
 	margin: 0em 1em;
@@ -19,11 +23,11 @@ div.comment {
 	margin: 0 auto 20px;
 	border: 1px solid #e5e5e5;
 	-webkit-border-radius: 5px;
-	   -moz-border-radius: 5px;
-	        border-radius: 5px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-	        box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
 
 div.newComment {
@@ -37,18 +41,12 @@ form.enableUser {
 }
 
 .comment-header {
-	background: rgba(0, 0, 255, 0.2); 
-	line-height: 39px; 
-	padding-left:10px;
+	background: rgba(0, 0, 255, 0.2);
+	line-height: 39px;
+	padding-left: 10px;
 }
 
 input.address-field {
-	width: auto; 
+	width: auto;
 	margin-bottom: 3px;
-}
-
-.centered-column {
-	max-width:1024px; 
-	margin-left: auto;
-  	margin-right: auto ;
 }
