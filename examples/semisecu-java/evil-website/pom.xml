@@ -23,37 +23,11 @@
 		<!-- database properties -->
 	</properties>
 
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<build>
-				<!-- Additionnal plug-ins -->
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>tomcat-maven-plugin</artifactId>
-						<configuration>
-							<port>8081</port>
-						</configuration>
-						<version>1.1</version>
-					</plugin>
-					<plugin>
-						<groupId>org.mortbay.jetty</groupId>
-						<artifactId>jetty-maven-plugin</artifactId>
-						<version>8.1.4.v20120524</version>
-						<configuration>
-							<webAppConfig>
-								<contextPath>/${project.name}</contextPath>
-							</webAppConfig>
-						</configuration>
-					</plugin>
-				</plugins>
 
-			</build>
-		</profile>
-	</profiles>
 
 	<build>
+
+
 		<resources>
 			<!-- Filter only specified files -->
 			<resource>
@@ -123,6 +97,25 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.7</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<port>8081</port>
+				</configuration>
+				<version>1.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.4.v20120524</version>
+				<configuration>
+					<webAppConfig>
+						<contextPath>/${project.name}</contextPath>
+					</webAppConfig>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
