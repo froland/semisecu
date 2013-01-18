@@ -31,10 +31,13 @@
 			<div>Rating: <t:hotel.stars value="${hotel.stars}" />
 			</div>
 
-			<div style="line-height: 39px;">Average note:<span style="float: right; padding-right: 60px;"><t:noteBar noted="${hotel}" /></span></div>
+			<div >Average note:<t:noteBar noted="${hotel}" /></div>
 
-			<div >Address: <div>${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} <br />${fn:toUpperCase(hotel.country)}</div></div> 
+			<div >
+			<table><tr><td style="vertical-align: top">Address: </td><td>${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} <br />${fn:toUpperCase(hotel.country)}</td> 
 			
+			<tr></table>
+			</div>
 			<div >Telephone: ${hotel.telephone}</div>
 			<div >Email: <a href="mailto:${hotel.email}">${hotel.email}</a>
 			</div>

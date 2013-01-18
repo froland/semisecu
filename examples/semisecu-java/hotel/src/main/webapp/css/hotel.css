@@ -41,3 +41,14 @@ form.enableUser {
 	line-height: 39px; 
 	padding-left:10px;
 }
+
+input.address-field {
+	width: auto; 
+	margin-bottom: 3px;
+}
+
+.centered-column {
+	max-width:1024px; 
+	margin-left: auto;
+  	margin-right: auto ;
+}

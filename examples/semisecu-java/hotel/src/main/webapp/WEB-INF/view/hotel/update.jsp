@@ -47,7 +47,7 @@
 			Remove the picture</label>
 		</div>
 		</div>
-				<div class="span5 offset1">
+				<div class="span6">
 				<fieldset>
 			 			 	 
  				<div class="control-group">
@@ -56,41 +56,23 @@
 						<form:input path="name" id="hotelName" />
 					</div>
 				</div>
-				
 				<div class="control-group">
-					<label class="control-label" for="hotelStreet">Street</label>
+				<label class="control-label" for="hotelStreet">Adresse </label>
 					<div class="controls">
-						<form:textarea path="street" id="hotelStreet" />
+				
+					<form:input path="street" placeholder="Street" cssClass="address-field" id="hotelStreet"/>
+					
+					<form:input path="number" placeholder="Number" size="6" cssClass="address-field"/>
+				
+					<br />
+					<form:input path="ZIPCode" placeholder="ZIP" size="6" cssClass="address-field"/>
+					<form:input path="city" placeholder="City" cssClass="address-field"/>
+					
+					<form:input path="country" placeholder="Country" cssClass="address-field"/>
 					</div>
 				</div>
+			
 				
-				<div class="control-group">
-					<label class="control-label" for="hotelNumber">Number</label>
-					<div class="controls">
-						<form:input path="number" id="hotelNumber" />
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label" for="hotelCity">City</label>
-					<div class="controls">
-						<form:input path="city" id="hotelCity" />
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label" for="hotelZIP">ZIP code</label>
-					<div class="controls">
-						<form:input path="ZIPCode" id="hotelZIP" />
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label" for="hotelCountry">Country</label>
-					<div class="controls">
-						<form:input path="country" id="hotelCountry" />
-					</div>
-				</div>
 				
 				<div class="control-group">
 					<label class="control-label" for="hotelTelephone">Telephone</label>
