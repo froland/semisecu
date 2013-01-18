@@ -46,6 +46,11 @@ We will inject the following code into the `tableName`:
 After *url-encoding* that value, the request becomes:
 <http://localhost:8080/owasphotel/admin/export?tableName=USER%20where%20id%3C%3E2%20and%20password%3D%28select%20password%20from%20USER%20where%20id%3D2%29&col=ID&col=NAME>
 
+---
+
+Another example of attack, is to list tables and their columns:
+<http://localhost:8080/owasphotel/admin/export?tableName=INFORMATION_SCHEMA.COLUMNS&col=TABLE_NAME&col=COLUMN_NAME>
+
 Preventing the attack
 ---------------------
 
