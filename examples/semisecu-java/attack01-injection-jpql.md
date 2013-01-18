@@ -13,7 +13,7 @@ Code change
 -----------
 
 The method `HotelDaoJpa.findSearchQuery(..)` has been changed to allow code
-injection using a simple concatenation.
+injection. We are now using a simple concatenation.
 For the second example, the search was made case-sensitive to be allowed to
 inject class names that are camel-cased.
 
