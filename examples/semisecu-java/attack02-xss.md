@@ -39,6 +39,8 @@ description of an hotel.
 
 In the *evil-website* console, the user information should appear.
 
+(Don't forget to change the host with what is needed...)
+
 Preventing the attack
 ---------------------
 
