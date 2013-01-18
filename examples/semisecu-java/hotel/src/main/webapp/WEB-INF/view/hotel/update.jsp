@@ -63,7 +63,7 @@
 					<form:input path="street" placeholder="Street" cssClass="address-field" id="hotelStreet"/>
 					
 					<form:input path="number" placeholder="Number" size="6" cssClass="address-field"/>
-				
+
 					<br />
 					<form:input path="ZIPCode" placeholder="ZIP" size="6" cssClass="address-field"/>
 					<form:input path="city" placeholder="City" cssClass="address-field"/>

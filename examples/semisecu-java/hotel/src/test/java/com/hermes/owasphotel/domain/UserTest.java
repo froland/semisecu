@@ -7,26 +7,26 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class UserTest {
-	
+
 	@Test
 	public void newUserName() {
 		User a = new User("a", "pass");
 		assertEquals("Name is ignored", "a", a.getName());
 	}
-	
+
 	@Test
 	public void newUserPassword() {
 		User a = new User("a", "pass");
 		assertTrue("Password check failed",
 				a.checkPassword("pass") && !a.checkPassword("a"));
 	}
-	
+
 	@Test
 	public void newUserIsNotAdmin() {
 		User a = new User("a", "pass");
 		assertFalse("By default the user is not an admin", a.isAdmin());
 	}
-	
+
 	@Test
 	public void newUserHasUserRole() {
 		User a = new User("a", "pass");
@@ -34,17 +34,17 @@ public class UserTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyName() {
+	public void initWithEmptyName() {
 		new User("", "pass");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyPassword() {
+	public void initWithEmptyPassword() {
 		new User("a", "");
 	}
 
 	@Test
-	public void testSetEnabled() {
+	public void setEnabled() {
 		User a = new User("a", "pass");
 		assertTrue("By default the user is enabled", a.isEnabled());
 		a.disable();
@@ -54,7 +54,7 @@ public class UserTest {
 	}
 
 	@Test
-	public void testSetAdmin() {
+	public void setAdmin() {
 		User a = new User("a", "pass");
 		assertFalse(a.isAdmin());
 		a.setAdmin(true);

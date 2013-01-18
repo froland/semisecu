@@ -6,9 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.hermes.owasphotel.dao.base.SimpleDao;
 import com.hermes.owasphotel.domain.Identifiable;
 
@@ -45,25 +42,21 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 		this.type = type;
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
 	public T getById(I id) {
 		return em.find(type, id);
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
 	public void save(T obj) {
 		em.persist(obj);
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
 	public T merge(T obj) {
 		return em.merge(obj);
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
 	public void delete(T obj) {
 		em.remove(obj);
@@ -75,13 +68,11 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 				.getResultList();
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
 	public void flush() {
 		em.flush();
 	}
 
-	@Transactional(propagation = Propagation.MANDATORY)
 	@Override
 	public void clear() {
 		em.clear();

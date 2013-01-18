@@ -16,8 +16,8 @@ import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelListItem;
 import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.HotelListItem;
 import com.hermes.owasphotel.service.HotelService;
 
 /**
@@ -81,8 +81,7 @@ public class HotelServiceImpl implements HotelService {
 	private List<HotelListItem> itemize(List<Hotel> lh) {
 		List<HotelListItem> result = new LinkedList<HotelListItem>();
 		for (Hotel hotel : lh) {
-			result.add(new HotelListItem(hotel.getId(), hotel.getName(), hotel
-					.getNbComments(false), hotel.getAverageNote()));
+			result.add(new HotelListItem(hotel));
 		}
 		return result;
 	}
@@ -131,8 +130,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<HotelListItem> listManagedHotels(String name) {
-		User user = userDao.getByName(name);
+	public List<HotelListItem> listManagedHotels(String userName) {
+		User user = userDao.getByName(userName);
 		return itemize(hotelDao.findManagedHotels(user));
 	}
 

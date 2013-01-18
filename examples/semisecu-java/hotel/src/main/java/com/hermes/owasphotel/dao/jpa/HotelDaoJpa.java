@@ -28,9 +28,10 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 
 	@Override
 	public List<Hotel> findApprovedHotels(boolean approved) {
-		StringBuilder query = new StringBuilder("from Hotel where approved");
-		query.append(' ').append(approved ? "!=" : "=").append(" 0");
-		return em.createQuery(query.toString(), Hotel.class).getResultList();
+		return em
+				.createQuery("from Hotel where approved = :approved order by name",
+						Hotel.class).setParameter("approved", approved)
+				.getResultList();
 	}
 
 	@Override
@@ -56,9 +57,10 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 			like = "%" + like;
 		}
 		// build the query
-		TypedQuery<Hotel> query = em.createQuery(
-				"select h from Hotel h where h.approved != 0 and lower(h.name) like :t order by h.name",
-				Hotel.class).setParameter("t", like);
+		TypedQuery<Hotel> query = em
+				.createQuery(
+						"select h from Hotel h where h.approved is true and lower(h.name) like :t order by h.name",
+						Hotel.class).setParameter("t", like);
 		if (maxResults > 0)
 			query = query.setMaxResults(maxResults);
 		return query.getResultList();

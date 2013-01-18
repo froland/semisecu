@@ -28,7 +28,7 @@ public class DumperTest extends DaoTestBase {
 		StringWriter w = new StringWriter();
 		String table = dumper.listTables().get(0); // get some table
 		List<String> columns = dumper.listColumns(table);
-		dumper.dump(table, columns.toArray(new String[0]), w);
+		dumper.dump(table, columns.toArray(new String[columns.size()]), w);
 		String dump = w.toString();
 
 		assertTrue("Failed to found column", dump.contains(columns.get(0)));

@@ -1,11 +1,16 @@
 package com.hermes.owasphotel.domain;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class HotelTest {
 	@Test
-	public void testCreate() {
+	public void create() {
 		User manager = new User("a", "a");
 		Hotel h = new Hotel("h", manager);
 		assertEquals("h", h.getName());
@@ -13,12 +18,12 @@ public class HotelTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testEmptyName() {
+	public void initWithEmptyName() {
 		new Hotel("", new User("a", "a"));
 	}
 
 	@Test
-	public void testApprove() {
+	public void approve() {
 		Hotel h = new Hotel("h", new User("a", "a"));
 		assertFalse("Hotel must not be approved when created", h.isApproved());
 		h.approveHotel();
@@ -26,28 +31,28 @@ public class HotelTest {
 	}
 
 	@Test
-	public void testStars() {
+	public void stars() {
 		Hotel h = new Hotel("h", new User("a", "a"));
 		assertNull(h.getStars());
 		Integer s = 3;
 		h.setStars(s);
 		assertEquals(s, h.getStars());
-		try {
-			h.setStars(-2);
-			fail("Cannot set negative stars");
-		} catch (IllegalArgumentException e) {
-			// ok
-		}
-		try {
-			h.setStars(6);
-			fail("Maximum 5 stars");
-		} catch (IllegalArgumentException e) {
-			// ok
-		}
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void starsNegative() {
+		Hotel h = new Hotel("h", new User("a", "a"));
+		h.setStars(-2);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void starsTooMuch() {
+		Hotel h = new Hotel("h", new User("a", "a"));
+		h.setStars(6);
 	}
 
 	@Test
-	public void testAddComment() {
+	public void addComment() {
 		Hotel h = new Hotel("h", new User("a", "a"));
 		Comment c1 = h.createComment(new User("b", "b"), 5, "hello");
 		assertEquals("b", c1.getUserName());
@@ -55,7 +60,7 @@ public class HotelTest {
 	}
 
 	@Test
-	public void testCountComments() {
+	public void countComments() {
 		Hotel h = new Hotel("h", new User("a", "a"));
 		User u = new User("b", "a");
 		Comment c1 = h.createComment(u, 1, "");

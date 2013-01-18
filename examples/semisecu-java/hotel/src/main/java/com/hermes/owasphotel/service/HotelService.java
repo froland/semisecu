@@ -3,7 +3,6 @@ package com.hermes.owasphotel.service;
 import java.util.List;
 
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelListItem;
 
 /**
  * Service: Hotel
@@ -44,5 +43,5 @@ public interface HotelService {
 
 	public List<HotelListItem> listSearchQuery(String search);
 
-	public List<HotelListItem> listManagedHotels(String name);
+	public List<HotelListItem> listManagedHotels(String userName);
 }

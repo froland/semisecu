@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.apache.bval.constraints.Email;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.hermes.owasphotel.domain.Address;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
@@ -21,7 +22,7 @@ public class HotelForm {
 	private String street;
 	private String number;
 	private String city;
-	private String ZIPCode;
+	private String zipCode;
 	private String country;
 
 	private String telephone;
@@ -45,11 +46,14 @@ public class HotelForm {
 	public HotelForm(Hotel hotel) {
 		id = hotel.getId();
 		name = hotel.getName();
-		street = hotel.getCompleteAddress().getStreet();
-		number = hotel.getCompleteAddress().getNumber();
-		ZIPCode = hotel.getCompleteAddress().getZIPCode();
-		city = hotel.getCompleteAddress().getCity();
-		country = hotel.getCompleteAddress().getCountry();
+		Address address = hotel.getAddress();
+		if (address != null) {
+			street = address.getStreet();
+			number = address.getNumber();
+			zipCode = address.getZipCode();
+			city = address.getCity();
+			country = address.getCountry();
+		}
 
 		telephone = hotel.getTelephone();
 		email = hotel.getEmail();
@@ -61,11 +65,7 @@ public class HotelForm {
 
 	public void update(Hotel h, UserService userService) {
 		h.setName(name);
-		h.getCompleteAddress().setStreet(street);
-		h.getCompleteAddress().setNumber(number);
-		h.getCompleteAddress().setZIPCode(ZIPCode);
-		h.setCity(city);
-		h.setCountry(country);
+		h.setAddress(new Address(street, number, city, zipCode, country));
 		h.setTelephone(telephone);
 		h.setEmail(email);
 		h.setStars(stars);
@@ -146,12 +146,12 @@ public class HotelForm {
 		this.number = number;
 	}
 
-	public String getZIPCode() {
-		return ZIPCode;
+	public String getZipCode() {
+		return zipCode;
 	}
 
-	public void setZIPCode(String zIPCode) {
-		ZIPCode = zIPCode;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public void setEmail(String email) {

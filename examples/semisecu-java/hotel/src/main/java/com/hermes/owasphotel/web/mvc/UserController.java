@@ -65,9 +65,13 @@ public class UserController {
 	}
 
 	private static String redirectTo(User user) {
+		return redirectTo(user == null ? null : user.getId());
+	}
+
+	private static String redirectTo(Integer id) {
 		String r = "redirect:/user";
-		if (user != null)
-			r += "/" + user.getId();
+		if (id != null)
+			r += "/" + id;
 		return r;
 	}
 
@@ -192,15 +196,14 @@ public class UserController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public String enableUser(@PathVariable Integer id,
 			@RequestParam boolean enable, RedirectAttributes redirectAttrs) {
-		User user;
 		if (enable) {
-			user = userService.enableUser(id);
+			userService.enableUser(id);
 		} else {
-			user = userService.disableUser(id);
+			userService.disableUser(id);
 		}
-		Utils.successMessage(redirectAttrs, "User '" + user.getName() + "' "
+		Utils.successMessage(redirectAttrs, "User "
 				+ (enable ? "enabled" : "disabled"));
-		return redirectTo(user);
+		return redirectTo(id);
 	}
 
 }

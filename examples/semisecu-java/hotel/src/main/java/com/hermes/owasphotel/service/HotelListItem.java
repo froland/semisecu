@@ -1,4 +1,6 @@
-package com.hermes.owasphotel.domain;
+package com.hermes.owasphotel.service;
+
+import com.hermes.owasphotel.domain.Hotel;
 
 public class HotelListItem {
 
@@ -6,6 +8,10 @@ public class HotelListItem {
 	private String name;
 	private int nbComments;
 	private float note;
+
+	public HotelListItem(Hotel h) {
+		this(h.getId(), h.getName(), h.getNbComments(false), h.getAverageNote());
+	}
 
 	public HotelListItem(int id, String hotelName, int nbComments, float note) {
 		this.id = id;

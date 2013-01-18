@@ -33,8 +33,7 @@
 
 			<div >Average note:<t:noteBar noted="${hotel}" /></div>
 
-			<div >
-			<table><tr><td style="vertical-align: top">Address: </td><td>${hotel.completeAddress.street} ${hotel.completeAddress.number}<br />${hotel.completeAddress.ZIPCode} ${hotel.city} <br />${fn:toUpperCase(hotel.country)}</td> 
+			<div >Address: <div>${hotel.address.street} ${hotel.address.number}<br />${hotel.address.zipCode} ${hotel.address.city} <br />${fn:toUpperCase(hotel.address.country)}</div></div> 
 			
 			<tr></table>
 			</div>

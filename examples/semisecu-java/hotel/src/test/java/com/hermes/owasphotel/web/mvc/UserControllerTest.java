@@ -9,14 +9,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.invocation.Invocation;
-import org.mockito.internal.verification.api.VerificationData;
-import org.mockito.verification.VerificationMode;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
@@ -39,7 +35,8 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	@Before
 	public void initController() throws Exception {
 		super.initController();
-		controller.setUserService(userService = createUserService());
+		userService = createUserService();
+		controller.setUserService(userService);
 	}
 
 	private UserService createUserService() {
@@ -86,11 +83,11 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 
 	@Test
 	public void postUpdateUser() throws Exception {
-		Integer id = 1;
+		final Integer id = 1;
 		Authentication auth = createAuthentication("a", Role.USER);
 		UserForm form = new UserForm(userService.getById(id));
 		BindingResult binding = createBindingResult("form");
-		User u = userService.getById(1);
+		User u = userService.getById(id);
 		Mockito.when(userService.update(u)).thenReturn(u);
 
 		assertRedirect(controller.updateUser(id, auth, form, binding,
@@ -118,9 +115,6 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 
 	@Test
 	public void postEnable() throws Exception {
-		User user = userService.getById(1);
-		Mockito.when(userService.enableUser(1)).thenReturn(user);
-
 		assertRedirect(controller.enableUser(1, true,
 				createRedirectAttributes()));
 		Mockito.verify(userService).enableUser(1);
@@ -128,42 +122,19 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 
 	@Test
 	public void postDisable() throws Exception {
-		User user = userService.getById(1);
-		Mockito.when(userService.disableUser(1)).thenReturn(user);
-
 		assertRedirect(controller.enableUser(1, false,
 				createRedirectAttributes()));
 		Mockito.verify(userService).disableUser(1);
 	}
 
-	private User getUserServiceUpdatedUser() {
-		final AtomicReference<User> updatedUser = new AtomicReference<User>();
-		VerificationMode updatedUserVerification = new VerificationMode() {
-			@Override
-			public void verify(VerificationData data) {
-				for (Invocation inv : data.getAllInvocations()) {
-					if (!data.getWanted().matches(inv))
-						continue;
-					if (updatedUser.get() != null)
-						throw new IllegalStateException("Already updated");
-					updatedUser.set((User) inv.getArguments()[0]);
-				}
-			}
-		};
-		Mockito.verify(userService, updatedUserVerification).update(
-				Mockito.any(User.class));
-		return updatedUser.get();
-	}
-
 	@Test
 	public void updateWithForm() {
-		User u = new User("a", "p");
+		final User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
 		Authentication auth = createAuthentication(u);
 
 		// create the form
-		Mockito.mock(UserForm.class);
 		UserForm user = new UserForm(u);
 		assertNull("The old password was read from the user",
 				user.getOldPassword());
@@ -175,16 +146,13 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		controller.updateUser(5, auth, user, createBindingResult("user"),
 				createRedirectAttributes());
 
-		User updatedUser = getUserServiceUpdatedUser();
-		assertEquals("Failed to update the e-mail", newEmail,
-				updatedUser.getEmail());
-		assertTrue("Password updated with e-mail",
-				updatedUser.checkPassword("p"));
+		assertEquals("Failed to update the e-mail", newEmail, u.getEmail());
+		assertTrue("Password updated with e-mail", u.checkPassword("p"));
 	}
 
 	@Test
 	public void testUpdatePasswordWithoutOldPassword() {
-		User u = new User("a", "p");
+		final User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
 		Authentication auth = createAuthentication(u);
@@ -196,14 +164,13 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		controller.updateUser(5, auth, user, createBindingResult("user"),
 				createRedirectAttributes());
 
-		u = getUserServiceUpdatedUser();
 		assertTrue("Password updated without giving the old password",
 				u.checkPassword("p"));
 	}
 
 	@Test
 	public void testUpdatePassword() {
-		User u = new User("a", "p");
+		final User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
 		Authentication auth = createAuthentication(u);
@@ -216,14 +183,13 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		controller.updateUser(5, auth, user, createBindingResult("user"),
 				createRedirectAttributes());
 
-		u = getUserServiceUpdatedUser();
 		assertFalse("Password not updated", u.checkPassword("p"));
 		assertTrue("New password is not working", u.checkPassword("z"));
 	}
 
 	@Test
 	public void testUpdatePasswordAsAdmin() {
-		User u = new User("a", "p");
+		final User u = new User("a", "p");
 		Mockito.when(userService.update(u)).thenReturn(u);
 		Mockito.when(userService.getById(5)).thenReturn(u);
 		Authentication auth = createAuthentication("someadmin", Role.USER,
@@ -236,7 +202,6 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 		controller.updateUser(5, auth, user, createBindingResult("user"),
 				createRedirectAttributes());
 
-		u = getUserServiceUpdatedUser();
 		assertTrue("New password is not working", u.checkPassword("z"));
 	}
 

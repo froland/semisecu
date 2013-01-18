@@ -32,10 +32,10 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 	@Before
 	public void initController() throws Exception {
 		super.initController();
-		controller.setHotelService(hotelService = Mockito
-				.mock(HotelService.class));
-		controller
-				.setUserService(userService = Mockito.mock(UserService.class));
+		hotelService = Mockito.mock(HotelService.class);
+		controller.setHotelService(hotelService);
+		userService = Mockito.mock(UserService.class);
+		controller.setUserService(userService);
 		controller.setRequest(request);
 	}
 
@@ -69,8 +69,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 	private Hotel createTestHotel() {
 		User manager = new User("manager", "m");
 		Mockito.when(userService.getByName("manager")).thenReturn(manager);
-		Hotel h = new Hotel("test", manager);
-		return h;
+		return new Hotel("test", manager);
 	}
 
 	@Test

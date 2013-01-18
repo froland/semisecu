@@ -1,13 +1,12 @@
 package com.hermes.owasphotel.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -19,7 +18,6 @@ import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
-import com.hermes.owasphotel.domain.HotelListItem;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.impl.HotelServiceImpl;
 
@@ -40,6 +38,7 @@ public class HotelServiceTest {
 	@Test
 	public void listAllItems() {
 		Hotel hotel = new Hotel("h", new User("a", "a"));
+		// set id as HotelListItem have an `int id`
 		ReflectionTestUtils.setField(hotel, "id", 1);
 		Mockito.when(hotelDao.findAll()).thenReturn(Arrays.asList(hotel));
 
@@ -62,11 +61,12 @@ public class HotelServiceTest {
 
 	@Test
 	public void testApprove() {
-		Hotel hotel = Mockito.mock(Hotel.class);
+		Hotel hotel = new Hotel("h", new User("a", "a"));
+		assertFalse("Hotel is approved by default", hotel.isApproved());
 		Mockito.when(hotelDao.getById(1)).thenReturn(hotel);
 
 		assertSame(hotel, hotelService.approve(1));
-		Mockito.verify(hotel).approveHotel();
+		assertTrue("Hotel was not approved", hotel.isApproved());
 	}
 
 	@Test
@@ -86,21 +86,14 @@ public class HotelServiceTest {
 
 	@Test
 	public void deleteComment() {
-		int seq = 8;
-		Hotel hotel = Mockito.mock(Hotel.class);
+		Hotel hotel = new Hotel("h", new User("a", "a"));
 		Mockito.when(hotelDao.getById(1)).thenReturn(hotel);
-		Mockito.doCallRealMethod()
-				.when(hotel)
-				.createComment(Mockito.any(User.class), Mockito.anyInt(),
-						Mockito.anyString());
-		ArrayList<Comment> commentList = new ArrayList<Comment>();
-		ReflectionTestUtils.setField(hotel, "comments", commentList);
-		Mockito.when(hotel.getComments()).thenReturn(
-				Collections.unmodifiableList(commentList));
-
-		ReflectionTestUtils.setField(hotel, "comments", commentList);
 		Comment comment = hotel.createComment(Mockito.mock(User.class), 5,
 				"hello world");
+
+		// set the id of the comment to delete
+		// (usually set when the transaction ends)
+		final int seq = 8;
 		ReflectionTestUtils.setField(comment, "id", seq);
 
 		hotelService.deleteComment(1, seq);

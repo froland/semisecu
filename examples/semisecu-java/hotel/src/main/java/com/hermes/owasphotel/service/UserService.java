@@ -18,7 +18,7 @@ public interface UserService {
 
 	public List<String> getNames(String prefix);
 
-	public User disableUser(Integer id);
+	public void disableUser(Integer id);
 
-	public User enableUser(Integer id);
+	public void enableUser(Integer id);
 }
