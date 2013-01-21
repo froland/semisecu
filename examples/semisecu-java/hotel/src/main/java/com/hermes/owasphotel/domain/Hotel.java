@@ -19,6 +19,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "HOTEL")
@@ -54,6 +56,11 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "hotel_id", nullable = false, unique = true)
 	@OrderBy("id")
+	/*
+	 * Force FetchMode.SELECT to avoid duplicated comment entries. More info:
+	 * https://hibernate.onjira.com/browse/HHH-6783
+	 */
+	@Fetch(FetchMode.SELECT)
 	private List<Comment> comments = new ArrayList<Comment>();
 
 	Hotel() {
