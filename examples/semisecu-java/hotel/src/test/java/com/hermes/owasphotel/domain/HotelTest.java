@@ -51,14 +51,6 @@ public class HotelTest {
 	}
 
 	@Test
-	public void addComment() {
-		Hotel h = new Hotel("h", new User("a", "a"));
-		Comment c1 = h.createComment(new User("b", "b"), 5, "hello");
-		assertEquals("b", c1.getUserName());
-		assertTrue("Comment not added", h.getComments().contains(c1));
-	}
-
-	@Test
 	public void countComments() {
 		Hotel h = new Hotel("h", new User("a", "a"));
 		User u = new User("b", "a");

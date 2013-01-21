@@ -97,10 +97,4 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 				createBindingResult("hotel"), createRedirectAttributes()));
 		Mockito.verify(hotelService).update(Mockito.any(Hotel.class));
 	}
-
-	@Test
-	public void postApprove() throws Exception {
-		assertRedirect(controller.approveHotel(1, createRedirectAttributes()));
-		Mockito.verify(hotelService).approve(1);
-	}
 }

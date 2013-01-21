@@ -24,13 +24,6 @@ public class UserServiceTest {
 		service.setUserDao(userDao);
 	}
 
-	@Test
-	public void find() {
-		User user = Mockito.mock(User.class);
-		Mockito.when(userDao.getById(1)).thenReturn(user);
-
-		assertSame(user, userService.getById(1));
-	}
 
 	@Test
 	public void enable() {

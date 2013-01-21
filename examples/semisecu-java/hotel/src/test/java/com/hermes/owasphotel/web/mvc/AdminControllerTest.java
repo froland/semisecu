@@ -31,14 +31,6 @@ public class AdminControllerTest extends ControllerTestBase<AdminController> {
 	}
 
 	@Test
-	public void getTableList() throws Exception {
-		List<String> list = new ArrayList<String>();
-		Mockito.when(adminService.listTables()).thenReturn(list);
-
-		assertSame(list, controller.getTableList());
-	}
-
-	@Test
 	public void viewDefault() throws Exception {
 		Model model = createModel();
 
