@@ -49,9 +49,21 @@ injection. We are now using a simple concatenation.
 For the second example, the search was made case-sensitive to be allowed to
 inject class names that are camel-cased.
 
+The vulnerable code sample:
+
+	String jpql = "select h from Hotel h where h.approved is true and h.name like '"
+			+ like + "' order by h.name";
+	TypedQuery<Hotel> query = em.createQuery(jpql, Hotel.class);
+
 Preventing the attack
 ---------------------
 
 Use parameter placeholders in the query instead of concatenating the
-arguments. The correct code is placed as a comment in the source file.
+arguments.
+
+	TypedQuery<Hotel> query = em
+		.createQuery(
+		"select h from Hotel h where h.approved is true and h.name like :t order by h.name",
+		Hotel.class)
+		.setParameter("t", like);
 

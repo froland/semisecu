@@ -40,7 +40,16 @@ Vulnerable code
 In the views, the view `hotel/view.jsp` will not escape the value of the hotel
 description.
 
+	<div class="row">
+		<div class="span10 offset1">
+		${hotel.descriptionHTML}
+		</div>
+	</div>
+
 The *evil-website* server must be deployed for this attack to work.
+
+Everytime that a non-white listed value is printed in a JSP this attack might
+be possible.
 
 Preventing the attack
 ---------------------
@@ -51,9 +60,12 @@ validated.
 To escape HTML using JSP, use the available JSTL:
 
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<div class="row">
+		<div class="span10 offset1">
+		<c:out value="${hotel.descriptionHTML}" />
+		</div>
+	</div>
 
-	<!-- valid string -->
-	<c:out value="${myString}"/>
-	<!-- possible injection -->
-	${myString}
-
+If you want that the user could format some field, instead of letting them
+write directly HTML, consider using another format such as BBCode, markdown or
+wiki.

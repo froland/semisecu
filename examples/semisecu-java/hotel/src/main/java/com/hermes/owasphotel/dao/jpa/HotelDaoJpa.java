@@ -48,20 +48,21 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public List<Hotel> findSearchQuery(String search, boolean fullSearch,
 			int maxResults) {
-		/* Changed to case sensitive search in order to have insensitive search use toLowerCase
-		on search and on h.name in jpql
-		*/
+		/*
+		 * Changed to case sensitive search in order to have insensitive search
+		 * use toLowerCase on search and on h.name in JPQL.
+		 */
 		// build the like string
 		String like = search + "%";
 		if (fullSearch) {
 			like = "%" + like;
 		}
-		// build the query
 
+		// build the query
 		/*
 		 * Corrected code:
 		 * 
