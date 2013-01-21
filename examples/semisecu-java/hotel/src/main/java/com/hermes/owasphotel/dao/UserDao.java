@@ -1,5 +1,7 @@
 package com.hermes.owasphotel.dao;
 
+import javax.persistence.NoResultException;
+
 import com.hermes.owasphotel.dao.base.SimpleDao;
 import com.hermes.owasphotel.domain.User;
 
@@ -9,6 +11,5 @@ import com.hermes.owasphotel.domain.User;
  * @author k
  */
 public interface UserDao extends SimpleDao<Integer, User> {
-
-	public User getByName(String name);
+	public User getByName(String name) throws NoResultException;
 }

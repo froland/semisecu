@@ -75,14 +75,6 @@ public class UserController {
 		return r;
 	}
 
-	private static void checkEditProfile(User user, Authentication auth) {
-		if (auth == null
-				|| user == null
-				|| !(auth.getName().equals(user.getName()) || Utils.hasRole(
-						auth, Role.ADMIN)))
-			throw new AccessDeniedException("Cannot edit that profile");
-	}
-
 	@RequestMapping(method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ADMIN')")
 	public String viewList(Model model) {
@@ -104,17 +96,24 @@ public class UserController {
 	public String viewUser(Model model, @PathVariable Integer id,
 			Authentication auth) {
 		User user = userService.getById(id);
-		if (user == null)
-			throw new IllegalArgumentException("User not found");
 		model.addAttribute("user", user);
 		return "user/view";
+	}
+
+	private User getuserForUpdate(Integer userId, Authentication auth) {
+		if (auth == null)
+			throw new AccessDeniedException("User not authentified");
+		User user = userService.getById(userId);
+		if (!(auth.getName().equals(user.getName()) || Utils.hasRole(auth,
+				Role.ADMIN)))
+			throw new AccessDeniedException("Cannot edit that profile");
+		return user;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "update/{id}")
 	public String viewUpdateUser(Model model, @PathVariable Integer id,
 			Authentication auth) {
-		User user = userService.getById(id);
-		checkEditProfile(user, auth);
+		User user = getuserForUpdate(id, auth);
 		model.addAttribute("user", new UserForm(user));
 		return "user/update";
 	}
@@ -157,8 +156,7 @@ public class UserController {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
-		User user = userService.getById(id);
-		checkEditProfile(user, auth);
+		User user = getuserForUpdate(id, auth);
 		try {
 			boolean asAdmin = !auth.getName().equals(user.getName())
 					&& Utils.hasRole(auth, Role.ADMIN);

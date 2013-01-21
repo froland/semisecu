@@ -2,6 +2,7 @@ package com.hermes.owasphotel.web.mvc;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.support.PagedListHolder;
@@ -11,9 +12,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hermes.owasphotel.domain.Role;
+import com.hermes.owasphotel.domain.User;
+import com.hermes.owasphotel.service.UserService;
+import com.hermes.owasphotel.web.security.UserAuthentication;
 
 final class Utils {
 	private Utils() {
+	}
+
+	public static User getUser(Authentication auth, UserService service) {
+		if (auth instanceof UserAuthentication) {
+			return ((UserAuthentication) auth).getPrincipal();
+		} else {
+			try {
+				return service.getByName(auth.getName());
+			} catch (NoResultException e) {
+				return null;
+			}
+		}
 	}
 
 	public static boolean hasRole(Authentication auth, Role role) {

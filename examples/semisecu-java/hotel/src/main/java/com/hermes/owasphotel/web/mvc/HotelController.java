@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -163,9 +165,14 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "search")
 	public String viewSearchHotels(Model model, @RequestParam("t") String search) {
 		// try to find by name
-		Hotel hotel = hotelService.getByName(search);
-		if (hotel != null)
+		try {
+			Hotel hotel = hotelService.getByName(search);
 			return redirectTo(hotel.getId());
+		} catch (NoResultException e) {
+			// continue execution
+		} catch (NonUniqueResultException e) {
+			// continue execution
+		}
 
 		// return the result list
 		List<Hotel> hotels = hotelService.listSearchQuery(search);
@@ -182,8 +189,6 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public String viewHotel(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.getById(id);
-		if (hotel == null)
-			throw new IllegalArgumentException("Hotel not found: id=" + id);
 		model.addAttribute("hotel", hotel);
 		return "hotel/view";
 	}
@@ -223,7 +228,9 @@ public class HotelController {
 		if (binding.hasErrors()) {
 			return "hotel/update";
 		}
-		User user = getUser(auth);
+		User user = Utils.getUser(auth, userService);
+		if (user == null)
+			throw new IllegalStateException("Authentified as an invalid user");
 		Hotel hotel = dto.makeNew(user);
 		hotelService.save(hotel);
 		Utils.successMessage(redirectAttrs, "Hotel '" + hotel.getName()
@@ -231,19 +238,12 @@ public class HotelController {
 		return redirectTo(hotel.getId());
 	}
 
-	private static void checkEdit(Hotel hotel, User user) {
-		if (hotel == null)
-			throw new IllegalArgumentException("Hotel not found");
+	private void checkEdit(Hotel hotel, Authentication auth) {
+		User user = Utils.getUser(auth, userService);
 		if (user == null
 				|| !(user.equals(hotel.getManager()) || user.getRoles()
 						.contains(Role.ADMIN)))
 			throw new AccessDeniedException("Cannot edit that hotel");
-	}
-
-	private User getUser(Authentication auth) {
-		if (auth == null)
-			return null;
-		return userService.getByName(auth.getName());
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}/update")
@@ -251,7 +251,7 @@ public class HotelController {
 	public String viewUpdateHotel(Model model, Authentication auth,
 			@PathVariable("id") Integer hotelId) {
 		Hotel hotel = hotelService.getById(hotelId);
-		checkEdit(hotel, getUser(auth));
+		checkEdit(hotel, auth);
 		model.addAttribute("hotel", new HotelForm(hotel));
 		return "hotel/update";
 	}
@@ -263,7 +263,7 @@ public class HotelController {
 			@Valid @ModelAttribute("hotel") HotelForm dto,
 			BindingResult result, RedirectAttributes redirectAttrs) {
 		Hotel hotel = hotelService.getById(hotelId);
-		checkEdit(hotel, getUser(auth));
+		checkEdit(hotel, auth);
 		try {
 			if (!result.hasErrors())
 				dto.update(hotel, userService);

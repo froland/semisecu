@@ -2,8 +2,6 @@ package com.hermes.owasphotel.dao.jpa;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -37,16 +35,10 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 
 	@Override
 	public Hotel getByName(String search) {
-		try {
-			return em
-					.createQuery("from Hotel h where lower(h.name) = :t",
-							Hotel.class)
-					.setParameter("t", search.toLowerCase()).getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		} catch (NonUniqueResultException e) {
-			return null;
-		}
+		return em
+				.createQuery("from Hotel h where lower(h.name) = :t",
+						Hotel.class).setParameter("t", search.toLowerCase())
+				.getSingleResult();
 	}
 
 	@Override
