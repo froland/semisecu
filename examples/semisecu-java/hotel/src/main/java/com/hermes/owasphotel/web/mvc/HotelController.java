@@ -37,7 +37,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
-import com.hermes.owasphotel.service.HotelListItem;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.HotelForm;
@@ -124,14 +123,14 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewHotels(Model model,
 			@RequestParam(defaultValue = "0") int page) {
-		List<HotelListItem> hotels = hotelService.listApproved();
+		List<Hotel> hotels = hotelService.listApproved();
 		setPagedList(model, "hotels", hotels, null);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
-		List<HotelListItem> hotels = hotelService.listAll();
+		List<Hotel> hotels = hotelService.listAll();
 		setPagedList(model, "hotels", hotels, "All hotels");
 		return "hotel/list";
 	}
@@ -139,7 +138,7 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "toApprove")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String viewHotelsNotApproved(Model model) {
-		List<HotelListItem> hotels = hotelService.listNotApproved();
+		List<Hotel> hotels = hotelService.listNotApproved();
 		setPagedList(model, "hotels", hotels, "Hotels to approve");
 		model.addAttribute("hotelTableType", "hotelTableApprove.jsp");
 		return "hotel/list";
@@ -147,7 +146,7 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
-		List<HotelListItem> hotels = hotelService.listTopNoted(TOP_COUNT);
+		List<Hotel> hotels = hotelService.listTopNoted(TOP_COUNT);
 		setPagedList(model, "hotels", hotels, "Top " + TOP_COUNT + " hotels");
 		return "hotel/list";
 	}
@@ -155,8 +154,7 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "managed")
 	@PreAuthorize("hasRole('USER')")
 	public String viewHotelsManaged(Model model, Authentication auth) {
-		List<HotelListItem> hotels = hotelService.listManagedHotels(auth
-				.getName());
+		List<Hotel> hotels = hotelService.listManagedHotels(auth.getName());
 		model.addAttribute("hotels", hotels);
 		model.addAttribute("pageTitle", "Managed hotels");
 		return "hotel/list";
@@ -170,7 +168,7 @@ public class HotelController {
 			return redirectTo(hotel.getId());
 
 		// return the result list
-		List<HotelListItem> hotels = hotelService.listSearchQuery(search);
+		List<Hotel> hotels = hotelService.listSearchQuery(search);
 		setPagedList(model, "hotels", hotels, "Search: " + search);
 		return "hotel/list";
 	}

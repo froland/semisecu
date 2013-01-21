@@ -3,7 +3,6 @@ package com.hermes.owasphotel.service.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,7 +16,6 @@ import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
-import com.hermes.owasphotel.service.HotelListItem;
 import com.hermes.owasphotel.service.HotelService;
 
 /**
@@ -55,12 +53,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel getById(Integer id) {
-		Hotel h = hotelDao.getById(id);
-		// force loading as eager loading fetches the data twice
-		if (h == null)
-			return null;
-		h.getComments().size();
-		return h;
+		return hotelDao.getById(id);
 	}
 
 	@Override
@@ -74,30 +67,22 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<HotelListItem> listAll() {
-		return itemize(hotelDao.findAll());
-	}
-
-	private List<HotelListItem> itemize(List<Hotel> lh) {
-		List<HotelListItem> result = new LinkedList<HotelListItem>();
-		for (Hotel hotel : lh) {
-			result.add(new HotelListItem(hotel));
-		}
-		return result;
+	public List<Hotel> listAll() {
+		return hotelDao.findAll();
 	}
 
 	@Override
-	public List<HotelListItem> listApproved() {
-		return itemize(hotelDao.findApprovedHotels(true));
+	public List<Hotel> listApproved() {
+		return hotelDao.findApprovedHotels(true);
 	}
 
 	@Override
-	public List<HotelListItem> listNotApproved() {
-		return itemize(hotelDao.findApprovedHotels(false));
+	public List<Hotel> listNotApproved() {
+		return hotelDao.findApprovedHotels(false);
 	}
 
 	@Override
-	public List<HotelListItem> listTopNoted(int count) {
+	public List<Hotel> listTopNoted(int count) {
 		List<Hotel> lh = hotelDao.findApprovedHotels(true);
 		Collections.sort(lh, new Comparator<Hotel>() {
 			@Override
@@ -106,8 +91,8 @@ public class HotelServiceImpl implements HotelService {
 			}
 		});
 		if (lh.size() > count)
-			return itemize(lh.subList(0, count));
-		return itemize(lh);
+			return lh.subList(0, count);
+		return lh;
 	}
 
 	@Override
@@ -125,14 +110,14 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<HotelListItem> listSearchQuery(String search) {
-		return itemize(hotelDao.findSearchQuery(search, true, 0));
+	public List<Hotel> listSearchQuery(String search) {
+		return hotelDao.findSearchQuery(search, true, 0);
 	}
 
 	@Override
-	public List<HotelListItem> listManagedHotels(String userName) {
+	public List<Hotel> listManagedHotels(String userName) {
 		User user = userDao.getByName(userName);
-		return itemize(hotelDao.findManagedHotels(user));
+		return hotelDao.findManagedHotels(user);
 	}
 
 	@Override

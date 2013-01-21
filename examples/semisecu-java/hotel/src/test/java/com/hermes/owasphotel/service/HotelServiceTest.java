@@ -38,11 +38,9 @@ public class HotelServiceTest {
 	@Test
 	public void listAllItems() {
 		Hotel hotel = new Hotel("h", new User("a", "a"));
-		// set id as HotelListItem have an `int id`
-		ReflectionTestUtils.setField(hotel, "id", 1);
 		Mockito.when(hotelDao.findAll()).thenReturn(Arrays.asList(hotel));
 
-		List<HotelListItem> list = hotelService.listAll();
+		List<Hotel> list = hotelService.listAll();
 
 		assertNotNull(list);
 		assertEquals(1, list.size());

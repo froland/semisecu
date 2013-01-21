@@ -51,9 +51,8 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 	@JoinColumn(name = "created_by")
 	private User manager;
 
-	// XXX eager loading, loads the comments twice
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "hotel_id", nullable = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "hotel_id", nullable = false, unique = true)
 	@OrderBy("id")
 	private List<Comment> comments = new ArrayList<Comment>();
 
@@ -146,6 +145,10 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 
 	public List<Comment> getComments() {
 		return Collections.unmodifiableList(comments);
+	}
+
+	public int getCommentCount() {
+		return getNbComments(false);
 	}
 
 	public int getNbComments(boolean countDeleted) {
