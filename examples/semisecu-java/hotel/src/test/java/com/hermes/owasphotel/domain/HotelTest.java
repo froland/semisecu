@@ -34,9 +34,8 @@ public class HotelTest {
 	public void stars() {
 		Hotel h = new Hotel("h", new User("a", "a"));
 		assertNull(h.getStars());
-		Integer s = 3;
-		h.setStars(s);
-		assertEquals(s, h.getStars());
+		h.setStars(3);
+		assertEquals(3, h.getStars().intValue());
 	}
 
 	@Test(expected = IllegalArgumentException.class)

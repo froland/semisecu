@@ -74,23 +74,21 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	@Test
 	public void viewUpdateUser() throws Exception {
 		Model model = createModel();
-		Integer id = 1;
 		Authentication auth = createAuthentication("a", Role.USER);
 
-		assertNotNull(controller.viewUpdateUser(model, id, auth));
+		assertNotNull(controller.viewUpdateUser(model, 1, auth));
 		assertType(model.asMap(), "user", UserForm.class);
 	}
 
 	@Test
 	public void postUpdateUser() throws Exception {
-		final Integer id = 1;
 		Authentication auth = createAuthentication("a", Role.USER);
-		UserForm form = new UserForm(userService.getById(id));
+		UserForm form = new UserForm(userService.getById(1));
 		BindingResult binding = createBindingResult("form");
-		User u = userService.getById(id);
+		User u = userService.getById(1);
 		Mockito.when(userService.update(u)).thenReturn(u);
 
-		assertRedirect(controller.updateUser(id, auth, form, binding,
+		assertRedirect(controller.updateUser(1, auth, form, binding,
 				createRedirectAttributes()));
 		Mockito.verify(userService).update(Mockito.any(User.class));
 	}

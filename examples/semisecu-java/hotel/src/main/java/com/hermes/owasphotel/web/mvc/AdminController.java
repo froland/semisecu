@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -64,15 +66,10 @@ public class AdminController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String viewAdmin(Model model) {
+	public String viewAdmin(Model model) throws JsonGenerationException,
+			JsonMappingException, IOException {
 		List<String> tables = adminService.listTables();
-		String tablesJSON = "[]";
-		try {
-			tablesJSON = new ObjectMapper().writeValueAsString(tables);
-		} catch (Exception e) {
-			// write no tables
-			tablesJSON = "[]";
-		}
+		String tablesJSON = new ObjectMapper().writeValueAsString(tables);
 		model.addAttribute("tables", tablesJSON);
 		return "admin/view";
 	}

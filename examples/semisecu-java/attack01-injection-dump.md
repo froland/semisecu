@@ -10,11 +10,6 @@ For example, we are going to list users that have the same password as a chosen
 user or simply dump data from some table. By default the password field is not
 accessible.
 
-Code change
------------
-
-None. See class `Dumper.dump(..)`.
-
 Scenario description
 --------------------
 
@@ -50,6 +45,11 @@ After *url-encoding* that value, the request becomes:
 
 Another example of attack, is to list tables and their columns:
 <http://localhost:8080/owasphotel/admin/export?tableName=INFORMATION_SCHEMA.COLUMNS&col=TABLE_NAME&col=COLUMN_NAME>
+
+Vulnerable code
+---------------
+
+None. See class `Dumper.dump(..)`.
 
 Preventing the attack
 ---------------------

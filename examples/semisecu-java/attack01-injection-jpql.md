@@ -9,14 +9,6 @@ This allows us to find hotels based on conditions we want.
 Two examples will be shown: querying unapproved hotels and hotels that have a
 manager that has the same password as another user.
 
-Code change
------------
-
-The method `HotelDaoJpa.findSearchQuery(..)` has been changed to allow code
-injection. We are now using a simple concatenation.
-For the second example, the search was made case-sensitive to be allowed to
-inject class names that are camel-cased.
-
 Scenario description
 --------------------
 
@@ -49,6 +41,13 @@ Run the following queries:
    com.hermes.owasphotel.domain.User f where u.password = f.password and
    f.id = 2) and '%' = '
 
+Vulnerable code
+---------------
+
+The method `HotelDaoJpa.findSearchQuery(..)` has been changed to allow code
+injection. We are now using a simple concatenation.
+For the second example, the search was made case-sensitive to be allowed to
+inject class names that are camel-cased.
 
 Preventing the attack
 ---------------------

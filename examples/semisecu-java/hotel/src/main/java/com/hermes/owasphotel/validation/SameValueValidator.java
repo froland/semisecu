@@ -23,12 +23,7 @@ public class SameValueValidator implements
 				fieldValue = value.getClass().getMethod(makeMethodName(field))
 						.invoke(value);
 			} catch (Exception e) {
-				// failed to get the field value
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(
-						"Invalid constraint argument on object " + value + ":"
-								+ e.toString()).addConstraintViolation();
-				return false;
+				throw new AssertionError(e);
 			}
 			if (fieldValue == null && sv.ignoreNull())
 				continue;

@@ -33,7 +33,7 @@ public class UserDaoTest extends SimpleDaoTestBase<Integer, User> {
 		userDao.flush();
 		assertNull(userDao.getByName(name + "__"));
 		User found = userDao.getByName(name);
-		checkLoadedEntity(user, found);
+		assertEntityEquals(user, found);
 	}
 
 	@Test(expected = PersistenceException.class)
@@ -47,8 +47,8 @@ public class UserDaoTest extends SimpleDaoTestBase<Integer, User> {
 	}
 
 	@Override
-	protected void checkLoadedEntity(User expected, User found) {
-		super.checkLoadedEntity(expected, found);
+	protected void assertEntityEquals(User expected, User found) {
+		super.assertEntityEquals(expected, found);
 		assertTrue("Invalid roles in the found user", found.getRoles()
 				.containsAll(expected.getRoles())
 				&& expected.getRoles().containsAll(found.getRoles()));

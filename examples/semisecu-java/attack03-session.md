@@ -12,11 +12,6 @@ Scenario summary
 Using XSS the attacker gets a valid session ID from another user and
 then starts posting comments with the other user's login.
 
-Code change
------------
-
-None
-
 Scenario description
 --------------------
 
@@ -43,9 +38,15 @@ It will replace your session with one that you have defined.
 	document.cookie = "JSESSIONID=" + escape(session)
 		+ ";expires=" + expire.toGMTString();
 
+Vulnerable code
+---------------
+
+Linked to XSS attack.
 
 Preventing the attack
 ---------------------
+
+Prevent the XSS attack.
 
 It's not possible to prevent the attacker to impersonate somebody if
 he can get credentials. However you can mitigate the impact of the

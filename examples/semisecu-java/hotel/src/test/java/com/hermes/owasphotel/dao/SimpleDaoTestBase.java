@@ -30,7 +30,7 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 		dao.clear();
 		T found = dao.getById(id);
 		assertNotNull("Saved object not found", found);
-		checkLoadedEntity(saved, found);
+		assertEntityEquals(saved, found);
 
 		// test findAll()
 		assertTrue("findAll() must contain the object",
@@ -45,7 +45,13 @@ public abstract class SimpleDaoTestBase<I extends Serializable, T extends Identi
 
 	protected abstract T createEntity();
 
-	protected void checkLoadedEntity(T expected, T found) {
+	/**
+	 * Asserting that the entities are equal.
+	 * <p>Used for check a loaded entity.</p>
+	 * @param expected
+	 * @param found
+	 */
+	protected void assertEntityEquals(T expected, T found) {
 		assertNotNull("No found object", found);
 		assertEquals("Not same ID", expected.getId(), found.getId());
 		assertEquals(expected, found);
