@@ -207,9 +207,9 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteComment(@PathVariable("id") Integer hotelId,
-			@RequestParam("delete") Integer comment,
+			@RequestParam("delete") Integer commentId,
 			RedirectAttributes redirectAttrs) {
-		hotelService.deleteComment(hotelId, comment);
+		hotelService.deleteComment(commentId);
 		Utils.successMessage(redirectAttrs, "Comment deleted.");
 		return redirectTo(hotelId);
 	}

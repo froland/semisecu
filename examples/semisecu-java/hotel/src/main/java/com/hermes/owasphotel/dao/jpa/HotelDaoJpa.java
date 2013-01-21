@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.hermes.owasphotel.dao.HotelDao;
+import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 
@@ -82,5 +83,13 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	public List<Hotel> findAll() {
 		return em.createQuery("from Hotel h order by h.name", Hotel.class)
 				.getResultList();
+	}
+
+	@Override
+	public void deleteComment(Integer commentId) {
+		Comment c = em.find(Comment.class, commentId);
+		if (c == null)
+			return;
+		c.delete();
 	}
 }

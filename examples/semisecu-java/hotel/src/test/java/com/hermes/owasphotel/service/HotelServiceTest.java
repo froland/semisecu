@@ -12,11 +12,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
-import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.impl.HotelServiceImpl;
@@ -80,22 +78,5 @@ public class HotelServiceTest {
 		hotelService.addComment(1, username, note, text);
 
 		Mockito.verify(hotel).createComment(user, note, text);
-	}
-
-	@Test
-	public void deleteComment() {
-		Hotel hotel = new Hotel("h", new User("a", "a"));
-		Mockito.when(hotelDao.getById(1)).thenReturn(hotel);
-		Comment comment = hotel.createComment(Mockito.mock(User.class), 5,
-				"hello world");
-
-		// set the id of the comment to delete
-		// (usually set when the transaction ends)
-		final int seq = 8;
-		ReflectionTestUtils.setField(comment, "id", seq);
-
-		hotelService.deleteComment(1, seq);
-
-		assertTrue("Comment not deleted", comment.isDeleted());
 	}
 }

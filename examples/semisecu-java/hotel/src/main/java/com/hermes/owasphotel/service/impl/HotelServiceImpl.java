@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
-import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.HotelService;
@@ -144,16 +143,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void deleteComment(Integer hotelId, Integer commentId) {
-		if (commentId == null)
-			throw new IllegalArgumentException("No comment id given to delete");
-		Hotel hotel = hotelDao.getById(hotelId);
-		for (Comment c : hotel.getComments()) {
-			if (commentId.equals(c.getId())) {
-				c.delete();
-				return;
-			}
-		}
+	public void deleteComment(Integer commentId) {
+		hotelDao.deleteComment(commentId);
 	}
 
 	@Override
