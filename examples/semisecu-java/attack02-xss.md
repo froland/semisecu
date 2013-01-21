@@ -38,7 +38,7 @@ description of an hotel.
 	</script>
 
 In the *evil-website* console, the user information should appear.
-The sent request can be seen also using *FireBug* or *WebScarab*.
+The sent request can also be seen using *FireBug* or *WebScarab*.
 
 (Don't forget to change the host with what is needed...)
 

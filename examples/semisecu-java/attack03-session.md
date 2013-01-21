@@ -25,7 +25,7 @@ interface" (restart if needed) and setup *FireFox* to use `localhost:8008` as
 a proxy.
 
 In *WebScarab* search a `POST` request to reuse, right-click it and use it as
-a fuzz template. You can also build directly the fuzzer to build manually a
+a fuzz template. You can also use directly the fuzzer to build manually a
 request to send.
 
 Now in the fuzz template tab change the hotel ID in the URL, the
