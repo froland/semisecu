@@ -8,6 +8,10 @@ import javax.persistence.Embeddable;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+/**
+ * A postal address  
+ *
+ */
 @Embeddable
 @Access(AccessType.PROPERTY)
 public final class Address implements Serializable {

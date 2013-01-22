@@ -12,6 +12,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * A comment
+ *
+ */
 @Entity
 @Table(name = "COMMENT")
 @SequenceGenerator(name = "id_seq", sequenceName = "COMMENT_SEQ")

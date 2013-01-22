@@ -17,6 +17,10 @@ import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+/**
+ * A class used to dump the DB
+ *
+ */
 @Repository
 public class Dumper {
 
@@ -37,6 +41,14 @@ public class Dumper {
 		w.write("\n");
 	}
 
+	
+	/**
+	 * @param tableName The name of the table to dump
+	 * @param columns The column to dump
+	 * @param w The writer to dump the table to
+	 * @throws IOException
+	 * @throws DataAccessException
+	 */
 	public void dump(String tableName, String[] columns, Writer w)
 			throws IOException, DataAccessException {
 		if (columns == null || columns.length == 0) {
@@ -61,6 +73,9 @@ public class Dumper {
 		}
 	}
 
+	/**
+	 * @return The list of the dumpable tables.
+	 */
 	public List<String> listTables() {
 		return new JdbcTemplate(dataSource)
 				.execute(new ConnectionCallback<List<String>>() {
@@ -85,6 +100,10 @@ public class Dumper {
 				});
 	}
 
+	/**
+	 * @param tableName The name of the table to Dump
+	 * @return A list containing the name of the columns of the selected table
+	 */
 	public List<String> listColumns(final String tableName) {
 		return new JdbcTemplate(dataSource)
 				.execute(new ConnectionCallback<List<String>>() {

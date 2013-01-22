@@ -10,7 +10,6 @@ import javax.persistence.MappedSuperclass;
 /**
  * An identifiable JPA entity.
  * 
- * @author k
  * 
  * @param <I>
  *            The type of the key

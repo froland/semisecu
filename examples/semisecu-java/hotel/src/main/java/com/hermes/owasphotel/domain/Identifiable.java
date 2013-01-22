@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * An identifiable object.
- * @author k
  *
  * @param <I> The type of the key
  */

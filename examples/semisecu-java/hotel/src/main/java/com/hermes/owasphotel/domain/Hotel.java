@@ -20,6 +20,10 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+/**
+ * An hotel
+ *
+ */
 @Entity
 @Table(name = "HOTEL")
 @SequenceGenerator(name = "id_seq", sequenceName = "HOTELS_SEQ")
