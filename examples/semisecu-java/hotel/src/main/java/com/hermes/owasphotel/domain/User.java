@@ -20,6 +20,10 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 
+/**
+ * 
+ *
+ */
 @Entity
 @Table(name = "user")
 @SequenceGenerator(name = "id_seq", sequenceName = "USERS_SEQ")

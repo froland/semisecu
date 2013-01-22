@@ -16,6 +16,13 @@ public interface UserService {
 
 	public User update(User u);
 
+	/**
+	 * 
+	 * Gets the name of the users whose name begin with param prefix
+	 * 
+	 * @param prefix A prefix of usernames
+	 * @return A list with the matching userNames
+	 */
 	public List<String> getNames(String prefix);
 
 	public void disableUser(Integer id);
