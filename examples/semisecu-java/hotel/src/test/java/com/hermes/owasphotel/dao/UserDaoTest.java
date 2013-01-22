@@ -1,8 +1,8 @@
 package com.hermes.owasphotel.dao;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import org.junit.Test;
@@ -26,18 +26,22 @@ public class UserDaoTest extends SimpleDaoTestBase<Integer, User> {
 	}
 
 	@Test
-	public void testFindByName() {
+	public void findByName() {
 		final String name = "testUser";
 		User user = new User(name, "a");
 		userDao.save(user);
 		userDao.flush();
-		assertNull(userDao.getByName(name + "__"));
 		User found = userDao.getByName(name);
 		assertEntityEquals(user, found);
 	}
 
+	@Test(expected = NoResultException.class)
+	public void findByNameInexisting() {
+		userDao.getByName("__");
+	}
+
 	@Test(expected = PersistenceException.class)
-	public void testDuplicateUserName() {
+	public void duplicateUserName() {
 		User u1 = new User("a", "a");
 		User u2 = new User("a", "a");
 		userDao.save(u1);

@@ -2,14 +2,15 @@ package com.hermes.owasphotel.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -104,9 +105,13 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	public void findByName() {
 		Hotel h = persistMyHotel();
 
-		assertNull(hotelDao.getByName("___xyz"));
 		Hotel found = hotelDao.getByName("my hotel");
 		assertEntityEquals(h, found);
+	}
+
+	@Test(expected = NoResultException.class)
+	public void findByNameInexisting() {
+		hotelDao.getByName("___xyz");
 	}
 
 	private Hotel persistMyHotel() {
@@ -138,6 +143,7 @@ public class HotelDaoTest extends SimpleDaoTestBase<Integer, Hotel> {
 	}
 
 	@Test
+	@Ignore("Code made case-sensitive for the demo")
 	public void findSearchQueryInsensitive() {
 		Hotel h = persistMyHotel();
 

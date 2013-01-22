@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,7 +120,12 @@ public class UserController {
 	private User getUserForUpdate(Integer userId, Authentication auth) {
 		if (auth == null)
 			throw new AccessDeniedException("User not authentified");
-		User user = userService.getById(userId);
+		User user;
+		try {
+			user = userService.getById(userId);
+		} catch (NoResultException e) {
+			throw new AccessDeniedException("User not found", e);
+		}
 		if (!(auth.getName().equals(user.getName()) || Utils.hasRole(auth,
 				Role.ADMIN)))
 			throw new AccessDeniedException("Cannot edit that profile");

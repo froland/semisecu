@@ -10,6 +10,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -96,19 +98,19 @@ public class UserControllerTest extends ControllerTestBase<UserController> {
 	@Test(expected = AccessDeniedException.class)
 	public void viewUpdateOtherUser() throws Exception {
 		Model model = createModel();
-		Integer id = 1;
 		Authentication auth = createAuthentication("b", Role.USER);
 
-		controller.viewUpdateUser(model, id, auth);
+		controller.viewUpdateUser(model, 1, auth);
 	}
 
 	@Test(expected = AccessDeniedException.class)
 	public void viewUpdateIncorrectUser() throws Exception {
 		Model model = createModel();
-		Integer id = 2;
+		Mockito.when(userService.getById(2)).thenThrow(
+				new NoResultException("expected exception getById(2)"));
 		Authentication auth = createAuthentication("a", Role.USER);
 
-		controller.viewUpdateUser(model, id, auth);
+		controller.viewUpdateUser(model, 2, auth);
 	}
 
 	@Test
