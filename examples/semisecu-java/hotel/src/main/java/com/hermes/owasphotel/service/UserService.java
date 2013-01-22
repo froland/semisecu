@@ -24,6 +24,7 @@ public interface UserService {
 	 * @param name The name
 	 * @return The user
 	 * @throws NoResultException when no user matches
+	 * @throws NonUniqueResultException If more than one user matches
 	 */
 	public User getByName(String name);
 
