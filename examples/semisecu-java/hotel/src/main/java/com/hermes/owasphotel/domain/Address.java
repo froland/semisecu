@@ -92,7 +92,7 @@ public final class Address implements Serializable {
 	/**
 	 * Tests whether the addresses are equal.
 	 * @param address The other address
-	 * @return true if the attribute values are the same
+	 * @return true iff the attribute values are the same
 	 */
 	public boolean equals(Address address) {
 		return address != null
