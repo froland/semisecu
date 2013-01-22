@@ -53,7 +53,10 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 		Mockito.when(hotelService.getById(1)).thenReturn(
 				Mockito.mock(Hotel.class));
 
-		assertEquals("hotel/view", controller.viewHotel(model, 1));
+		assertEquals(
+				"hotel/view",
+				controller.viewHotel(model, 1,
+						createAuthentication("a", Role.USER)));
 		assertType(model.asMap(), "hotel", Hotel.class);
 	}
 
