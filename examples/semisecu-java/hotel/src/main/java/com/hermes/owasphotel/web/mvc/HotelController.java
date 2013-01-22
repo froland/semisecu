@@ -187,8 +187,14 @@ public class HotelController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public String viewHotel(Model model, @PathVariable Integer id) {
+	public String viewHotel(Model model, @PathVariable Integer id,
+			Authentication auth) {
 		Hotel hotel = hotelService.getById(id);
+		
+		/*If the hotel isn't approved you are just allowed to access it to edit it...
+		if (!hotel.isApproved())
+			checkEdit(hotel, auth);
+		*/
 		model.addAttribute("hotel", hotel);
 		return "hotel/view";
 	}
