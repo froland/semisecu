@@ -5,31 +5,30 @@ import java.io.Writer;
 import java.util.List;
 
 /**
- * Administration service
- *
+ * Administration service.
  */
 public interface AdminService {
 
 	/**
-	 * Dump a Table to a writer
+	 * Dumps a table to a writer.
 	 * 
 	 * @param tableName The name of the table to dump
 	 * @param columns The name of the columns to dump
 	 * @param w The destination writer
-	 * @throws IOException 
+	 * @throws IOException when an exception occurred when writing
 	 */
 	public void dumpToWriter(String tableName, String[] columns, Writer w)
 			throws IOException;
 
 	/**
-	 * List the available tables
+	 * Lists the available tables.
 	 * 
 	 * @return The list of the available tables
 	 */
 	public List<String> listTables();
 
 	/**
-	 * List the columns of a given table
+	 * Lists the columns of a given table.
 	 * 
 	 * @param tableName the name of the table
 	 * @return the list of the column

@@ -13,12 +13,8 @@ import com.hermes.owasphotel.domain.Identifiable;
 /**
  * Template class for CRUD operations that uses JPA.
  * 
- * @author k
- * 
- * @param <I>
- *            The type of the key
- * @param <T>
- *            The type of the object
+ * @param <I> The type of the key
+ * @param <T> The type of the object
  * @see SimpleDao
  */
 abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>

@@ -9,7 +9,6 @@ import com.hermes.owasphotel.domain.Identifiable;
 
 /**
  * Base interface for DAO with CRUD operations.
- * @author k
  *
  * @param <I> The key type
  * @param <T> The identifiable type
@@ -22,38 +21,38 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	 * @throws NoResultException when the object was not found
 	 */
 	public T getById(I id) throws NoResultException;
-	
+
 	/**
 	 * Persists an object.
 	 * @param obj The object
 	 */
 	public void save(T obj);
-	
+
 	/**
 	 * Merges an object.
 	 * @param obj The object
 	 * @return The saved object
 	 */
 	public T merge(T obj);
-	
+
 	/**
 	 * Deletes the object.
 	 * @param obj The object
 	 */
 	public void delete(T obj);
-	
+
 	/**
 	 * Finds all objects.
 	 * @return A list of objects
 	 */
 	public List<T> findAll();
-	
+
 	/**
 	 * Flushes the modifications.
 	 * <p>After this call the inserted objects will have their ids.</p>
 	 */
 	public void flush();
-	
+
 	/**
 	 * Invalidates caches.
 	 */

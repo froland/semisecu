@@ -19,8 +19,7 @@ import com.hermes.owasphotel.service.HotelService;
 
 /**
  * Service: Hotel
- * 
- * @author k
+ * @see HotelDao
  */
 @Service
 @Transactional

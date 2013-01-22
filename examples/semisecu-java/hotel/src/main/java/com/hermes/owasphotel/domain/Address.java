@@ -9,8 +9,7 @@ import javax.persistence.Embeddable;
 import org.apache.commons.lang3.ObjectUtils;
 
 /**
- * A postal address  
- *
+ * A postal address.
  */
 @Embeddable
 @Access(AccessType.PROPERTY)
@@ -28,6 +27,14 @@ public final class Address implements Serializable {
 	Address() {
 	}
 
+	/**
+	 * Creates a new address.
+	 * @param street The street
+	 * @param number The number
+	 * @param city The city name
+	 * @param zipCode The ZIP code
+	 * @param country The country
+	 */
 	public Address(String street, String number, String city, String zipCode,
 			String country) {
 		this.street = street;
@@ -82,6 +89,11 @@ public final class Address implements Serializable {
 		return obj instanceof Address && equals((Address) obj);
 	}
 
+	/**
+	 * Tests whether the addresses are equal.
+	 * @param address The other address
+	 * @return true iff the attribute values are the same
+	 */
 	public boolean equals(Address address) {
 		return address != null
 				&& ObjectUtils.equals(getCity(), address.getCity())

@@ -6,18 +6,16 @@ import com.hermes.owasphotel.dao.base.SimpleDao;
 import com.hermes.owasphotel.domain.User;
 
 /**
- * DAO: User
- * 
+ * DAO: {@link User}
  */
 public interface UserDao extends SimpleDao<Integer, User> {
 
 	/**
-	 * 
-	 * Get a user by its name
+	 * Get a user by its name.
 	 * 
 	 * @param name The name of the user
-	 * @return The user if it exists null otherwise
-	 * @trhrows NoResultException if nothing is found
+	 * @return The user
+	 * @throws NoResultException if no user matches
 	 */
 	public User getByName(String name) throws NoResultException;
 
