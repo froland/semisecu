@@ -68,16 +68,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void enableUser(Integer id) {
 		User u = userDao.getById(id);
-		if (u == null)
-			throw new IllegalArgumentException("User not found: id=" + id);
 		u.enable();
 	}
 
 	@Override
 	public void disableUser(Integer id) {
 		User u = userDao.getById(id);
-		if (u == null)
-			throw new IllegalArgumentException("User not found: id=" + id);
 		u.disable();
 	}
 }

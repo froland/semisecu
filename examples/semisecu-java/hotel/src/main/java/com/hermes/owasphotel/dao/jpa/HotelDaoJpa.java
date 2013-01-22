@@ -2,13 +2,12 @@ package com.hermes.owasphotel.dao.jpa;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import com.hermes.owasphotel.dao.HotelDao;
+import com.hermes.owasphotel.domain.Comment;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
 
@@ -37,31 +36,26 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 
 	@Override
 	public Hotel getByName(String search) {
-		try {
-			return em
-					.createQuery("from Hotel h where lower(h.name) = :t",
-							Hotel.class)
-					.setParameter("t", search.toLowerCase()).getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		} catch (NonUniqueResultException e) {
-			return null;
-		}
+		return em
+				.createQuery("from Hotel h where lower(h.name) = :t",
+						Hotel.class).setParameter("t", search.toLowerCase())
+				.getSingleResult();
 	}
-	
+
 	@Override
 	public List<Hotel> findSearchQuery(String search, boolean fullSearch,
 			int maxResults) {
-		/* Changed to case sensitive search in order to have insensitive search use toLowerCase
-		on search and on h.name in jpql
-		*/
+		/*
+		 * Changed to case sensitive search in order to have insensitive search
+		 * use toLowerCase on search and on h.name in JPQL.
+		 */
 		// build the like string
 		String like = search + "%";
 		if (fullSearch) {
 			like = "%" + like;
 		}
-		// build the query
 
+		// build the query
 		/*
 		 * Corrected code:
 		 * 
@@ -89,5 +83,13 @@ public class HotelDaoJpa extends SimpleJPA<Integer, Hotel> implements HotelDao {
 	public List<Hotel> findAll() {
 		return em.createQuery("from Hotel h order by h.name", Hotel.class)
 				.getResultList();
+	}
+
+	@Override
+	public void deleteComment(Integer commentId) {
+		Comment c = em.find(Comment.class, commentId);
+		if (c == null)
+			return;
+		c.delete();
 	}
 }

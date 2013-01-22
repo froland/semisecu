@@ -34,7 +34,7 @@ public class User extends IdentifiableEntity<Integer> {
 	@Column(name = "enabled", columnDefinition = "tinyint default true")
 	private boolean enabled = true;
 
-	@ElementCollection(fetch = FetchType.EAGER, targetClass = Role.class)
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(joinColumns = @JoinColumn(name = "user_id"), name = "ROLE")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "name")

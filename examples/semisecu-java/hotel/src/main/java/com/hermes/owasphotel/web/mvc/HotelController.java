@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -37,7 +39,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
-import com.hermes.owasphotel.service.HotelListItem;
 import com.hermes.owasphotel.service.HotelService;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.web.mvc.form.HotelForm;
@@ -124,14 +125,14 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewHotels(Model model,
 			@RequestParam(defaultValue = "0") int page) {
-		List<HotelListItem> hotels = hotelService.listApproved();
+		List<Hotel> hotels = hotelService.listApproved();
 		setPagedList(model, "hotels", hotels, null);
 		return "hotel/list";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
-		List<HotelListItem> hotels = hotelService.listAll();
+		List<Hotel> hotels = hotelService.listAll();
 		setPagedList(model, "hotels", hotels, "All hotels");
 		return "hotel/list";
 	}
@@ -139,7 +140,7 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "toApprove")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String viewHotelsNotApproved(Model model) {
-		List<HotelListItem> hotels = hotelService.listNotApproved();
+		List<Hotel> hotels = hotelService.listNotApproved();
 		setPagedList(model, "hotels", hotels, "Hotels to approve");
 		model.addAttribute("hotelTableType", "hotelTableApprove.jsp");
 		return "hotel/list";
@@ -147,7 +148,7 @@ public class HotelController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
-		List<HotelListItem> hotels = hotelService.listTopNoted(TOP_COUNT);
+		List<Hotel> hotels = hotelService.listTopNoted(TOP_COUNT);
 		setPagedList(model, "hotels", hotels, "Top " + TOP_COUNT + " hotels");
 		return "hotel/list";
 	}
@@ -155,8 +156,7 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "managed")
 	@PreAuthorize("hasRole('USER')")
 	public String viewHotelsManaged(Model model, Authentication auth) {
-		List<HotelListItem> hotels = hotelService.listManagedHotels(auth
-				.getName());
+		List<Hotel> hotels = hotelService.listManagedHotels(auth.getName());
 		model.addAttribute("hotels", hotels);
 		model.addAttribute("pageTitle", "Managed hotels");
 		return "hotel/list";
@@ -165,12 +165,17 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "search")
 	public String viewSearchHotels(Model model, @RequestParam("t") String search) {
 		// try to find by name
-		Hotel hotel = hotelService.getByName(search);
-		if (hotel != null)
+		try {
+			Hotel hotel = hotelService.getByName(search);
 			return redirectTo(hotel.getId());
+		} catch (NoResultException e) {
+			// continue execution
+		} catch (NonUniqueResultException e) {
+			// continue execution
+		}
 
 		// return the result list
-		List<HotelListItem> hotels = hotelService.listSearchQuery(search);
+		List<Hotel> hotels = hotelService.listSearchQuery(search);
 		setPagedList(model, "hotels", hotels, "Search: " + search);
 		return "hotel/list";
 	}
@@ -184,8 +189,6 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public String viewHotel(Model model, @PathVariable Integer id) {
 		Hotel hotel = hotelService.getById(id);
-		if (hotel == null)
-			throw new IllegalArgumentException("Hotel not found: id=" + id);
 		model.addAttribute("hotel", hotel);
 		return "hotel/view";
 	}
@@ -204,9 +207,9 @@ public class HotelController {
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteComment(@PathVariable("id") Integer hotelId,
-			@RequestParam("delete") Integer comment,
+			@RequestParam("delete") Integer commentId,
 			RedirectAttributes redirectAttrs) {
-		hotelService.deleteComment(hotelId, comment);
+		hotelService.deleteComment(commentId);
 		Utils.successMessage(redirectAttrs, "Comment deleted.");
 		return redirectTo(hotelId);
 	}
@@ -225,7 +228,9 @@ public class HotelController {
 		if (binding.hasErrors()) {
 			return "hotel/update";
 		}
-		User user = getUser(auth);
+		User user = Utils.getUser(auth, userService);
+		if (user == null)
+			throw new IllegalStateException("Authentified as an invalid user");
 		Hotel hotel = dto.makeNew(user);
 		hotelService.save(hotel);
 		Utils.successMessage(redirectAttrs, "Hotel '" + hotel.getName()
@@ -233,19 +238,12 @@ public class HotelController {
 		return redirectTo(hotel.getId());
 	}
 
-	private static void checkEdit(Hotel hotel, User user) {
-		if (hotel == null)
-			throw new IllegalArgumentException("Hotel not found");
+	private void checkEdit(Hotel hotel, Authentication auth) {
+		User user = Utils.getUser(auth, userService);
 		if (user == null
 				|| !(user.equals(hotel.getManager()) || user.getRoles()
 						.contains(Role.ADMIN)))
 			throw new AccessDeniedException("Cannot edit that hotel");
-	}
-
-	private User getUser(Authentication auth) {
-		if (auth == null)
-			return null;
-		return userService.getByName(auth.getName());
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "{id}/update")
@@ -253,7 +251,7 @@ public class HotelController {
 	public String viewUpdateHotel(Model model, Authentication auth,
 			@PathVariable("id") Integer hotelId) {
 		Hotel hotel = hotelService.getById(hotelId);
-		checkEdit(hotel, getUser(auth));
+		checkEdit(hotel, auth);
 		model.addAttribute("hotel", new HotelForm(hotel));
 		return "hotel/update";
 	}
@@ -265,7 +263,7 @@ public class HotelController {
 			@Valid @ModelAttribute("hotel") HotelForm dto,
 			BindingResult result, RedirectAttributes redirectAttrs) {
 		Hotel hotel = hotelService.getById(hotelId);
-		checkEdit(hotel, getUser(auth));
+		checkEdit(hotel, auth);
 		try {
 			if (!result.hasErrors())
 				dto.update(hotel, userService);

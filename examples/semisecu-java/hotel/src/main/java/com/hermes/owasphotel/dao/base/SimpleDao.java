@@ -3,6 +3,8 @@ package com.hermes.owasphotel.dao.base;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import com.hermes.owasphotel.domain.Identifiable;
 
 /**
@@ -16,9 +18,10 @@ public interface SimpleDao<I extends Serializable, T extends Identifiable<I>> {
 	/**
 	 * Gets an object by its id.
 	 * @param id The id
-	 * @return The object or <code>null</code> if not found
+	 * @return The object
+	 * @throws NoResultException when the object was not found
 	 */
-	public T getById(I id);
+	public T getById(I id) throws NoResultException;
 	
 	/**
 	 * Persists an object.

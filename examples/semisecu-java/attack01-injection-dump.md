@@ -49,7 +49,18 @@ Another example of attack, is to list tables and their columns:
 Vulnerable code
 ---------------
 
-None. See class `Dumper.dump(..)`.
+See class `Dumper.dump(..)`.
+The following code sample concatenates the values in `columns`.
+
+	JdbcTemplate select = new JdbcTemplate(dataSource);
+	StringBuilder query = new StringBuilder("select ");
+	for (String col : columns) {
+		query.append(col).append(',');
+	}
+	query.setLength(query.length() - 1);
+	query.append(" from ").append(tableName);
+	writeLine(w, columns);
+	for (Map<String, Object> row : select.queryForList(query.toString())) {
 
 Preventing the attack
 ---------------------
@@ -60,3 +71,20 @@ done as we are injecting column and table names.
 The solution is to use a "white list" input validation using for example a
 regular expression such as `[a-zA-Z][a-zA-Z0-9_]*`. A "black list" can always be
 incomplete and allow injection for some edge cases.
+
+To correct that sample, parameter validation should be added.
+
+	private final static Pattern validName = Pattern.compile(
+			"^[a-z_$][a-z0-9_$]*$", Pattern.CASE_INSENSITIVE);
+
+	private boolean validateObjectName(String name) {
+		return validName.matcher(name).matches();
+	}
+
+	// ... at the begining of the method
+	if (!validateObjectName(tableName))
+		throw new IllegalArgumentException("Invalid table name: " + tableName);
+	for (String col : columns) {
+		if (!validateObjectName(col))
+			throw new IllegalArgumentException("Invalid column name: " + col);
+	}

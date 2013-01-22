@@ -2,6 +2,8 @@ package com.hermes.owasphotel.dao;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import com.hermes.owasphotel.dao.base.SimpleDao;
 import com.hermes.owasphotel.domain.Hotel;
 import com.hermes.owasphotel.domain.User;
@@ -18,11 +20,14 @@ public interface HotelDao extends SimpleDao<Integer, Hotel> {
 	 */
 	public List<Hotel> findApprovedHotels(boolean approved);
 
+
 	/**
 	 * @param search The begining of the name of an hotel
 	 * @return If only one hotel matches that hotel, null otherwise
+	 * @throws NoResultException If no results where found
 	 */
-	public Hotel getByName(String search);
+	public Hotel getByName(String search) throws NoResultException;
+
 
 	/**
 	 * 
@@ -44,5 +49,7 @@ public interface HotelDao extends SimpleDao<Integer, Hotel> {
 	 * @return The list of hotel managed by user
 	 */
 	public List<Hotel> findManagedHotels(User user);
+
+	public void deleteComment(Integer commentId);
 
 }

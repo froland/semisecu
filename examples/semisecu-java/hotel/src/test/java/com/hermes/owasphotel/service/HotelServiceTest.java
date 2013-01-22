@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-//import org.springframework.test.util.ReflectionTestUtils;
 
 import com.hermes.owasphotel.dao.HotelDao;
 import com.hermes.owasphotel.dao.UserDao;
@@ -28,7 +27,6 @@ public class HotelServiceTest {
 		service.setHotelDao(hotelDao = Mockito.mock(HotelDao.class));
 		service.setUserDao(userDao = Mockito.mock(UserDao.class));
 	}
-
 
 	@Test
 	public void listManaged() {
@@ -64,5 +62,4 @@ public class HotelServiceTest {
 
 		Mockito.verify(hotel).createComment(user, note, text);
 	}
-
 }

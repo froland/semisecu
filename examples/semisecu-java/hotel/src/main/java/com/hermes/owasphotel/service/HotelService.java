@@ -25,7 +25,7 @@ public interface HotelService {
 
 	public void addComment(Integer hotelId, String name, int note, String text);
 
-	public void deleteComment(Integer hotelId, Integer commentId);
+	public void deleteComment(Integer commentId);
 
 	public Hotel update(Hotel hotel);
 
@@ -33,15 +33,15 @@ public interface HotelService {
 
 	public void setHotelImage(Integer hotelId, byte[] image);
 
-	public List<HotelListItem> listAll();
+	public List<Hotel> listAll();
 
-	public List<HotelListItem> listTopNoted(int count);
+	public List<Hotel> listTopNoted(int count);
 
-	public List<HotelListItem> listApproved();
+	public List<Hotel> listApproved();
 
-	public List<HotelListItem> listNotApproved();
+	public List<Hotel> listNotApproved();
 
-	public List<HotelListItem> listSearchQuery(String search);
+	public List<Hotel> listSearchQuery(String search);
 
-	public List<HotelListItem> listManagedHotels(String userName);
+	public List<Hotel> listManagedHotels(String userName);
 }

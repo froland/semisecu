@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import com.hermes.owasphotel.dao.base.SimpleDao;
@@ -44,7 +45,11 @@ abstract class SimpleJPA<I extends Serializable, T extends Identifiable<I>>
 
 	@Override
 	public T getById(I id) {
-		return em.find(type, id);
+		T obj = em.find(type, id);
+		if (obj == null)
+			throw new NoResultException("No "
+					+ type.getSimpleName().toLowerCase() + " with id: " + id);
+		return obj;
 	}
 
 	@Override

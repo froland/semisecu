@@ -15,8 +15,8 @@
 				href="<c:url value="/hotel/${hotel.id}"/>"><c:out
 						value="${hotel.name}" /></a></td>
 			<td><fmt:formatNumber type="number" maxFractionDigits="2"
-					value="${hotel.note }" /></td>
-			<td><c:out value="${hotel.nbComments}" /></td>
+					value="${hotel.averageNote}" /></td>
+			<td><c:out value="${hotel.commentCount}" /></td>
 		</tr>
 	</c:forEach>
 </table>

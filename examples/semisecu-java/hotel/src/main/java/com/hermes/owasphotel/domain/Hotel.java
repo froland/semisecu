@@ -19,6 +19,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * An hotel
@@ -55,10 +57,14 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 	@JoinColumn(name = "created_by")
 	private User manager;
 
-	// XXX eager loading, loads the comments twice
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "hotel_id", nullable = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "hotel_id", nullable = false, unique = true)
 	@OrderBy("id")
+	/*
+	 * Force FetchMode.SELECT to avoid duplicated comment entries. More info:
+	 * https://hibernate.onjira.com/browse/HHH-6783
+	 */
+	@Fetch(FetchMode.SELECT)
 	private List<Comment> comments = new ArrayList<Comment>();
 
 	Hotel() {
@@ -150,6 +156,10 @@ public class Hotel extends IdentifiableEntity<Integer> implements Noted {
 
 	public List<Comment> getComments() {
 		return Collections.unmodifiableList(comments);
+	}
+
+	public int getCommentCount() {
+		return getNbComments(false);
 	}
 
 	public int getNbComments(boolean countDeleted) {
