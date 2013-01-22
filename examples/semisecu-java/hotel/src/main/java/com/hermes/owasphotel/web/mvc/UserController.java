@@ -159,7 +159,7 @@ public class UserController {
 
 	/**
 	 * Creates a user.
-	 * <p>The user is automatically identified when the creation was successul.</p>
+	 * <p>The user is automatically identified when the creation was successful.</p>
 	 * @param form The form
 	 * @param binding The form binding
 	 * @param redirectAttrs Redirect attributes
