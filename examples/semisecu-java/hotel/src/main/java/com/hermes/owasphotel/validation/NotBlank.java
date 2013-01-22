@@ -9,6 +9,9 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Validates that a sting is not blank.
+ */
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NotBlankValidator.class)

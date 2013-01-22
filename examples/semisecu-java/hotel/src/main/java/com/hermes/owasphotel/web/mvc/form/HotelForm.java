@@ -13,6 +13,9 @@ import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 import com.hermes.owasphotel.validation.NotBlank;
 
+/**
+ * Hotel submission form.
+ */
 public class HotelForm {
 	private Integer id;
 
@@ -43,7 +46,13 @@ public class HotelForm {
 		// default constructor
 	}
 
+	/**
+	 * Initializes this form.
+	 * @param hotel The hotel
+	 */
 	public HotelForm(Hotel hotel) {
+		if (hotel == null)
+			throw new IllegalArgumentException("hotel is null");
 		id = hotel.getId();
 		name = hotel.getName();
 		Address address = hotel.getAddress();
@@ -63,7 +72,14 @@ public class HotelForm {
 		manager = hotel.getManager().getName();
 	}
 
+	/**
+	 * Updates a hotel using this form.
+	 * @param h The hotel to update
+	 * @param userService The user service (optional)
+	 */
 	public void update(Hotel h, UserService userService) {
+		if (h == null)
+			throw new IllegalArgumentException("no hotel to update given");
 		h.setName(name);
 		h.setAddress(new Address(street, number, city, zipCode, country));
 		h.setTelephone(telephone);
@@ -198,6 +214,11 @@ public class HotelForm {
 		this.manager = manager;
 	}
 
+	/**
+	 * Creates a new hotel using this form.
+	 * @param user The manager of the hotel
+	 * @return A new hotel
+	 */
 	public Hotel makeNew(User user) {
 		Hotel h = new Hotel(name, user);
 		update(h, null);

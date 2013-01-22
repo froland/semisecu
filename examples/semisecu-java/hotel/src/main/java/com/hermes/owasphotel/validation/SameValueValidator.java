@@ -3,6 +3,10 @@ package com.hermes.owasphotel.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Validates that an object contains values that are the same.
+ * @see SameValue
+ */
 public class SameValueValidator implements
 		ConstraintValidator<SameValue, Object> {
 

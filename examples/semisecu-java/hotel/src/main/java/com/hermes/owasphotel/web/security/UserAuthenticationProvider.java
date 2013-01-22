@@ -11,6 +11,9 @@ import org.springframework.security.core.AuthenticationException;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 
+/**
+ * Authentication provider for {@link UserAuthentication}.
+ */
 public class UserAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired

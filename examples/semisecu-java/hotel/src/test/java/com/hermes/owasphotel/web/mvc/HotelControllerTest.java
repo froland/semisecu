@@ -43,7 +43,7 @@ public class HotelControllerTest extends ControllerTestBase<HotelController> {
 	public void viewHotels() throws Exception {
 		Model model = createModel();
 
-		assertEquals("hotel/list", controller.viewHotels(model, 0));
+		assertEquals("hotel/list", controller.viewHotels(model));
 		assertType(model.asMap(), "hotels", List.class);
 	}
 
