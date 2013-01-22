@@ -6,13 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 /**
  * An identifiable JPA entity.
- * 
- * 
- * @param <I>
- *            The type of the key
+ * <p>The ID is generated using a sequence named "id_seq".</p>
+ * @param <I> The type of the key
+ * @see SequenceGenerator
  */
 @MappedSuperclass
 public abstract class IdentifiableEntity<I extends Serializable> implements
@@ -26,6 +26,10 @@ public abstract class IdentifiableEntity<I extends Serializable> implements
 	@Override
 	public final I getId() {
 		return id;
+	}
+
+	final void setId(I id) {
+		this.id = id;
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package com.hermes.owasphotel.web.security;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,10 +14,20 @@ import com.hermes.owasphotel.domain.Role;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 
+/**
+ * A user authentication token that uses directly {@link User}.
+ * @see #getPrincipal()
+ */
 public class UserAuthentication extends AbstractAuthenticationToken {
 	private static final long serialVersionUID = 1L;
 	private User user;
 
+	/**
+	 * Initializes this authentication.
+	 * @param user The user object
+	 * @param authorities The granted authorities
+	 * @throws NullPointerException when user is null
+	 */
 	public UserAuthentication(User user,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
@@ -24,6 +36,11 @@ public class UserAuthentication extends AbstractAuthenticationToken {
 		this.user = user;
 	}
 
+	/**
+	 * Initializes this authentication.
+	 * @param user The user object
+	 * @throws NullPointerException when user is null
+	 */
 	public UserAuthentication(User user) {
 		this(user, getAuthorities(user));
 	}
@@ -56,12 +73,23 @@ public class UserAuthentication extends AbstractAuthenticationToken {
 		return user.getName();
 	}
 
+	/**
+	 * Refreshes the principal object using a user service.
+	 * @param userService The user service
+	 * @throws NullPointerException when userService is null
+	 * @throws BadCredentialsException when the user couldn't be found
+	 */
 	public void refresh(UserService userService) {
-		User user = userService.getById(this.user.getId());
-		if (user == null) {
-			throw new BadCredentialsException("User account not found");
+		User user;
+		try {
+			user = userService.getById(this.user.getId());
+		} catch (NoResultException e) {
+			throw new BadCredentialsException("User account not found", e);
 		}
 		this.user = user;
+		Collection<GrantedAuthority> auth = getAuthorities();
+		auth.clear();
+		auth.addAll(getAuthorities(user));
 	}
 
 }

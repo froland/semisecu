@@ -24,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,8 +44,6 @@ import com.hermes.owasphotel.web.mvc.form.HotelForm;
 
 /**
  * Controller for hotels.
- * 
- * @author k
  */
 @Controller
 @RequestMapping("/hotel")
@@ -90,9 +87,7 @@ public class HotelController {
 
 	/**
 	 * Initializes the editors.
-	 * 
-	 * @param binder
-	 *            The data binder
+	 * @param binder The data binder
 	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -122,14 +117,23 @@ public class HotelController {
 		return Utils.setPagedList(request, model, name, list, PAGE_COUNT);
 	}
 
+	/**
+	 * View the list of approved hotels.
+	 * @param model The model
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String viewHotels(Model model,
-			@RequestParam(defaultValue = "0") int page) {
+	public String viewHotels(Model model) {
 		List<Hotel> hotels = hotelService.listApproved();
 		setPagedList(model, "hotels", hotels, null);
 		return "hotel/list";
 	}
 
+	/**
+	 * View the list of all hotels.
+	 * @param model The model
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "all")
 	public String viewHotelsAll(Model model) {
 		List<Hotel> hotels = hotelService.listAll();
@@ -137,6 +141,11 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	/**
+	 * View the list of not approved hotels.
+	 * @param model The model
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "toApprove")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String viewHotelsNotApproved(Model model) {
@@ -146,6 +155,11 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	/**
+	 * View the list of top hotels.
+	 * @param model The model
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "top")
 	public String viewTopHotels(Model model) {
 		List<Hotel> hotels = hotelService.listTopNoted(TOP_COUNT);
@@ -153,6 +167,12 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	/**
+	 * View the list of managed hotels.
+	 * @param model The model
+	 * @param auth The authentication
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "managed")
 	@PreAuthorize("hasRole('USER')")
 	public String viewHotelsManaged(Model model, Authentication auth) {
@@ -162,6 +182,14 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	/**
+	 * View the searched hotels.
+	 * <p>If there is a unique hotel matching the search query, a redirect
+	 * to that hotel is sent.</p>
+	 * @param model The model
+	 * @param search The search query
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "search")
 	public String viewSearchHotels(Model model, @RequestParam("t") String search) {
 		// try to find by name
@@ -180,12 +208,24 @@ public class HotelController {
 		return "hotel/list";
 	}
 
+	/**
+	 * Gets the list of hotel names used for autocomplete.
+	 * @param query The typed query
+	 * @return The list of hotels for autocomplete
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "searchAutocomplete")
 	@ResponseBody
 	public List<String> getHotels(@RequestParam("t") String query) {
 		return hotelService.findForAutoComplete(query);
 	}
 
+	/**
+	 * View of a hotel.
+	 * <p>Model: "hotel" is set to the {@link Hotel} instance.</p>
+	 * @param model The model
+	 * @param id The hotel id
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public String viewHotel(Model model, @PathVariable Integer id,
 			Authentication auth) {
@@ -199,17 +239,34 @@ public class HotelController {
 		return "hotel/view";
 	}
 
+	/**
+	 * Adds a comment.
+	 * @param hotelId The hotel id
+	 * @param user The user (optional)
+	 * @param text The text
+	 * @param note The note
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect
+	 * @see HotelService#addComment(Integer, String, int, String)
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment")
 	public String addComment(@PathVariable("id") Integer hotelId,
 			Authentication user, @RequestParam String text,
-			@RequestParam int note, RedirectAttributes redirectAttrs)
-			throws MissingServletRequestParameterException {
+			@RequestParam int note, RedirectAttributes redirectAttrs) {
 		hotelService.addComment(hotelId, user == null ? null : user.getName(),
 				note, text);
 		Utils.successMessage(redirectAttrs, "Comment added.");
 		return redirectTo(hotelId);
 	}
 
+	/**
+	 * Deletes a comment.
+	 * @param hotelId The id of the hotel
+	 * @param commentId The id of the comment
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect
+	 * @see HotelService#deleteComment(Integer)
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "{id}/comment", params = "delete")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteComment(@PathVariable("id") Integer hotelId,
@@ -220,15 +277,29 @@ public class HotelController {
 		return redirectTo(hotelId);
 	}
 
+	/**
+	 * View a hotel create form.
+	 * @param model The model
+	 * @param form The hotel form
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "create")
 	@PreAuthorize("hasRole('USER')")
-	public String viewCreateHotel(@ModelAttribute("hotel") HotelForm dto) {
+	public String viewCreateHotel(@ModelAttribute("hotel") HotelForm form) {
 		return "hotel/update";
 	}
 
+	/**
+	 * Creates a new hotel.
+	 * @param form The form
+	 * @param binding The form binding
+	 * @param auth The authentication
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect or the form when the update was not successful
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "create")
 	@PreAuthorize("hasRole('USER')")
-	public String createHotel(@Valid @ModelAttribute("hotel") HotelForm dto,
+	public String createHotel(@Valid @ModelAttribute("hotel") HotelForm form,
 			BindingResult binding, Authentication auth,
 			RedirectAttributes redirectAttrs) {
 		if (binding.hasErrors()) {
@@ -237,7 +308,7 @@ public class HotelController {
 		User user = Utils.getUser(auth, userService);
 		if (user == null)
 			throw new IllegalStateException("Authentified as an invalid user");
-		Hotel hotel = dto.makeNew(user);
+		Hotel hotel = form.makeNew(user);
 		hotelService.save(hotel);
 		Utils.successMessage(redirectAttrs, "Hotel '" + hotel.getName()
 				+ "' created.");
@@ -252,6 +323,13 @@ public class HotelController {
 			throw new AccessDeniedException("Cannot edit that hotel");
 	}
 
+	/**
+	 * View a hotel update form.
+	 * @param model The model
+	 * @param auth The authentication
+	 * @param hotelId The hotel id
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{id}/update")
 	@PreAuthorize("isAuthenticated()")
 	public String viewUpdateHotel(Model model, Authentication auth,
@@ -262,23 +340,33 @@ public class HotelController {
 		return "hotel/update";
 	}
 
+	/**
+	 * Updates a hotel.
+	 * @param model The model
+	 * @param auth The authentication
+	 * @param hotelId The hotel to update
+	 * @param form The form
+	 * @param result The form binding result
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect or the form when the update was not successful
+	 */
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/update")
 	@PreAuthorize("isAuthenticated()")
 	public String updateHotel(Model model, Authentication auth,
 			@PathVariable("id") Integer hotelId,
-			@Valid @ModelAttribute("hotel") HotelForm dto,
+			@Valid @ModelAttribute("hotel") HotelForm form,
 			BindingResult result, RedirectAttributes redirectAttrs) {
 		Hotel hotel = hotelService.getById(hotelId);
 		checkEdit(hotel, auth);
 		try {
 			if (!result.hasErrors())
-				dto.update(hotel, userService);
+				form.update(hotel, userService);
 		} catch (IllegalArgumentException e) {
 			result.addError(new ObjectError("Hotel", "Invalid parameter: "
 					+ e.getMessage()));
 		}
 		if (result.hasErrors()) {
-			dto.setId(hotelId);
+			form.setId(hotelId);
 			return "hotel/update";
 		}
 		hotel = hotelService.update(hotel);
@@ -286,6 +374,13 @@ public class HotelController {
 		return redirectTo(hotel.getId());
 	}
 
+	/**
+	 * Approves a hotel.
+	 * @param hotelId The hotel id to approve
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect
+	 * @see HotelService#approve(Integer)
+	 */
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "{id}/approve")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String approveHotel(@PathVariable("id") Integer hotelId,
@@ -295,6 +390,14 @@ public class HotelController {
 		return redirectTo(hotelId);
 	}
 
+	/**
+	 * Gets a hotel image.
+	 * <p>When the hotel has no associated image, the default one is returned.</p>
+	 * @param hotelId The id of the hotel
+	 * @return The hotel image
+	 * @throws IOException when the image couldn't be read
+	 * @see HotelService#getHotelImage(Integer)
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{id}/image", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
 	public byte[] getHotelImage(@PathVariable("id") Integer hotelId)
@@ -306,6 +409,11 @@ public class HotelController {
 		return img;
 	}
 
+	/**
+	 * Gets the default hotel image.
+	 * @return The default hotel image
+	 * @throws IOException when the image couldn't be read
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "image/default", produces = MediaType.IMAGE_PNG_VALUE)
 	@ResponseBody
 	public byte[] getHotelDefaultImage() throws IOException {

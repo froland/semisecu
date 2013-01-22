@@ -11,6 +11,10 @@ import com.hermes.owasphotel.dao.UserDao;
 import com.hermes.owasphotel.domain.User;
 import com.hermes.owasphotel.service.UserService;
 
+/**
+ * Service: User
+ * @see UserDao
+ */
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {

@@ -18,8 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * A class used to dump the DB
- *
+ * Dumper for the database.
  */
 @Repository
 public class Dumper {
@@ -41,13 +40,13 @@ public class Dumper {
 		w.write("\n");
 	}
 
-	
 	/**
+	 * Dumps a table to a writer as CSV.
 	 * @param tableName The name of the table to dump
-	 * @param columns The column to dump
+	 * @param columns The columns to dump
 	 * @param w The writer to dump the table to
-	 * @throws IOException
-	 * @throws DataAccessException
+	 * @throws IOException when an exception occurred when writing
+	 * @throws DataAccessException when the query failed to execute
 	 */
 	public void dump(String tableName, String[] columns, Writer w)
 			throws IOException, DataAccessException {
@@ -74,6 +73,7 @@ public class Dumper {
 	}
 
 	/**
+	 * Gets the list of tables.
 	 * @return The list of the dumpable tables.
 	 */
 	public List<String> listTables() {
@@ -101,6 +101,7 @@ public class Dumper {
 	}
 
 	/**
+	 * Gets the list of columns.
 	 * @param tableName The name of the table to Dump
 	 * @return A list containing the name of the columns of the selected table
 	 */

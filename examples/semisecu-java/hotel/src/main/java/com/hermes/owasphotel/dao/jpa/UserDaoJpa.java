@@ -7,7 +7,6 @@ import com.hermes.owasphotel.domain.User;
 
 /**
  * DAO: User
- * 
  */
 @Repository("userDao")
 public class UserDaoJpa extends SimpleJPA<Integer, User> implements UserDao {

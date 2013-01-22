@@ -5,6 +5,10 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Validates that a string is not a blank.
+ * <p>A blank string matches the regex <pre>^\s*$</pre>.</p>
+ */
 public class NotBlankValidator implements
 		ConstraintValidator<NotBlank, CharSequence> {
 	private static final Pattern BLANK = Pattern.compile("^\\s*$");

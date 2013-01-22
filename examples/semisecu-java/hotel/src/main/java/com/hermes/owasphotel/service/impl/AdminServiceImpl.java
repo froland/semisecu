@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hermes.owasphotel.dao.Dumper;
 import com.hermes.owasphotel.service.AdminService;
 
+/**
+ * Administration service.
+ * @see Dumper
+ */
 @Service
 @Transactional
 @PreAuthorize("hasRole('ADMIN')")

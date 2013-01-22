@@ -13,15 +13,18 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * A comment
- *
+ * A comment posted for a hotel.
  */
 @Entity
 @Table(name = "COMMENT")
 @SequenceGenerator(name = "id_seq", sequenceName = "COMMENT_SEQ")
 public class Comment extends IdentifiableEntity<Integer> implements Noted {
 	private static final long serialVersionUID = 1L;
-	private static final Float MAX_NOTE = 5.0f;
+
+	/**
+	 * The maximum note.
+	 */
+	public static final int MAX_NOTE = 5;
 
 	@Column(name = "when")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -42,6 +45,10 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted {
 	Comment() {
 	}
 
+	/**
+	 * Initializes this comment.
+	 * @param user The user
+	 */
 	Comment(User user) {
 		this.user = user;
 		this.date = new Date();
@@ -51,9 +58,15 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted {
 		return note;
 	}
 
+	/**
+	 * Sets a note.
+	 * @param note The new note
+	 * @throws IllegalArgumentException when note is zero, negative of greater
+	 *         than {@link #MAX_NOTE}
+	 */
 	public void setNote(int note) {
 		if (note < 1 || note > MAX_NOTE)
-			throw new NullPointerException("Invalid note");
+			throw new IllegalArgumentException("Invalid note: " + note);
 		this.note = note;
 	}
 
@@ -61,7 +74,15 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted {
 		return text;
 	}
 
+	/**
+	 * Sets the text of the comment.
+	 * @param text The text
+	 * @throws IllegalArgumentException when text is null
+	 */
 	public void setText(String text) {
+		if (text == null)
+			throw new IllegalArgumentException(
+					"The text of the comment is null");
 		this.text = text;
 	}
 
@@ -73,6 +94,10 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted {
 		return user;
 	}
 
+	/**
+	 * Gets the user's name.
+	 * @return The user's name or anonymous string when there is no user
+	 */
 	public String getUserName() {
 		if (user != null)
 			return user.getName();
@@ -83,6 +108,9 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted {
 		return deleted;
 	}
 
+	/**
+	 * Marks this comment as deleted.
+	 */
 	public void delete() {
 		this.deleted = true;
 	}
@@ -94,6 +122,6 @@ public class Comment extends IdentifiableEntity<Integer> implements Noted {
 
 	@Override
 	public Float getMaxNote() {
-		return MAX_NOTE;
+		return (float) MAX_NOTE;
 	}
 }

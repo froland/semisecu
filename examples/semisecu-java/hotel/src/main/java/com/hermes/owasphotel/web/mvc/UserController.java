@@ -37,8 +37,6 @@ import com.hermes.owasphotel.web.security.UserAuthentication;
 
 /**
  * Controller for users.
- * 
- * @author v
  */
 @Controller
 @RequestMapping("/user")
@@ -75,6 +73,11 @@ public class UserController {
 		return r;
 	}
 
+	/**
+	 * View the list of all users.
+	 * @param model The model
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@PreAuthorize("hasRole('ADMIN')")
 	public String viewList(Model model) {
@@ -84,6 +87,12 @@ public class UserController {
 		return "user/list";
 	}
 
+	/**
+	 * Gets the names of users.
+	 * @param prefix The name prefix
+	 * @return The list of users
+	 * @see UserService#getNames(String)
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "listNames")
 	@PreAuthorize("hasRole('ADMIN')")
 	@ResponseBody
@@ -91,6 +100,13 @@ public class UserController {
 		return userService.getNames(prefix);
 	}
 
+	/**
+	 * View a user.
+	 * @param model The model
+	 * @param id The id of the user
+	 * @param auth The authentication
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	@PreAuthorize("hasRole('ADMIN') or #id == #auth.principal.id")
 	public String viewUser(Model model, @PathVariable Integer id,
@@ -100,7 +116,7 @@ public class UserController {
 		return "user/view";
 	}
 
-	private User getuserForUpdate(Integer userId, Authentication auth) {
+	private User getUserForUpdate(Integer userId, Authentication auth) {
 		if (auth == null)
 			throw new AccessDeniedException("User not authentified");
 		User user = userService.getById(userId);
@@ -110,25 +126,45 @@ public class UserController {
 		return user;
 	}
 
+	/**
+	 * View a user update form.
+	 * @param model The model
+	 * @param id The id of the user
+	 * @param auth The authentication
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "update/{id}")
 	public String viewUpdateUser(Model model, @PathVariable Integer id,
 			Authentication auth) {
-		User user = getuserForUpdate(id, auth);
+		User user = getUserForUpdate(id, auth);
 		model.addAttribute("user", new UserForm(user));
 		return "user/update";
 	}
 
+	/**
+	 * View a user create form.
+	 * @param form The form
+	 * @return The view
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "create")
-	public String viewCreateUser(@ModelAttribute("user") UserForm dto) {
+	public String viewCreateUser(@ModelAttribute("user") UserForm form) {
 		return "user/update";
 	}
 
+	/**
+	 * Creates a user.
+	 * <p>The user is automatically identified when the creation was successul.</p>
+	 * @param form The form
+	 * @param binding The form binding
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect or the form when the update was not successful
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "create")
-	public String createUser(@Valid @ModelAttribute("user") UserForm dto,
+	public String createUser(@Valid @ModelAttribute("user") UserForm form,
 			BindingResult binding, RedirectAttributes redirectAttrs) {
 		if (!binding.hasErrors()) {
 			try {
-				User user = dto.makeNew();
+				User user = form.makeNew();
 				userService.save(user);
 
 				// authenticate the user
@@ -140,7 +176,7 @@ public class UserController {
 				return redirectTo(user);
 			} catch (DataIntegrityViolationException e) {
 				binding.addError(new ObjectError("user", "User "
-						+ dto.getName() + " already exists "));
+						+ form.getName() + " already exists "));
 			} catch (IllegalArgumentException e) {
 				binding.addError(new ObjectError("user", "Invalid parameters: "
 						+ e.getMessage()));
@@ -149,22 +185,29 @@ public class UserController {
 		return "user/update";
 	}
 
+	/**
+	 * Updates a user.
+	 * @param form The form
+	 * @param binding The form binding
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect or the form when the update was not successful
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "update/{id}")
 	public String updateUser(@PathVariable Integer id, Authentication auth,
-			@Valid @ModelAttribute("user") UserForm dto, BindingResult binding,
-			RedirectAttributes redirectAttrs) {
+			@Valid @ModelAttribute("user") UserForm form,
+			BindingResult binding, RedirectAttributes redirectAttrs) {
 		if (binding.hasErrors()) {
 			return "user/update";
 		}
-		User user = getuserForUpdate(id, auth);
+		User user = getUserForUpdate(id, auth);
 		try {
 			boolean asAdmin = !auth.getName().equals(user.getName())
 					&& Utils.hasRole(auth, Role.ADMIN);
 			String oldName = user.getName();
 
 			// update the user
-			dto.update(user);
-			dto.updatePassword(user, asAdmin);
+			form.update(user);
+			form.updatePassword(user, asAdmin);
 			user = userService.update(user);
 
 			// re-authenticate the user
@@ -175,7 +218,7 @@ public class UserController {
 					((UserAuthentication) auth).refresh(userService);
 				} else if (auth instanceof UsernamePasswordAuthenticationToken) {
 					ctx.setAuthentication(new UsernamePasswordAuthenticationToken(
-							dto.getName(), auth.getCredentials(), auth
+							form.getName(), auth.getCredentials(), auth
 									.getAuthorities()));
 				} else {
 					// not handled
@@ -190,6 +233,15 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Enable a user.
+	 * @param id The user id
+	 * @param enable Whether to enable the user
+	 * @param redirectAttrs Redirect attributes
+	 * @return A redirect
+	 * @see UserService#enableUser(Integer)
+	 * @see UserService#disableUser(Integer)
+	 */
 	@RequestMapping(method = { RequestMethod.POST, RequestMethod.PUT }, value = "enable/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String enableUser(@PathVariable Integer id,
