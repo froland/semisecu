@@ -87,9 +87,6 @@ public class UserAuthentication extends AbstractAuthenticationToken {
 			throw new BadCredentialsException("User account not found", e);
 		}
 		this.user = user;
-		Collection<GrantedAuthority> auth = getAuthorities();
-		auth.clear();
-		auth.addAll(getAuthorities(user));
 	}
 
 }
