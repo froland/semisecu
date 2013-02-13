@@ -16,34 +16,39 @@ Psycho-sociological aspects
 Attacks
 =======
 
-## OWASP - top 10
-
-## Risks and ranking
-
-## DoS
-
-## Other attacks
-
-## Common points
-
 ## Attackers
 
 - origin
 - motivation
 
-## Phishing
+## Risks and ranking
 
-## Social engineering
+risk = vulnerability * threat * impact
+
+## Context of web applications
+
+- network
+- points of failure
+
+## OWASP - top 10
+
+Describe all 10 attacks.
+Demo for available ones.
+
+## DoS
 
 ## MitM
 
 - WiFi
 - backdoor
 
-## Context of web applications
+## Phishing
 
-- network
-- points of failure
+## Social engineering
+
+## Other attacks
+
+## Common points
 
 Authentication and identity
 ===========================
@@ -60,13 +65,13 @@ Authentication and identity
 - digipass
 - token
 
-## Signature challenge
-
-## Kerberos
-
 ## Lost password
 
+## Signature challenge
+
 ## SSO
+
+## Kerberos
 
 ## Provider extension
 
@@ -77,23 +82,6 @@ Authentication and identity
 Prevention
 ==========
 
-## HTTPS
-
-## Application firewall
-
-## E-mail
-
-- SPF
-- domain keys
-
-## Security in application servers
-
-## Browser restrictions
-
-(anti-XSS, etc.)
-
-## Load balancing
-
 ## Different moments
 
 ### Architecture
@@ -101,6 +89,23 @@ Prevention
 ### Development
 
 ### Maintenance
+
+## Security in application servers
+
+## E-mail
+
+- SPF
+- domain keys
+
+## Load balancing
+
+## Application firewall
+
+## HTTPS
+
+## Browser restrictions
+
+(anti-XSS, etc.)
 
 ## Variety of environments
 
@@ -113,11 +118,11 @@ Detection and analysis
 
 ## Penetration testing
 
-## Post-mortem analysis
+## Honey pot
 
 ## NIDS
 
-## Honey pot
+## Post-mortem analysis
 
 ## Noise as a diversion
 
