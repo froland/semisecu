@@ -22,7 +22,10 @@ Who are the threat agents?
 
 - External threats
     - internet users
+    - viruses
+    - organized crime
 - Internal threats
+    - employees
     - intranet users
     - administrators
 - Natural threats
@@ -31,9 +34,9 @@ Who are the threat agents?
 
 *Why* agents attack?
 
-- Gain: financial, information
+- Gain: financial, information, competition
 - To show off
-- By accident
+- By accident (unintentional)
 
 Threat agent have different skills, motivation (how much do they win by
 performing the attack).
@@ -79,8 +82,8 @@ Demo for available ones.
 
 1. Injection
 2. XSS
-3. Broken Authenication and Session Management
-4. Injecure Direct Object References
+3. Broken Authentication and Session Management
+4. Insecure Direct Object References
 5. CSRF
 6. Security Misconfiguration
 7. Insecure Cryptographic Storage
@@ -91,10 +94,10 @@ Demo for available ones.
 For each attack scenario:
 
 - Principle:
-    - Exploitability, prevalence, detectability, impact
     - Attack vectors
     - Security weakness
     - Impacts
+    - Exploitability, prevalence, detectability, impact
 - Attack-scenario-like description
     - Attack description
     - Vulnerable code
@@ -136,11 +139,10 @@ the attacker who can modify messages as they are sent.
 
 Vulnerable on public WiFi networks.
 
-Examples: [ettercap](http://ettercap.github.com/ettercap/)
+Examples: the tool [ettercap](http://ettercap.github.com/ettercap/), backdoors
+on routers
 
 Protection: cryptography, PKI (Public Key Infrastructures)
-
-TODO backdoor?
 
 ## Social engineering
 
@@ -154,7 +156,7 @@ Examples include pretexting, phishing (see later), quid pro quo.
 > researchers what they claimed was their password in answer to a survey
 > question in exchange for a cheap pen.
 
-Protection: education, frameworks of trust
+Protection: education, framework of trust
 
 ### Phishing
 
