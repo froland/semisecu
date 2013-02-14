@@ -3,8 +3,6 @@
 Psycho-sociological aspects
 ===========================
 
-TODO maybe add attack trees?
-
 ## Security concerns
 
 For a long time security has been a concern to human being. It has an
@@ -60,6 +58,10 @@ least use it as little as possible).
 
 Attacks
 =======
+
+## Attack trees
+
+TODO
 
 ## Threat agents
 
@@ -232,17 +234,17 @@ engineering.
 Authentication and identity
 ===========================
 
-Authentication vs identity
-Why authentication?
+Authentication: TODO define.
+Identity: TODO define.
 
-TODO add at least definitions
+TODO Why authentication?
 
 ## Types
 
 - Passwords: the most common form of authentication, must have a
   sufficient complexity and easy to change periodically.
   See [OWASP Authentication Cheat Sheet](http://owasp.com/index.php/Authentication_Cheat_Sheet).
-  TODO add XKCD?
+  See also XKCD password strength.
 
 - OTP: One time passwords are used to avoid replay attacks. Need an advanced
   delivery method.
@@ -251,11 +253,11 @@ TODO add at least definitions
   of something. Used in SSL/TLS.
   - 1-way: Only one participant is authenticated (at least using this
     mean), usually the server in webapps.
-  - 2-way: Both participant are authenticated by certificates
+  - 2-way: Both participants are authenticated by certificates
 
 - 2-factor: You should use two different factors of
   authentication. Those factor are what the authenticated entity is
-  (biometrics...), what it owns (a bank card, ...) or what he knows (a
+  (biometrics, ...), what it owns (a bank card, ...) or what he knows (a
   password, a pin code, ...)
 
 - Token "Something which ownership gives a form of identification"
@@ -291,8 +293,8 @@ message.
 
 [Kerberos](http://web.mit.edu/kerberos/) is an example of tickets based SSO.
 
-- origin
-- How it works
+TODO origin.
+TODO How it works.
 
 ## Provider extensions
 
@@ -345,6 +347,7 @@ case basis.
 - [OWASP cheat sheet development cycle](https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet)
   In development cycles time should be set aside for code review, pentesting,
   etc.
+- Secure configuration during deployment
 
 ### Maintenance
 
@@ -358,8 +361,6 @@ Moreover, care has to be taken when fixing a bug in a hurry not to open
 new security breaches.
 
 ## Using frameworks
-
-(TODO added before application servers)
 
 You do not develop the first web application. Frameworks already exists to
 ease the development of your application while providing several security
@@ -406,13 +407,13 @@ Moreover, the internal network is hidden behind the load balancer.
 
 Application firewall are filters which inspects the traffic that comes
 from and goes to your application and is able to block inappropriate
-content. 
-[Owasp application firewall](https://www.owasp.org/index.php/Web_Application_Firewall)
+content.
+[OWASP application firewall](https://www.owasp.org/index.php/Web_Application_Firewall).
 
-THey provide an additional layer of protection, by example, against
-sql injection by scanning html form for sql content.
+They provide an additional layer of protection, by example, against
+SQL injection by scanning HTML form for SQL content.
 
-Can be used to patch security holes of apps which aren't modifiable
+Can be used to patch security holes of applications which aren't modifiable
 for some reason (virtual patching).
 
 ## HTTPS
@@ -425,31 +426,27 @@ HTTPS doesn't equal with security. It's a part of a solution.
 
 Cross-domain XHR: the browsers disallow contacting other websites
 through the use of JavaScript. A website can ask for the browser to
-lift selectively this restriction via Header Access-Control.
-
-Some browsers allow to block (selectively) the execution of Flash and/or Javascript
-to protect the user against malicious code hosted by those sites.
+lift selectively this restriction via header `Access-Control`.
+Some browsers allow to block (selectively) the execution of Flash and/or
+JavaScript to protect the user against malicious code hosted by those sites.
 
 There is also often a "private navigation" mode which prevents the
 browser from storing data.
-
 In modern browsers tabs are sandboxed in order to prevent one tab from
 accessing data used by others.
 
 Browsers also validate SSL certificates and prompt users when a
 dubious certificate is found.
-
 Some of them also provide blacklisting of known rogue sites and
-correct mispelled addresses to protect users from phishing.
+correct misspelled addresses to protect users from phishing.
 
 ## Variety of environments
 
-The variety of environnements available to the users leads to
+The variety of environments available to the users leads to
 difficulties when it comes to test possible setups for
 vulnerabilities. Moreover some browsers (e.g. IE6) require workarounds to
 display pages correctly which extend the amount of code and thus
 increase vulnerability likeliness.
-
 
 Detection and analysis
 ======================
