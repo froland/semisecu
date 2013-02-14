@@ -400,6 +400,7 @@ attacks. Also, load balancers are often used to implement failover: when a
 particular server goes down, it can redirect requests to another server.
 Besides this, they can offload some treatment from the web server, such as
 HTTP compression, SSL, caching, etc.
+Moreover, the internal network is hidden behind the load balancer.
 
 ## Application firewall
 
@@ -486,15 +487,17 @@ generated are mixed and an attack such as DoS could generate a lot of logs.
 
 ## Load balancing
 
-TODO why is load balancing here?
+Load balancers are able to detect whether servers are down (see failover).
+They also come with tools that show the server utilization (bandwidth, CPU,
+etc.).
 
 ## Performances
 
-TODO move to prevention?
-
-Performances of a web application should be checked. If the application
-responds slowly and will be subject to a DoS attack, it will not scale and may
-crash.
+Performances of a web application should be checked.
+Slow response time might indicate high load and that the server is currently
+under attack.
+If an application in development responds slowly, it might not scale and
+eventually crash under high load.
 
 References
 ==========
