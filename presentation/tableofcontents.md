@@ -234,10 +234,14 @@ engineering.
 Authentication and identity
 ===========================
 
-Authentication: TODO define.
-Identity: TODO define.
+Identity: The identity of somebody/something is who/what he/it is.
+Authentication: The authentication is the act aff asserting the
+identity of something/someone.
 
-TODO Why authentication?
+Why authentication?
+Authentication is needed when you want to transmit confidential
+information, you want to be sure that your correspondant isn't
+impersonated by somebody else.
 
 ## Types
 
@@ -267,9 +271,13 @@ Most commons are smart card and digipass
 ## Lost password
 
 Password recovery: a usability vs security trade-off.
-How to do it properly?
 
-TODO explain more
+How to do it properly?
+- Use of security question or other strong authentication
+- send a token over a side channel
+- allow the user to change password
+- confirm change
+[Owasp cheat sheet](http://owasp.com/index.php/Forgot_Password_Cheat_Sheet)
 
 ## Signature challenge
 
@@ -293,8 +301,21 @@ message.
 
 [Kerberos](http://web.mit.edu/kerberos/) is an example of tickets based SSO.
 
-TODO origin.
-TODO How it works.
+Kerberos is a SSO developped at MIT to solve the problem of allowing
+some users to use restricted ressources. MIT provide a free
+implementation of the protocol but it's also found in many commercial
+products.
+
+How it works.
+You authenticate to an authentication server, it gives you a signed
+ticket.
+
+With this general ticket you ask the ticket gateway system a ticket
+which allows you to get the particular service you need from a
+particuliar host.
+
+You give this second ticket to the host that will then perform the
+service for you.
 
 ## Provider extensions
 
