@@ -4,14 +4,50 @@ Psycho-sociological aspects
 ===========================
 
 ## Security concerns
+For a long time security has been a concern to human being. Has an
+increasing part of our life take place on the web, web-security
+becomes more and more important.
+
+Security concern apply to various aspect of our internet life. 
+- Personal (mail, Facebook account, ...)
+- Financial (Online banking)
+- Fiscal (Tax on web)
+...
 
 ## Sentiment of security
 
+To operate successfully a web site must earn the confidence of its
+users. You need some degree of trust to give away pieces of personnal
+information. But the sentiment of security doesn't always relate to
+the actual situation: millions of gamers did entrust a well known
+company (sony) with their credit card
+number... [PSN outage](http://en.wikipedia.org/wiki/PlayStation_Network_outage). 
+So you have to gain some level of trust from your user but not to lure
+them in a false sense of security.
+
 ## Web payment
+
+Web payment is the application were security concerns are the bigger
+for both user and companies that are offering the service as the costs
+of mismanagement are evident and can be huge.
 
 ## Users as a security flaw
 
+The fact that users are human must be taken into accounts when
+designing a security mechanism. Most people are not able or willing to
+remember different secure passwords (and lets not speak about a truly
+randowm 2048 bits key) for each service they use. 
+
+More over new way of using user to get into secure systems, such as
+various form of social engeneering have becomes more and more
+widespread over recent year.
+
 ## Trade-off: security vs usability
+
+From the previos points, it comes that a good security system must
+take the user into account so that he doesn't jeopardize the whole
+scheme for the sake of convenience: e.g a "to difficult to remember
+password" written on a post-it on the screen.
 
 Attacks
 =======
@@ -267,18 +303,57 @@ Prevention
 
 ## Different moments
 
+Preventing security flaws is something that has to be done during the
+whole life of the application.
+
 ### Architecture
+
+[Owasp cheat sheet](https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet)
+
+[MSDN recomandation](http://msdn.microsoft.com/en-us/library/ff648650.aspx)
+
+>    - Integrate a security review into your architecture design process. Start early on, and as your design changes, review those changes with the steps given in this chapter.
+>    - Evolve your security review. This chapter provides questions that you can ask to improve the security of your design. To complete the review process, you might also need to add specific questions that are unique to your application.
+>    - Know the threats you are reviewing against. Chapter 2, "Threats and Countermeasures," lists the threats that affect the various components and layers that make up your application. Knowing these threats is essential to improving the results of your review process.
+
+
+There are no miracle receipts when it comes to designing a secure
+application. Altough there are some guidelines which can help you, you
+have to ask youself the good questions and mke decisions on a case by
+case basis.
 
 ### Development
 
+[Owasp cheat sheet coding ](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet)
+There is a list of best practice that can help to reduce risks.
+
+[Owasp cheat sheet development cycle ](https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet)
+In development cycles time should be set aside for codereview,
+pentesting, ...
+
 ### Maintenance
+
+When vulnerabilities have been discovered they have to be patched but
+that isn't always possible but solution exists.
+[Virtual patching](https://www.owasp.org/index.php/Virtual_Patching_Best_Practices)
+
+Moreover care has to be taken when fixing a bug in a hurry not to open
+new security breach.
 
 ## Security in application servers
 
+
+TODO: je n'ai pas bcp d'idées ... (Vincent)
+Apllication server offer various service that can help you to design
+secured web application...
+
 ## E-mail
 
-- SPF
-- domain keys
+Email is one of the most used application. It's plagued by spam and
+spoofing. Some defensive measure have been taken, most notably:
+
+- SPF [Wikipedia SPF](http://en.wikipedia.org/wiki/Sender_Policy_Framework)
+- domain keys [Wikipedia DKIM](http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
 
 ## Load balancing
 
