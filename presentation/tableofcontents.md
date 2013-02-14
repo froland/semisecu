@@ -308,52 +308,75 @@ whole life of the application.
 
 ### Architecture
 
-[Owasp cheat sheet](https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet)
+- [Owasp cheat sheet](https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet)
 
-[MSDN recomandation](http://msdn.microsoft.com/en-us/library/ff648650.aspx)
+- [MSDN recomandation](http://msdn.microsoft.com/en-us/library/ff648650.aspx)
 
->    - Integrate a security review into your architecture design process. Start early on, and as your design changes, review those changes with the steps given in this chapter.
->    - Evolve your security review. This chapter provides questions that you can ask to improve the security of your design. To complete the review process, you might also need to add specific questions that are unique to your application.
->    - Know the threats you are reviewing against. Chapter 2, "Threats and Countermeasures," lists the threats that affect the various components and layers that make up your application. Knowing these threats is essential to improving the results of your review process.
-
+  > - Integrate a security review into your architecture design process. Start
+  >   early on, and as your design changes, review those changes with the
+  >   steps given in this chapter.
+  > - Evolve your security review. This chapter provides questions that you
+  >   can ask to improve the security of your design. To complete the review
+  >   process, you might also need to add specific questions that are unique
+  >   to your application.
+  > - Know the threats you are reviewing against. Chapter 2, "Threats and
+  >   Countermeasures," lists the threats that affect the various components
+  >   and layers that make up your application. Knowing these threats is
+  >   essential to improving the results of your review process.
 
 There are no miracle receipts when it comes to designing a secure
-application. Altough there are some guidelines which can help you, you
-have to ask youself the good questions and mke decisions on a case by
+application. Although there are some guidelines which can help you. You
+have to ask yourself the good questions and make decisions on a case by
 case basis.
 
 ### Development
 
-[Owasp cheat sheet coding ](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet)
-There is a list of best practice that can help to reduce risks.
-
-[Owasp cheat sheet development cycle ](https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet)
-In development cycles time should be set aside for codereview,
-pentesting, ...
+- [Owasp cheat sheet coding ](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet)
+  There is a list of best practice that can help to reduce risks.
+- [Owasp cheat sheet development cycle ](https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet)
+  In development cycles time should be set aside for code review, pentesting,
+  etc.
 
 ### Maintenance
 
-When vulnerabilities have been discovered they have to be patched but
-that isn't always possible but solution exists.
+When vulnerabilities have been discovered they have to be patched as soon as
+possible.
 [Virtual patching](https://www.owasp.org/index.php/Virtual_Patching_Best_Practices)
+is a security policy layer that prevents the exploitation of a known
+vulnerability until a patch is released.
 
-Moreover care has to be taken when fixing a bug in a hurry not to open
-new security breach.
+Moreover, care has to be taken when fixing a bug in a hurry not to open
+new security breaches.
+
+## Using frameworks
+
+(TODO added before application servers)
+
+You do not develop the first web application. Frameworks already exists to
+ease the development of your application while providing several security
+mechanisms.
+Often a framework will come with authentication support, escaping of values,
+input validation, etc.
+
+Examples of frameworks: [Spring](http://www.springsource.org/),
+[CakePHP](http://cakephp.org/), etc.
 
 ## Security in application servers
 
+Application servers offer various services that can help you to configure
+secured web applications.
 
-TODO: je n'ai pas bcp d'idées ... (Vincent)
-Apllication server offer various service that can help you to design
-secured web application...
+Authentication management is generally part of the application server,
+directory listing can be enabled or disabled, user session management (ex:
+`JSESSIONID`), error-handling, input encoding, etc.
 
 ## E-mail
 
 Email is one of the most used application. It's plagued by spam and
 spoofing. Some defensive measure have been taken, most notably:
 
-- SPF [Wikipedia SPF](http://en.wikipedia.org/wiki/Sender_Policy_Framework)
-- domain keys [Wikipedia DKIM](http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
+- [SPF](http://en.wikipedia.org/wiki/Sender_Policy_Framework)
+- Domain keys: [Wikipedia DKIM](http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
 
 ## Load balancing
 
