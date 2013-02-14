@@ -3,27 +3,33 @@
 Psycho-sociological aspects
 ===========================
 
+TODO maybe add attack trees?
+
 ## Security concerns
-For a long time security has been a concern to human being. Has an
+
+For a long time security has been a concern to human being. It has an
 increasing part of our life take place on the web, web-security
 becomes more and more important.
 
-Security concern apply to various aspect of our internet life. 
+Security concern apply to various aspect of our internet life.
+
 - Personal (mail, Facebook account, ...)
 - Financial (Online banking)
 - Fiscal (Tax on web)
-...
+- ...
 
 ## Sentiment of security
 
 To operate successfully a web site must earn the confidence of its
-users. You need some degree of trust to give away pieces of personnal
+users. You need some degree of trust to give away pieces of personal
 information. But the sentiment of security doesn't always relate to
 the actual situation: millions of gamers did entrust a well known
-company (sony) with their credit card
-number... [PSN outage](http://en.wikipedia.org/wiki/PlayStation_Network_outage). 
+company (Sony) with their credit card number...
+[PSN outage](http://en.wikipedia.org/wiki/PlayStation_Network_outage).
 So you have to gain some level of trust from your user but not to lure
 them in a false sense of security.
+For example, some users might think that an HTTPS web site is secured against
+all attacks; however, HTTPS prevents only some of the attacks there are.
 
 ## Web payment
 
@@ -35,19 +41,22 @@ of mismanagement are evident and can be huge.
 
 The fact that users are human must be taken into accounts when
 designing a security mechanism. Most people are not able or willing to
-remember different secure passwords (and lets not speak about a truly
-randowm 2048 bits key) for each service they use. 
+remember different secure passwords (and let's not speak about a truly
+random 2048 bits key) for each service they use.
 
-More over new way of using user to get into secure systems, such as
-various form of social engeneering have becomes more and more
-widespread over recent year.
+Moreover, new ways of using the user to get into secure systems are
+widespread. Such as various form of social engineering.
+For [example](http://www.theregister.co.uk/2003/04/18/office_workers_give_away_passwords/),
+90% of people gave away their passwords in exchange for a pen.
 
 ## Trade-off: security vs usability
 
-From the previos points, it comes that a good security system must
-take the user into account so that he doesn't jeopardize the whole
-scheme for the sake of convenience: e.g a "to difficult to remember
-password" written on a post-it on the screen.
+From the previous points, it comes that a good security system must
+take the user into account so that they don't jeopardize the whole
+scheme for the sake of convenience.
+For example: too difficult to remember passwords written on a post-it, too
+many security measures dissuade the user from using the application (or at
+least use it as little as possible).
 
 Attacks
 =======
@@ -308,9 +317,9 @@ whole life of the application.
 
 ### Architecture
 
-- [Owasp cheat sheet](https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet)
+- [OWASP cheat sheet](https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet)
 
-- [MSDN recomandation](http://msdn.microsoft.com/en-us/library/ff648650.aspx)
+- [MSDN recommendation](http://msdn.microsoft.com/en-us/library/ff648650.aspx)
 
   > - Integrate a security review into your architecture design process. Start
   >   early on, and as your design changes, review those changes with the
@@ -331,9 +340,9 @@ case basis.
 
 ### Development
 
-- [Owasp cheat sheet coding ](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet)
+- [OWASP cheat sheet coding](https://www.owasp.org/index.php/Secure_Coding_Cheat_Sheet)
   There is a list of best practice that can help to reduce risks.
-- [Owasp cheat sheet development cycle ](https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet)
+- [OWASP cheat sheet development cycle](https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet)
   In development cycles time should be set aside for code review, pentesting,
   etc.
 
