@@ -61,7 +61,9 @@ Attacks
 
 ## Attack trees
 
-TODO
+[Attack trees](http://en.wikipedia.org/wiki/Attack_tree) are a model
+describing by what means an asset can be attacked. They are used to determine
+and understand threats that may arise.
 
 ## Threat agents
 
@@ -75,9 +77,11 @@ Who are the threat agents?
     - employees
     - intranet users
     - administrators
-- Natural threats
-    - disasters
-    - hazards
+- Natural threats (disasters)
+- Technical failures
+    - loss of essential services (example: no electricity)
+    - hardware failure
+    - software failure
 
 *Why* agents attack?
 
@@ -169,11 +173,12 @@ Types:
   [Slowloris](http://ha.ckers.org/slowloris/))
 - Slow read attack
 - DDos
+  Examples: anonymous attack, etc.
 - Unintentional DoS: a page suddenly becomes popular.
   Examples: a page linked from slashdot, "Joueur du Grenier", etc.
 - ...
 
-Protection: firewall, IPS (Intrusion Prevention Systems)
+Protection: firewall, IPS (Intrusion Prevention Systems), black-holing
 
 ## MitM
 
