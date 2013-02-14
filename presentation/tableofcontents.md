@@ -4,14 +4,50 @@ Psycho-sociological aspects
 ===========================
 
 ## Security concerns
+For a long time security has been a concern to human being. Has an
+increasing part of our life take place on the web, web-security
+becomes more and more important.
+
+Security concern apply to various aspect of our internet life. 
+- Personal (mail, Facebook account, ...)
+- Financial (Online banking)
+- Fiscal (Tax on web)
+...
 
 ## Sentiment of security
 
+To operate successfully a web site must earn the confidence of its
+users. You need some degree of trust to give away pieces of personnal
+information. But the sentiment of security doesn't always relate to
+the actual situation: millions of gamers did entrust a well known
+company (sony) with their credit card
+number... [PSN outage](http://en.wikipedia.org/wiki/PlayStation_Network_outage). 
+So you have to gain some level of trust from your user but not to lure
+them in a false sense of security.
+
 ## Web payment
+
+Web payment is the application were security concerns are the bigger
+for both user and companies that are offering the service as the costs
+of mismanagement are evident and can be huge.
 
 ## Users as a security flaw
 
+The fact that users are human must be taken into accounts when
+designing a security mechanism. Most people are not able or willing to
+remember different secure passwords (and lets not speak about a truly
+randowm 2048 bits key) for each service they use. 
+
+More over new way of using user to get into secure systems, such as
+various form of social engeneering have becomes more and more
+widespread over recent year.
+
 ## Trade-off: security vs usability
+
+From the previos points, it comes that a good security system must
+take the user into account so that he doesn't jeopardize the whole
+scheme for the sake of convenience: e.g a "to difficult to remember
+password" written on a post-it on the screen.
 
 Attacks
 =======
