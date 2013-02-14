@@ -394,17 +394,52 @@ HTTP compression, SSL, caching, etc.
 
 ## Application firewall
 
+Application firewall are filters which inspects the traffic that comes
+from and goes to your application and is able to block inappropriate
+content. 
+[Owasp application firewall](https://www.owasp.org/index.php/Web_Application_Firewall)
+
+THey provide an additional layer of protection, by example, against
+sql injection by scanning html form for sql content.
+
+Can be used to patch security holes of apps which aren't modifiable
+for some reason (virtual patching).
+
 ## HTTPS
+
+HTTP over SSL/TLS allow to encrypt and authenticate HTTP
+connection. Provides protection against eavesdropping and spoofing but
+HTTPS doesn't equal with security. It's a part of a solution.
 
 ## Browser restrictions
 
-(anti-XSS, etc.)
+Cross-domain XHR: the browsers disallow contacting other websites
+through the use of JavaScript. A website can ask for the browser to
+lift selectively this restriction via Header Access-Control.
+
+Some browsers allow to block (selectively) the execution of Flash and/or Javascript
+to protect the user against malicious code hosted by those sites.
+
+There is also often a "private navigation" mode which prevents the
+browser from storing data.
+
+In modern browsers tabs are sandboxed in order to prevent one tab from
+accessing data used by others.
+
+Browsers also validate SSL certificates and prompt users when a
+dubious certificate is found.
+
+Some of them also provide blacklisting of known rogue sites and
+correct mispelled addresses to protect users from phishing.
 
 ## Variety of environments
 
-- browser
-- OS
-- server
+The variety of environnements available to the users leads to
+difficulties when it comes to test possible setups for
+vulnerabilities. Moreover some browsers (e.g. IE6) require workarounds to
+display pages correctly which extend the amount of code and thus
+increase vulnerability likeliness.
+
 
 Detection and analysis
 ======================
