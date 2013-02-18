@@ -1,2 +1,36 @@
+# Generated files
+Makefile.d
+Makefile.genlist
 *.pdf
-*.html
+
+# Temporary LaTeX files
+*.acn
+*.acr
+*.alg
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fax
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.loh
+*.loi
+*.lot
+*.nav
+*.out
+*.snm
+*.tns
+*.toc
+*.vrb
+*.run.xml
+*-blx.bib
