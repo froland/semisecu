@@ -1,0 +1,18 @@
+digraph AttackAdmin {
+	rankdir = TB
+	dir = back
+
+	Admin [ label = "Administration access" ]
+	Password [ label = "Acquire password" ]
+	Privilege [ label = "Privilege escalation" ]
+	Guess [ label = "Guess the\npassword" ]
+	SocialEngineering [ label = "Social engineering" ]
+	Garbage [ label = "Dump diving" ]
+	SessionStealing [ label = "Session stealing" ]
+	Sniff [ label = "Sniff the\npassword" ]
+
+	Admin -> { Password Privilege }
+	Password -> { Bruteforce Guess Steal }
+	Steal -> { SocialEngineering Garbage Sniff }
+	Privilege -> { Injection CSRF SessionStealing }
+}
