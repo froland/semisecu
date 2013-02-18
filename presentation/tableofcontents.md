@@ -3,9 +3,25 @@
 Abstract
 ========
 
-TODO (max 20 lines) - invitations and Hermes New
+Nowadays, web applications become more and more popular. Everyone uses them
+and new web sites appear everyday. The web is an open and global network that
+anyone can access: information is shared, you can buy goods, chat, play games,
+... nevertheless, evil-minded people roam over the internet.
 
-TODO Send: ULG (Joseph?) and Namur (ask Nico)
+The goal of this presentation is to make people aware of dangers of the
+internet and choices that are made to ensure that the web stays safe.
+We highlight the conflict between security and usability. Choices are made to
+find a balance between the ease of development and usage of a website and the
+impacts of a potential attack.
+
+This seminar presents general aspects of security in web applications.
+Firstly, we discuss psycho-sociological aspects: the main concerns, the
+sentiment of security and the role of the user. Then, we present different
+risks and attacks and briefly the architecture of a web application.
+Furthermore, we give an overview of authentication types as they play a
+central role in earning trust from the users.
+We finish our presentation by exploring different means of preventing,
+detecting and analyzing attacks.
 
 Psycho-sociological aspects
 ===========================
@@ -251,7 +267,7 @@ Authentication and identity
 ===========================
 
 Identity: The identity of somebody/something is who/what he/it is.
-Authentication: The authentication is the act asserting the
+Authentication: The authentication is the act of asserting the
 identity of something/someone.
 
 Why authentication?
