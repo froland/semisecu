@@ -143,9 +143,17 @@ Web applications are usually available on the internet. This means that anyone
 can access the application. This is why authentication is an important subject
 and will be the subject of the next chapter.
 
-### Achitecture of a web application
+### Architecture of a web application
 
-TODO
+Explain using a schema, from the browser to the server, what are the
+components and how they interact:
+
+- Browser: the client, uses scripting
+- Router: connected to the browser (by WiFi) - LAN
+- Internet: not detailed here - WAN
+- Web Application Firewall, IDS, Load Balancer
+- Application Server: with the contained application
+- Database: where the application stores its data
 
 ### Points of failure
 
@@ -199,7 +207,7 @@ Types:
 - R-U-Dead-Yet (never-ending POST transmissions; ex:
   [Slowloris](http://ha.ckers.org/slowloris/))
 - Slow read attack
-- DDos
+- DDoS
   Examples: anonymous attack, etc.
 - Unintentional DoS: a page suddenly becomes popular.
   Examples: a page linked from slashdot, "Joueur du Grenier", etc.
@@ -272,7 +280,7 @@ identity of something/someone.
 
 Why authentication?
 Authentication is needed when you want to transmit confidential
-information, you want to be sure that your correspondant isn't
+information, you want to be sure that your correspondent isn't
 impersonated by somebody else.
 
 ## Types
@@ -324,8 +332,8 @@ message.
 
 [Kerberos](http://web.mit.edu/kerberos/) is an example of tickets based SSO.
 
-Kerberos is a SSO developped at MIT to solve the problem of allowing
-some users to use restricted ressources. MIT provide a free
+Kerberos is a SSO developed at MIT to solve the problem of allowing
+some users to use restricted resources. MIT provide a free
 implementation of the protocol but it's also found in many commercial
 products.
 
@@ -335,7 +343,7 @@ ticket.
 
 With this general ticket you ask the ticket gateway system a ticket
 which allows you to get the particular service you need from a
-particuliar host.
+particular host.
 
 You give this second ticket to the host that will then perform the
 service for you.
@@ -360,9 +368,9 @@ Password recovery: a usability vs security trade-off.
 How to do it properly?
 
 - Use of security question or other strong authentication
-- send a token over a side channel
-- allow the user to change password
-- confirm change
+- Send a token over a side channel
+- Allow the user to change password
+- Confirm change
 
 TODO problematic
 
@@ -426,12 +434,12 @@ ease the development of your application while providing several security
 mechanisms.
 Often a framework will come with authentication support, escaping of values,
 input validation, etc.
-
-TODO But, bugs are known.
-
-TODO OWASP frameworks
+However, when a bug is found in a framework, all the web sites that use the
+framework are affected.
 
 Examples of frameworks: [Spring](http://www.springsource.org/), etc.
+Also OWASP provides an [Enterprise Security API](https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API)
+that defines a security API for various languages.
 
 ## Security in application servers
 
@@ -439,10 +447,11 @@ Application servers offer various services that can help you to configure
 secured web applications.
 
 Authentication management is generally part of the application server,
-directory listing can be enabled or disabled, user session management (ex:
-`JSESSIONID`), error-handling, input encoding, etc.
-
-TODO IIS session management - how does it work?
+directory listing can be enabled or disabled, user session management,
+error-handling, input encoding, etc.
+For example, the session identifier is saved in a cookie on both Java
+application servers and IIS. For Tomcat, a cookie named `JSESSIONID` is the
+default name of that cookie.
 
 ## Application firewall
 
@@ -453,18 +462,25 @@ content.
 
 They provide an additional layer of protection, by example, against
 SQL injection by scanning HTML form for SQL content.
-TODO Connection patterns.
+Also, an application firewall can detect connection patterns (see IDS).
 
 Can be used to patch security holes of applications which aren't modifiable
 for some reason (virtual patching).
 
 ## HTTPS
 
-HTTP over SSL/TLS allow to encrypt and authenticate HTTP
-connection. Provides protection against eavesdropping and spoofing but
-HTTPS doesn't equal with security. It's a part of a solution.
+HTTP over SSL/TLS allow to encrypt and authenticate HTTP connection. It
+provides protection against eavesdropping and spoofing but HTTPS doesn't imply
+a full security. It's a part of a solution.
+TLS (Transport Layer Security) is the successor of SSL (Secure Socket Layer).
+[The difference](http://luxsci.com/blog/ssl-versus-tls-whats-the-difference.html):
 
-TODO explain SSL and TLS
+> Both are considered equal in terms of security. The main difference is that,
+> while SSL connections begin with security and proceed directly to secured
+> communications, TLS connections first begin with an insecure "hello" to the
+> server and only switch to secured communications after the handshake between
+> the client and the server is successful. If the TLS handshake fails for any
+> reason, the connection is never created.
 
 ## Browser restrictions
 
@@ -477,7 +493,7 @@ JavaScript to protect the user against malicious code hosted by those sites.
 There is also often a "private navigation" mode which prevents the
 browser from storing data.
 Cookies are stored on the user's computer; they are also limited by the URL
-and the timestamp.
+and the time stamp.
 In modern browsers tabs are sandboxed in order to prevent one tab from
 accessing data used by others.
 
@@ -564,7 +580,8 @@ generated by web servers: [Webalizer](http://www.webalizer.org/),
 [AWStats](http://awstats.sourceforge.net/),
 [WebLog Expert](http://www.weblogexpert.com/), etc.
 
-TODO ntop
+Another tool is [ntop](http://www.ntop.org/products/ntop/) which is a traffic
+monitoring platform.
 
 ## Noise as a diversion
 
