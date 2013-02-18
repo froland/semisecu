@@ -1,5 +1,12 @@
 % Web Security
 
+Abstract
+========
+
+TODO (max 20 lines) - invitations and Hermes New
+
+TODO Send: ULG (Joseph?) and Namur (ask Nico)
+
 Psycho-sociological aspects
 ===========================
 
@@ -120,6 +127,10 @@ Web applications are usually available on the internet. This means that anyone
 can access the application. This is why authentication is an important subject
 and will be the subject of the next chapter.
 
+### Achitecture of a web application
+
+TODO
+
 ### Points of failure
 
 A web application can be attacked at multiple levels: the client can be
@@ -220,7 +231,7 @@ Protection: education, help to identify legitimate web sites
 
 ## Other attacks
 
-- brute force
+- brute force (rainbow tables)
 - sequence prediction
 - path traversal
 - failure to restrict automation
@@ -240,7 +251,7 @@ Authentication and identity
 ===========================
 
 Identity: The identity of somebody/something is who/what he/it is.
-Authentication: The authentication is the act aff asserting the
+Authentication: The authentication is the act asserting the
 identity of something/someone.
 
 Why authentication?
@@ -273,17 +284,6 @@ impersonated by somebody else.
 
 Most commons are smart card and digipass
 
-## Lost password
-
-Password recovery: a usability vs security trade-off.
-
-How to do it properly?
-- Use of security question or other strong authentication
-- send a token over a side channel
-- allow the user to change password
-- confirm change
-[Owasp cheat sheet](http://owasp.com/index.php/Forgot_Password_Cheat_Sheet)
-
 ## Signature challenge
 
 An authentication based upon "answering" a question about a secret
@@ -298,6 +298,7 @@ message.
     - Easier for the user
     - Not trivial to build a secure authentication scheme
     - If they have only one password users tend to treat it with more care
+    - Enter the password less often
 - Cons
     - All your eggs in the same basket (impact if compromised)
     - You are dependant upon your provider (confidence, availability, ...)
@@ -334,6 +335,21 @@ Common SSO used over the web:
 These organisations provide single sign-on to other websites for free
 using a dedicated API which is much simpler than devising your own
 sign-on mechanism.
+
+## Lost password
+
+Password recovery: a usability vs security trade-off.
+
+How to do it properly?
+
+- Use of security question or other strong authentication
+- send a token over a side channel
+- allow the user to change password
+- confirm change
+
+TODO problematic
+
+[Owasp cheat sheet](http://owasp.com/index.php/Forgot_Password_Cheat_Sheet)
 
 Prevention
 ==========
@@ -394,8 +410,11 @@ mechanisms.
 Often a framework will come with authentication support, escaping of values,
 input validation, etc.
 
-Examples of frameworks: [Spring](http://www.springsource.org/),
-[CakePHP](http://cakephp.org/), etc.
+TODO But, bugs are known.
+
+TODO OWASP frameworks
+
+Examples of frameworks: [Spring](http://www.springsource.org/), etc.
 
 ## Security in application servers
 
@@ -406,28 +425,7 @@ Authentication management is generally part of the application server,
 directory listing can be enabled or disabled, user session management (ex:
 `JSESSIONID`), error-handling, input encoding, etc.
 
-## E-mail
-
-Email is one of the most used application. It's plagued by spam and
-spoofing. Some defensive measure have been taken, most notably:
-
-- [SPF](http://en.wikipedia.org/wiki/Sender_Policy_Framework)
-- Domain keys: [Wikipedia DKIM](http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
-
-## Load balancing
-
-When a single host cannot handle all the requests, we can dispatch these
-request to multiple servers running the same application. This is the job of a
-load balancer. It will forward requests to some destination server based on
-some rule.
-
-Load balancers may provide features such as
-[SYN cookies](http://en.wikipedia.org/wiki/SYN_cookies) to mitigate DoS
-attacks. Also, load balancers are often used to implement failover: when a
-particular server goes down, it can redirect requests to another server.
-Besides this, they can offload some treatment from the web server, such as
-HTTP compression, SSL, caching, etc.
-Moreover, the internal network is hidden behind the load balancer.
+TODO IIS session management - how does it work?
 
 ## Application firewall
 
@@ -438,6 +436,7 @@ content.
 
 They provide an additional layer of protection, by example, against
 SQL injection by scanning HTML form for SQL content.
+TODO Connection patterns.
 
 Can be used to patch security holes of applications which aren't modifiable
 for some reason (virtual patching).
@@ -447,6 +446,8 @@ for some reason (virtual patching).
 HTTP over SSL/TLS allow to encrypt and authenticate HTTP
 connection. Provides protection against eavesdropping and spoofing but
 HTTPS doesn't equal with security. It's a part of a solution.
+
+TODO explain SSL and TLS
 
 ## Browser restrictions
 
@@ -458,6 +459,8 @@ JavaScript to protect the user against malicious code hosted by those sites.
 
 There is also often a "private navigation" mode which prevents the
 browser from storing data.
+Cookies are stored on the user's computer; they are also limited by the URL
+and the timestamp.
 In modern browsers tabs are sandboxed in order to prevent one tab from
 accessing data used by others.
 
@@ -465,6 +468,14 @@ Browsers also validate SSL certificates and prompt users when a
 dubious certificate is found.
 Some of them also provide blacklisting of known rogue sites and
 correct misspelled addresses to protect users from phishing.
+
+## E-mail
+
+E-mail is one of the most used application. It's plagued by spam and
+spoofing. Some defensive measure have been taken, most notably:
+
+- [SPF](http://en.wikipedia.org/wiki/Sender_Policy_Framework)
+- Domain keys: [Wikipedia DKIM](http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
 
 ## Variety of environments
 
@@ -536,18 +547,14 @@ generated by web servers: [Webalizer](http://www.webalizer.org/),
 [AWStats](http://awstats.sourceforge.net/),
 [WebLog Expert](http://www.weblogexpert.com/), etc.
 
+TODO ntop
+
 ## Noise as a diversion
 
 When an attack happens, it can be masked by another attack which would serve
 as a diversion from the real attack.
 Attacks that generate a lot of traffic can mask attacks because the logs
 generated are mixed and an attack such as DoS could generate a lot of logs.
-
-## Load balancing
-
-Load balancers are able to detect whether servers are down (see failover).
-They also come with tools that show the server utilization (bandwidth, CPU,
-etc.).
 
 ## Performances
 
