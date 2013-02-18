@@ -83,16 +83,11 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Web Security]{Security in web applications} % The short title appears at the bottom of every slide, the full title is only on the title page
-
-\author{John Smith} % Your name
-\institute[Hermes] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
-{
-Hermes Engeenering Consultancy service \\ % Your institution for the title page
-\medskip
-\textit{mail} % Your email address
-}
-\date{\today} % Date, can be changed to a custom date
+\title[Web Security]{Security in Web Applications}
+\author{François Roland \and Krzysztof Magusiak \and Vincent Gribomont}
+\institute[Hermes ECS]{Hermes Engineering Consultancy Services}
+\date{\today}
+% TODO logo
 
 \begin{document}
 
@@ -100,9 +95,10 @@ Hermes Engeenering Consultancy service \\ % Your institution for the title page
 \titlepage % Print the title page as the first slide
 \end{frame}
 
-\begin{frame}
-\frametitle{Overview} % Table of contents slide, comment this block out to remove it
-\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\begin{frame}[allowframebreaks]
+\frametitle{Overview}
+\setcounter{tocdepth}{2}
+\tableofcontents
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -110,21 +106,16 @@ Hermes Engeenering Consultancy service \\ % Your institution for the title page
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
-\section{Psycho-sociological aspects}
+
 \input{psycho.tex}
 
-\section{Attacks}
 \input{attacks.tex}
 
-\section{Authentication and identity}
 \input{authId.tex}
 
-\section{Prevention}
 \input{prev.tex}
 
-\section{Detection and analysis}
 \input{detection.tex}
-
 
 %----------------------------------------------------------------------------------------
 
@@ -134,4 +125,4 @@ Hermes Engeenering Consultancy service \\ % Your institution for the title page
 
 %----------------------------------------------------------------------------------------
 
-\end{document} 
+\end{document}

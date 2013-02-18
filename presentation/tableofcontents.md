@@ -148,7 +148,7 @@ and will be the subject of the next chapter.
 Explain using a schema, from the browser to the server, what are the
 components and how they interact:
 
-- Browser: the client
+- Browser: the client, uses scripting
 - Router: connected to the browser (by WiFi) - LAN
 - Internet: not detailed here - WAN
 - Web Application Firewall, IDS, Load Balancer
@@ -207,7 +207,7 @@ Types:
 - R-U-Dead-Yet (never-ending POST transmissions; ex:
   [Slowloris](http://ha.ckers.org/slowloris/))
 - Slow read attack
-- DDos
+- DDoS
   Examples: anonymous attack, etc.
 - Unintentional DoS: a page suddenly becomes popular.
   Examples: a page linked from slashdot, "Joueur du Grenier", etc.
@@ -280,7 +280,7 @@ identity of something/someone.
 
 Why authentication?
 Authentication is needed when you want to transmit confidential
-information, you want to be sure that your correspondant isn't
+information, you want to be sure that your correspondent isn't
 impersonated by somebody else.
 
 ## Types
@@ -331,8 +331,8 @@ message.
 
 [Kerberos](http://web.mit.edu/kerberos/) is an example of tickets based SSO.
 
-Kerberos is a SSO developped at MIT to solve the problem of allowing
-some users to use restricted ressources. MIT provide a free
+Kerberos is a SSO developed at MIT to solve the problem of allowing
+some users to use restricted resources. MIT provide a free
 implementation of the protocol but it's also found in many commercial
 products.
 
@@ -342,7 +342,7 @@ ticket.
 
 With this general ticket you ask the ticket gateway system a ticket
 which allows you to get the particular service you need from a
-particuliar host.
+particular host.
 
 You give this second ticket to the host that will then perform the
 service for you.
@@ -367,9 +367,9 @@ Password recovery: a usability vs security trade-off.
 How to do it properly?
 
 - Use of security question or other strong authentication
-- send a token over a side channel
-- allow the user to change password
-- confirm change
+- Send a token over a side channel
+- Allow the user to change password
+- Confirm change
 
 TODO problematic
 
