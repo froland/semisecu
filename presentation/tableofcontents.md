@@ -281,6 +281,7 @@ impersonated by somebody else.
   sufficient complexity and easy to change periodically.
   See [OWASP Authentication Cheat Sheet](http://owasp.com/index.php/Authentication_Cheat_Sheet).
   See also XKCD password strength.
+  See also [JQUERY validation tuto](http://www.webdesignerdepot.com/2012/01/password-strength-verification-with-jquery/)
 
 - OTP: One time passwords are used to avoid replay attacks. Need an advanced
   delivery method.
