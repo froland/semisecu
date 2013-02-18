@@ -40,10 +40,10 @@
 %\usetheme{Ilmenau}
 %\usetheme{JuanLesPins}
 %\usetheme{Luebeck}
-\usetheme{Madrid}
+%\usetheme{Madrid}
 %\usetheme{Malmoe}
 %\usetheme{Marburg}
-%\usetheme{Montpellier}
+\usetheme{Montpellier}
 %\usetheme{PaloAlto}
 %\usetheme{Pittsburgh}
 %\usetheme{Rochester}
@@ -78,6 +78,12 @@
 
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+\newcommand{\includeimage}[2][scale=1.0]{
+	\begin{center}
+	\includegraphics[keepaspectratio=true,#1]{img/#2}
+	\end{center}
+}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
