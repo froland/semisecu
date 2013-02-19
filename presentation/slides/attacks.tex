@@ -522,6 +522,9 @@ plain text.
 \begin{exampleblock}{Unencrypted backup}
 The database backup is lost.
 \end{exampleblock}
+\begin{exampleblock}{Rainbow tables}
+Precomputed table for decoding hashed values.
+\end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -667,17 +670,192 @@ Map input values to the actual URLs.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{DoS}
 
+\begin{frame}
+\frametitle{Denial of Service (DoS) attack}
+Attack that aims to bring down (or make unavailable) some service usually by
+causing server overload.
+\begin{itemize}
+\item SYN flood
+\item Application level flood
+\item R-U-Dead-Yet
+	(never-ending POST transmissions,
+	example: \href{http://ha.ckers.org/slowloris/}{Slowloris})
+\item DDoS
+\item Unintentional DoS
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Denial of Service - example}
+\begin{exampleblock}{DDoS}
+The anonymous attack.
+\end{exampleblock}
+\begin{exampleblock}{Unintentional DoS}
+\begin{itemize}
+\item page linked from \url{http://slashdot.org}
+\item \href{http://www.joueurdugrenier.fr/}{Joueur du Grenier} - new video
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Denial of Service - prevention}
+\begin{itemize}
+\item Firewall
+\item Intrusion Prevention System
+\item Black-holing
+\end{itemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{MitM}
+
+\begin{frame}
+\frametitle{Man in the Middle attack}
+The attacker plays the role of the server to the client and the role of the
+client to the server.
+All communication transits through the attacker who can modify messages as
+they are sent.
+\includeimage[height=0.4\textheight]{Man_in_the_Middle}
+\end{frame}
+
+\begin{frame}
+\frametitle{Man in the Middle - example and prevention}
+\begin{exampleblock}{Public WiFi}
+Vulnerable on public WiFi networks.
+\\ Tools such as \texttt{ettercap} allow to perform the attack.
+\end{exampleblock}
+\begin{block}{Prevention}
+Use cryptography: HTTPS, PKI (Public Key Infrastructure)
+\end{block}
+% TODO explain PKI
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Social engineering}
 
+\begin{frame}
+\frametitle{Social engineering}
+\textbf{Social engineering} consists in manipulating people so they divulge
+confidential information.
+\\ Similar to fraud.
+\pause
+\includeimage[width=0.6\linewidth]{social-engineering}
+\end{frame}
+
+\begin{frame}
+\frametitle{Social engineering - example and prevention}
+\begin{itemize}
+\item pretexting
+	% Using an invented scenario (the pretext) to engage a targeted victim in
+	% a manner that increases the chance the victim will divulge information
+	% or perform actions that would be unlikely in ordinary circumstances.
+\item phishing \small{(next point)}
+\item quid pro quo
+	% Something for something:
+	% Help a user solve a problem, they might give you passwords in exchange.
+\end{itemize}
+\begin{exampleblock}{Survey}
+\begin{quote}
+In a 2003 information security survey, 90\% of office workers gave
+researchers what they claimed was their password in answer to a survey
+question in exchange for a cheap pen.
+\end{quote}
+\end{exampleblock}
+\begin{block}{Protection}
+\begin{itemize}
+\item education
+\item framework of trust
+\end{itemize}
+\end{block}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Phishing}
+
+\begin{frame}
+\frametitle{Phishing}
+\textbf{Phishing} is the attempt to acquire user information through
+masquerading as a legitimate web site.
+\begin{itemize}
+\item cloned websites
+\item link manipulation
+\item phone phishing
+\item etc.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Phishing - prevention}
+\begin{itemize}
+\item education
+\item help to identify legitimate web sites
+\end{itemize}
+\includeimage[height=0.6\textheight]{phishing-facebook}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Other attacks}
 
+\begin{frame}
+\frametitle{Brute force}
+Let's try \textbf{all} the passwords.
+\begin{block}{Try all}
+Try all the possible combinations.
+\newline
+$k^n$ where $k$ is the size of the alphabet and $n$ the length of the
+password.
+\end{block}
+\begin{block}{Dictionary attack}
+Try a list of common passwords.
+\\ English language contains only hundreds of thousands words.
+\end{block}
+\end{frame}
+
+% XXX not treated, not much to write about it
+%\begin{frame}
+%\frametitle{Sequence prediction}
+%Predicting the next session ID.
+%\end{frame}
+
+\begin{frame}
+\frametitle{Path traversal}
+An input is a relative unvalidated path.
+You can download or upload any file that the server contains.
+\begin{exampleblock}{Download form}
+Get a file uploaded to a forum... or the password file.
+\newline
+\url{http://example.com/forum/download.jsp?path=/etc/shadow}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Failure to restrict automation}
+The web site is not protected against automation.
+\begin{itemize}
+\item Common for REST API
+\item Programs may overload the website unintentionally
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{And so on...}
+As technology evolves, new forms of attacks appear.
+Instead of trying to fix vulnerabilities, focus on establishing strong
+security controls.
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Common points}
+
+\begin{frame}
+\frametitle{Common points}
+\begin{itemize}
+\item improper input validation
+\item missing authorization checks
+\item misconfiguration
+\item other assumptions
+\item education factor \small{(social engineering)}
+\end{itemize}
+\end{frame}
+

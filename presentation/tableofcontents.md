@@ -255,7 +255,7 @@ Protection: education, help to identify legitimate web sites
 
 ## Other attacks
 
-- brute force (rainbow tables)
+- brute force
 - sequence prediction
 - path traversal
 - failure to restrict automation
