@@ -15,7 +15,7 @@ Used to determine and understand threats that may arise.
 \end{frame}
 
 \begin{frame}{Example}
-\includeimage[width=8cm,height=5cm]{attack-tree-admin}
+\includeimage[width=0.8\linewidth,height=6cm]{attack-tree-admin}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,7 +48,7 @@ Used to determine and understand threats that may arise.
 \end{frame}
 
 \begin{frame}
-\frametitle{Why do they attack}
+\frametitle{Why do they attack?}
 \begin{itemize}
 \item Gain
 	\begin{itemize}
@@ -69,33 +69,207 @@ may have a different influence on the risk.
 \subsection{Risks and rating}
 
 \begin{frame}
-\frametitle{FRAME}
+\frametitle{What is a \emph{risk}?}
+\begin{quote}
+The potential that a given threat will exploit vulnerabilities of
+an asset or group of assets and thereby cause harm to the organization. It
+is measured in terms of a combination of the probability of occurrence of an
+event and its consequence.
+\textit{-- Wikipedia}
+\end{quote}
 \end{frame}
 
 \begin{frame}
-\frametitle{FRAME}
+\frametitle{What is a \emph{risk}?}
+\[ \text{risk} = \text{likelihood} * \text{impact} \]
+\begin{itemize}
+\item Likelihood: probability of a successful attack
+	\\ Influenced by threat agent skills and vulnerability factors
+\item Impact: how much damage the attack causes
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{FRAME}
+\frametitle{Vulnerability factors}
+\begin{itemize}
+\item ease of discovery
+\item ease of exploit
+\item awareness
+\item intrusion detection
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Impact factors}
+\begin{itemize}
+\item loss of confidentiality
+\item loss of integrity
+\item loss of availability
+\item loss of accountability
+\item financial damage
+\item reputation damage
+\item privacy violation
+\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Context of web applications}
 
+\subsubsection{Network}
+
 \begin{frame}
-\frametitle{FRAME}
+\frametitle{Internet}
+\begin{itemize}
+\item Applications available on the internet
+\item Anyone can access the application
+\end{itemize}
+\begin{block}{Anonymity}
+No identifier for a web user.
+\\ Example: IP address shared by multiple users
+\end{block}
 \end{frame}
 
-\subsubsection{Network}
 \subsubsection{Architecture of a web application}
-\subsubsection{Points of failure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{OWASP - top 10}
 
 \begin{frame}
-\frametitle{FRAME}
+\frametitle{A web application}
+\includeimage[width=\linewidth,height=6cm]{archi-webapplication}
+%- Browser: the client, uses scripting
+%- Router: connected to the browser (by WiFi) - LAN
+%- Internet: not detailed here - WAN
+%- Web Application Firewall, IDS, Load Balancer
+%- Application Server: with the contained application
+%- Database: where the application stores its data
+\end{frame}
+
+%\subsubsection{Points of failure}
+
+\begin{frame}
+\frametitle{Points of failure}
+Any component may fail; will the web site continue to work after an attack?
+\begin{block}{Single point of failure}
+A part of a system that prevents the entire system from working when it fails.
+\\ Solution: duplication
+\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{OWASP - Top 10}
+
+\begin{frame}
+\frametitle{OWASP}
+\begin{block}{OWASP}
+\centering Open Web Application Security Project
+\begin{itemize}
+\item standards
+\item libraries
+\item books
+\item etc.
+\end{itemize}
+\end{block}
+\begin{block}{Project: Top 10}
+OWASP compiles at top 10 of most critical web application \emph{risks}.
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 1 - Injection}
+
+\begin{frame}
+\frametitle{1. Injection}
+Sending untrusted data to an interpreter.
+Attacker enters code to execute into input fields.
+\begin{block}{Impacts}
+Data loss, corruption, lack of accountability, etc.
+\end{block}
+\begin{block}{Risks}
+\alert{Easy to exploit}, has a \alert{severe impact}, it is quite common.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{1. Injection - Attack scenario}
+\begin{itemize}
+\item The user enters a sequence of characters that is invalid for the
+	interpreter. The server will send an invalid result.
+	Probably, the executed code or error will be sent.
+\item Complete the query with what you need the interpreter to execute.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{1. Injection - Vulnerable code}
+\begin{exampleblock}{Bypassing authentication}
+This password may work:
+\begin{lstlisting}
+' or '' = '
+\end{lstlisting}
+When authentication checks the user as follows:
+\begin{lstlisting}
+String query = "select * from users"
+	+ " where user_name = '" + name + "'"
+	+ " and password = '" + password + "'";
+\end{lstlisting}
+\end{exampleblock}
+\pause
+\begin{exampleblock}{SQL injection}
+Getting the users' passwords as administrator.
+\end{exampleblock}
+\pause
+\begin{exampleblock}{JPQL injection}
+Searching hotels that have a manager that has the same password as a given
+user.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{1. Injection - Preventing the attack}
+\begin{block}{Using parametrized interface}
+Usage of placeholders for values let's the interpreter escape input values.
+\begin{lstlisting}
+String query = "select * from users where user_name = ?";
+PreparedStatement st = con.prepareStatement(query);
+st.setString(1, name);
+ResultSet rs = st.executeQuery();
+\end{lstlisting}
+\end{block}
+\begin{block}{Escaping routines}
+Some languages have special function to escape manually values.
+\end{block}
+\begin{block}{White list validation}
+List of valid input patterns.
+\end{block}
+\end{frame}
+
+\subsubsection{Attack X - NAME}
+
+\begin{frame}
+\frametitle{1. X}
+DESCRIPTION
+\begin{block}{Impacts}
+TODO Data loss, corruption, lack of accountability, etc.
+\end{block}
+\begin{block}{Risks}
+TODO ease of exploitation
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{1. X - Attack scenario}
+\begin{itemize}
+\item TODO
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{1. X - Vulnerable code}
+\begin{exampleblock}{TODO}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{1. X - Preventing the attack}
+\begin{block}{TODO}
+\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

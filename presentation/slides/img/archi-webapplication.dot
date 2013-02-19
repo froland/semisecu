@@ -1,0 +1,26 @@
+digraph ArchiWebApp {
+	rankdir = LR
+	node [ shape = none ]
+	edge [ arrowhead = none, arrowtail = none ]
+
+	WebClient1 [ shape = box, label = "Client 1" ]
+	WebClient2 [ shape = box, label = "Client 2" ]
+	RouterLAN [ shape = oval, label = "Router" ]
+	Internet [ shape = circle ]
+	Firewall [ shape = box3d ]
+	{
+		RouterServer [ shape = oval, label = "Router" ]
+		LocalClient [ shape = box, label = "Intranet client" ]
+		IDS [ shape = box ]
+		rank = same
+	}
+	WebServer [ shape = box3d, label = "Web application server" ]
+	Database [ shape = box3d ]
+
+	WebClient1 -> RouterLAN [ label = "WiFi", style = dotted ]
+	WebClient2 -> RouterLAN [ label = "Ethernet" ]
+	RouterServer -> { LocalClient IDS }
+	RouterLAN -> Internet -> Firewall -> RouterServer
+	RouterServer -> WebServer
+	WebServer -> Database
+}
