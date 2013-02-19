@@ -394,31 +394,43 @@ Use indirect references for each session.
 
 \begin{frame}
 \frametitle{5. CSRF}
-DESCRIPTION
+\textbf{Cross-site Request Forgery} consists in generating request when the
+user visits the attacker's web page.
 \begin{block}{Impacts}
-TODO Data loss, corruption, lack of accountability, etc.
+The attacker may perform any action the victim is authorized to do.
 \end{block}
 \begin{block}{Risks}
-TODO ease of exploitation
+\alert{Widespread} and easy to detect, the impact is moderate.
 \end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{5. CSRF - Attack scenario}
 \begin{itemize}
-\item TODO
+\item A user visits the attacker's web page
+\item The requested page contains tricks to submit requests to the attacked
+	web site as the visiting user.
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{5. CSRF - Vulnerability}
-\begin{exampleblock}{TODO}
+\begin{exampleblock}{Post a comment}
+The attacker's page may contain:
+\begin{lstlisting}
+<img src="http://example.com/forum/thread1/addComment?
+text=hello%20world" alt="" />
+\end{lstlisting}
 \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{5. CSRF - Preventing the attack}
-\begin{block}{TODO}
+\begin{block}{Unpredictable token}
+When a each request contains a field that is a token linked to the session of
+the user, the attacker's website will not be able to generate the correct
+requests.
+Tokens can be unique by session or by request.
 \end{block}
 \end{frame}
 
@@ -426,31 +438,56 @@ TODO ease of exploitation
 
 \begin{frame}
 \frametitle{6. Security Misconfiguration}
-DESCRIPTION
+\textbf{Security configuration} can happen at any level: the application, the
+web server, the framework, etc.
+The default behavior is not always the wanted one.
 \begin{block}{Impacts}
-TODO Data loss, corruption, lack of accountability, etc.
+Attackers can gain unauthorized access, the system can be compromised.
 \end{block}
 \begin{block}{Risks}
-TODO ease of exploitation
+\alert{Easy} to exploit and to detect.
 \end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{6. Security Misconfiguration - Attack scenario}
 \begin{itemize}
-\item TODO
+\item The attacker tries
+	\begin{itemize}
+	\item default accounts
+	\item unused pages
+	\item unpatched flaws
+	\item find unprotected files and directories
+	\end{itemize}
+\item Gain information on the system
+	\begin{itemize}
+	\item version of used libraries/frameworks
+	\item server version
+	\item stack traces and other debug messages
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{6. Security Misconfiguration - Vulnerability}
-\begin{exampleblock}{TODO}
+\begin{block}{Outdated libraries}
+Bugs are published for known libraries and applications.
+\end{block}
+\begin{exampleblock}{Stack trace}
+A stack trace may contain the used parameters, references to libraries, etc.
 \end{exampleblock}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{6. Security Misconfiguration - Preventing the attack}
-\begin{block}{TODO}
+\begin{block}{Up-to-date system}
+Keep the used software up to date and manage versions.
+\end{block}
+\begin{block}{Good architecture}
+Good separation between components is more secure.
+\end{block}
+\begin{block}{Automated scan}
+Automated scans can detect misconfigurations and missing patches.
 \end{block}
 \end{frame}
 
@@ -458,31 +495,43 @@ TODO ease of exploitation
 
 \begin{frame}
 \frametitle{7. Insecure Cryptographic Storage}
-DESCRIPTION
+Sensitive data is stored \textbf{insecurely without crypting}.
 \begin{block}{Impacts}
-TODO Data loss, corruption, lack of accountability, etc.
+Stolen data is compromised.
 \end{block}
 \begin{block}{Risks}
-TODO ease of exploitation
+All unencrypted \alert{data} is compromised.
+The attack is however difficult to perform.
 \end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{7. Insecure Cryptographic Storage - Attack scenario}
 \begin{itemize}
-\item TODO
+\item The attacker gains access to the database and dumps tables
+\item All the information is available to the attacker
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{7. Insecure Cryptographic Storage - Vulnerability}
-\begin{exampleblock}{TODO}
+\begin{exampleblock}{Unencrypted passwords}
+After dumping the table \texttt{USERS}, the passwords might be stored in
+plain text.
+\end{exampleblock}
+\begin{exampleblock}{Unencrypted backup}
+The database backup is lost.
 \end{exampleblock}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{7. Insecure Cryptographic Storage - Preventing the attack}
-\begin{block}{TODO}
+\begin{block}{Encrypting}
+Encrypt the data such as the considered threats will not be able to read it.
+\end{block}
+\begin{block}{Hash + Salt}
+Ensure passwords are hashed with a standard algorithm and an appropriate salt
+is used.
 \end{block}
 \end{frame}
 
