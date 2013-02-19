@@ -76,9 +76,31 @@
 %\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
 }
 
-\usepackage{graphicx} % Allows including images
-\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+% Image
+\usepackage{graphicx}
+% Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{booktabs}
 
+% Listings (code)
+\usepackage{listings}
+\usepackage{courier}
+\lstset{basicstyle=\ttfamily\footnotesize
+	,tabsize=2
+	%,frame=single
+	%,numbers=left
+	,numberstyle=\tiny
+	,numbersep=5pt
+	,numberfirstline=true
+	,firstnumber=1
+	,stepnumber=5
+	,showspaces=false
+	,showstringspaces=false
+	,showtabs=false
+	,breaklines=false
+	,breakatwhitespace=true
+}
+
+% Macro to include images
 \newcommand{\includeimage}[2][scale=1.0]{
 	\begin{center}
 	\includegraphics[keepaspectratio=true,#1]{img/#2}
