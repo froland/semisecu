@@ -172,11 +172,16 @@ OWASP compiles at top 10 of most critical web application \emph{risks}.
 \end{block}
 \end{frame}
 
+\begin{frame}
+\frametitle{The top 10}
+% TODO list the top 10
+\end{frame}
+
 \subsubsection{Attack 1 - Injection}
 
 \begin{frame}
 \frametitle{1. Injection}
-Sending untrusted data to an interpreter.
+\textbf{Injection} consists in sending untrusted data to an interpreter.
 Attacker enters code to execute into input fields.
 \begin{block}{Impacts}
 Data loss, corruption, lack of accountability, etc.
@@ -197,7 +202,7 @@ Data loss, corruption, lack of accountability, etc.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{1. Injection - Vulnerable code}
+\frametitle{1. Injection - Vulnerability}
 \begin{exampleblock}{Bypassing authentication}
 This password may work:
 \begin{lstlisting}
@@ -211,11 +216,11 @@ String query = "select * from users"
 \end{lstlisting}
 \end{exampleblock}
 \pause
-\begin{exampleblock}{SQL injection}
+\begin{exampleblock}{SQL injection - demo}
 Getting the users' passwords as administrator.
 \end{exampleblock}
 \pause
-\begin{exampleblock}{JPQL injection}
+\begin{exampleblock}{JPQL injection - demo}
 Searching hotels that have a manager that has the same password as a given
 user.
 \end{exampleblock}
@@ -240,10 +245,155 @@ List of valid input patterns.
 \end{block}
 \end{frame}
 
-\subsubsection{Attack X - NAME}
+\subsubsection{Attack 2 - XSS}
 
 \begin{frame}
-\frametitle{1. X}
+\frametitle{2. XSS}
+\textbf{Cross-site scripting} allows attackers to inject code into the page
+sent to the user. The injected code can be a script interpreted by the
+browser.
+\begin{block}{Impacts}
+Hijack user sessions, change content, redirect the user.
+\end{block}
+\begin{block}{Risks}
+This is \alert{the most widespread} vulnerability.
+It requires an average knowledge to be exploited and the impacts are moderate.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{2. XSS - Attack scenario}
+\begin{itemize}
+\item The attacker sends some text containing a script to the server
+\item The user downloads the page with the script as it was posted by the
+	attacker
+\item The script is executed on the user's browser
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{2. XSS - Vulnerability}
+\begin{exampleblock}{JSP page}
+The description of the hotel is sent as is.
+\begin{lstlisting}
+<div>
+	${hotel.descriptionHTML}
+</div>
+\end{lstlisting}
+\end{exampleblock}
+\pause
+\begin{exampleblock}{Getting the user's cookies - demo}
+Just use \lstinline!document.cookie! in JavaScript and send it somewhere.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{2. XSS - Preventing the attack}
+\begin{block}{Escaping the values}
+All the values should be escaped before sending them to the users.
+\begin{lstlisting}
+<div>
+	<c:out value="${hotel.descriptionHTML}" />
+</div>
+\end{lstlisting}
+\end{block}
+\begin{block}{White list validation}
+Output values can be white listed, but this is not a complete defence against
+XSS as sometimes special characters must be accepted.
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 3 - Authentication and session management}
+
+\begin{frame}
+\frametitle{3. Authentication and session management}
+The attacker uses flaws in the \textbf{authentication or session management}
+implemented for a given web site to steal someone else's identity.
+\begin{block}{Impacts}
+Once an account stolen, the attacker may do \emph{anything} the user can do.
+\end{block}
+\begin{block}{Risks}
+The impact is \alert{severe}, this attack is common.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{3. Authentication and session management - Attack scenario}
+\begin{itemize}
+\item In older application servers the session ID could be set using the URL.
+	\\ You could let someone login using your session.
+\item The user could forget to log out on a public computer.
+\item The attacker could gain access to the users' database.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{3. Authentication and session management - Vulnerability}
+\begin{exampleblock}{XSS session hijacking - demo}
+The users' sessions can be obtained using XSS.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{3. Authentication and session management - Preventing the attack}
+\begin{block}{Good authentication mechanism}
+\begin{itemize}
+\item Use a proven authentication mechanism
+\item Prevent \emph{XSS attacks}
+\item Good session timeouts and accessible log out buttons
+\end{itemize}
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 4 - Insecure Direct Object References}
+
+\begin{frame}
+\frametitle{4. Insecure Direct Object References}
+The attacker changes a parameter in the request to obtain a \textbf{direct
+object reference} that they should not be able to access.
+\begin{block}{Impacts}
+Compromise the data that can be referenced.
+\end{block}
+\begin{block}{Risks}
+\alert{Easy} to exploit and detect. The impact is moderate.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{4. Insecure Direct Object References - Attack scenario}
+\begin{itemize}
+\item Find a URL with an identifier as a part of the URL
+\item Replace that identifier with another value and try to send the request
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{4. Insecure Direct Object References - Vulnerability}
+\begin{block}{Missing access verification}
+Often objects are retrieved by their ID, the developer can forget to check
+whether the user is allowed to see that object.
+\end{block}
+\pause
+\begin{exampleblock}{An unvalidated hotel - demo}
+See an unvalidated hotel as a normal user.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{4. Insecure Direct Object References - Preventing the attack}
+\begin{block}{\textbf{Check permissions}}
+Check whether the user has the permissions to access the object before
+manipulating it.
+\end{block}
+\begin{block}{References by session}
+Use indirect references for each session.
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 5 - CSRF}
+
+\begin{frame}
+\frametitle{5. CSRF}
 DESCRIPTION
 \begin{block}{Impacts}
 TODO Data loss, corruption, lack of accountability, etc.
@@ -254,20 +404,180 @@ TODO ease of exploitation
 \end{frame}
 
 \begin{frame}
-\frametitle{1. X - Attack scenario}
+\frametitle{5. CSRF - Attack scenario}
 \begin{itemize}
 \item TODO
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{1. X - Vulnerable code}
+\frametitle{5. CSRF - Vulnerability}
 \begin{exampleblock}{TODO}
 \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{1. X - Preventing the attack}
+\frametitle{5. CSRF - Preventing the attack}
+\begin{block}{TODO}
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 6 - Security Misconfiguration}
+
+\begin{frame}
+\frametitle{6. Security Misconfiguration}
+DESCRIPTION
+\begin{block}{Impacts}
+TODO Data loss, corruption, lack of accountability, etc.
+\end{block}
+\begin{block}{Risks}
+TODO ease of exploitation
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{6. Security Misconfiguration - Attack scenario}
+\begin{itemize}
+\item TODO
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{6. Security Misconfiguration - Vulnerability}
+\begin{exampleblock}{TODO}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{6. Security Misconfiguration - Preventing the attack}
+\begin{block}{TODO}
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 7 - Insecure Cryptographic Storage}
+
+\begin{frame}
+\frametitle{7. Insecure Cryptographic Storage}
+DESCRIPTION
+\begin{block}{Impacts}
+TODO Data loss, corruption, lack of accountability, etc.
+\end{block}
+\begin{block}{Risks}
+TODO ease of exploitation
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{7. Insecure Cryptographic Storage - Attack scenario}
+\begin{itemize}
+\item TODO
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{7. Insecure Cryptographic Storage - Vulnerability}
+\begin{exampleblock}{TODO}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{7. Insecure Cryptographic Storage - Preventing the attack}
+\begin{block}{TODO}
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 8 - Failure to Restrict URL Access}
+
+\begin{frame}
+\frametitle{8. Failure to Restrict URL Access}
+DESCRIPTION
+\begin{block}{Impacts}
+TODO Data loss, corruption, lack of accountability, etc.
+\end{block}
+\begin{block}{Risks}
+TODO ease of exploitation
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{8. Failure to Restrict URL Access - Attack scenario}
+\begin{itemize}
+\item TODO
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{8. Failure to Restrict URL Access - Vulnerability}
+\begin{exampleblock}{TODO}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{8. Failure to Restrict URL Access - Preventing the attack}
+\begin{block}{TODO}
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 9 - Insufficient Transport Layer Protection}
+
+\begin{frame}
+\frametitle{9. Insufficient Transport Layer Protection}
+DESCRIPTION
+\begin{block}{Impacts}
+TODO Data loss, corruption, lack of accountability, etc.
+\end{block}
+\begin{block}{Risks}
+TODO ease of exploitation
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{9. Insufficient Transport Layer Protection - Attack scenario}
+\begin{itemize}
+\item TODO
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{9. Insufficient Transport Layer Protection - Vulnerability}
+\begin{exampleblock}{TODO}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{9. Insufficient Transport Layer Protection - Preventing the attack}
+\begin{block}{TODO}
+\end{block}
+\end{frame}
+
+\subsubsection{Attack 10 - Unvalidated Redirects}
+
+\begin{frame}
+\frametitle{10. Unvalidated Redirects}
+DESCRIPTION
+\begin{block}{Impacts}
+TODO Data loss, corruption, lack of accountability, etc.
+\end{block}
+\begin{block}{Risks}
+TODO ease of exploitation
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{10. Unvalidated Redirects - Attack scenario}
+\begin{itemize}
+\item TODO
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{10. Unvalidated Redirects - Vulnerability}
+\begin{exampleblock}{TODO}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{10. Unvalidated Redirects - Preventing the attack}
 \begin{block}{TODO}
 \end{block}
 \end{frame}
