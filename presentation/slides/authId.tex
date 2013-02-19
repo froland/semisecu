@@ -158,3 +158,221 @@ Certificate:
 \end{verbatim}
 
 \end{frame}
+
+%------------------------------------------------
+
+
+\begin{frame}
+\frametitle{Certificates: How are they used?}
+Certificates are often used as a mean to distribute key in a public
+key infrastructure. A typical exemple is for SSL/TLS in web browsers.
+\begin{figure}
+  \includegraphics[width= 0.9\linewidth]{img/Usage-of-Digital-CertificatePart1.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\begin{figure}
+  \includegraphics[width= 0.9\linewidth]{img/Usage-of-Digital-CertificatePart2.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+
+\begin{figure}
+  \includegraphics[width= 0.9\linewidth]{img/Usage-of-Digital-CertificatePart3.png}
+\end{figure}
+\textit{Wikipedia}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Certificates: Two way authentication}
+
+\begin{itemize}
+\item In the previous scenario we have shown that the browser autenticates
+the server but the opposite isn't true.
+
+\item It's possible for both participant to authenticate \ldots
+
+\item \ldots but it's more complicated: two good one way
+  authentication don't make a valid two way authentication
+\end{itemize}
+
+\end{frame} 
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Tokens}
+
+\begin{block}{Token} Token are something which ownership gives a form
+  of authentication.
+\end{block}
+\begin{itemize}
+\item In our everyday life, token can take various forms: keys, bank card,
+badges, \ldots
+\item In electronic authentication schemes they are most often smart
+  card or digipass
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Multi factor authentication}
+ An application should use at least two factors of
+ authentication. Those factors can be:
+\begin{itemize}
+\item what the authenticated entity is (biometrics, \ldots),
+\item what it owns (a bank card, \ldots) 
+\item or what he knows (a password, a pin code, \ldots)
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Signature challenge}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Signature challenge: principle}
+
+\begin{itemize}
+\item An authentication based upon ``answering'' a question about a secret
+known by the participants. For example, when I encrypt something (a nonce)
+with my correspondent's public key and ask him for the decrypted and encrypted
+message.
+
+\item This form of authentication is often used to sign online
+  transaction.
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------
+
+\subsection{Single sign-on}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Single sign-on: principle}
+
+\begin{block}{Single sign-on}
+Single sign-on (SSO) is a property of access control of multiple
+related, but independent software systems. With this property a user
+logs in once and gains access to all systems without being prompted to
+log in again at each of them. \textit{Wikipedia}
+\end{block}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Single sign-on: pro and cons}
+
+\begin{block}{Pro}
+\begin{itemize}
+\item Easier for the user
+\item Not trivial to build a secure authentication scheme
+\item If they have only one password users tend to treat it with more care
+\item Enter the password less often
+\end{itemize}
+\end{block}
+
+\begin{block}{Cons}
+\begin{itemize}
+\item All your eggs in the same basket (impact if compromised)
+\item You are dependant upon your provider (confidence, availability, \ldots)
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Kerberos}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Kerberos}
+
+Kerberos is a SSO developped at MIT to solve the problem of allowing
+some users to use restricted ressources. MIT provide a free
+implementation of the protocol but it's also found in many commercial
+products.
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Kerberos: How it works}
+
+\begin{figure}
+  \includegraphics[scale = 0.35]{img/kerberos.png}
+\end{figure}
+\textit{Wikipedia}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Provider extensions}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Provider extensions}
+\begin{itemize}
+\item Single sign-on is provided for free by organisation like Facebook, OpenID and
+Google to other websites for free.
+\item The usage of those services is usually much easier for the
+  developper than developping his own sign-on mechanism.
+\item But it ties you to this provider so some sites use services from
+  different organisations
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\subsection{Compromised authentication mean}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Compromised authentication mean}
+ When you implement authentication you have to take into account that
+ the user may loose its authentication mean or it can get stolen. So,
+ you should be able to:
+
+\begin{itemize}
+\item Deactivate a compromised authentication mean,
+\item Authenticate the user by an uncompromised mean,
+\item Give him a new primary authentication mean.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Example: Lost password}
+ If one of your users loose his password, he has to get a new one but
+ doing this in a secure way can be challenging. Here is a procedure
+ that you can follow.
+
+\begin{itemize}
+\item use some predefined security questions,
+\item send a token over a side channel,
+\item allow the user to change password,
+\item confirm change
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
