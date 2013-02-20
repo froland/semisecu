@@ -518,6 +518,12 @@ vulnerabilities. Moreover some browsers (e.g. IE6) require workarounds to
 display pages correctly which extend the amount of code and thus
 increase vulnerability likeliness.
 
+## Least privilege
+
+The [principle of least privilege](http://en.wikipedia.org/wiki/Principle_of_least_privilege)
+states that every module can access *only* information and resources necessary
+for its purpose.
+
 Detection and analysis
 ======================
 
