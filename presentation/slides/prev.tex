@@ -1,6 +1,147 @@
 \section{Prevention}
-
+%------------------------------------------------
+\subsection{Different moments}
+%------------------------------------------------
 \begin{frame}
-Prevention
+\frametitle{Different Moments}
+
+Preventing security flaws is something that has to be done during the
+whole life of the application. The application life can be splitted in
+three parts:
+
+\begin{itemize}
+\item Architecture
+\item Development
+\item Maintenance
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Architecture}
+\begin{itemize}
+\item Security has to be taken into account as soon as
+  possible. Retrofitting security in an unsecure application is much
+  more difficult than concieving it securely from the start.
+\item You have to ask yourself the good questions and those questions
+  vary from one application to the other.
+\item Know the threats you are facing.
+\item There are no miracle receipts\ldots
+\item \ldots just a few guidelines.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Development: Implementation tricks}
+
+There are lots of ``tricks'' that can make your application more
+secure. Some of the more important are
+
+\begin{itemize}
+\item Passwords: enforcing a minimum complexity policy, storing them
+  securely, have the user rotate them, prevent brute-force by
+  implementing temporary lock-out, \ldots
+\item Session management: Set an inactivity time out, set the
+  ``secure'' flag when setting cookies, use the ``HTTP-Only'' flag for
+  cookies, implement an easily accessible logout, \ldots
+\item Input Validation: Always on server side, use a positive
+  approach, search \emph{All} user inputs.
+\item Use Ad-hoc protection for known attacks.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Development: Secure development cycle}
+A secure devlopment cycle should set aside some time to do the
+following:
+\begin{itemize}
+\item Security code review,
+\item Pentesting,
+\item Security training of the developpers, 
+\item Choose a secure and well maintained framework (more on
+  frameworks later)
+\item Devising a secure configuration for deployment
+\end{itemize}
 
 \end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Maintenance}
+When vulnerabilities have been discovered they have to be patched as soon as
+possible.
+
+\begin{block}{Virtual Patching}
+Virtual Patching is a security policy layer that prevents the exploitation of a known
+vulnerability until a patch is released. It does so by filtering the
+traffic that goes to and from the application server and blocking the
+requsest that are exploits.
+\end{block}
+
+Moreover, care has to be taken when fixing a bug in a hurry not to open
+new security breaches.
+
+\end{frame}
+
+%------------------------------------------------
+\subsection{Using frameworks}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Using frameworks}
+
+You do not develop the first web application. Frameworks already exists to
+ease the development of your application while providing several security
+mechanisms.
+
+Often a framework will come with authentication support, escaping of values,
+input validation, etc\ldots
+
+But you have to choose carefully because the choice if difficult to
+change later on. Moreover bugs in the framework are better known so
+they have to be patched has soon as possible which imply a rapid
+reaction from the framework developper and from the maintaining team.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Framework examples}
+
+\begin{block}{Spring}
+Spring is one of the most used framework for developping web
+application using Java. It does feature many components including seme
+dedicated to security.
+\end{block}
+
+\begin{block}{ESAPI}
+ESAPI (The OWASP Enterprise Security API) is a free, open source, web
+application security control library that makes it easier for
+programmers to write lower-risk applications. The ESAPI libraries are
+designed to make it easier for programmers to retrofit security into
+existing applications. The ESAPI libraries also serve as a solid
+foundation for new development.
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+\subsection{Security in application servers}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Security in application servers}
+Application servers offer various services that can help you to configure
+secured web applications.
+
+Those typically are:
+\begin{itemize}
+\item Authentication management,
+\item directory listing disabling,
+\item user session management,
+\item error-handling,
+\item input encoding,
+\item \ldots
+\end{itemize}
+\end{frame}
+
