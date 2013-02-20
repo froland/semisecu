@@ -6,7 +6,7 @@
 \frametitle{Different Moments}
 
 Preventing security flaws is something that has to be done during the
-whole life of the application. The application life can be splitted in
+whole life of the application. The application life can be split in
 three parts:
 
 \begin{itemize}
@@ -21,8 +21,8 @@ three parts:
 \frametitle{Architecture}
 \begin{itemize}
 \item Security has to be taken into account as soon as
-  possible. Retrofitting security in an unsecure application is much
-  more difficult than concieving it securely from the start.
+  possible. Retrofitting security in an insecure application is much
+  more difficult than conceiving it securely from the start.
 \item You have to ask yourself the good questions and those questions
   vary from one application to the other.
 \item Know the threats you are facing.
@@ -54,12 +54,12 @@ secure. Some of the more important are
 %------------------------------------------------
 \begin{frame}
 \frametitle{Development: Secure development cycle}
-A secure devlopment cycle should set aside some time to do the
+A secure development cycle should set aside some time to do the
 following:
 \begin{itemize}
-\item Security code review,
-\item Pentesting,
-\item Security training of the developpers, 
+\item Security code review
+\item Pentesting
+\item Security training of the developers
 \item Choose a secure and well maintained framework (more on
   frameworks later)
 \item Devising a secure configuration for deployment
@@ -77,7 +77,7 @@ possible.
 Virtual Patching is a security policy layer that prevents the exploitation of a known
 vulnerability until a patch is released. It does so by filtering the
 traffic that goes to and from the application server and blocking the
-requsest that are exploits.
+request that are exploits.
 \end{block}
 
 Moreover, care has to be taken when fixing a bug in a hurry not to open
@@ -97,12 +97,12 @@ ease the development of your application while providing several security
 mechanisms.
 
 Often a framework will come with authentication support, escaping of values,
-input validation, etc\ldots
+input validation, etc.
 
 But you have to choose carefully because the choice if difficult to
 change later on. Moreover bugs in the framework are better known so
 they have to be patched has soon as possible which imply a rapid
-reaction from the framework developper and from the maintaining team.
+reaction from the framework developer and from the maintaining team.
 \end{frame}
 
 %------------------------------------------------
@@ -110,8 +110,8 @@ reaction from the framework developper and from the maintaining team.
 \frametitle{Framework examples}
 
 \begin{block}{Spring}
-Spring is one of the most used framework for developping web
-application using Java. It does feature many components including seme
+Spring is one of the most used framework for developing web
+application using Java. It does feature many components including same
 dedicated to security.
 \end{block}
 
@@ -136,11 +136,11 @@ secured web applications.
 
 Those typically are:
 \begin{itemize}
-\item Authentication management,
-\item directory listing disabling,
-\item user session management,
-\item error-handling,
-\item input encoding,
+\item Authentication management
+\item directory listing disabling
+\item user session management
+\item error-handling
+\item input encoding
 \item \ldots
 \end{itemize}
 \end{frame}
