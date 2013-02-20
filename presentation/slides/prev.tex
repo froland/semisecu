@@ -145,3 +145,77 @@ Those typically are:
 \end{itemize}
 \end{frame}
 
+%------------------------------------------------
+\subsection{Application Firewall}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Application Firewall}
+Application Firewall are filters which inspects the traffic that goes in and out your application and are able to block inappropriate content.
+
+They provide an additional layer of protection, for example by scanning html forms for SQL content.
+
+They can detect connection patterns and can be used to prevent non-resolved security holes to be exploited (virtual patching). 
+\end{frame}
+
+%------------------------------------------------
+\subsection{HTTPS}
+%------------------------------------------------
+\begin{frame}
+\frametitle{HTTPS}
+TLS(Transport Layer Security) is the successor of SSL. Both are equal in terms of security, the main difference is that TLS begin with an insecure "hello" and switch to secured communications after the handshake, where SSL proceed directly to secured communications.\linebreak
+HTTP over SSL/TLS allows the encryption and the authentication of an HTTP connection. It provides protection against eavesdropping and spoofing.\linebreak 
+\textbf{HTTPS is a part of a solution, it does not ensure full security. }
+\end{frame}
+
+%------------------------------------------------
+\subsection{Browser restrictions}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Browser restrictions}
+\begin{itemize}
+\item Cross-domain XMLHttpRequest(XHR) allows a website to contact other websites through the use of Javascript. Browsers disallow it but this feature can be selectively lifted by a website if it ask the browser via an "Access Control" header
+\item Some browsers allow to block selectively the execution of Flash, Javascript to protect the user against malicious code hosted on websites
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}
+\item Private navigation mode of browsers prevents it from storing data
+\item Cookies are stored on the computer of the user, they are limited by the URL and the timestamp
+\item SSL Certificates are validates by the browser, which prompt the user whenever a dubious certificate is found. Some browsers also provide blacklist of known rogue sites and correct misspelled addresses to protect users from phishing.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\subsection{E-mail}
+%------------------------------------------------
+\begin{frame}
+\frametitle{E-mail}
+E-mail is one of the most used application. It's plagued by spam and spoofing. \linebreak
+Defensive measures can be taken:
+\begin{itemize}
+\item Sender Policy Framework(SPF) which validates emails by verifying sender IP Addresses, the DNS record of the domain contain which ip addresses ranges are allowed or forbidden to send mails for the considered domain \linebreak e.g. the SPF record of ietf.org\linebreak
+\begin{quote}
+ietf.org. IN SPF "v=spf1 ip4:64.170.98.0/26 ip4:64.170.98.64/28 ip4:64.170.98.80/28 ip6:2001:1890:1112:1::0/64 -all"
+\end{quote}
+\end{itemize}
+\end{frame}
+\begin{frame}
+\begin{itemize}
+\item DomainKeys Identified Mail(DKIM) associates domain names and email messages using a digital signature added to the message's header, a public key is added to the DNS record of the domain for the recipient to read the message's header
+\textit{DKIM-Signature: v=1; a=rsa-sha256; d=example.net; s=brisbane;
+c=relaxed/simple; q=dns/txt; l=1234; t=1117574938; x=1118006938;
+h=from:to:subject:date:keywords:keywords;
+bh=MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=;
+b=dzdVyOfAKCdLXdJOc9G2q8LoXSlEniSbav+yuU4zGeeruD00lszZ
+VoG4ZHRNiYzR}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Variety of environments}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Variety of environments}
+The variety of environments available to the users leads to difficulties when it comes to test possible setups for vulnerabilities. More, some browsers (e.g. IE6) require workarounds to display pages correctly, this extends the amount of code needed and thus increases vulnerability likeliness.
+\end{frame}
+
