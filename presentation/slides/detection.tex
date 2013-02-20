@@ -1,7 +1,150 @@
 \section{Detection and Analysis}
 
+\subsection{Penetration testing}
+
 \begin{frame}
-
-Detection
-
+\frametitle{Pentesting}
+\textbf{Penetration testing} (or pentesting) is the action of attacking a
+system with the consent of the owner in the goal of finding security holes.
+\begin{itemize}
+\item Identifying vulnerabilities
+\item Exploit vulnerabilities
+\item Testing ability to detect and respond to an attack
+\item Social engineering
+\end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Tools}
+\begin{itemize}
+\item \href{http://nmap.org/}{nmap}: port scanning
+\item
+\href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}
+\item \href{http://www.tenable.com/products/nessus}{Nessus}
+\item \href{https://www.owasp.org/index.php/Webscarab}{WebScarab}
+\item Linux distributions such as
+\href{http://www.backtrack-linux.org/}{BackTrack}
+\end{itemize}
+% TODO add images
+\end{frame}
+
+\subsection{Honeypot}
+
+\begin{frame}
+\frametitle{Honeypot}
+A \textbf{honeypot} is a mocked website or web application that is exposed for
+attackers who try to penetrate some system. A honeypot is a non-patched server
+that is monitored for attacks and serves no other purpose.
+% TODO include image
+\begin{exampleblock}{\href{https://www.projecthoneypot.org/about_us.php}{Project Honey Pot}}
+Anti-spammer project.
+Web sites publish some fake e-mails and spammer's crawlers sending e-mail to
+such addresses are blocked.
+\end{exampleblock}
+\end{frame}
+
+\subsection{NIDS}
+
+\begin{frame}
+\frametitle{NIDS}
+\textbf{Network Intrusion Detection System} (NIDS) is a system that scans
+network activity and tries to detect attack pattens.
+\begin{exampleblock}{\href{http://www.snort.org/}{Snort}}
+A NIDS, and an IPS (Intrusion Prevention System), snort can detect attacks and
+take actions accordingly.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{NIDS - detection types}
+\begin{block}{Signature-based detection}
+Finds a pattern in packets on the network.
+Detects SQL injections in HTTP parameters, XSS attacks, etc.
+\end{block}
+\begin{block}{Statistical anomaly-based detection}
+Looks for peaks in traffic, connection coming from a single host and other
+anomalies.
+Detects stealth port scans, brute force attacks, etc.
+\end{block}
+\begin{block}{Stateful protocol analysis}
+Follows a protocol conversation.
+Detects SYN port scans, etc.
+\end{block}
+\end{frame}
+
+\subsection{Post-mortem analysis}
+
+\begin{frame}
+\frametitle{After an attack}
+\begin{itemize}
+\item \emph{When} did the attack happen
+	\begin{itemize}
+	\item Were we attacked?
+	\item Is the attack still on going?
+	\end{itemize}
+\item \emph{What} was compromised
+	\begin{itemize}
+	\item What data was compromised?
+	\item Data was modified?
+	\item What systems failed to work?
+	\end{itemize}
+\item \emph{How} the attacker succeeded
+	\begin{itemize}
+	\item How to fix the problem?
+	\item Prevent future attacks?
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{How to know?}
+\begin{itemize}
+\item Traffic logs and graphs
+% TODO insert image
+\item Application logs
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Analysis - tools}
+\begin{itemize}
+\item \href{http://www.ntop.org/products/ntop/}{ntop}: traffic monitoring
+platform
+\item \href{http://www.intersectalliance.com}{Snare}: a collection of tools to
+audit log data and facilitate log analysis
+\item \href{http://www.ossec.net/}{OSSEC}: open source alternative; performs
+log analysis, file integrity checking, policy monitoring, rootkit detection,
+real-time alerting and active response
+\item Web log analysis software
+	\begin{itemize}
+	\item \href{http://www.webalizer.org/}{Webalizer}
+	\item \href{http://awstats.sourceforge.net/}{AWStats}
+	\item \href{http://www.weblogexpert.com/}{WebLog Expert}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\subsubsection{Noise as a diversion}
+
+\begin{frame}
+\frametitle{Noise as a diversion}
+When an attack happens, it can be masked by another attack which would serve
+as a diversion from the real attack.
+\begin{exampleblock}{DoS as a diversion}
+DoS generates lot of traffic and can mask attacks as generated logs are huge.
+\end{exampleblock}
+\end{frame}
+
+\subsection{Performances}
+
+\begin{frame}
+\frametitle{Impact of performances}
+\begin{itemize}
+\item Performances of a web application should be checked
+\item Slow response time might indicate high load and that the server is
+currently under attack
+\item If an application in development responds slowly, it might not scale and
+eventually crash under high load
+\end{itemize}
+\end{frame}
+
