@@ -40,7 +40,7 @@ Users will send their data to the server.
 The web site could be compromised.
 \end{block}
 \begin{exampleblock}{PlayStation Network outrage}
-Information from approximately 77 million accounts was stolen.
+Information from approximately 77 million accounts were stolen.
 \end{exampleblock}
 \end{frame}
 
@@ -81,9 +81,11 @@ Visa, MasterCard, PayPal, etc.
 \begin{frame}
 \frametitle{Role of the user}
 \begin{itemize}
-\item Users can divulge their credentials
-\item They may use unsecured web sites
-\item etc.
+\item Users can divulgue their credentials
+\item They may use unsecured web sites, compromised software,\ldots
+\item An user may do \emph{really} dumb things without understanding
+\item ``Security is the IT job''
+\item etc\ldots
 \end{itemize}
 \begin{block}{Social engineering}
 Manipulating people so they divulge confidential information.
@@ -99,7 +101,38 @@ Remembering multiple passwords is... \emph{difficult}.
 \item Who has passwords shorter than 8 characters?
 \item Who uses pass-phrases?
 \end{itemize}
-\pause
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bad passwords\ldots}
+
+This come from BB OS10:
+\begin{lstlisting}
+# Forbidden password list - this is to be kept in 
+# sync with the PasswordService.properties file 
+# from the BB IdM server
+1=123456
+2=12345678
+3=123abc
+4=a1b2c3
+5=aaaaaa
+6=abc123
+7=abc123
+8=abcdef
+9=amanda
+.
+.
+.
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bad storage\ldots}
+\includeimage[height=0.6\textheight,width=\linewidth]{passwordPostIt}
+
+\end{frame}
+
+\begin{frame}
 \begin{exampleblock}{What do you trade your password for?}
 From a survey by Infosecurity~Europe~2003:
 \begin{quote}
