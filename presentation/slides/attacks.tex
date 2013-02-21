@@ -10,9 +10,8 @@
 \begin{frame}
 \frametitle{An attack tree}
 
-\begin{block}{What is it}
-Model describing by what means an \emph{asset} can be attacked.
-% TODO Why not how instaed of by what means ?
+\begin{block}{What is it?}
+Model describing how an \emph{asset} can be attacked.
 \end{block}
 \begin{block}{Goal}
 Used to determine and understand threats that may arise.
@@ -626,6 +625,7 @@ However, often difficult to exploit.
 
 \begin{frame}
 \frametitle{9. Insufficient Transport Layer Protection - Vulnerability}
+The attacker can see the data that is sent over the network.
 \begin{exampleblock}{Sniffing passwords}
 Sniff the network and find HTTP requests containing "password".
 \end{exampleblock}
@@ -703,6 +703,7 @@ causing server overload.
 \item SYN flood
 \item Application level flood
 \item R-U-Dead-Yet
+	\newline
 	(never-ending POST transmissions,
 	example: \href{http://ha.ckers.org/slowloris/}{Slowloris})
 \item DDoS
@@ -824,8 +825,8 @@ masquerading as a legitimate web site.
 
 \begin{frame}
 \frametitle{Brute force}
-Let's try \textbf{all} the passwords.
-\begin{block}{Try all}
+Let's try the passwords one by one.
+\begin{block}{Try all the passwords}
 Try all the possible combinations.
 \newline
 $k^n$ where $k$ is the size of the alphabet and $n$ the length of the
@@ -862,12 +863,14 @@ The web site is not protected against automation.
 \end{itemize}
 \begin{exampleblock}{Captcha - prevention}
 Challenge-response test easy for humans, difficult for machines.
+\includeimage[width=0.5\linewidth]{recaptcha-example}
 \end{exampleblock}
 \end{frame}
 
 \begin{frame}
 \frametitle{And so on...}
 As technology evolves, new forms of attacks appear.
+\par
 Instead of trying to fix vulnerabilities, focus on establishing strong
 security controls.
 \end{frame}

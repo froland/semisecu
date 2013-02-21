@@ -10,16 +10,20 @@
 %------------------------------------------------
 \begin{frame}
 \frametitle{Different moments}
-
 Preventing security flaws is something that has to be done during the
-whole life of the application. The application life can be split into
-three parts:
-
+whole life of the application.
+\begin{columns}
+\begin{column}{0.5\textwidth}
 \begin{itemize}
 \item Architecture
 \item Development
 \item Maintenance
 \end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includeimage[width=\linewidth,height=0.5\textheight]{milos3d}
+\end{column}
+\end{columns}
 \end{frame}
 
 %------------------------------------------------
@@ -183,8 +187,8 @@ content.
 (Secured Socket Layer).
 Equal in terms of security.
 The main difference: TLS begins with an insecure "hello".
-\begin{block}{What gives HTTPS?}
-Provides \emph{encryption} and \emph{authentication} for HTTP.
+\begin{block}{What provides HTTPS?}
+HTTPS provides \emph{encryption} and \emph{authentication} for HTTP.
 \newline Protects against eavesdropping and spoofing.
 \end{block}
 \vspace{1em}
@@ -267,7 +271,7 @@ Impossible to test all the setups.
 \item Clients
 	\begin{itemize}
 	\item Browsers
-		\\ hacks \small{(example: IE6)} are more code to test
+		\\ hacks \small{(example: IE6)} are just more code to test
 	\item Mobile
 	\item M2M % machine to machine
 	\end{itemize}
