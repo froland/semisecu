@@ -17,15 +17,18 @@ system with the consent of the owner in the goal of finding security holes.
 \begin{frame}
 \frametitle{Tools}
 \begin{itemize}
-\item \href{http://nmap.org/}{nmap}: port scanning
-\item
-\href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}
-\item \href{http://www.tenable.com/products/nessus}{Nessus}
-\item \href{https://www.owasp.org/index.php/Webscarab}{WebScarab}
-\item Linux distributions such as
-\href{http://www.backtrack-linux.org/}{BackTrack}
+\item \href{http://nmap.org/}{nmap}:
+	port scanning
+\item \href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}:
+	identifies vulnerabilities, automates assessments
+\item \href{http://www.tenable.com/products/nessus}{Nessus}:
+	vulnerability scanner
+\item \href{https://www.owasp.org/index.php/Webscarab}{WebScarab}:
+	intercepting proxy
+\item \href{http://www.backtrack-linux.org/}{BackTrack}:
+	Linux distribution
 \end{itemize}
-% TODO add images
+\includeimage[height=0.4\textheight]{bt5-screenshot}
 \end{frame}
 
 \subsection{Honeypot}
@@ -35,7 +38,6 @@ system with the consent of the owner in the goal of finding security holes.
 A \textbf{honeypot} is a mocked website or web application that is exposed for
 attackers who try to penetrate some system. A honeypot is a non-patched server
 that is monitored for attacks and serves no other purpose.
-% TODO include image
 \begin{exampleblock}{\href{https://www.projecthoneypot.org/about_us.php}{Project Honey Pot}}
 Anti-spammer project.
 Web sites publish some fake e-mails and spammer's crawlers sending e-mail to
@@ -48,7 +50,7 @@ such addresses are blocked.
 \begin{frame}
 \frametitle{NIDS}
 \textbf{Network Intrusion Detection System} (NIDS) is a system that scans
-network activity and tries to detect attack pattens.
+network activity and tries to detect attacks.
 \begin{exampleblock}{\href{http://www.snort.org/}{Snort}}
 A NIDS, and an IPS (Intrusion Prevention System), snort can detect attacks and
 take actions accordingly.
@@ -80,11 +82,11 @@ Detects SYN port scans, etc.
 \item \emph{When} did the attack happen
 	\begin{itemize}
 	\item Were we attacked?
-	\item Is the attack still on going?
+	\item Is the attack still in progress?
 	\end{itemize}
 \item \emph{What} was compromised
 	\begin{itemize}
-	\item What data was compromised?
+	\item Data was compromised?
 	\item Data was modified?
 	\item What systems failed to work?
 	\end{itemize}
@@ -100,9 +102,16 @@ Detects SYN port scans, etc.
 \frametitle{How to know?}
 \begin{itemize}
 \item Traffic logs and graphs
-% TODO insert image
 \item Application logs
 \end{itemize}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\includeimage[width=\linewidth]{dos-load}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includeimage[width=\linewidth]{dos-bw}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
@@ -112,7 +121,7 @@ Detects SYN port scans, etc.
 platform
 \item \href{http://www.intersectalliance.com}{Snare}: a collection of tools to
 audit log data and facilitate log analysis
-\item \href{http://www.ossec.net/}{OSSEC}: open source alternative; performs
+\item \href{http://www.ossec.net/}{OSSEC}: open-source alternative; performs
 log analysis, file integrity checking, policy monitoring, rootkit detection,
 real-time alerting and active response
 \item Web log analysis software
@@ -138,13 +147,11 @@ DoS generates lot of traffic and can mask attacks as generated logs are huge.
 \subsection{Performances}
 
 \begin{frame}
-\frametitle{Impact of performances}
+\frametitle{Performances}
 \begin{itemize}
-\item Performances of a web application should be checked
-\item Slow response time might indicate high load and that the server is
-currently under attack
-\item If an application in development responds slowly, it might not scale and
-eventually crash under high load
+\item Slow response time and high load might be a symptom of an attack
+\item Slow application implies higher loads and may not scale and crash during
+	an attack
 \end{itemize}
 \end{frame}
 

@@ -274,14 +274,16 @@ engineering.
 Authentication and identity
 ===========================
 
-Identity: The identity of somebody/something is who/what he/it is.
-Authentication: The authentication is the act of asserting the
-identity of something/someone.
+*Identity* of somebody/something is who/what he/it is.
 
-Why authentication?
+*Authentication* is the act of asserting the identity of something/someone.
+
 Authentication is needed when you want to transmit confidential
 information, you want to be sure that your correspondent isn't
 impersonated by somebody else.
+
+*Authorization* is determining whether the user has the permission to do some
+action.
 
 ## Types
 
