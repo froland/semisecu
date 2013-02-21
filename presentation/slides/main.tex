@@ -70,10 +70,14 @@
 %\usecolortheme{whale}
 %\usecolortheme{wolverine}
 
-%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
-%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
-
-%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+% To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}
+% To replace the footer line in all slides with a simple slide count uncomment
+% this line
+%\setbeamertemplate{footline}[page number]
+% To remove the navigation symbols from the bottom of all slides uncomment
+% this line
+%\setbeamertemplate{navigation symbols}{}
 }
 
 % Image
@@ -107,12 +111,16 @@
 	\end{center}
 }
 
-%----------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
 %	TITLE PAGE
-%----------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
 
 \title[Web Security]{Security in Web Applications}
-\author{Fran\c cois Roland \and Krzysztof Magusiak \and Vincent Gribomont}
+\author{Fran\c{c}ois Roland
+\and Krzysztof Magusiak
+\and Vincent Gribomont
+\and Micha\"{e}l Lacroix
+}
 \institute[Hermes ECS]{Hermes Engineering Consultancy Services}
 \date{\today}
 \logo{\includegraphics[width=2cm,keepaspectratio]{img/hermes}}
@@ -131,9 +139,11 @@
 % For the rest of the document set depth to 3
 \setcounter{tocdepth}{3}
 
-%----------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
 %	PRESENTATION SLIDES
-%----------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
+
+% TODO introduction
 
 %------------------------------------------------
 
@@ -147,12 +157,17 @@
 
 \input{detection.tex}
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------
+\section{Conclusion}
+
+% TODO conclusion
+
+%-----------------------------------------------------------------------------
 
 \begin{frame}
 \Huge{\centerline{Any questions?}}
 \end{frame}
 
-%----------------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
 
 \end{document}

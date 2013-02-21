@@ -1,5 +1,9 @@
 \section{Attacks}
 
+\begin{frame}
+\sectionpage
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Attack trees}
 
@@ -174,7 +178,18 @@ OWASP compiles at top 10 of most critical web application \emph{risks}.
 
 \begin{frame}
 \frametitle{The top 10}
-% TODO list the top 10
+\begin{enumerate}
+\item Injection
+\item XSS
+\item Authenication and Session Management
+\item Insecure Direct Object References
+\item CSRF
+\item Security Misconfiguration
+\item Insecure Cryptographic Storage
+\item Failure to Restrict URL Access
+\item Insufficient Transport Layer Protection
+\item Unvalidated Redirects
+\end{enumerate}
 \end{frame}
 
 \subsubsection{Attack 1 - Injection}
@@ -303,10 +318,10 @@ XSS as sometimes special characters must be accepted.
 \end{block}
 \end{frame}
 
-\subsubsection{Attack 3 - Authentication and session management}
+\subsubsection{Attack 3 - Authentication and Session Management}
 
 \begin{frame}
-\frametitle{3. Authentication and session management}
+\frametitle{3. Authentication and Session Management}
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
 \begin{block}{Impacts}
@@ -318,7 +333,7 @@ The impact is \alert{severe}, this attack is common.
 \end{frame}
 
 \begin{frame}
-\frametitle{3. Authentication and session management - Attack scenario}
+\frametitle{3. Authentication and Session Management - Attack scenario}
 \begin{itemize}
 \item In older application servers the session ID could be set using the URL.
 	\\ You could let someone login using your session.
@@ -328,14 +343,14 @@ The impact is \alert{severe}, this attack is common.
 \end{frame}
 
 \begin{frame}
-\frametitle{3. Authentication and session management - Vulnerability}
+\frametitle{3. Authentication and Session Management - Vulnerability}
 \begin{exampleblock}{XSS session hijacking - demo}
 The users' sessions can be obtained using XSS.
 \end{exampleblock}
 \end{frame}
 
 \begin{frame}
-\frametitle{3. Authentication and session management - Preventing the attack}
+\frametitle{3. Authentication and Session Management - Preventing the attack}
 \begin{block}{Good authentication mechanism}
 \begin{itemize}
 \item Use a proven authentication mechanism
@@ -812,7 +827,6 @@ Try a list of common passwords.
 \end{block}
 \end{frame}
 
-% XXX not treated, not much to write about it
 %\begin{frame}
 %\frametitle{Sequence prediction}
 %Predicting the next session ID.
