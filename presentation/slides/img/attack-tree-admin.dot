@@ -1,18 +1,20 @@
 digraph AttackAdmin {
 	rankdir = TB
-	dir = back
+	node [ shape = box ]
+	edge [ dir = back ]
 
 	Admin [ label = "Administration access" ]
 	Password [ label = "Acquire password" ]
 	Privilege [ label = "Privilege escalation" ]
 	Guess [ label = "Guess the\npassword" ]
+	Steal [ label = "Steal the\npassword" ]
 	SocialEngineering [ label = "Social engineering" ]
 	Garbage [ label = "Dump diving" ]
 	SessionStealing [ label = "Session stealing" ]
 	Sniff [ label = "Sniff the\npassword" ]
 
 	Admin -> { Password Privilege }
-	Password -> { Bruteforce Guess Steal }
+	Password -> { Bruteforce Guess Steal Blackmail Bribe }
 	Steal -> { SocialEngineering Garbage Sniff }
 	Privilege -> { Injection CSRF SessionStealing }
 }
