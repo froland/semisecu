@@ -44,11 +44,13 @@ Used to determine and understand threats that may arise.
 \item Technical failures
 	\begin{itemize}
 	\item loss of essential services
-		% (example: no electricity)
 	\item hardware failure
 	\item software failure
 	\end{itemize}
 \end{itemize}
+\note{
+	Example of essential services: no electricity
+}
 \end{frame}
 
 \begin{frame}
@@ -138,12 +140,16 @@ No identifier for a web user.
 \begin{frame}
 \frametitle{A web application}
 \includeimage[width=\linewidth,height=6cm]{archi-webapplication}
-%- Browser: the client, uses scripting
-%- Router: connected to the browser (by WiFi) - LAN
-%- Internet: not detailed here - WAN
-%- Web Application Firewall, IDS, Load Balancer
-%- Application Server: with the contained application
-%- Database: where the application stores its data
+\note{
+	\begin{itemize}
+	\item Browser: the client, uses scripting
+	\item Router: connected to the browser (by WiFi) - LAN
+	\item Internet: not detailed here - WAN
+	\item Web Application Firewall, IDS, Load Balancer
+	\item Application Server: with the contained application
+	\item Database: where the application stores its data
+	\end{itemize}
+}
 \end{frame}
 
 %\subsubsection{Points of failure}
@@ -295,8 +301,10 @@ The description of the hotel is sent as is.
 \pause
 \begin{exampleblock}{Getting the user's cookies - demo}
 Just use \lstinline!document.cookie! in JavaScript and send it somewhere.
-% explain cookies orally
 \end{exampleblock}
+\note{
+	Explain what are \emph{cookies} orally.
+}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -442,8 +450,12 @@ the user, the attacker's website will not be able to generate the correct
 requests.
 \newline
 Tokens can be unique by session or by request.
-% Stored in cookies
 \end{block}
+\note{
+	The token is usually stored in a cookie (preferably HTTP-only).
+	In formulars, a hidden field contains the same value.
+	When the request is sent, both values are compared.
+}
 \end{frame}
 
 \subsubsection{Attack 6 - Security Misconfiguration}
@@ -715,8 +727,10 @@ Vulnerable on public WiFi networks.
 \end{exampleblock}
 \begin{block}{Prevention}
 Use cryptography: HTTPS, PKI (Public Key Infrastructure)
-% PKI is explained later
 \end{block}
+\note{
+	Cryptography is explained in the next chapter.
+}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -735,13 +749,8 @@ confidential information.
 \frametitle{Social engineering - example and prevention}
 \begin{itemize}
 \item pretexting
-	% Using an invented scenario (the pretext) to engage a targeted victim in
-	% a manner that increases the chance the victim will divulge information
-	% or perform actions that would be unlikely in ordinary circumstances.
 \item phishing \small{(next point)}
 \item quid pro quo
-	% Something for something:
-	% Help a user solve a problem, they might give you passwords in exchange.
 \end{itemize}
 \begin{exampleblock}{Survey}
 \begin{quote}
@@ -756,6 +765,17 @@ question in exchange for a cheap pen.
 \item framework of trust
 \end{itemize}
 \end{block}
+\note{
+	\begin{description}
+	\item[Pretexting]
+	Using an invented scenario (the pretext) to engage a targeted victim in
+	a manner that increases the chance the victim will divulge information
+	or perform actions that would be unlikely in ordinary circumstances.
+	\item[Quid pro quo]
+	Something for something:
+	Help a user solve a problem, they might give you passwords in exchange.
+	\end{description}
+}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
