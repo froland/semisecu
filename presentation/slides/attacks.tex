@@ -295,6 +295,7 @@ The description of the hotel is sent as is.
 \pause
 \begin{exampleblock}{Getting the user's cookies - demo}
 Just use \lstinline!document.cookie! in JavaScript and send it somewhere.
+% explain cookies orally
 \end{exampleblock}
 \end{frame}
 
@@ -530,8 +531,11 @@ Encrypt the data such as the considered threats will not be able to read it.
 \begin{block}{Hash + Salt}
 Ensure passwords are hashed with a standard algorithm and an appropriate salt
 is used.
-% TODO explain hash and salt
 \end{block}
+\end{frame}
+
+\begin{frame}
+% TODO explain hash and salt
 \end{frame}
 
 \subsubsection{Attack 8 - Failure to Restrict URL Access}
@@ -601,7 +605,6 @@ Sniff the network and find HTTP requests containing "password".
 SSL/TLS can be used to secure the connection.
 \begin{itemize}
 \item \emph{secure} cookies will not be sent through an unencrypted connection
-% TODO explain cookie
 \item Ensure that certificates are valid
 \end{itemize}
 \end{block}
@@ -712,8 +715,8 @@ Vulnerable on public WiFi networks.
 \end{exampleblock}
 \begin{block}{Prevention}
 Use cryptography: HTTPS, PKI (Public Key Infrastructure)
+% PKI is explained later
 \end{block}
-% TODO explain PKI
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
