@@ -207,22 +207,15 @@ OWASP compiles at top 10 of most critical web application \emph{risks}.
 \frametitle{1. Injection}
 \textbf{Injection} consists in sending untrusted data to an interpreter.
 Attacker enters code to execute into input fields.
+\begin{example}
+Send code directly to some interpreter.
+\end{example}
 \begin{block}{Impacts}
 Data loss, corruption, lack of accountability, etc.
 \end{block}
-\begin{block}{Risks}
-\alert{Easy to exploit}, has a \alert{severe impact}, it is quite common.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{1. Injection - Attack scenario}
-\begin{itemize}
-\item The user enters a sequence of characters that is invalid for the
-	interpreter. The server will send an invalid result.
-	Probably, the executed code or error will be sent.
-\item Complete the query with what you need the interpreter to execute.
-\end{itemize}
+\begin{alertblock}{Risks}
+Easy to exploit, has a severe impact, it is quite common.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -276,23 +269,17 @@ List of valid input patterns.
 \textbf{Cross-site scripting} allows attackers to inject code into the page
 sent to the user. The injected code can be a script interpreted by the
 browser.
+\begin{example}
+The attacker sends a script to a web page. Users who download the code execute
+it in their browser.
+\end{example}
 \begin{block}{Impacts}
 Hijack user sessions, change content, redirect the user.
 \end{block}
-\begin{block}{Risks}
-This is \alert{the most widespread} vulnerability.
+\begin{alertblock}{Risks}
+This is the most widespread vulnerability.
 It requires an average knowledge to be exploited and the impacts are moderate.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{2. XSS - Attack scenario}
-\begin{itemize}
-\item The attacker sends some text containing a script to the server
-\item The user downloads the page with the script as it was posted by the
-	attacker
-\item The script is executed on the user's browser
-\end{itemize}
+\end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -333,27 +320,31 @@ XSS as sometimes special characters must be accepted.
 \frametitle{3. Authentication and Session Management}
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
+\begin{example}
+\begin{itemize}
+\item Session hijacking
+\item Session fixation
+\end{itemize}
+\end{example}
 \begin{block}{Impacts}
 Once an account has been stolen, the attacker may do \emph{anything} the user
 can do.
 \end{block}
-\begin{block}{Risks}
-The impact is \alert{severe}, this attack is common.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{3. Authentication and Session Management - Attack scenario}
-\begin{itemize}
-\item In older application servers the session ID could be set using the URL.
-	\\ You could let someone login using your session.
-\item The user could forget to log out on a public computer.
-\item The attacker could gain access to the users' database.
-\end{itemize}
+\begin{alertblock}{Risks}
+The impact is severe, this attack is common.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}
 \frametitle{3. Authentication and Session Management - Vulnerability}
+\begin{exampleblock}{Public computer}
+Forgetting to log out...
+\end{exampleblock}
+\begin{exampleblock}{Session fixation}
+In older application server, the session ID could be set using the URL.
+You could send that URL to someone else.
+\end{exampleblock}
+\pause
 \begin{exampleblock}{XSS session hijacking - demo}
 The users' sessions can be obtained using XSS.
 \end{exampleblock}
@@ -376,20 +367,15 @@ The users' sessions can be obtained using XSS.
 \frametitle{4. Insecure Direct Object References}
 The attacker changes a parameter in the request to obtain a \textbf{direct
 object reference} that they should not be able to access.
+\begin{example}
+Replace some object identifier in the request.
+\end{example}
 \begin{block}{Impacts}
 Compromise the data that can be referenced.
 \end{block}
-\begin{block}{Risks}
-\alert{Easy} to exploit and detect. The impact is moderate.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{4. Insecure Direct Object References - Attack scenario}
-\begin{itemize}
-\item Find a URL with an identifier as a part of the URL
-\item Replace that identifier with another value and try to send the request
-\end{itemize}
+\begin{alertblock}{Risks}
+Easy to exploit and detect. The impact is moderate.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}
@@ -419,23 +405,21 @@ Use indirect references for each session.
 
 \begin{frame}
 \frametitle{5. CSRF}
-\textbf{Cross-site Request Forgery} consists in generating request when the
+\textbf{Cross-site Request Forgery} consists in generating requests when the
 user visits the attacker's web page.
-\begin{block}{Impacts}
-The attacker may perform any action the victim is authorized to do.
-\end{block}
-\begin{block}{Risks}
-\alert{Widespread} and easy to detect, the impact is moderate.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{5. CSRF - Attack scenario}
+\begin{example}
 \begin{itemize}
 \item A user visits the attacker's web page
 \item The requested page contains tricks to submit requests to the attacked
-	web site as the visiting user.
+web site as the visiting user
 \end{itemize}
+\end{example}
+\begin{block}{Impacts}
+The attacker may perform actions as the victim.
+\end{block}
+\begin{alertblock}{Risks}
+Widespread and easy to detect, the impact is moderate.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -449,13 +433,15 @@ text=hello%20world" alt="" />
 \end{exampleblock}
 \end{frame}
 
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{5. CSRF - Preventing the attack}
 \begin{block}{Unpredictable token}
-When a each request contains a field that is a token linked to the session of
+Each request contains a field that is a token linked to the session of
 the user, the attacker's website will not be able to generate the correct
 requests.
+\newline
 Tokens can be unique by session or by request.
+% Stored in cookies
 \end{block}
 \end{frame}
 
@@ -466,31 +452,18 @@ Tokens can be unique by session or by request.
 \textbf{Security configuration} can happen at any level: the application, the
 web server, the framework, etc.
 The default behavior is not always the wanted one.
+\begin{example}
+\begin{itemize}
+\item Accessing: default accounts, unprotected files and directories
+\item Gaining information: versions, stack traces, debug messages
+\end{itemize}
+\end{example}
 \begin{block}{Impacts}
 Attackers can gain unauthorized access, the system can be compromised.
 \end{block}
-\begin{block}{Risks}
-\alert{Easy} to exploit and to detect.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{6. Security Misconfiguration - Attack scenario}
-\begin{itemize}
-\item The attacker tries
-	\begin{itemize}
-	\item default accounts
-	\item unused pages
-	\item unpatched flaws
-	\item unprotected files and directories
-	\end{itemize}
-\item Gain information on the system
-	\begin{itemize}
-	\item version of used libraries/frameworks
-	\item server version
-	\item stack traces and other debug messages
-	\end{itemize}
-\end{itemize}
+\begin{alertblock}{Risks}
+Easy to exploit and to detect.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}
@@ -521,21 +494,16 @@ Automated scans can detect misconfigurations and missing patches.
 \begin{frame}
 \frametitle{7. Insecure Cryptographic Storage}
 Sensitive data is stored \textbf{insecurely without crypting}.
+\begin{example}
+All data is readable by the attacker once he gains access to it.
+\end{example}
 \begin{block}{Impacts}
 Stolen data is compromised.
 \end{block}
-\begin{block}{Risks}
-All unencrypted \alert{data} is compromised.
+\begin{alertblock}{Risks}
+All unencrypted data is compromised.
 The attack is however difficult to perform.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{7. Insecure Cryptographic Storage - Attack scenario}
-\begin{itemize}
-\item The attacker gains access to the database and dumps tables
-\item All the information is available to the attacker
-\end{itemize}
+\end{alertblock}
 \end{frame}
 
 \begin{frame}
@@ -549,6 +517,8 @@ The database backup is lost.
 \end{exampleblock}
 \begin{exampleblock}{Rainbow tables}
 Precomputed table for decoding hashed values.
+\\ Example:
+\href{http://www.md5this.com/list.php?page=133&key=1}{\texttt{md5this.com}}
 \end{exampleblock}
 \end{frame}
 
@@ -569,20 +539,15 @@ is used.
 \begin{frame}
 \frametitle{8. Failure to Restrict URL Access}
 \textbf{URL access is not restricted} to functions requiring permissions.
+\begin{example}
+The attacker changes his URL to a privileged page.
+\end{example}
 \begin{block}{Impacts}
 Administrative functions may become available to the attacker.
 \end{block}
-\begin{block}{Risks}
-\alert{Easy} to exploit, but the flaw is uncommon.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{8. Failure to Restrict URL Access - Attack scenario}
-\begin{itemize}
-\item Attacker changes his URL to a privileged page
-\item No authentication is required
-\end{itemize}
+\begin{alertblock}{Risks}
+Easy to exploit, but the flaw is uncommon.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}
@@ -606,22 +571,20 @@ Authorization mechanisms should be used.
 \frametitle{9. Insufficient Transport Layer Protection}
 \textbf{Traffic is unprotected} and anyone sniffing the network can see the
 data in transit.
+\begin{example}
+\begin{itemize}
+\item Sniffing the WiFi network
+\item Scanning for HTTP requests
+\item Analyzing conversations
+\end{itemize}
+\end{example}
 \begin{block}{Impacts}
 Account theft, expose individual user's data.
 \end{block}
-\begin{block}{Risks}
-\alert{Detectable} using any sniffer.
+\begin{alertblock}{Risks}
+Detectable using any sniffer.
 However, often difficult to exploit.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{9. Insufficient Transport Layer Protection - Attack scenario}
-\begin{itemize}
-\item The attacker sniffs the WiFi network
-\item Scan for interesting HTTP requests
-\item Analyze the data sent between the client and the server
-\end{itemize}
+\end{alertblock}
 \end{frame}
 
 \begin{frame}
@@ -639,7 +602,7 @@ SSL/TLS can be used to secure the connection.
 \begin{itemize}
 \item \emph{secure} cookies will not be sent through an unencrypted connection
 % TODO explain cookie
-\item ensure that certificates are valid
+\item Ensure that certificates are valid
 \end{itemize}
 \end{block}
 \end{frame}
@@ -650,22 +613,17 @@ SSL/TLS can be used to secure the connection.
 \frametitle{10. Unvalidated Redirects}
 A URL may appear as trustworthy, but it contains an \textbf{unvalidated
 redirect}.
+\begin{example}
+Placing a URL with a redirect that seems trustworthy redirecting to a
+malicious page.
+\end{example}
 \begin{block}{Impacts}
 Tricking victims into disclosing information, unsafe forwards may allow access
 control bypass.
 \end{block}
-\begin{block}{Risks}
-\alert{Easy to detect}, uncommonly present.
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{10. Unvalidated Redirects - Attack scenario}
-\begin{itemize}
-\item The attacker places a URL with a redirect that seems trustworthy,
-	however it redirects to a malicious page
-\item The user clicks on that link and logs in
-\end{itemize}
+\begin{alertblock}{Risks}
+Easy to detect, uncommonly present.
+\end{alertblock}
 \end{frame}
 
 \begin{frame}
@@ -715,7 +673,7 @@ causing server overload.
 \begin{frame}
 \frametitle{Denial of Service - example}
 \begin{exampleblock}{DDoS}
-The anonymous attack.
+The anonymous group attack.
 \end{exampleblock}
 \begin{exampleblock}{Unintentional DoS}
 \begin{itemize}
