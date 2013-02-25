@@ -3,17 +3,38 @@
 \subsection{Security concerns}
 
 \begin{frame}
-\frametitle{Web security}
+\frametitle{Internet Security History}
+Army, universities
+\includeimage[width=\linewidth,height=0.5\textheight]{top-secret-unclass-web}
+\emph{Security?}
+\note{
 The web:
 \begin{itemize}
-\item Designed in a trusted environment
+\item Designed in a \emph{trusted environment}
 \item Became global
 \end{itemize}
 Security was not a concern in a closed environment.
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{Web services}
+\frametitle{Nowadays...}
+\begin{columns}
+\begin{column}{0.3\linewidth}
+\includeimage[width=\linewidth]{facebook}
+\end{column}
+\begin{column}{0.4\linewidth}
+\includeimage[width=\linewidth]{visa}
+\end{column}
+\begin{column}{0.3\linewidth}
+\includeimage[width=\linewidth]{tax-on-web}
+\end{column}
+\end{columns}
+\begin{center}
+{\Huge It's \textbf{everywhere}!}
+\end{center}
+\note{
+\textbf{Web services} \\
 Security concerns various aspects of our internet life.
 \begin{itemize}
 \item Personal (e-mail, Facebook, ...)
@@ -21,12 +42,36 @@ Security concerns various aspects of our internet life.
 \item Fiscal (Tax-On-Web)
 \item etc.
 \end{itemize}
+}
 \end{frame}
 
 \subsection{Sentiment of security}
 
 \begin{frame}
-\frametitle{User confidence}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\includeimage[width=0.8\linewidth]{https}
+\end{column}
+\begin{column}{0.5\linewidth}
+\includeimage[width=0.8\linewidth]{secure-website}
+\end{column}
+\end{columns}
+\note{
+\textbf{False sentiment of security} \\
+Gain some level of trust...
+\\ but, do not lure the users in a false sense of security.
+\begin{exampleblock}{HTTPS}
+Users may think that an HTTPS web site is secured.
+\\ HTTPS prevents only some of the attacks.
+\end{exampleblock}
+}
+\end{frame}
+
+\begin{frame}
+\begin{exampleblock}{PlayStation Network outrage}
+77 million accounts affected.
+\end{exampleblock}
+\note{
 A web site must earn the confidence of its users.
 \begin{block}{Why?}
 Users will send their data to the server.
@@ -37,44 +82,39 @@ The web site could be compromised.
 \begin{exampleblock}{PlayStation Network outrage}
 Information from approximately 77 million accounts was stolen.
 \end{exampleblock}
-\end{frame}
-
-\begin{frame}
-\frametitle{False sentiment of security}
-Gain some level of trust...
-\\ but, do not lure the users in a false sense of security.
-\begin{exampleblock}{HTTPS}
-Users may think that an HTTPS web site is secured.
-\\ HTTPS prevents only some of the attacks.
-\end{exampleblock}
-\end{frame}
-
-\begin{frame}
-\frametitle{Security}
-\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security}
+}
 \end{frame}
 
 \subsection{Web payment}
 
 \begin{frame}
-\frametitle{Web payment}
+\includeimage[width=0.8\linewidth]{secure-payment-logos}
+\begin{itemize}
+\item Security measures
+\item Guarantees
+\item Protection
+\end{itemize}
+\note{
 \begin{center}
 You don't trust everyone with your money.
 \end{center}
 \begin{itemize}
 \item Proper security measures
-\item Guaranties
+\item Guarantees
 \item Protection against fraud
 \end{itemize}
 \begin{example}
 Visa, MasterCard, PayPal, etc.
 \end{example}
+}
 \end{frame}
 
 \subsection{Users as a security flaw}
 
 \begin{frame}
-\frametitle{Role of the user}
+\frametitle{Security}
+\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security}
+\note{
 \begin{itemize}
 \item Users can divulge their credentials
 \item They may use unsecured web sites, compromised software, ...
@@ -86,6 +126,7 @@ Visa, MasterCard, PayPal, etc.
 Manipulating people so they divulge confidential information.
 \\ More on that later...
 \end{block}
+}
 \end{frame}
 
 \begin{frame}
@@ -123,22 +164,36 @@ Remembering multiple passwords is... \emph{difficult}.
 
 \begin{frame}
 \frametitle{Passwords - Bad storage}
-\includeimage[height=0.6\textheight,width=\linewidth]{passwordPostIt}
+\includeimage[height=0.75\textheight,width=\linewidth]{passwordPostIt}
 \end{frame}
 
 \begin{frame}
-\begin{exampleblock}{What do you trade your password for?}
-From a survey by Infosecurity~Europe~2003:
+\begin{exampleblock}{How much is your password worth?}
 \begin{quote}
 90\% of people gave away their passwords in exchange for a pen.
 \end{quote}
 \end{exampleblock}
+\note{
+	\begin{exampleblock}{What do you trade your password for?}
+	\begin{quote}
+	90\% of people gave away their passwords in exchange for a pen.
+	--~Infosecurity~Europe~2003
+	\end{quote}
+	\end{exampleblock}
+}
 \end{frame}
 
 \subsection{Trade-off: security vs usability}
 
 \begin{frame}
-\frametitle{Security vs Usability}
+\begin{center}
+\begin{tabular}{rcl}
+secure password & vs & simple password \\
+authorization checks & vs & no authentication \\
+encoded data & vs & plain text \\
+\end{tabular}
+\end{center}
+\note{
 \begin{itemize}
 \item The system should be easy to use
 \item Security measures are in the way of what the user wants to achieve
@@ -148,14 +203,6 @@ Security measures:
 \item Too many: make a web site unusable
 \item Too few: the web site can be compromised
 \end{itemize}
-\begin{example}
-\begin{center}
-\begin{tabular}{rcl}
-secure password & vs & simple password \\
-authorization checks & vs & no authentication \\
-encoded data & vs & plain text \\
-\end{tabular}
-\end{center}
-\end{example}
+}
 \end{frame}
 
