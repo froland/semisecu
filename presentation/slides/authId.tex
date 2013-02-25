@@ -52,7 +52,7 @@ Enforcing a minimum password strength:
 \begin{itemize}
 \item State the rules clearly (minimum 10 characters, at least one capital
 letter, etc.)
-\item Check the complexity in the browser
+\item Check the complexity in the browser and on the server
 % feedback for the user
 \end{itemize}
 \includeimage[height=0.4\textheight]{browserPasswordValidation}
@@ -137,12 +137,29 @@ Certificate:
 \begin{frame}[allowframebreaks]
 \frametitle{Certificates - How are they used?}
 Certificates are often used as a mean to distribute key in a public
-key infrastructure. A typical example is for SSL/TLS in web browsers.
+key infrastructure: you start with a root CA certificate (usually
+embedded into the application) and you check
+the other certificate you need with it. A typical example is for
+SSL/TLS in web browsers.
 % TODO explain how the first certificate is distributed => included in browser
 % TODO unreadable images
-\includeimage[width=0.9\linewidth]{Usage-of-Digital-CertificatePart1}
-\includeimage[width=0.9\linewidth]{Usage-of-Digital-CertificatePart2}
-\includeimage[width=0.9\linewidth]{Usage-of-Digital-CertificatePart3}
+\begin{itemize}
+\item Each CA does generate it's public-private key pair. They
+  self-sign their certificates with their public key.
+\item When the browser does require a CA certificates it does just ask
+  the CA for it and validate it's integrity (by checking the hash).
+\item When a web-site owner does want a certificate he does also
+  generate a public key pair. He signs a request that he sends to a
+  CA.
+\item The CA check the integrity of the request and perform some
+  checks on the identity of the owner.
+\item If the CA validates the ID it makes and signs a certificate for
+  the owner. 
+\item When the websites want to sign a message, it does sign it with
+  it's private key and send the signed object and it's certificate.
+\item The browser checks the certificates against the signing CA
+  certificate and the message against the checked certificate.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -152,9 +169,11 @@ The browser authenticates the server but the opposite isn't true.
 \end{block}
 \begin{block}{Two-way authentication}
 Both ends are authenticated.
-The server also checks the user's certificate.
-% TODO explain why two one-way authentication <> two-way authentication
-% if too complicated, explain in LaTeX comments
+The server also checks the user's certificate but two one-way
+authentication doesn't always make a good two-way authentication.
+% May be vulnerable to Mitm-type attack see 
+% http://www.montefiore.ulg.ac.be/~leduc/cours/ISIR/GSRI-ch2.pdf
+% p55
 \end{block}
 \end{frame}
 
@@ -193,8 +212,19 @@ The entity is authenticated by:
 %------------------------------------------------
 \begin{frame}
 \frametitle{Public-private keys}
-% TODO cryptography introduction: public-private key difference, why 2 keys,
-% PKI
+The classical cryptography approach is to use the same key to encrypt
+and decrypt a message but there is a major drawback: in order to be
+able to communicate with someone, you have to use a preestablished
+key.
+
+Public key criptography was designed has been design to solve that
+problem. With those schemes, you encrypt (and sign) with the private
+key and decrypt with the public one.Each participant generate a public
+private key pair and givethe public one to the other.  
+\begin{block}{PKI}
+A PKI or Public Key Infrastructure is a mean to distribute the public
+key in a secure way. 
+\end{block}
 \end{frame}
 
 %------------------------------------------------
@@ -210,7 +240,8 @@ This form of authentication is often used to sign online transactions.
 \note{
 	\begin{description}
 	\item[Nonce]
-	% TODO explain what it is
+	Nonce stands for number used once. It's a random number used
+        once to avoid replay attack.
 	\end{description}
 }
 \end{frame}
