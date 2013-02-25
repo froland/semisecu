@@ -72,7 +72,7 @@
 %\setbeamertemplate{footline}
 % To replace the footer line in all slides with a simple slide count uncomment
 % this line
-\setbeamertemplate{footline}[page number]
+%\setbeamertemplate{footline}[page number]
 % To remove the navigation symbols from the bottom of all slides uncomment
 % this line
 \setbeamertemplate{navigation symbols}{}
@@ -116,37 +116,55 @@
 	\end{center}
 }
 
+% Begin each section with a dedicated frame
+\AtBeginSection[]{
+	\begin{frame}
+	%\sectionpage
+	\usebeamercolor[fg]{title}
+	\usebeamerfont{section title}
+	\centering
+	\insertsection
+	\end{frame}
+}
+
 %-----------------------------------------------------------------------------
 %	TITLE PAGE
 %-----------------------------------------------------------------------------
 
 \title[Web Security]{Security in Web Applications}
-\author{Fran\c{c}ois Roland
+\author[]{Fran\c{c}ois Roland
 \and Krzysztof Magusiak
 \and Vincent Gribomont
 \and Micha\"{e}l Lacroix
 }
 \institute[Hermes ECS]{Hermes Engineering Consultancy Services}
 \date{\today}
-\logo{\includegraphics[width=2cm,keepaspectratio]{img/hermes}}
 
 \begin{document}
 
+%-----------------------------------------------------------------------------
+
 \begin{frame}
-\titlepage % Print the title page as the first slide
+\titlepage
+% Insert the logo
+\begin{picture}(0,0)
+\put(0,190){\includegraphics[keepaspectratio,width=3cm]{img/hermes}}
+\end{picture}
 \end{frame}
 
-\begin{frame}[allowframebreaks]
-\frametitle{Overview}
-\setcounter{tocdepth}{2}
-\tableofcontents
-\end{frame}
+%\begin{frame}[allowframebreaks]
+%\frametitle{Overview}
+%\setcounter{tocdepth}{2}
+%\tableofcontents
+%\end{frame}
 % For the rest of the document set depth to 3
 \setcounter{tocdepth}{3}
 
 %-----------------------------------------------------------------------------
 %	PRESENTATION SLIDES
 %-----------------------------------------------------------------------------
+
+\input{intro.tex}
 
 \input{psycho.tex}
 
@@ -163,7 +181,15 @@
 \section{Conclusion}
 
 \begin{frame}
-\Huge{\centerline{Any questions?}}
+\begin{columns}
+\begin{column}{0.4\linewidth}
+\includegraphics[keepaspectratio,width=\linewidth]{img/hermes}
+\end{column}
+\begin{column}{0.6\linewidth}
+\centering
+\Huge{Any questions?}
+\end{column}
+\end{columns}
 \end{frame}
 
 %-----------------------------------------------------------------------------
