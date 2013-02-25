@@ -154,6 +154,7 @@ The browser authenticates the server but the opposite isn't true.
 Both ends are authenticated.
 The server also checks the user's certificate.
 % TODO explain why two one-way authentication <> two-way authentication
+% if too complicated, explain in LaTeX comments
 \end{block}
 \end{frame}
 
@@ -170,7 +171,6 @@ authentication.
 \item Digipass
 \end{itemize}
 \end{exampleblock}
-% TODO link to kerberos
 \end{frame}
 
 %------------------------------------------------
@@ -192,16 +192,27 @@ The entity is authenticated by:
 
 %------------------------------------------------
 \begin{frame}
+\frametitle{Public-private keys}
+% TODO cryptography introduction: public-private key difference, why 2 keys,
+% PKI
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
 \frametitle{Signature challenge - principle}
 An authentication based upon "answering" a question about a secret
 known by the participants.
 \begin{exampleblock}{A nonce}
 When I encrypt a nonce with my correspondent's public key and ask him for the
 decrypted and encrypted message.
-% Explain how it works and what is a nonce.
 \end{exampleblock}
-% TODO cryptography introduction: public-private key difference, why 2 keys
 This form of authentication is often used to sign online transactions.
+\note{
+	\begin{description}
+	\item[Nonce]
+	% TODO explain what it is
+	\end{description}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -222,8 +233,7 @@ log in again at each of them.
 \begin{block}{Pro}
 \begin{itemize}
 \item Easier for the user
-\item Not trivial to build a secure authentication scheme
-% TODO "not trivial" seems like a cons
+\item COTS
 \item If they have only one password users tend to treat it with more care
 \item Enter the password less often
 \end{itemize}
@@ -234,6 +244,12 @@ log in again at each of them.
 \item You are dependent upon your provider (confidence, availability, ...)
 \end{itemize}
 \end{block}
+\note{
+	\begin{description}
+	\item[COTS]
+	Commercial off-the-shelf: a ready product.
+	\end{description}
+}
 \end{frame}
 
 %------------------------------------------------

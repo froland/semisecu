@@ -36,6 +36,8 @@ whole life of the application.
 \item You have to ask yourself the good questions and those questions
   vary from one application to the other.
   % TODO add some notes here (or explain)
+  % complete with the cheatsheet OWASP
+  % https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet
 \item Know the threats you are facing.
 \item There it no miracle receipts... just guidelines
 \end{itemize}
@@ -58,8 +60,11 @@ cookies, implementing an easily accessible logout, ...
 \item Input validation: always on server side, use a positive
   approach
 \item Use ad-hoc protection for known attacks.
-% TODO explain, what ad-hoc protection?
 \end{itemize}
+\note{
+	Ad-hoc protection means a protection specialized for a particular attack
+	in this context.
+}
 \end{frame}
 
 %------------------------------------------------
@@ -171,9 +176,9 @@ content.
 \begin{itemize}
 \item Virtual patching
 \item Scanning content
-\item Detecting connection patterns
+%\item Detecting connection patterns
+% Masked as it is explained in detection
 \end{itemize}
-% TODO intrusion detection is explained later
 \end{block}
 \end{frame}
 
@@ -204,7 +209,6 @@ HTTPS is a part of a solution, it does not ensure full security.
 \begin{itemize}
 \item Cross-domain XMLHttpRequest (XHR) is disabled by default
 	\\ Exceptions defined using \texttt{Access-Control}
-	% XHR allows to retrieve pages using JavaScript
 \item Possibility of disabling JavaScript and plug-ins (Flash)
 \item Private navigation mode
 	\\ Does not store data on the disk.
@@ -217,6 +221,9 @@ HTTPS is a part of a solution, it does not ensure full security.
 \item SSL Certificates are validated
 \item Blacklists of known rogue sites
 \end{itemize}
+\note{
+	XHR allows retrieving pages using JavaScript.
+}
 \end{frame}
 
 %------------------------------------------------
@@ -267,14 +274,19 @@ Impossible to test all the setups.
 \begin{itemize}
 \item Servers \small{(and their configuration)}
 \item Networks
-	% Proxys, caches, etc.
 \item Clients
 	\begin{itemize}
 	\item Browsers
 		\\ hacks \small{(example: IE6)} are just more code to test
 	\item Mobile
-	\item M2M % machine to machine
+	\item M2M
 	\end{itemize}
 \end{itemize}
+\note{
+	\begin{itemize}
+	\item Networks: proxy, caches, etc.
+	\item M2M: Machine to Machine
+	\end{itemize}
+}
 \end{frame}
 
