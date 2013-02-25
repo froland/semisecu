@@ -141,8 +141,6 @@ key infrastructure: you start with a root CA certificate (usually
 embedded into the application) and you check
 the other certificate you need with it. A typical example is for
 SSL/TLS in web browsers.
-% TODO explain how the first certificate is distributed => included in browser
-% TODO unreadable images
 \begin{itemize}
 \item Each CA does generate it's public-private key pair. They
   self-sign their certificates with their public key.
@@ -214,16 +212,16 @@ The entity is authenticated by:
 \frametitle{Public-private keys}
 The classical cryptography approach is to use the same key to encrypt
 and decrypt a message but there is a major drawback: in order to be
-able to communicate with someone, you have to use a preestablished
+able to communicate with someone, you have to use a pre-established
 key.
 
-Public key criptography was designed has been design to solve that
+Public key cryptography was designed has been design to solve that
 problem. With those schemes, you encrypt (and sign) with the private
 key and decrypt with the public one.Each participant generate a public
-private key pair and givethe public one to the other.  
+private key pair and give the public one to the other.
 \begin{block}{PKI}
 A PKI or Public Key Infrastructure is a mean to distribute the public
-key in a secure way. 
+key in a secure way.
 \end{block}
 \end{frame}
 
