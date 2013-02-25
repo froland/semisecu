@@ -547,7 +547,16 @@ is used.
 \end{frame}
 
 \begin{frame}
-% TODO explain hash and salt
+% Could be in a better place instead of in the middle of OWASP attacks
+\frametitle{Hash and Salt}
+\begin{block}{Hash}
+A irreversible function.
+\[ hash("pass") = "4528e6a7bb9341c36c425faf40ef32c3" \]
+\end{block}
+\begin{block}{Salt}
+Additional input for hash functions.
+\[ hash("pass" + "salt") = "c063c353e726fbeb21f51639c0841db2" \]
+\end{block}
 \end{frame}
 
 \subsubsection{Attack 8 - Failure to Restrict URL Access}
