@@ -22,3 +22,11 @@
   * ne pas utiliser d'abbréviations non introduites préalablement
 * slide 51 (note)
   * attention : la session n'est pas stockée chez le client mais sur l'applicaiton server. Seul _l'identifiant_ de session peut être stocké sous forme de cookie.
+* slide 56
+  * “appropriate salt” : plus qu'approprié, il s'agit ici d'avoir un salt différent pour chaque password pour contrer les attaques par rainbow table.
+* slide 68
+  * “avoid redirects and forwards” : ces 2 opérations sont à la base de toute navigation dans un site web dynamique. Il faut préciser.
+* slide 82
+  * concernant les captcha, il existe des sites qui présentent le captcha dans un autre contexte (par exemple, un autre site) et qui utilisent la réponse fournie par l'utilisateur pour attaque le site cible de manière automatique).
+
+(read up to slide 85)
