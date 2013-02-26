@@ -4,25 +4,27 @@
 \subsection{Attack trees}
 
 \begin{frame}
-\frametitle{An attack tree}
-
+\includeimage[width=\linewidth,height=6cm]{attack-tree-admin}
+\note{
 \begin{block}{What is it?}
 Model describing how an \emph{asset} can be attacked.
 \end{block}
 \begin{block}{Goal}
 Used to determine and understand threats that may arise.
 \end{block}
-\end{frame}
-
-\begin{frame}{Example}
-\includeimage[width=\linewidth,height=6cm]{attack-tree-admin}
+}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Threat agents}
 
 \begin{frame}
-\frametitle{Who are they?}
+TODO img threat agents
+TODO img reasons (money, i'm the best, etc.)
+\note{
+\begin{scriptsize}
+\begin{columns}
+\begin{column}{0.5\linewidth}
 \begin{itemize}
 \item External threats
 	\begin{itemize}
@@ -39,18 +41,14 @@ Used to determine and understand threats that may arise.
 \item Natural threats (disasters)
 \item Technical failures
 	\begin{itemize}
-	\item loss of essential services
+	\item loss of essential services (electricity, etc.)
 	\item hardware failure
 	\item software failure
 	\end{itemize}
 \end{itemize}
-\note{
-	Example of essential services: no electricity
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Why do they attack?}
+\end{column}
+\begin{column}{0.5\linewidth}
+\textbf{Why do they attack?}
 \begin{itemize}
 \item Gain
 	\begin{itemize}
@@ -65,6 +63,10 @@ Used to determine and understand threats that may arise.
 Threat agents have different skills, resources and different motivations that
 may influence risk.
 \end{block}
+\end{column}
+\end{columns}
+\end{scriptsize}
+}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,39 +81,41 @@ is measured in terms of a combination of the probability of occurrence of an
 event and its consequence.
 \textit{-- Wikipedia}
 \end{quote}
+\note{
+Just a good definition.
+Explanation in the next slide.
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{What is a \emph{risk}?}
 \[ \text{risk} = \text{likelihood} * \text{impact} \]
+\note{
 \begin{itemize}
 \item Likelihood: probability of a successful attack
 	\\ Influenced by threat agent skills and vulnerability factors
 \item Impact: how much damage the attack causes
 \end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Vulnerability factors}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\par\textbf{Vulnerability factors}
 \begin{itemize}
 \item ease of discovery
 \item ease of exploit
 \item awareness
 \item intrusion detection
 \end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Impact factors}
+\end{column}
+\begin{column}{0.5\linewidth}
+\par\textbf{Impact factors}
 \begin{itemize}
-\item loss of confidentiality
-\item loss of integrity
-\item loss of availability
-\item loss of accountability
+\item loss of confidentiality, integrity, availability, accountability
 \item financial damage
 \item reputation damage
 \item privacy violation
 \end{itemize}
+\end{column}
+\end{columns}
+}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -121,6 +125,7 @@ event and its consequence.
 
 \begin{frame}
 \frametitle{Internet}
+\note{
 \begin{itemize}
 \item Applications available on the internet
 \item Anyone can access the application
@@ -129,6 +134,7 @@ event and its consequence.
 No identifier for a web user.
 \\ Example: IP address shared by multiple users
 \end{block}
+}
 \end{frame}
 
 \subsubsection{Architecture of a web application}
@@ -137,35 +143,34 @@ No identifier for a web user.
 \frametitle{A web application}
 \includeimage[width=\linewidth,height=6cm]{archi-webapplication}
 \note{
-	\begin{itemize}
-	\item Browser: the client, uses scripting
-	\item Router: connected to the browser (by WiFi) - LAN
-	\item Internet: not detailed here - WAN
-	\item Web Application Firewall, IDS, Load Balancer
-	\item Application Server: with the contained application
-	\item Database: where the application stores its data
-	\end{itemize}
-}
-\end{frame}
-
+\begin{itemize}
+\item Browser: the client, uses scripting
+\item Router: connected to the browser (by WiFi) - LAN
+\item Internet: not detailed here - WAN
+\item Web Application Firewall, IDS, Load Balancer
+\item Application Server: with the contained application
+\item Database: where the application stores its data
+\end{itemize}
 %\subsubsection{Points of failure}
-
-\begin{frame}
-\frametitle{Points of failure}
+\par\textbf{Points of failure} \\
 Any component may fail; will the web site continue to work after an attack?
 \begin{block}{Single point of failure}
 A part of a system that prevents the entire system from working when it fails.
-\\ Solution: duplication
+Solution: duplication.
 \end{block}
+}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{OWASP - Top 10}
 
 \begin{frame}
-\frametitle{OWASP}
 \begin{block}{OWASP}
 \centering Open Web Application Security Project
+\includegraphics[width=0.3\linewidth]{img/owasp}
+\end{block}
+\note{
+\begin{block}{OWASP}
 \begin{itemize}
 \item standards
 \item libraries
@@ -173,9 +178,7 @@ A part of a system that prevents the entire system from working when it fails.
 \item etc.
 \end{itemize}
 \end{block}
-\begin{block}{Project: Top 10}
-OWASP compiles a top 10 of most critical web application \emph{risks}.
-\end{block}
+}
 \end{frame}
 
 \begin{frame}
@@ -192,21 +195,26 @@ OWASP compiles a top 10 of most critical web application \emph{risks}.
 \item Insufficient Transport Layer Protection
 \item Unvalidated Redirects
 \end{enumerate}
-\end{frame}
-
-\begin{frame}
-\frametitle{Demo application}
+\note{
+\begin{block}{Project: Top 10}
+Top 10 of most critical web application \emph{risks}.
+\end{block}
+\begin{block}{Demo application}
 \begin{itemize}
 \item Built with security flaws for the demo
 \item Hotel rating web site
 \item Shown hotels must be approved by an administrator
 \end{itemize}
+\end{block}
+}
 \end{frame}
 
 \subsubsection{Attack 1 - Injection}
 
 \begin{frame}
 \frametitle{1. Injection}
+TODO img
+\note{
 \textbf{Injection} consists in sending untrusted data to an interpreter.
 Attacker enters code to execute into input fields.
 \begin{example}
@@ -218,43 +226,48 @@ Data loss, corruption, lack of accountability, etc.
 \begin{alertblock}{Risks}
 Easy to exploit, has a severe impact, it is quite common.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{1. Injection - Vulnerability}
-\begin{exampleblock}{Bypassing authentication}
-This password may work:
+\begin{exampleblock}{\emph{THE} password}
 \begin{lstlisting}
 ' or '' = '
 \end{lstlisting}
-When authentication checks the user as follows:
+\pause
 \begin{lstlisting}
 String query = "select * from users"
 	+ " where user_name = '" + name + "'"
 	+ " and password = '" + password + "'";
 \end{lstlisting}
 \end{exampleblock}
-\pause
+\note{
 \begin{exampleblock}{SQL injection - demo}
 Getting the users' passwords as administrator.
 \end{exampleblock}
-\pause
 \begin{exampleblock}{JPQL injection - demo}
 Searching hotels that have a manager that has the same password as a given
 user.
 \end{exampleblock}
+}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{1. Injection - Preventing the attack}
-\begin{block}{Using parametrized interface}
-Usage of placeholders for values let's the interpreter escape input values.
 \begin{lstlisting}
 String query = "select * from users where user_name = ?";
 PreparedStatement st = con.prepareStatement(query);
 st.setString(1, name);
 ResultSet rs = st.executeQuery();
 \end{lstlisting}
+\pause
+\begin{itemize}
+\item Parametrized interface
+\item Escaping routines
+\item White list validation
+\end{itemize}
+\note{
+\begin{block}{Using parametrized interface}
+Usage of placeholders for values let's the interpreter escape input values.
 \end{block}
 \begin{block}{Escaping routines}
 Some languages have special function to escape manually values.
@@ -262,12 +275,15 @@ Some languages have special function to escape manually values.
 \begin{block}{White list validation}
 List of valid input patterns.
 \end{block}
+}
 \end{frame}
 
 \subsubsection{Attack 2 - XSS}
 
 \begin{frame}
 \frametitle{2. XSS}
+TODO img
+\note{
 \textbf{Cross-site scripting} allows attackers to inject code into the page
 sent to the user. The injected code can be a script interpreted by the
 browser.
@@ -282,6 +298,7 @@ Hijack user sessions, change content, redirect the user.
 This is the most widespread vulnerability.
 It requires an average knowledge to be exploited and the impacts are moderate.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -323,6 +340,8 @@ XSS as sometimes special characters must be accepted.
 
 \begin{frame}
 \frametitle{3. Authentication and Session Management}
+TODO img
+\note{
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
 \begin{example}
@@ -338,6 +357,7 @@ can do.
 \begin{alertblock}{Risks}
 The impact is severe, this attack is common.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}
@@ -370,6 +390,8 @@ The user's session can be obtained using XSS.
 
 \begin{frame}
 \frametitle{4. Insecure Direct Object References}
+TODO img
+\note{
 The attacker changes a parameter in the request to obtain a \textbf{direct
 object reference} that they should not be able to access.
 \begin{example}
@@ -381,6 +403,7 @@ Compromise the data that can be referenced.
 \begin{alertblock}{Risks}
 Easy to exploit and detect. The impact is moderate.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}
@@ -410,6 +433,8 @@ Use indirect references for each session.
 
 \begin{frame}
 \frametitle{5. CSRF}
+TODO img
+\note{
 \textbf{Cross-site Request Forgery} consists in generating requests when the
 user visits the attacker's web page.
 \begin{example}
@@ -425,6 +450,7 @@ The attacker may perform actions as the victim.
 \begin{alertblock}{Risks}
 Widespread and easy to detect, the impact is moderate.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -458,6 +484,8 @@ Tokens can be unique by session or by request.
 
 \begin{frame}
 \frametitle{6. Security Misconfiguration}
+TODO img
+\note{
 \textbf{Security configuration} can happen at any level: the application, the
 web server, the framework, etc.
 The default behavior is not always the wanted one.
@@ -473,6 +501,7 @@ Attackers can gain unauthorized access, the system can be compromised.
 \begin{alertblock}{Risks}
 Easy to exploit and to detect.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}
@@ -502,6 +531,8 @@ Automated scans can detect misconfigurations and missing patches.
 
 \begin{frame}
 \frametitle{7. Insecure Cryptographic Storage}
+TODO img
+\note{
 Sensitive data is stored \textbf{insecurely without crypting}.
 \begin{example}
 All data is readable by the attacker once he gains access to it.
@@ -513,6 +544,7 @@ Stolen data is compromised.
 All unencrypted data is compromised.
 The attack is however difficult to perform.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}
@@ -559,6 +591,8 @@ Additional input for hash functions.
 
 \begin{frame}
 \frametitle{8. Failure to Restrict URL Access}
+TODO img
+\note{
 \textbf{URL access is not restricted} to functions requiring permissions.
 \begin{example}
 The attacker changes his URL to a privileged page.
@@ -569,6 +603,7 @@ Administrative functions may become available to the attacker.
 \begin{alertblock}{Risks}
 Easy to exploit, but the flaw is uncommon.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}
@@ -590,6 +625,8 @@ Authorization mechanisms should be used.
 
 \begin{frame}
 \frametitle{9. Insufficient Transport Layer Protection}
+TODO img
+\note{
 \textbf{Traffic is unprotected} and anyone sniffing the network can see the
 data in transit.
 \begin{example}
@@ -606,6 +643,7 @@ Account theft, expose individual user's data.
 Detectable using any sniffer.
 However, often difficult to exploit.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}
@@ -631,6 +669,8 @@ SSL/TLS can be used to secure the connection.
 
 \begin{frame}
 \frametitle{10. Unvalidated Redirects}
+TODO img
+\note{
 A URL may appear as trustworthy, but it contains an \textbf{unvalidated
 redirect}.
 \begin{example}
@@ -644,6 +684,7 @@ control bypass.
 \begin{alertblock}{Risks}
 Easy to detect, uncommonly present.
 \end{alertblock}
+}
 \end{frame}
 
 \begin{frame}
