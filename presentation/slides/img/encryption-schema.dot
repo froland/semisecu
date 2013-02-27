@@ -1,0 +1,12 @@
+digraph Encryption {
+	rankdir = LR
+	margin = 0
+	node [ shape = none ]
+	ranksep = 0.4
+
+	Text [ label = "\"hello\"" ]
+	key
+	Encoded [ label = "encoded(\"hello\", key)" ]
+
+	{ Text key } -> Encoded
+}

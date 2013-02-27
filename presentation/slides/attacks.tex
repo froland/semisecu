@@ -19,8 +19,20 @@ Used to determine and understand threats that may arise.
 \subsection{Threat agents}
 
 \begin{frame}
-TODO img threat agents
-TODO img reasons (money, i'm the best, etc.)
+\begin{columns}
+\begin{column}{0.3\linewidth}
+\includeimage[width=\linewidth]{organized-crime}
+\includeimage[width=0.6\linewidth]{money}
+\end{column}
+\begin{column}{0.4\linewidth}
+\includeimage[width=\linewidth,height=2.5cm]{hacker}
+\includeimage[width=0.6\linewidth,height=2cm]{yes-i-can}
+\end{column}
+\begin{column}{0.3\linewidth}
+\includeimage[width=\linewidth,height=2.5cm]{crew}
+\includeimage[width=\linewidth]{disaster}
+\end{column}
+\end{columns}
 \note{
 \begin{scriptsize}
 \begin{columns}
@@ -36,7 +48,6 @@ TODO img reasons (money, i'm the best, etc.)
 	\begin{itemize}
 	\item employees
     \item intranet users
-    \item administrators
     \end{itemize}
 \item Natural threats (disasters)
 \item Technical failures
@@ -70,7 +81,7 @@ may influence risk.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Risks and rating}
+\subsection{Risk}
 
 \begin{frame}
 \frametitle{What is a \emph{risk}?}
@@ -124,7 +135,7 @@ Explanation in the next slide.
 \subsubsection{Network}
 
 \begin{frame}
-\frametitle{Internet}
+\includeimage[width=0.8\linewidth]{client-server}
 \note{
 \begin{itemize}
 \item Applications available on the internet
@@ -133,6 +144,9 @@ Explanation in the next slide.
 \begin{block}{Anonymity}
 No identifier for a web user.
 \\ Example: IP address shared by multiple users
+\par\textbf{Session number}\\
+The server identifies its users using a session ID (unique number) for each
+client.
 \end{block}
 }
 \end{frame}
@@ -151,12 +165,13 @@ No identifier for a web user.
 \item Application Server: with the contained application
 \item Database: where the application stores its data
 \end{itemize}
-%\subsubsection{Points of failure}
-\par\textbf{Points of failure} \\
-Any component may fail; will the web site continue to work after an attack?
-\begin{block}{Single point of failure}
+\begin{block}{Points of failure}
+Any component may fail; will the web site continue to work?
+\begin{description}
+\item[Single point of failure]
 A part of a system that prevents the entire system from working when it fails.
 Solution: duplication.
+\end{description}
 \end{block}
 }
 \end{frame}
@@ -167,8 +182,8 @@ Solution: duplication.
 \begin{frame}
 \begin{block}{OWASP}
 \centering Open Web Application Security Project
-\includegraphics[width=0.3\linewidth]{img/owasp}
 \end{block}
+\includeimage[width=0.5\linewidth,height=3cm]{owasp}
 \note{
 \begin{block}{OWASP}
 \begin{itemize}
@@ -213,7 +228,7 @@ Top 10 of most critical web application \emph{risks}.
 
 \begin{frame}
 \frametitle{1. Injection}
-TODO img
+\includeimage[width=0.8\linewidth]{client-server-injection}
 \note{
 \textbf{Injection} consists in sending untrusted data to an interpreter.
 Attacker enters code to execute into input fields.
@@ -283,7 +298,7 @@ List of valid input patterns.
 
 \begin{frame}
 \frametitle{2. XSS}
-TODO img
+\includeimage[width=0.8\linewidth]{client-server-xss}
 \note{
 \textbf{Cross-site scripting} allows attackers to inject code into the page
 sent to the user. The injected code can be a script interpreted by the
@@ -296,7 +311,7 @@ it in their browser.
 Hijack user sessions, change content, redirect the user.
 \end{block}
 \begin{alertblock}{Risks}
-This is the most widespread vulnerability.
+The most widespread vulnerability.
 It requires an average knowledge to be exploited and the impacts are moderate.
 \end{alertblock}
 }
@@ -335,7 +350,7 @@ XSS as sometimes special characters must be accepted.
 
 \begin{frame}
 \frametitle{3. Authentication and Session Management}
-TODO img
+\includeimage[width=0.8\linewidth]{session-hijacking}
 \note{
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
@@ -356,12 +371,25 @@ The impact is severe, this attack is common.
 \end{frame}
 
 \begin{frame}
-IMG public computer
-\url{http://example.com/page;jsessionid=dfd4f5fda35df...}
+\begin{columns}
+\begin{column}{0.7\linewidth}
+\includeimage[width=\linewidth,height=3cm]{public-computers}
+\end{column}
+\begin{column}{0.3\linewidth}
+\begin{center}
 \emph{XSS}
+\end{center}
+\end{column}
+\end{columns}
+\hspace{8mm}
+{\small
+\url{http://example.com/page;jsessionid=dfd4f5fda35df...}
+}
+\hspace{8mm}
+\pause
 \hrule
 \begin{center}
-Good authentication mechanism
+{\Huge\bfseries Good authentication mechanism}
 \end{center}
 \note{
 \begin{exampleblock}{Public computer}
@@ -434,9 +462,22 @@ Use indirect references for each session.
 
 \subsubsection{Attack 5 - CSRF}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{5. CSRF}
-TODO img (schema?)
+\begin{columns}
+\begin{column}{0.8\linewidth}
+\includeimage[width=\linewidth,height=4cm]{client-server}
+\end{column}
+\begin{column}{0.2\linewidth}
+\alert{Evil server}
+\end{column}
+\end{columns}
+\begin{center}
+\begin{lstlisting}
+<img alt=""
+	src="http://example.com/comment/post?message=hello" />
+\end{lstlisting}
+\end{center}
 \note{
 \textbf{Cross-site Request Forgery} consists in generating requests when the
 user visits the attacker's web page.
@@ -492,8 +533,8 @@ When the request is sent, both values are compared.
 
 \begin{frame}
 \frametitle{6. Security Misconfiguration}
-TODO img
-(the defaults will do)
+\includeimage[height=0.7\textheight]{box}
+% works out of the box
 \note{
 \textbf{Security configuration} can happen at any level: the application, the
 web server, the framework, etc.
@@ -514,7 +555,9 @@ Easy to exploit and to detect.
 \end{frame}
 
 \begin{frame}
-TODO img showing version, a stack trace
+\includeimage[width=\linewidth,height=0.7\textheight]{webpage-stacktrace}
+\pause
+... more information for the attacker
 \note{
 \begin{block}{Outdated libraries}
 Bugs are published for known libraries and applications.
@@ -539,7 +582,17 @@ Automated scans can detect misconfigurations and missing patches.
 
 \begin{frame}
 \frametitle{7. Insecure Cryptographic Storage}
-TODO img (some table dump)
+\begin{center}
+\begin{tabular}{|l|l|l|c|}
+\hline
+ID & NAME & PASSWORD & \ldots \\
+\hline
+1 & admin & 2ezf5zf2d & \ldots \\
+2 & jakcy & toto & \ldots \\
+3 & k & 123456 & \ldots \\
+\hline
+\end{tabular}
+\end{center}
 \note{
 Sensitive data is stored \textbf{insecurely without crypting}.
 \begin{example}
@@ -556,11 +609,16 @@ The attack is however difficult to perform.
 \end{frame}
 
 \begin{frame}
-TODO img rainbow table
+\begin{columns}
+\begin{column}{0.8\linewidth}
+\includeimage[height=0.6\textheight,width=\linewidth]{rainbow-table-example}
+\end{column}
+\begin{column}{0.2\linewidth}
+\href{http://www.md5this.com/list.php?page=133&key=1}{\texttt{md5this.com}}
+\end{column}
+\end{columns}
 \pause
-\hrule
-TODO schema encryption
-TODO hash + salt schema % see comments below the slide
+\includeimage[width=0.6\linewidth,height=0.4\textheight]{backup}
 \note{
 \begin{exampleblock}{Unencrypted passwords}
 After dumping the table \texttt{USERS}, the passwords might be stored in
@@ -571,10 +629,18 @@ The database backup is lost.
 \end{exampleblock}
 \begin{exampleblock}{Rainbow tables}
 Precomputed table for decoding hashed values.
-\\ Example:
-\href{http://www.md5this.com/list.php?page=133&key=1}{\texttt{md5this.com}}
 \end{exampleblock}
-\hrule
+}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Encryption}
+\includeimage[height=0.3\textheight,width=\linewidth]{encryption-schema}
+\end{block}
+\begin{block}{Hash + Salt}
+\includeimage[height=0.4\textheight,width=\linewidth]{hash-salt}
+\end{block}
+\note{
 \begin{block}{Encrypting}
 Encrypt the data such as the considered threats will not be able to read it.
 \end{block}
@@ -638,7 +704,7 @@ Authorization mechanisms should be used.
 
 \begin{frame}
 \frametitle{9. Insufficient Transport Layer Protection}
-TODO img
+\includeimage[width=0.8\linewidth]{wifi-sniffing}
 \note{
 \textbf{Traffic is unprotected} and anyone sniffing the network can see the
 data in transit.
@@ -681,18 +747,12 @@ SSL/TLS can be used to secure the connection.
 
 \begin{frame}
 \frametitle{10. Unvalidated Forwards and Redirects}
-\begin{columns}
-\begin{column}{0.5\linewidth}
 \begin{block}{Forward}
-TODO img
+\includeimage[height=0.2\textheight,width=\linewidth]{webapp-forward}
 \end{block}
-\end{column}
-\begin{column}{0.5\linewidth}
 \begin{block}{Redirect}
-TODO img
+\includeimage[height=0.3\textheight,width=\linewidth]{webapp-redirect}
 \end{block}
-\end{column}
-\end{columns}
 \note{
 A URL may appear as trustworthy, but it contains an \textbf{unvalidated
 redirect}.
@@ -715,8 +775,7 @@ Easy to detect, uncommonly present.
 \url{http://example.com/forward.jsp?fwd=admin.jsp}
 \end{exampleblock}
 \begin{exampleblock}{Redirect}
-\url{http://bank.com/redirect?url=evil-bank.com}
-TODO img screenshot
+\url{http://bank.com/secured/../redirect?url=http://evil-bank.com/secured}
 \end{exampleblock}
 \note{
 \begin{exampleblock}{Bypass authentication}
