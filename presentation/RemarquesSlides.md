@@ -51,9 +51,15 @@ Les numéros de slides sont relatifs au document websecurity-notes.pdf taggé «
 * slide 111
   * Réinsister sur les dangers du social engineering par rapport à ce point.
 * slide 113
-  * « rife » --> « lifecycle »
+  * « life » --> « lifecycle »
   * Je ne vois pas bien le lien entre le propos et l'image.
 * slide 114
   * « as soon as possible » --> « from the beginning »
   * Comme introduction, je citerais la définition de l'architecture selon Martin Fowler : « The highest-level breakdown of a system into its parts; the decisions that are hard to change; there are multiple architectures in a system; what is architecturally significant can change over a system's lifetime; and, in the end, architecture boils down to whatever the important stuff is. » Patterns of Enterprise Application Arcitecture, Martin Fowler. Cette citation introduit le premier bullet point.
   * Comme question importante, je rajouterais « Existe-t-il d'autres moyens d'accéder aux information et quels sont les règles d'accès de ces autres systèmes ? ».
+* slide 118
+  * Ajouter la sensibilisation des responsables business au compromis sécurité / facilité d'utilisation.
+* slide 122
+  * Le « etc » n'apporte rien.
+* slide 124
+  * La différence entre SSL et TLS est-elle vraiment que TLS utilise un « hello » sujet à des failles de sécurité ? C'est comme ça que je comprends la phrase.
