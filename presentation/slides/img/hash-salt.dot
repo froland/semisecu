@@ -1,0 +1,19 @@
+digraph HashSalt {
+	rankdir = LR
+	margin = 0
+	node [ shape = none ]
+	ranksep = 0.2
+
+	Text [ label = "\"hello\"" ]
+	{
+		salt
+		Hash [ label = "hash(\"helloxxxx\")"]
+		rank = same
+	}
+	SaltedText [ label = "\"helloxxxx\"" ]
+	DB [ shape = box3d ]
+
+	{ Text salt } -> SaltedText
+	SaltedText -> Hash
+	{ Hash salt } -> DB
+}

@@ -1,0 +1,10 @@
+digraph Forward {
+	rankdir = LR
+	margin = 0
+
+	{ Client; rank = min }
+	Server [ shape = box3d ]
+
+	Client -> Server [ label = "1. request" ]
+	Server -> Client [ label = "2. 302 Moved" ]
+}
