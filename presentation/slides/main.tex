@@ -85,6 +85,8 @@
 \usepackage{eurosym}
 % Image
 \usepackage{graphicx}
+% Colors
+\usepackage{color}
 % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{booktabs}
 % ITE package (for conditional compilation)
@@ -107,6 +109,16 @@
 	,showtabs=false
 	,breaklines=false
 	,breakatwhitespace=true
+}
+\lstdefinestyle{highlight}{
+	keywordstyle=\color{red},
+	commentstyle=\color{green},
+}
+\lstdefinestyle{beamer}{
+	basicstyle=\ttfamily\footnotesize\color{black!50},
+	keywordstyle=\color{red!50},
+	commentstyle=\color{green!50},
+	moredelim=**[is][{\color{black}\lstset{style=highlight}}]{@}{@},
 }
 
 % Macro to include images

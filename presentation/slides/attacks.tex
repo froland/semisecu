@@ -20,63 +20,86 @@ Used to determine and understand threats that may arise.
 
 \begin{frame}
 \begin{columns}
-\begin{column}{0.3\linewidth}
-\includeimage[width=\linewidth]{organized-crime}
-\includeimage[width=0.6\linewidth]{money}
+\begin{column}{0.6\linewidth}
+\includeimage[width=\linewidth,height=5cm]{hacker}
 \end{column}
 \begin{column}{0.4\linewidth}
-\includeimage[width=\linewidth,height=2.5cm]{hacker}
-\includeimage[width=0.6\linewidth,height=2cm]{yes-i-can}
-\end{column}
-\begin{column}{0.3\linewidth}
-\includeimage[width=\linewidth,height=2.5cm]{crew}
-\includeimage[width=\linewidth]{disaster}
+\includeimage[width=\linewidth,height=3cm]{yes-i-can}
 \end{column}
 \end{columns}
 \note{
-\begin{scriptsize}
-\begin{columns}
-\begin{column}{0.5\linewidth}
-\begin{itemize}
-\item External threats
+\begin{description}
+\item[External threats]
+	\hfill
 	\begin{itemize}
 	\item internet users
 	\item viruses
-	\item organized crime
 	\end{itemize}
-\item Internal threats
-	\begin{itemize}
-	\item employees
-    \item intranet users
-    \end{itemize}
-\item Natural threats (disasters)
-\item Technical failures
-	\begin{itemize}
-	\item loss of essential services (electricity, etc.)
-	\item hardware failure
-	\item software failure
-	\end{itemize}
-\end{itemize}
+\item[Internal threats]
+	Unsatisfied employees (intranet users)
+\item[Reason]
+	To show off, break things
+\end{description}
+}
+\end{frame}
+
+\begin{frame}
+\begin{columns}
+\begin{column}{0.6\linewidth}
+\includeimage[width=\linewidth]{organized-crime}
 \end{column}
-\begin{column}{0.5\linewidth}
-\textbf{Why do they attack?}
-\begin{itemize}
-\item Gain
+\begin{column}{0.4\linewidth}
+\includeimage[width=0.6\linewidth]{money}
+\end{column}
+\end{columns}
+\note{
+\begin{description}
+\item[External threats]
+	\hfill
+	\begin{itemize}
+	\item organized crime
+	\item competitor
+	\end{itemize}
+\item[Reason]
+	Gain
 	\begin{itemize}
 	\item financial
 	\item information
 	\item competition
 	\end{itemize}
-\item To show off
-\item By accident (unintentional)
-\end{itemize}
+\end{description}
 \begin{block}{Impact}
 Threat agents have different skills, resources and different motivations that
 may influence risk.
 \end{block}
+}
+\end{frame}
+
+\begin{frame}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\includeimage[width=\linewidth,height=4cm]{crew}
+\end{column}
+\begin{column}{0.5\linewidth}
+\includeimage[width=\linewidth]{disaster}
 \end{column}
 \end{columns}
-\end{scriptsize}
+\note{
+\begin{description}
+\item[Internal threats]
+	Employees, crew
+\item[Natural threats]
+	(disasters)
+\item[Technical failure]
+	\hfill
+	\begin{itemize}
+	\item loss of essential services (electricity, etc.)
+	\item hardware failure
+	\item software failure
+	\end{itemize}
+\item[Reason]
+	Unintentional, accident
+\end{description}
 }
 \end{frame}
 
@@ -99,7 +122,9 @@ Explanation in the next slide.
 \end{frame}
 
 \begin{frame}
+\begin{Huge}
 \[ \text{risk} = \text{likelihood} * \text{impact} \]
+\end{Huge}
 \note{
 \begin{itemize}
 \item Likelihood: probability of a successful attack
@@ -155,12 +180,13 @@ client.
 
 \begin{frame}
 \frametitle{A web application}
-\includeimage[width=\linewidth,height=6cm]{archi-webapplication}
+\includeimage[width=\linewidth,height=0.8\textheight]{archi-webapplication}
 \note{
 \begin{itemize}
 \item Browser: the client, uses scripting
 \item Router: connected to the browser (by WiFi) - LAN
 \item Internet: not detailed here - WAN
+\item DMZ: demilitarized zone
 \item Web Application Firewall, IDS, Load Balancer
 \item Application Server: with the contained application
 \item Database: where the application stores its data
@@ -180,9 +206,12 @@ Solution: duplication.
 \subsection{OWASP - Top 10}
 
 \begin{frame}
-\begin{block}{OWASP}
-\centering Open Web Application Security Project
-\end{block}
+\centering
+{\bfseries\usebeamercolor[fg]{block title}O}pen
+{\bfseries\usebeamercolor[fg]{block title}W}eb
+{\bfseries\usebeamercolor[fg]{block title}A}pplication
+{\bfseries\usebeamercolor[fg]{block title}S}ecurity
+{\bfseries\usebeamercolor[fg]{block title}P}roject
 \includeimage[width=0.5\linewidth,height=3cm]{owasp}
 \note{
 \begin{block}{OWASP}
@@ -197,7 +226,7 @@ Solution: duplication.
 \end{frame}
 
 \begin{frame}
-\frametitle{The top 10}
+\frametitle{Top 10}
 \begin{enumerate}
 \item Injection
 \item XSS
@@ -228,6 +257,7 @@ Top 10 of most critical web application \emph{risks}.
 
 \begin{frame}
 \frametitle{1. Injection}
+%\includeimage[width=0.8\linewidth,height=0.75\textheight]{syringe}
 \includeimage[width=0.8\linewidth]{client-server-injection}
 \note{
 \textbf{Injection} consists in sending untrusted data to an interpreter.
@@ -246,15 +276,12 @@ Easy to exploit, has a severe impact, it is quite common.
 
 \begin{frame}[fragile]
 \begin{exampleblock}{\emph{THE} password}
-\begin{lstlisting}
-' or '' = '
-\end{lstlisting}
+\includeimage[height=0.4\textheight]{the-password}
 \pause
-as \texttt{password} in
-\begin{lstlisting}
+\begin{lstlisting}[style=beamer]
 String query = "select * from users"
-	+ " where user_name = '" + name + "'"
-	+ " and password = '" + password + "'";
+	+ " where user_name = '" @+ name +@ "'"
+	+ " and password = '" @+ password +@ "'";
 \end{lstlisting}
 \end{exampleblock}
 \note{
@@ -269,10 +296,10 @@ user.
 \end{frame}
 
 \begin{frame}[fragile]
-\begin{lstlisting}
-String query = "select * from users where user_name = ?";
+\begin{lstlisting}[style=beamer]
+String query = "select * from users where @user_name = ?@";
 PreparedStatement st = con.prepareStatement(query);
-st.setString(1, name);
+@st.setString(1, name);@
 ResultSet rs = st.executeQuery();
 \end{lstlisting}
 \pause
@@ -464,20 +491,7 @@ Use indirect references for each session.
 
 \begin{frame}[fragile]
 \frametitle{5. CSRF}
-\begin{columns}
-\begin{column}{0.8\linewidth}
-\includeimage[width=\linewidth,height=4cm]{client-server}
-\end{column}
-\begin{column}{0.2\linewidth}
-\alert{Evil server}
-\end{column}
-\end{columns}
-\begin{center}
-\begin{lstlisting}
-<img alt=""
-	src="http://example.com/comment/post?message=hello" />
-\end{lstlisting}
-\end{center}
+\includeimage[width=0.8\linewidth]{client-server-csrf}
 \note{
 \textbf{Cross-site Request Forgery} consists in generating requests when the
 user visits the attacker's web page.
