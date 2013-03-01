@@ -278,11 +278,13 @@ Easy to exploit, has a severe impact, it is quite common.
 \begin{exampleblock}{\emph{THE} password}
 \includeimage[height=0.4\textheight]{the-password}
 \pause
+\begin{embeddedcode}{bad}
 \begin{lstlisting}[style=beamer]
 String query = "select * from users"
 	+ " where user_name = '" @+ name +@ "'"
 	+ " and password = '" @+ password +@ "'";
 \end{lstlisting}
+\end{embeddedcode}
 \end{exampleblock}
 \note{
 \begin{exampleblock}{SQL injection - demo}
@@ -296,12 +298,14 @@ user.
 \end{frame}
 
 \begin{frame}[fragile]
+\begin{embeddedcode}{good}
 \begin{lstlisting}[style=beamer]
 String query = "select * from users where @user_name = ?@";
 PreparedStatement st = con.prepareStatement(query);
 @st.setString(1, name);@
 ResultSet rs = st.executeQuery();
 \end{lstlisting}
+\end{embeddedcode}
 \pause
 \begin{itemize}
 \item Parametrized interface
@@ -345,18 +349,22 @@ It requires an average knowledge to be exploited and the impacts are moderate.
 \end{frame}
 
 \begin{frame}[fragile]
+\begin{embeddedcode}{bad}
 \begin{lstlisting}
 <div>
 	${hotel.description}
 </div>
 \end{lstlisting}
+\end{embeddedcode}
 \pause
 \hrule
+\begin{embeddedcode}{good}
 \begin{lstlisting}
 <div>
 	<c:out value="${hotel.description}" />
 </div>
 \end{lstlisting}
+\end{embeddedcode}
 \note{
 Unescaped included text in a JSP.
 \begin{exampleblock}{Getting the user's cookies - demo}
@@ -397,27 +405,29 @@ The impact is severe, this attack is common.
 }
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \begin{columns}
 \begin{column}{0.7\linewidth}
-\includeimage[width=\linewidth,height=3cm]{public-computers}
+\includeimage[width=\linewidth,height=3cm]{cybercafe}
 \end{column}
 \begin{column}{0.3\linewidth}
 \begin{center}
+\Large
 \emph{XSS}
 \end{center}
 \end{column}
 \end{columns}
-\hspace{8mm}
-{\small
-\url{http://example.com/page;jsessionid=dfd4f5fda35df...}
-}
-\hspace{8mm}
+\vspace{6mm}
+\begin{lstlisting}[style=beamer]
+http://example.com/page@;jsessionid=dfd4f5fda35df@...
+\end{lstlisting}
+\vspace{6mm}
 \pause
 \hrule
-\begin{center}
-{\Huge\bfseries Good authentication mechanism}
-\end{center}
+%\begin{center}
+%{\Huge\bfseries Good authentication mechanism}
+%\end{center}
+\includeimage[height=3cm]{irisscan}
 \note{
 \begin{exampleblock}{Public computer}
 Forgetting to log out...
@@ -443,10 +453,12 @@ The user's session can be obtained using XSS.
 
 \subsubsection{Attack 4 - Insecure Direct Object References}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{4. Insecure Direct Object References}
 \begin{center}
-\url{http://example.com/user/152}
+\begin{lstlisting}[style=beamer]
+http://example.com/user/@152@
+\end{lstlisting}
 \end{center}
 \note{
 The attacker changes a parameter in the request to obtain a \textbf{direct
@@ -512,18 +524,22 @@ Widespread and easy to detect, the impact is moderate.
 \end{frame}
 
 \begin{frame}[fragile]
-\begin{lstlisting}
-<img src="http://example.com/forum/thread1/addComment?
-text=hello%20world" alt="" />
+\begin{embeddedcode}{bad}
+\begin{lstlisting}[style=beamer]
+<img src="http://@example.com@/forum/thread1/
+@addComment@?text=hello%20world" alt="" />
 \end{lstlisting}
+\end{embeddedcode}
 \pause
 \hrule
-\begin{lstlisting}
-<form method="post" action="addComment>
-	<input type="hidden" name="token" value="<random>" />
+\begin{embeddedcode}{good}
+\begin{lstlisting}[style=beamer]
+<form @method="post"@ action="addComment">
+	<input type=@"hidden"@ name="token" value=@"<random>"@ />
 	...
 </form>
 \end{lstlisting}
+\end{embeddedcode}
 \note{
 \begin{exampleblock}{Post a comment}
 The attacker's page may contain:
@@ -546,9 +562,7 @@ When the request is sent, both values are compared.
 \subsubsection{Attack 6 - Security Misconfiguration}
 
 \begin{frame}
-\frametitle{6. Security Misconfiguration}
-\includeimage[height=0.7\textheight]{box}
-% works out of the box
+\includeimage[width=0.7\linewidth]{misconfiguration}
 \note{
 \textbf{Security configuration} can happen at any level: the application, the
 web server, the framework, etc.
@@ -565,6 +579,13 @@ Attackers can gain unauthorized access, the system can be compromised.
 \begin{alertblock}{Risks}
 Easy to exploit and to detect.
 \end{alertblock}
+}
+\end{frame}
+
+\begin{frame}
+\includeimage[height=0.7\textheight]{box}
+\note{
+The out-of-the-box configuration is not always the best.
 }
 \end{frame}
 
@@ -623,67 +644,49 @@ The attack is however difficult to perform.
 \end{frame}
 
 \begin{frame}
-\begin{columns}
-\begin{column}{0.8\linewidth}
-\includeimage[height=0.6\textheight,width=\linewidth]{rainbow-table-example}
-\end{column}
-\begin{column}{0.2\linewidth}
-\href{http://www.md5this.com/list.php?page=133&key=1}{\texttt{md5this.com}}
-\end{column}
-\end{columns}
-\pause
-\includeimage[width=0.6\linewidth,height=0.4\textheight]{backup}
+\includeimage[height=0.6\textheight,width=0.8\linewidth]{rainbow-table-example}
 \note{
 \begin{exampleblock}{Unencrypted passwords}
 After dumping the table \texttt{USERS}, the passwords might be stored in
 plain text.
 \end{exampleblock}
+\begin{exampleblock}{Rainbow tables}
+Precomputed table for decoding hashed values.
+\href{http://www.md5this.com/list.php?page=133&key=1}{\texttt{md5this.com}}
+\end{exampleblock}
+}
+\end{frame}
+
+\begin{frame}
+\includeimage[height=0.6\textheight,width=0.8\linewidth]{backup}
+\note{
 \begin{exampleblock}{Unencrypted backup}
 The database backup is lost.
 \end{exampleblock}
-\begin{exampleblock}{Rainbow tables}
-Precomputed table for decoding hashed values.
-\end{exampleblock}
 }
 \end{frame}
 
+% TODO refactor cryptography introduction somewhere else
 \begin{frame}
-\begin{block}{Encryption}
-\includeimage[height=0.3\textheight,width=\linewidth]{encryption-schema}
-\end{block}
-\begin{block}{Hash + Salt}
-\includeimage[height=0.4\textheight,width=\linewidth]{hash-salt}
-\end{block}
+\frametitle{Hash + Salt}
+\includeimage[height=0.7\textheight,width=\linewidth]{hash-salt}
 \note{
-\begin{block}{Encrypting}
-Encrypt the data such as the considered threats will not be able to read it.
-\end{block}
-\begin{block}{Hash + Salt}
 Ensure passwords are hashed with a standard algorithm and an appropriate salt
 is used.
-\end{block}
+\par
+Prevents rainbow table attacks.
+\par
+Both the hash and salt are stored in a database.
 }
 \end{frame}
-
-%\begin{frame}
-%\frametitle{Hash and Salt}
-%\begin{block}{Hash}
-%A irreversible function.
-%\[ hash("pass") = "4528e6a7bb9341c36c425faf40ef32c3" \]
-%\end{block}
-%\begin{block}{Salt}
-%Additional input for hash functions.
-%\[ hash("pass" + "salt") = "c063c353e726fbeb21f51639c0841db2" \]
-%\end{block}
-%\end{frame}
 
 \subsubsection{Attack 8 - Failure to Restrict URL Access}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{8. Failure to Restrict URL Access}
-\begin{center}
-\url{http://example.com/admin}
-\end{center}
+\begin{lstlisting}[style=beamer]
+http://example.com/@admin@
+\end{lstlisting}
 \note{
 \textbf{URL access is not restricted} to functions requiring permissions.
 \begin{example}
@@ -759,20 +762,18 @@ SSL/TLS can be used to secure the connection.
 
 \subsubsection{Attack 10 - Unvalidated Forwards and Redirects}
 
-\begin{frame}
-\frametitle{10. Unvalidated Forwards and Redirects}
-\begin{block}{Forward}
-\includeimage[height=0.2\textheight,width=\linewidth]{webapp-forward}
-\end{block}
-\begin{block}{Redirect}
-\includeimage[height=0.3\textheight,width=\linewidth]{webapp-redirect}
-\end{block}
+\begin{frame}[fragile]
+\frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
+\includeimage[scale=0.6]{webapp-forward}
+\vspace{1cm}
+\begin{lstlisting}[style=beamer]
+http://example.com/forward.jsp?@fwd=admin.jsp@
+\end{lstlisting}
 \note{
 A URL may appear as trustworthy, but it contains an \textbf{unvalidated
-redirect}.
+forward or redirect}.
 \begin{example}
-Placing a URL with a redirect that seems trustworthy redirecting to a
-malicious page.
+The attacker may bypass authorization for \texttt{admin.jsp}.
 \end{example}
 \begin{block}{Impacts}
 Tricking victims into disclosing information, unsafe forwards may allow access
@@ -784,18 +785,19 @@ Easy to detect, uncommonly present.
 }
 \end{frame}
 
-\begin{frame}
-\begin{exampleblock}{Forward}
-\url{http://example.com/forward.jsp?fwd=admin.jsp}
-\end{exampleblock}
-\begin{exampleblock}{Redirect}
-\url{http://bank.com/secured/../redirect?url=http://evil-bank.com/secured}
-\end{exampleblock}
+\begin{frame}[fragile]
+\frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
+\includeimage[scale=0.6]{webapp-redirect}
+\vspace{1cm}
+\begin{lstlisting}[style=beamer]
+http://@bank.com/secured@/../redirect
+?@url=http://evil-bank.com/secured@
+\end{lstlisting}
 \note{
-\begin{exampleblock}{Bypass authentication}
-\url{http://example.com/forward.jsp?fwd=admin.jsp}
-\\ The attacker may bypass authorization for \texttt{admin.jsp}.
-\end{exampleblock}
+\begin{example}
+Placing a URL with a redirect that seems trustworthy redirecting to a
+malicious page.
+\end{example}
 \begin{exampleblock}{Malicious site}
 Redirect to a malicious website using:
 \\ \url{http://bank.com/redirect?url=evil-bank.com}
@@ -818,7 +820,7 @@ Map input values to the actual URLs.
 
 \begin{frame}
 \frametitle{Denial of Service (DoS)}
-\includeimage[width=0.8\linewidth]{dos}
+\includeimage[width=0.8\linewidth,height=0.8\textheight]{overwhelmed-donkey}
 \note{
 Attack that aims to bring down (or make unavailable) some service usually by
 causing server overload.
@@ -871,7 +873,7 @@ The anonymous group attack.
 
 \begin{frame}
 \frametitle{Man in the Middle attack}
-\includeimage[height=0.6\textheight]{Man_in_the_Middle}
+\includeimage[height=0.6\textheight]{phone-tapping}
 \note{
 The attacker plays the role of the server to the client and the role of the
 client to the server.
@@ -893,7 +895,8 @@ Use cryptography: HTTPS, PKI (Public Key Infrastructure)
 
 \begin{frame}
 \frametitle{Social engineering}
-\includeimage[width=0.8\linewidth]{social-engineering}
+%\includeimage[width=0.8\linewidth]{social-engineering}
+\includeimage[width=0.8\linewidth]{networking-sites}
 \note{
 \textbf{Social engineering} consists in manipulating people so they divulge
 confidential information.
@@ -902,19 +905,13 @@ confidential information.
 \end{frame}
 
 \begin{frame}
-\begin{exampleblock}{Infosecurity Europe 2003 survey}
+% TODO change that image
+\includeimage[width=0.8\linewidth,height=0.6\textheight]{hannibal-lecter}
 \begin{quote}
-In a 2003 information security survey, 90\% of office workers gave
-researchers what they claimed was their password in answer to a survey
-question in exchange for a cheap pen.
-\end{quote}
-\end{exampleblock}
-\pause
-\includeimage[width=0.8\linewidth,height=0.4\textheight]{hannibal-lecter}
-\begin{quote}
+\begin{center}
 Quid pro quo, Clarice...
+\end{center}
 \end{quote}
-%\includeimage[width=0.8\linewidth,height=0.6\textheight]{quidproquo-subtitle}
 \note{
 \begin{description}
 \item[Pretexting]
@@ -927,7 +924,31 @@ See the next point.
 Something for something:
 Help a user solve a problem, they might give you passwords in exchange.
 \end{description}
-\hrule
+}
+\end{frame}
+
+\begin{frame}
+\begin{columns}
+\begin{column}{0.4\linewidth}
+\centering
+\emph{password}
+\end{column}
+\begin{column}{0.2\linewidth}
+\includeimage[height=8mm]{vs}
+\end{column}
+\begin{column}{0.4\linewidth}
+\includeimage[width=\linewidth,height=3cm]{pen}
+\end{column}
+\pause
+\end{columns}
+\begin{exampleblock}{Infosecurity Europe 2003 survey}
+\begin{quote}
+In a 2003 information security survey, {\Large 90\%} of office workers gave
+researchers what they claimed was their {\Large password} in answer to a
+survey question in exchange for a {\Large cheap pen}.
+\end{quote}
+\end{exampleblock}
+\note{
 \begin{block}{Protection}
 \begin{itemize}
 \item education
@@ -942,7 +963,7 @@ Help a user solve a problem, they might give you passwords in exchange.
 
 \begin{frame}
 \frametitle{Phishing}
-\includeimage[height=0.75\textheight,width=\linewidth]{phishing-facebook}
+\includeimage[height=0.75\textheight,width=\linewidth]{phishing-mail}
 \note{
 \textbf{Phishing} is the attempt to acquire user information through
 masquerading as a legitimate web site.
@@ -967,7 +988,8 @@ masquerading as a legitimate web site.
 
 \begin{frame}
 \frametitle{Brute force}
-\includeimage[height=0.7\textheight]{letstryallthepasswords}
+%\includeimage[height=0.7\textheight]{letstryallthepasswords}
+\includeimage[height=0.7\textheight]{hulk-smash}
 \note{
 \begin{block}{Try all the passwords}
 Try all the possible combinations.
@@ -982,16 +1004,12 @@ Try a list of common passwords.
 }
 \end{frame}
 
-%\begin{frame}
-%\frametitle{Sequence prediction}
-%Predicting the next session ID.
-%\end{frame}
-
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Path traversal}
-\begin{center}
-\url{http://example.com/forum/download.jsp?path=/etc/shadow}
-\end{center}
+\begin{lstlisting}[style=beamer]
+http://example.com/forum/download.jsp
+?@path=/etc/shadow@
+\end{lstlisting}
 \note{
 An input is a relative unvalidated path.
 You can download or upload any file that the server contains.
@@ -1003,7 +1021,10 @@ Get a file uploaded to a forum... or the password file.
 
 \begin{frame}
 \frametitle{Failure to restrict automation}
-REST API
+\begin{itemize}
+\item Spamming
+\item REST API
+\end{itemize}
 \pause
 \vspace{2cm}
 \includeimage[width=0.6\linewidth]{recaptcha-example}
@@ -1021,6 +1042,7 @@ Challenge-response test easy for humans, difficult for machines.
 
 \begin{frame}
 \frametitle{And so on...}
+\includeimage[width=0.8\linewidth,height=0.75\textheight]{attack-tag-cloud}
 \note{
 As technology evolves, new forms of attacks appear.
 \par

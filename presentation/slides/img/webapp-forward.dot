@@ -3,8 +3,10 @@ digraph Forward {
 	margin = 0
 
 	{ Client; rank = min }
-	Server [ shape = box3d ]
+	Server [ shape = box, label = "Component 1" ]
+	Component [ shape = box, label = "Component 2" ]
 
 	Client -> Server [ label = "1. request" ]
-	Server -> Client [ label = "2. 302 Moved" ]
+	Server -> Component [ label = "2. forward\nrequest" ]
+	Component -> Client [ label = "3. response" ]
 }

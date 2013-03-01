@@ -128,6 +128,18 @@
 	\end{center}
 }
 
+% Macro for good and bad code
+\newenvironment{embeddedcode}[1]{
+\begin{columns}[T]
+\begin{column}{3mm}
+\includeimage[width=5mm]{code-#1}
+\end{column}
+\begin{column}{0.9\linewidth}
+}{
+\end{column}
+\end{columns}
+}
+
 % Begin each section with a dedicated frame
 \AtBeginSection[]{
 	\begin{frame}
