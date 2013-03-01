@@ -1,19 +1,30 @@
 digraph HashSalt {
 	rankdir = LR
-	margin = 0
-	node [ shape = none ]
 	ranksep = 0.2
+	node [ shape = none ]
 
-	Text [ label = "\"hello\"" ]
+	password [ label = "\"hello\"" ]
+
+	salt1 [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-salt.png" />
+		</td></tr><tr><td>"hello"
+		</td></tr></table>> ]
+	salt2 [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-salt.png" />
+		</td></tr><tr><td>"hello"
+		</td></tr></table>> ]
+
 	{
-		salt
-		Hash [ label = "hash(\"helloxxxx\")"]
+		hash [ label = "\"b1946ac92492d2347c6235b4d2611184\"" ]
+		hash1 [ label = "\"eded73c9ee1e724fc9a0aafb0fa87a1b\"" ]
+		hash2 [ label = "\"33b9215edbfa4c8807cce261609c8035\"" ]
 		rank = same
 	}
-	SaltedText [ label = "\"helloxxxx\"" ]
-	DB [ shape = box3d ]
 
-	{ Text salt } -> SaltedText
-	SaltedText -> Hash
-	{ Hash salt } -> DB
+	edge [ label = "hash()" ]
+	password -> hash
+	salt1 -> hash1
+	salt2 -> hash2
 }

@@ -1,0 +1,32 @@
+digraph CSRF {
+	rankdir = LR
+	ranksep = 1
+	node [ shape = none ]
+
+	{
+		Client [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-good.png" />
+			</td><td>
+			<img src="icon-computer.png" />
+			</td></tr></table>> ]
+		rank = min
+	}
+	{
+		Attacker [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-server.png" />
+			</td><td>
+			<img src="icon-evil.png" />
+			</td></tr></table>> ]
+		Server [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-server.png" />
+			</td><td>
+			<img src="icon-good.png" />
+			</td></tr></table>> ]
+		rank = max
+	}
+
+	Attacker -> Client -> Server
+}
