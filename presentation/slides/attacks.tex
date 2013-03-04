@@ -186,10 +186,10 @@ OWASP compiles a top 10 of most critical web application \emph{risks}.
 \frametitle{The top 10}
 \begin{enumerate}
 \item Injection
-\item XSS
+\item Cross-site Scripting (XSS)
 \item Authentication and Session Management
 \item Insecure Direct Object References
-\item CSRF
+\item Cross-site Request Forgery (CSRF)
 \item Security Misconfiguration
 \item Insecure Cryptographic Storage
 \item Failure to Restrict URL Access
@@ -455,6 +455,9 @@ Tokens can be unique by session or by request.
 	The token is usually stored in a cookie (preferably HTTP-only).
 	In forms, a hidden field contains the same value.
 	When the request is sent, both values are compared.
+	\par
+	Only the session ID is stored in the cookie; the session information is
+	stored only on the application server.
 }
 \end{frame}
 
@@ -464,7 +467,7 @@ Tokens can be unique by session or by request.
 \frametitle{6. Security Misconfiguration}
 \textbf{Security configuration} can happen at any level: the application, the
 web server, the framework, etc.
-The default behaviour is not always the wanted one.
+The default behavior is not always the wanted one.
 \begin{example}
 \begin{itemize}
 \item Accessing: default accounts, unprotected files and directories
@@ -541,8 +544,8 @@ Precomputed table for decoding hashed values.
 Encrypt the data such as the considered threats will not be able to read it.
 \end{block}
 \begin{block}{Hash + Salt}
-Ensure passwords are hashed with a standard algorithm and an appropriate salt
-is used.
+Ensure passwords are hashed with a standard algorithm and a different salt is
+used for each password.
 \end{block}
 \end{frame}
 
@@ -665,7 +668,7 @@ Redirect to a malicious website using:
 \begin{frame}
 \frametitle{10. Unvalidated Redirects - Preventing the attack}
 \begin{block}{Avoid redirects and forwards}
-Avoid redirects and forwards and do not include parameters in them.
+Avoid \emph{parametrized} redirects and forwards.
 \end{block}
 \begin{block}{Authorization}
 Validate and authorize the user after each redirect.
@@ -758,7 +761,7 @@ confidential information.
 \frametitle{Social engineering - example and prevention}
 \begin{itemize}
 \item Pretexting
-\item Phishing \small{(next point)}
+\item Phishing {\small (next point)}
 \item Quid pro quo
 \end{itemize}
 \begin{exampleblock}{Survey}
@@ -856,6 +859,11 @@ The web site is not protected against automation.
 Challenge-response test easy for humans, difficult for machines.
 \includeimage[width=0.5\linewidth]{recaptcha-example}
 \end{exampleblock}
+\note{
+An evil website could present a captcha to crack another website's protection.
+Users would crack unknowingly some other website's protection against
+automated attacks.
+}
 \end{frame}
 
 \begin{frame}
@@ -876,7 +884,7 @@ security controls.
 \item Missing authorization checks
 \item Misconfiguration
 \item Other assumptions
-\item Education factor \small{(social engineering)}
+\item Education factor {\small (social engineering)}
 \end{itemize}
 \end{frame}
 

@@ -8,7 +8,7 @@
 \begin{frame}
 \frametitle{Identity vs Authentication vs Authorization}
 \begin{block}{Identity}
-The identity of somebody/something is who/what he/it is.
+The identity of somebody is who he claims.
 \end{block}
 \begin{block}{Authentication}
 Authentication is the act of asserting the identity of something/someone.
@@ -17,6 +17,11 @@ Authentication is the act of asserting the identity of something/someone.
 Authorization is determining whether the user has the permission to do some
 action.
 \end{block}
+\note{
+\begin{block}{Identity}
+The definition also applies to non-humans (systems).
+\end{block}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -29,6 +34,58 @@ impersonated by somebody else.
 Authentication by itself doesn't imply confidentiality.
 For that, we have encryption.
 \end{block}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Cryptography introduction}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Encrypting and signing}
+TODO
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Symmetric and asymmetric encryption}
+TODO
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Public-private keys}
+The classical cryptography approach is to use the same key to encrypt
+and decrypt a message but there is a major drawback: in order to be
+able to communicate with someone, you have to use a pre-established
+key.
+
+Public key cryptography was designed to solve that
+problem. With those schemes, you encrypt (and sign) with the private
+key and decrypt with the public one. Each participant generates a public
+private key pair and give the public one to the other.
+\begin{block}{PKI}
+A PKI or Public Key Infrastructure is a mean to distribute the public
+key in a secure way.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Signature challenge}
+An authentication based upon "answering" a question about a secret
+known by the participants.
+\begin{exampleblock}{A nonce}
+When I encrypt a nonce with my correspondent's public key and ask him for the
+decrypted and encrypted message.
+\end{exampleblock}
+This form of authentication is often used to sign online transactions.
+\note{
+	\begin{description}
+	\item[Nonce]
+	Nonce stands for number used once. It's a random number used
+        once to avoid replay attack.
+	\end{description}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -71,7 +128,7 @@ single use.
 \begin{itemize}
 \item Prevent replay attack
 \item Main difficulty: giving the users their passwords
-	\small{(logistical problems)}
+	{\small (logistical problems)}
 \item Used mainly by those who can afford big infrastructure
 	\begin{itemize}
 	\item states
@@ -134,29 +191,30 @@ Certificate:
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[allowframebreaks]
+\begin{frame}
 \frametitle{Certificates - How are they used?}
-Certificates are often used as a mean to distribute key in a public
-key infrastructure: you start with a root CA certificate (usually
-embedded into the application) and you check
-the other certificate you need with it. A typical example is for
-SSL/TLS in web browsers.
+Certificates are often used as a mean to distribute keys in a public
+key infrastructure (PKI).
+A typical example is for SSL/TLS in web browsers.
 \begin{itemize}
 \item Each CA does generate it's public-private key pair. They
-  self-sign their certificates with their public key
-\item When the browser does require a CA certificates it does just ask
-  the CA for it and validate it's integrity (by checking the hash)
-\item When a web-site owner does want a certificate he does also
-  generate a public key pair. He signs a request that he sends to a
-  CA
-\item The CA check the integrity of the request and perform some
-  checks on the identity of the owner
-\item If the CA validates the ID it makes and signs a certificate for
-  the owner
-\item When the websites want to sign a message, it does sign it with
-  its private key and send the signed object and its certificate
-\item The browser checks the certificates against the signing CA
-  certificate and the message against the checked certificate
+  self-sign their certificates with their public key.
+\item Browsers are distributed with some pre-installed certificates.
+  You can also add them manually.
+\item When websites want to sign a message, they sign it with
+  theirs private key and send the signed object and theirs certificates.
+\item The browser checks the certificates against the CA
+  certificate and the message against the checked certificate.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Obtaining a certificate}
+\begin{itemize}
+\item When a website owner wants a certificate, he generates a public-private
+key pair and then sends it to a CA.
+\item The CA checks the integrity of the request and performs some checks on
+the identity of the owner. Finally, it signs the certificate.
 \end{itemize}
 \end{frame}
 
@@ -164,12 +222,14 @@ SSL/TLS in web browsers.
 \frametitle{Certificates - Two-way authentication}
 \begin{block}{One-way authentication}
 The browser authenticates the server but the opposite isn't true.
+\newline Common on the web.
 \end{block}
 \begin{block}{Two-way authentication}
 Both ends are authenticated.
-The server also checks the user's certificate but two one-way
-authentication doesn't always make a good two-way authentication.
-% May be vulnerable to Mitm-type attack see 
+%The server also checks the user's certificate but two one-way
+%authentication doesn't always make a good two-way authentication.
+% BAD REFERENCE
+% May be vulnerable to Mitm-type attack see
 % http://www.montefiore.ulg.ac.be/~leduc/cours/ISIR/GSRI-ch2.pdf
 % p55
 \end{block}
@@ -198,50 +258,10 @@ More than one form of authentication for an application.
 \end{center}
 The entity is authenticated by:
 \begin{itemize}
-\item What it \emph{is} (biometrics, ...)
+\item What it \emph{is} (biometrics such as voice, fingerprints, ...)
 \item What it \emph{owns} (a bank card, ...)
 \item What it \emph{knows} (a password, a pin code, ...)
 \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-\subsection{Signature challenge}
-
-%------------------------------------------------
-\begin{frame}
-\frametitle{Public-private keys}
-The classical cryptography approach is to use the same key to encrypt
-and decrypt a message but there is a major drawback: in order to be
-able to communicate with someone, you have to use a pre-established
-key.
-
-Public key cryptography was designed to solve that
-problem. With those schemes, you encrypt (and sign) with the private
-key and decrypt with the public one. Each participant generates a public
-private key pair and give the public one to the other.
-\begin{block}{PKI}
-A PKI or Public Key Infrastructure is a mean to distribute the public
-key in a secure way.
-\end{block}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}
-\frametitle{Signature challenge - principle}
-An authentication based upon "answering" a question about a secret
-known by the participants.
-\begin{exampleblock}{A nonce}
-When I encrypt a nonce with my correspondent's public key and ask him for the
-decrypted and encrypted message.
-\end{exampleblock}
-This form of authentication is often used to sign online transactions.
-\note{
-	\begin{description}
-	\item[Nonce]
-	Nonce stands for number used once. It's a random number used
-        once to avoid replay attack.
-	\end{description}
-}
 \end{frame}
 
 %------------------------------------------------
@@ -262,7 +282,7 @@ log in again at each of them.
 \begin{block}{Pro}
 \begin{itemize}
 \item Easier for the user
-\item COTS
+\item Implementations already exist
 \item If they have only one password users tend to treat it with more care
 \item Enter the password less often
 \end{itemize}
@@ -273,12 +293,6 @@ log in again at each of them.
 \item You are dependent upon your provider (confidence, availability, ...)
 \end{itemize}
 \end{block}
-\note{
-	\begin{description}
-	\item[COTS]
-	Commercial off-the-shelf: a ready product.
-	\end{description}
-}
 \end{frame}
 
 %------------------------------------------------
@@ -318,7 +332,6 @@ commercial products.
 		\end{itemize}
 	\end{itemize}
 \item Simpler to setup than developing your own single sign-on mechanism
-\item Sometimes ties you to a single provider
 \end{itemize}
 \end{frame}
 
@@ -344,8 +357,11 @@ If one of your users loses his password, he has to get a new one but doing
 this in a secure way can be challenging.
 \begin{itemize}
 \item Use some predefined security questions
-\item Send a token over a side channel \small{(e-mail)}
+\item Send a token over a side channel {\small (e-mail)}
 \item Confirm the change
 \end{itemize}
+\begin{block}{Challenges}
+An attacker may use social engineering to get answers to security questions.
+\end{block}
 \end{frame}
 
