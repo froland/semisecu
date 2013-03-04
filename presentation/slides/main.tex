@@ -85,6 +85,8 @@
 \usepackage{eurosym}
 % Image
 \usepackage{graphicx}
+% Colors
+\usepackage{color}
 % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{booktabs}
 % ITE package (for conditional compilation)
@@ -108,12 +110,34 @@
 	,breaklines=false
 	,breakatwhitespace=true
 }
+\lstdefinestyle{highlight}{
+	keywordstyle=\color{red},
+	commentstyle=\color{green},
+}
+\lstdefinestyle{beamer}{
+	basicstyle=\ttfamily\footnotesize\color{black!50},
+	keywordstyle=\color{red!50},
+	commentstyle=\color{green!50},
+	moredelim=**[is][{\color{black}\lstset{style=highlight}}]{@}{@},
+}
 
 % Macro to include images
 \newcommand{\includeimage}[2][scale=1.0]{
 	\begin{center}
 	\includegraphics[keepaspectratio=true,#1]{img/#2}
 	\end{center}
+}
+
+% Macro for good and bad code
+\newenvironment{embeddedcode}[1]{
+\begin{columns}[T]
+\begin{column}{3mm}
+\includeimage[width=5mm]{code-#1}
+\end{column}
+\begin{column}{0.9\linewidth}
+}{
+\end{column}
+\end{columns}
 }
 
 % Begin each section with a dedicated frame

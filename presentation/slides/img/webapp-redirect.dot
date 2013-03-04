@@ -3,10 +3,10 @@ digraph Redirect {
 	margin = 0
 
 	{ Client; rank = min }
-	Server [ shape = box3d ]
-	Component [ shape = box ]
+	Server [ shape = box3d, label = "Server 1" ]
+	Server2 [ shape = box3d, label = "Server 2" ]
 
 	Client -> Server [ label = "1. request" ]
-	Server -> Component [ label = "2. forward\nrequest" ]
-	Server -> Client [ label = "3. response" ]
+	Server -> Client [ label = "2. 302 Moved" ]
+	Client -> Server2 [ label = "3. request 2" ]
 }

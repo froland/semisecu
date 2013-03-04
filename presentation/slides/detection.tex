@@ -4,6 +4,8 @@
 
 \begin{frame}
 \frametitle{Pentesting}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{pentesting}
+\note{
 \textbf{Penetration testing} (or pentesting) is the action of attacking a
 system with the consent of the owner in the goal of finding security holes.
 \begin{itemize}
@@ -12,6 +14,7 @@ system with the consent of the owner in the goal of finding security holes.
 \item Testing ability to detect and respond to an attack
 \item Social engineering
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
@@ -24,6 +27,8 @@ Avoiding this situation.
 
 \begin{frame}
 \frametitle{Tools}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{bt5-screenshot}
+\note{
 \begin{itemize}
 \item \href{http://nmap.org/}{nmap}:
 	port scanning
@@ -36,13 +41,15 @@ Avoiding this situation.
 \item \href{http://www.backtrack-linux.org/}{BackTrack}:
 	Linux distribution
 \end{itemize}
-\includeimage[height=0.4\textheight]{bt5-screenshot}
+}
 \end{frame}
 
 \subsection{Honeypot}
 
 \begin{frame}
 \frametitle{Honeypot}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{honeypot}
+\note{
 A \textbf{honeypot} is a mocked website or web application that is exposed for
 attackers who try to penetrate some system. A honeypot is a non-patched server
 that is monitored for attacks and serves no other purpose.
@@ -51,23 +58,33 @@ Anti-spammer project.
 Web sites publish some fake e-mails and spammer's crawlers sending e-mail to
 such addresses are blocked.
 \end{exampleblock}
+}
 \end{frame}
 
 \subsection{NIDS}
 
 \begin{frame}
 \frametitle{NIDS}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{snort}
+\note{
 \textbf{Network Intrusion Detection System} (NIDS) is a system that scans
 network activity and tries to detect attacks.
 \begin{exampleblock}{\href{http://www.snort.org/}{Snort}}
 A NIDS, and an IPS (Intrusion Prevention System), snort can detect attacks and
 take actions accordingly.
 \end{exampleblock}
-\includeimage{snort}
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{NIDS - detection types}
+\begin{itemize}
+\item Signature-based detection
+\item Statistical anomaly-based detection
+\item Stateful protocol analysis
+\end{itemize}
+\includeimage[width=0.4\linewidth,height=0.4\textheight]{detection}
+\note{
 \begin{block}{Signature-based detection}
 Finds a pattern in packets on the network.
 Detects SQL injections in HTTP parameters, XSS attacks, etc.
@@ -81,12 +98,15 @@ Detects stealth port scans, brute force attacks, etc.
 Follows a protocol conversation.
 Detects SYN port scans, etc.
 \end{block}
+}
 \end{frame}
 
 \subsection{Post-mortem analysis}
 
 \begin{frame}
 \frametitle{After an attack}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{investigation}
+\note{
 \begin{itemize}
 \item \emph{When} did the attack happen
 	\begin{itemize}
@@ -105,6 +125,7 @@ Detects SYN port scans, etc.
 	\item Prevent future attacks?
 	\end{itemize}
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
@@ -125,6 +146,8 @@ Detects SYN port scans, etc.
 
 \begin{frame}
 \frametitle{Analysis - tools}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{weblog}
+\note{
 \begin{itemize}
 \item \href{http://www.ntop.org/products/ntop/}{ntop}: traffic monitoring
 platform
@@ -140,27 +163,34 @@ real-time alerting and active response
 	\item \href{http://www.weblogexpert.com/}{WebLog Expert}
 	\end{itemize}
 \end{itemize}
+}
 \end{frame}
 
 \subsubsection{Noise as a diversion}
 
 \begin{frame}
 \frametitle{Noise as a diversion}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{train_cache}
+\note{
 When an attack happens, it can be masked by another attack which would serve
 as a diversion from the real attack.
 \begin{exampleblock}{DoS as a diversion}
 DoS generates lot of traffic and can mask attacks as generated logs are huge.
 \end{exampleblock}
+}
 \end{frame}
 
 \subsection{Performances}
 
 \begin{frame}
 \frametitle{Performances}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{performance}
+\note{
 \begin{itemize}
 \item Slow response time and high load might be a symptom of an attack
 \item Slow application implies higher loads and may not scale and crash during
 	an attack
 \end{itemize}
+}
 \end{frame}
 

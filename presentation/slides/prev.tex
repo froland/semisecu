@@ -6,8 +6,6 @@
 %------------------------------------------------
 \begin{frame}
 \frametitle{Different moments}
-Preventing security flaws is something that has to be done during the
-whole life of the application.
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -20,11 +18,22 @@ whole life of the application.
 \includeimage[width=\linewidth,height=0.5\textheight]{milos3d}
 \end{column}
 \end{columns}
+\note{
+Preventing security flaws is something that has to be done during the
+whole life of the application.
+\begin{itemize}
+\item Architecture
+\item Development
+\item Maintenance
+\end{itemize}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Architecture}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{architecture-problem}
+\note{
 \begin{itemize}
 \item Security has to be taken into account as soon as
   possible. Retrofitting security in an unsecure application is much
@@ -32,27 +41,31 @@ whole life of the application.
 \item You have to ask yourself the good questions and those questions
   vary from one application to the other.
 \item Know the threats you are facing.
-\item There are no miracle receipts... just guidelines.
-\end{itemize}
-\note{
-	Question examples:
+\item There it no miracle receipt... just guidelines
+\item Question examples:
 	\begin{itemize}
-	\item Who are the end-users?
-	\item In what environment will the application run?
-	\item Who has access to the data?
+		\item Who are the end-users?
+		\item In what environment will the application run?
+		\item Who has access to the data?
 	\end{itemize}
-	Source:
-	\url{https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet}
+\end{itemize}
+Source:
+\url{https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet}
 }
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Development: implementation tricks}
-
+\begin{itemize}
+\item Passwords
+\item Session management
+\item Input validation
+\item Ad-hoc protection
+\end{itemize}
+\note{
 There are lots of best practices that can make your application more
 secure.
-
 \begin{itemize}
 \item Passwords: enforcing a minimum complexity policy, storing them securely,
 having the user rotate them, preventing brute-force by implementing temporary
@@ -62,44 +75,46 @@ lock-out, ...
 cookies, implementing an easily accessible logout, ...
 \item Input validation: always on server side, use a positive
   approach
-\item Use ad-hoc protection for known attacks.
+\item Use ad-hoc protection for known attacks. Ad-hoc protection means a protection specialized for a particular attack in
+this context.
 \end{itemize}
-\note{
-	Ad-hoc protection means a protection specialized for a particular attack
-	in this context.
 }
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Development: secure development cycle}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{microsoft-sdl-shield}
+\note{
 A secure development cycle should set aside some time for:
 \begin{itemize}
-\item Code review \small{(security oriented and general)}
+\item Code review (security oriented and general)
 \item Pentesting
 \item Security training of the developers
 \item Choosing a secure and well maintained framework
 	%(more on frameworks later)
 \item Devising a secure configuration for deployment
 \end{itemize}
-
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Maintenance}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{patches}
+\note{
+\begin{block}{Patching}
 When vulnerabilities have been discovered they have to be patched as soon as
 possible.
-
 Beware of regressions and new security breaches.
-
+\end{block}
 \begin{block}{Virtual Patching}
 Virtual Patching is a security policy layer that prevents the exploitation of a known
 vulnerability until a patch is released. It does so by filtering the
 traffic that goes to and from the application server and blocking
 requests that are exploits.
 \end{block}
-
+}
 \end{frame}
 
 %------------------------------------------------
@@ -112,6 +127,7 @@ requests that are exploits.
 \item Your application is not the first
 \item Frameworks ease development while providing security mechanisms
 \end{itemize}
+\note{
 \begin{block}{Some security mechanisms}
 \begin{itemize}
 \item authentication support
@@ -126,24 +142,38 @@ requests that are exploits.
 	(version management needed)
 \end{itemize}
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Frameworks - examples}
-
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\begin{center}
+Spring
+\includeimage[width=0.8\linewidth]{spring-security}
+\end{center}
+\end{column}
+\begin{column}{0.5\linewidth}
+\begin{center}
+ESAPI
+\includeimage[width=0.8\linewidth]{esapi}
+\end{center}
+\end{column}
+\end{columns}
+\note{
 \begin{exampleblock}{Spring}
 Spring is one of the most used framework for developing web application using
 Java. It does feature many components including some dedicated to security.
 \end{exampleblock}
-
 \begin{exampleblock}{ESAPI}
 The OWASP Enterprise Security API) is a free, open source, web application
 security control library that are designed to make it easier for programmers
 to retrofit security into existing applications.
 The ESAPI libraries also serve as a solid foundation for new development.
 \end{exampleblock}
-
+}
 \end{frame}
 
 %------------------------------------------------
@@ -152,9 +182,16 @@ The ESAPI libraries also serve as a solid foundation for new development.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Security in application servers}
+\begin{itemize}
+\item Authentication management
+\item Directory listing disabling
+\item User session management
+\item Error handling
+\item Input encoding
+\end{itemize}
+\note{
 Application servers offer various services that can help you configure
 web applications.
-
 \begin{itemize}
 \item Authentication management
 \item Directory listing disabling
@@ -163,6 +200,7 @@ web applications.
 \item Input encoding
 \item etc.
 \end{itemize}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -171,10 +209,11 @@ web applications.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Web Application Firewall}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{firewall}
+\note{
 \textbf{Web Application Firewall} (WAF) are filters which inspects the traffic
 that goes in and out your application and are able to block inappropriate
 content.
-
 \begin{block}{Some features}
 \begin{itemize}
 \item Virtual patching
@@ -183,6 +222,7 @@ content.
 % Masked as it is explained in detection
 \end{itemize}
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -190,7 +230,13 @@ content.
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{HTTPS}
+\frametitle{Secure protocols}
+\begin{itemize}
+\item SSL
+\item TLS (successor od SSL)
+\item HTTPS
+\end{itemize}
+\note{
 \textbf{TLS} (Transport Layer Security) is the successor of \textbf{SSL}
 (Secured Socket Layer).
 Equal in terms of security.
@@ -201,6 +247,7 @@ HTTPS provides \emph{encryption} and \emph{authentication} for HTTP.
 \end{block}
 \vspace{1em}
 HTTPS is a part of a solution, it does not ensure full security.
+}
 \end{frame}
 
 %------------------------------------------------
@@ -209,6 +256,10 @@ HTTPS is a part of a solution, it does not ensure full security.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Browser restrictions}
+\begin{center}
+\textbf{Browsers offer different options to increase security.}
+\end{center}
+\note{
 \begin{itemize}
 \item Cross-domain XMLHttpRequest (XHR) is disabled by default
 	\\ Exceptions defined using \texttt{Access-Control}
@@ -223,9 +274,8 @@ HTTPS is a part of a solution, it does not ensure full security.
 	\end{itemize}
 \item SSL Certificates are validated
 \item Blacklists of known rogue sites
+\item XHR allows retrieving pages using JavaScript.
 \end{itemize}
-\note{
-	XHR allows retrieving pages using JavaScript.
 }
 \end{frame}
 
@@ -235,26 +285,30 @@ HTTPS is a part of a solution, it does not ensure full security.
 %------------------------------------------------
 \begin{frame}
 \frametitle{E-mail}
-\begin{center}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{spam}
+\note{
 E-mail is one of the most used application.
-\par
 And it's plagued by spam and spoofing.
-\end{center}
-\begin{block}{Sender Policy Framework (SPF)}
-SPF validates e-mails by verifying sender's IP address against DNS records.
-Administrators can define allowed hosts.
-\begin{quote}
-ietf.org. IN SPF "v=spf1 ip4:64.170.98.0/26 ip4:64.170.98.64/28 ip4:64.170.98.80/28 ip6:2001:1890:1112:1::0/64 -all"
-\end{quote}
-\end{block}
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{E-mail}
-\begin{block}{Domain Keys Identified Mail (DKIM)}
-DKIM associates domain names and email messages using a digital signature
-added to the header of messages, a public key is added to the DNS record of the
-domain for the recipient to read the message's header.
+\frametitle{E-mail - SPF}
+\begin{center}
+\begin{quote}
+ietf.org. IN SPF "v=spf1 ip4:64.170.98.0/26 ip4:64.170.98.64/28 ip4:64.170.98.80/28 ip6:2001:1890:1112:1::0/64 -all"
+\end{quote}
+\end{center}
+\note{
+\begin{block}{Sender Policy Framework (SPF)}
+SPF validates e-mails by verifying sender's IP address against DNS records.
+Administrators can define allowed hosts.
+\end{block}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{E-mail - DKIM}
 \begin{quote}
 DKIM-Signature: v=1; a=rsa-sha256; d=example.net; s=brisbane;
 c=relaxed/simple; q=dns/txt; l=1234; t=1117574938; x=1118006938;
@@ -262,7 +316,13 @@ h=from:to:subject:date:keywords:keywords;
 bh=MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=;
 b=dzdVyOfAKCdLXdJOc9G2q8LoXSlEniSbav+yuU4zGeeruD00lszZVoG4ZHRNiYzR
 \end{quote}
+\note{
+\begin{block}{Domain Keys Identified Mail (DKIM)}
+DKIM associates domain names and email messages using a digital signature
+added to the header of messages, a public key is added to the DNS record of the
+domain for the recipient to read the message's header.
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -272,8 +332,9 @@ b=dzdVyOfAKCdLXdJOc9G2q8LoXSlEniSbav+yuU4zGeeruD00lszZVoG4ZHRNiYzR
 \begin{frame}
 \frametitle{Variety of environments}
 \begin{center}
-Impossible to test all the setups.
+\textbf{Impossible to test all the setups.}
 \end{center}
+\note{
 \begin{itemize}
 \item Servers \small{(and their configuration)}
 \item Networks
@@ -284,12 +345,9 @@ Impossible to test all the setups.
 	\item Mobile
 	\item M2M
 	\end{itemize}
+\item Networks: proxy, caches, etc.
+\item M2M: Machine to Machine
 \end{itemize}
-\note{
-	\begin{itemize}
-	\item Networks: proxy, caches, etc.
-	\item M2M: Machine to Machine
-	\end{itemize}
 }
 \end{frame}
 

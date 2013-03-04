@@ -18,6 +18,10 @@ action.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Why authentication?}
+\begin{center}
+\textbf{Identification and confidentiality}
+\end{center}
+\note{
 Authentication is needed when you want to transmit confidential
 information, you want to be sure that your correspondent isn't
 impersonated by somebody else.
@@ -25,6 +29,7 @@ impersonated by somebody else.
 Authentication by itself doesn't imply confidentiality.
 For that, we have encryption.
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -33,17 +38,24 @@ For that, we have encryption.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Password}
-
+\begin{center}
+\includeimage{login}
+The most common form of authentication
+\end{center}
+\note{
 \begin{itemize}
-\item The most common form of authentication
+\item Password is the most common form of authentication
 \item Password should be easily changeable
 \item People should have different passwords for different services
 \item Complexity must be sufficient
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{Password - complexity}
+\frametitle{Password complexity}
+\includeimage[height=0.8\textheight]{browserPasswordValidation}
+\note{
 Enforcing a minimum password strength:
 \begin{itemize}
 \item State the rules clearly (minimum 10 characters, at least one capital
@@ -51,7 +63,7 @@ letter, etc.)
 \item Check the complexity in the browser and on the server
 % feedback for the user
 \end{itemize}
-\includeimage[height=0.4\textheight]{browserPasswordValidation}
+}
 \end{frame}
 
 \begin{frame}
@@ -62,6 +74,10 @@ letter, etc.)
 %------------------------------------------------
 \begin{frame}
 \frametitle{One time passwords}
+\begin{center}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{one-time-password}
+\end{center}
+\note{
 \textbf{One time passwords} (OTP) are passwords which are valid only for a
 single use.
 \begin{itemize}
@@ -75,27 +91,36 @@ single use.
 	\item big companies
 	\end{itemize}
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{One time passwords - choice and distribution}
+\begin{center}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{de}
+Chosen using a random or at least pseudo-random way
+\end{center}
+\note{
 To avoid prediction, passwords must be chosen using a random or at
 least pseudo-random way.
 \begin{itemize}
 \item Time-based generation: passwords valid for a short time.
-	\includeimage[height=0.2\textheight]{SecureID_token_new}
+\includeimage[height=0.2\textheight]{SecureID_token_new}
 \item Sent by SMS, e-mail, etc.
 \item Software on a mobile phone
 \end{itemize}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Certificates}
+\includeimage[width=1\linewidth,height=1\textheight]{certificatesVariety}
+\note{
 A trusted authority (Certification Authority) issues certificates to
 confirm the identity of something. Those certificates may be of varying
 quality and are most often used in SSL/TLS by web browsers.
-\includeimage[width=0.8\linewidth]{certificatesVariety}
+}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -115,6 +140,7 @@ Certificate:
            Not After : Jul  9 16:04:02 1999 GMT
 \end{lstlisting}
 \end{frame}
+
 \begin{frame}[fragile]
 \begin{lstlisting}
        Subject: C=US, ST=Maryland,...
@@ -132,6 +158,8 @@ Certificate:
 
 \begin{frame}[allowframebreaks]
 \frametitle{Certificates - How are they used?}
+\includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
+\note{
 Certificates are often used as a mean to distribute key in a public
 key infrastructure: you start with a root CA certificate (usually
 embedded into the application) and you check
@@ -154,13 +182,23 @@ SSL/TLS in web browsers.
 \item The browser checks the certificates against the signing CA
   certificate and the message against the checked certificate.
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
-\frametitle{Certificates - Two-way authentication}
+\frametitle{One way certification}
+\includeimage[scale=0.7]{one-way-ssl}
+\note{
 \begin{block}{One-way authentication}
 The browser authenticates the server but the opposite isn't true.
 \end{block}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Two-way certification}
+\includeimage[scale=0.7]{two-way-ssl}
+\note{
 \begin{block}{Two-way authentication}
 Both ends are authenticated.
 The server also checks the user's certificate but two one-way
@@ -169,11 +207,14 @@ authentication doesn't always make a good two-way authentication.
 % http://www.montefiore.ulg.ac.be/~leduc/cours/ISIR/GSRI-ch2.pdf
 % p55
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Tokens}
+\includeimage{token}
+\note{
 \textbf{Token} are something of which ownership gives a form of
 authentication.
 \begin{exampleblock}{Forms in everyday life}
@@ -183,12 +224,36 @@ authentication.
 \item Badges
 \item Digipass
 \end{itemize}
+
 \end{exampleblock}
+\includeimage[height=0.2\textheight]{SecureID_token_new}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Multi-factor authentication}
+\begin{columns}
+\begin{column}{0.3\linewidth}
+\begin{center}
+IS
+\includeimage[width=0.8\linewidth]{multifactor-is}
+\end{center}
+\end{column}
+\begin{column}{0.3\linewidth}
+\begin{center}
+OWNS
+\includeimage[width=0.8\linewidth]{multifactor-own}
+\end{center}
+\end{column}
+\begin{column}{0.3\linewidth}
+\begin{center}
+KNOWS
+\includeimage[width=0.8\linewidth]{multifactor-know}
+\end{center}
+\end{column}
+\end{columns}
+\note{
 \begin{center}
 More than one form of authentication for an application.
 \end{center}
@@ -198,6 +263,7 @@ The entity is authenticated by:
 \item what it \emph{owns} (a bank card, ...)
 \item what it \emph{knows} (a password, a pin code, ...)
 \end{itemize}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -206,6 +272,8 @@ The entity is authenticated by:
 %------------------------------------------------
 \begin{frame}
 \frametitle{Public-private keys}
+\includeimage[scale=0.7]{ppk}
+\note{
 The classical cryptography approach is to use the same key to encrypt
 and decrypt a message but there is a major drawback: in order to be
 able to communicate with someone, you have to use a pre-established
@@ -219,24 +287,21 @@ private key pair and give the public one to the other.
 A PKI or Public Key Infrastructure is a mean to distribute the public
 key in a secure way.
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Signature challenge - principle}
+\includeimage[scale=0.7]{signature}
+\note{
 An authentication based upon "answering" a question about a secret
 known by the participants.
 \begin{exampleblock}{A nonce}
 When I encrypt a nonce with my correspondent's public key and ask him for the
-decrypted and encrypted message.
+decrypted and encrypted message. Nonce stands for number used once. 
+It's a random number used once to avoid replay attack.
 \end{exampleblock}
-This form of authentication is often used to sign online transactions.
-\note{
-	\begin{description}
-	\item[Nonce]
-	Nonce stands for number used once. It's a random number used
-        once to avoid replay attack.
-	\end{description}
 }
 \end{frame}
 
@@ -246,19 +311,19 @@ This form of authentication is often used to sign online transactions.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Single sign-on - principle}
+\includeimage[scale=0.7]{sso}
+\textbf{Single sign-on} (SSO) is a property of access control of multiple
+related, but independent software systems.
+\note{
 \textbf{Single sign-on} (SSO) is a property of access control of multiple
 related but independent software systems. With this property a user
 logs in once and gains access to all systems without being prompted to
 log in again for each of them.
 \textit{-- Wikipedia}
-\end{frame}
-
-\begin{frame}
-\frametitle{Single sign-on - pro and cons}
 \begin{block}{Pro}
 \begin{itemize}
 \item Easier for the user
-\item COTS
+\item COTS (commercial off-the-shelf: a ready product)
 \item If they have only one password users tend to treat it with more care
 \item Enter the password less often
 \end{itemize}
@@ -269,11 +334,6 @@ log in again for each of them.
 \item You are dependent upon your provider (confidence, availability, ...)
 \end{itemize}
 \end{block}
-\note{
-	\begin{description}
-	\item[COTS]
-	Commercial off-the-shelf: a ready product.
-	\end{description}
 }
 \end{frame}
 
@@ -286,14 +346,17 @@ log in again for each of them.
 \includeimage[width=3cm]{kerberos-logo}
 \textbf{Kerberos} is a SSO developed at MIT to solve the problem of allowing
 some users to use restricted resources.
+\note{
+\textbf{Kerberos} is a SSO developed at MIT to solve the problem of allowing
+some users to use restricted resources.
 MIT provides a free implementation of the protocol but it's also found in many
 commercial products.
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{Kerberos - How does it work?}
-\includeimage[scale=0.35]{kerberos}
-\textit{Wikipedia}
+\includeimage[scale=0.6]{kerberos}
 \end{frame}
 
 %------------------------------------------------
@@ -302,6 +365,18 @@ commercial products.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Provider extensions}
+\begin{columns}
+\begin{column}[width=\linewidth]{0.3\linewidth}
+\includeimage[width=0.8\linewidth]{openid}
+\end{column}
+\begin{column}[width=\linewidth]{0.3\linewidth}
+\includeimage[width=0.8\linewidth]{google}
+\end{column}
+\begin{column}[width=\linewidth]{0.3\linewidth}
+\includeimage[width=0.8\linewidth]{facebook}
+\end{column}
+\end{columns}
+\note{
 \begin{itemize}
 \item Single sign-on provided using:
 	\begin{itemize}
@@ -317,6 +392,7 @@ commercial products.
 \item Simpler to setup than developing your own single sign-on mechanism
 \item Sometimes ties you to a single provider
 \end{itemize}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -325,6 +401,10 @@ commercial products.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Compromised authentication mean}
+\begin{center}
+\textbf{User may lose its authentication !}
+\end{center}
+\note{
 When you implement authentication you have to take into account that
 the user may lose its authentication mean or it can get stolen.
 \begin{itemize}
@@ -332,6 +412,7 @@ the user may lose its authentication mean or it can get stolen.
 \item Authenticate the user by an uncompromised mean
 \item Give him a new primary authentication mean
 \end{itemize}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -344,6 +425,5 @@ this in a secure way can be challenging.
 \item Send a token over a side channel \small{(e-mail)}
 \item Confirm the change
 \end{itemize}
-\includeimage[width=0.8\linewidth,height=0.6\textheight]{recover-lost-password}
 \end{frame}
 

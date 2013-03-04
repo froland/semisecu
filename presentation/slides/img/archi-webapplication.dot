@@ -5,24 +5,62 @@ digraph ArchiWebApp {
 	node [ shape = none, fontsize = 20 ]
 	edge [ arrowhead = none, arrowtail = none ]
 
-	WebClient1 [ shape = box, label = "Client 1" ]
-	WebClient2 [ shape = box, label = "Client 2" ]
-	RouterLAN [ shape = oval, label = "Router" ]
-	Internet [ shape = circle ]
-	Firewall [ shape = box3d ]
-	IDS [ shape = box3d ]
+	WebClient1 [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-computer.png" />
+		</td></tr></table>> ]
+	WebClient2 [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-computer.png" />
+		</td></tr></table>> ]
+	RouterLAN [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-wifi.png" />
+		</td></tr></table>> ]
+	Internet [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-cloud.png" />
+		</td></tr></table>> ]
+	FirewallExt [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-firewall.png" />
+		</td></tr></table>> ]
+	DMZ [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-server.png" />
+		</td></tr><tr><td>DMZ
+		</td></tr></table>> ]
+	Firewall [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-firewall.png" />
+		</td></tr></table>> ]
+	IDS [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-server.png" />
+		</td></tr><tr><td>IDS
+		</td></tr></table>> ]
 	{
-		RouterServer [ shape = oval, label = "Router" ]
-		LocalClient [ shape = box, label = "Intranet client" ]
+		RouterServer [ shape = point ]
+		LocalClient [ label=
+			<<table border="0"><tr><td>
+			<img src="icon-computer.png" />
+			</td></tr></table>> ]
 		rank = same
 	}
-	WebServer [ shape = box3d, label = "Web application\nserver" ]
-	Database [ shape = box3d ]
+	WebServer [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-server.png" />
+		</td></tr><tr><td>Web server
+		</td></tr></table>> ]
+	Database [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-database.png" />
+		</td></tr></table>> ]
 
-	WebClient1 -> RouterLAN [ label = "WiFi", style = dotted ]
-	WebClient2 -> RouterLAN [ label = "Ethernet" ]
+	{ WebClient1 WebClient2 } -> RouterLAN [ style = dotted ]
 	RouterServer -> { LocalClient IDS }
-	RouterLAN -> Internet -> Firewall -> RouterServer
+	RouterLAN -> Internet -> FirewallExt -> DMZ
+	DMZ -> Firewall -> RouterServer
 	RouterServer -> WebServer
 	WebServer -> Database
 }
