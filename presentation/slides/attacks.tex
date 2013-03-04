@@ -135,19 +135,19 @@ Explanation in the next slide.
 \begin{column}{0.5\linewidth}
 \par\textbf{Vulnerability factors}
 \begin{itemize}
-\item ease of discovery
-\item ease of exploit
-\item awareness
-\item intrusion detection
+\item Ease of discovery
+\item Ease of exploit
+\item Awareness
+\item Intrusion detection
 \end{itemize}
 \end{column}
 \begin{column}{0.5\linewidth}
 \par\textbf{Impact factors}
 \begin{itemize}
-\item loss of confidentiality, integrity, availability, accountability
-\item financial damage
-\item reputation damage
-\item privacy violation
+\item Loss of confidentiality, integrity, availability, accountability
+\item Financial damage
+\item Reputation damage
+\item Privacy violation
 \end{itemize}
 \end{column}
 \end{columns}
@@ -216,11 +216,14 @@ Solution: duplication.
 \note{
 \begin{block}{OWASP}
 \begin{itemize}
-\item standards
-\item libraries
-\item books
-\item etc.
+\item Standards
+\item Libraries
+\item Books
+\item Etc.
 \end{itemize}
+\end{block}
+\begin{block}{Project: Top 10}
+OWASP compiles a top 10 of most critical web application \emph{risks}.
 \end{block}
 }
 \end{frame}
@@ -229,10 +232,10 @@ Solution: duplication.
 \frametitle{Top 10}
 \begin{enumerate}
 \item Injection
-\item XSS
+\item Cross-site Scripting (XSS)
 \item Authentication and Session Management
 \item Insecure Direct Object References
-\item CSRF
+\item Cross-site Request Forgery (CSRF)
 \item Security Misconfiguration
 \item Insecure Cryptographic Storage
 \item Failure to Restrict URL Access
@@ -317,7 +320,7 @@ ResultSet rs = st.executeQuery();
 Usage of placeholders for values let's the interpreter escape input values.
 \end{block}
 \begin{block}{Escaping routines}
-Some languages have special function to escape manually values.
+Some languages have special functions to escape manually values.
 \end{block}
 \begin{block}{White list validation}
 List of valid input patterns.
@@ -555,6 +558,9 @@ Tokens can be unique by session or by request.
 The token is usually stored in a cookie (preferably HTTP-only).
 In forms, a hidden field contains the same value.
 When the request is sent, both values are compared.
+\par
+Only the session ID is stored in the cookie; the session information is
+stored only on the application server.
 \end{block}
 }
 \end{frame}
@@ -666,13 +672,12 @@ The database backup is lost.
 }
 \end{frame}
 
-% TODO refactor cryptography introduction somewhere else
 \begin{frame}
 \frametitle{Hash + Salt}
 \includeimage[height=0.7\textheight,width=\linewidth]{hash-salt}
 \note{
-Ensure passwords are hashed with a standard algorithm and an appropriate salt
-is used.
+Ensure passwords are hashed with a standard algorithm and a different salt is
+used for each password.
 \par
 Prevents rainbow table attacks.
 \par
@@ -804,7 +809,7 @@ Redirect to a malicious website using:
 \end{exampleblock}
 \hrule
 \begin{block}{Avoid redirects and forwards}
-Avoid redirects and forwards and do not include parameters in them.
+Avoid \emph{parametrized} redirects and forwards.
 \end{block}
 \begin{block}{Authorization}
 Validate and authorize the user after each redirect.
@@ -952,8 +957,8 @@ survey question in exchange for a {\Large cheap pen}.
 \note{
 \begin{block}{Protection}
 \begin{itemize}
-\item education
-\item framework of trust
+\item Education
+\item Framework of trust
 \end{itemize}
 \end{block}
 }
@@ -969,16 +974,16 @@ survey question in exchange for a {\Large cheap pen}.
 \textbf{Phishing} is the attempt to acquire user information through
 masquerading as a legitimate web site.
 \begin{itemize}
-\item cloned websites
-\item link manipulation
-\item phone phishing
-\item etc.
+\item Cloned websites
+\item Link manipulation
+\item Phone phishing
+\item Etc.
 \end{itemize}
 \hrule
 \begin{block}{Phishing - prevention}
 \begin{itemize}
-\item education
-\item help to identify legitimate web sites
+\item Education
+\item Help to identify legitimate web sites
 \end{itemize}
 \end{block}
 }
@@ -1038,6 +1043,11 @@ The web site is not protected against automation.
 \begin{exampleblock}{Captcha - prevention}
 Challenge-response test easy for humans, difficult for machines.
 \end{exampleblock}
+\begin{block}{Captcha - cracking}
+An evil website could present a captcha to crack another website's protection.
+Users would crack unknowingly some other website's protection against
+automated attacks.
+\end{block}
 }
 \end{frame}
 
@@ -1058,11 +1068,11 @@ security controls.
 \begin{frame}
 \frametitle{Common points}
 \begin{itemize}
-\item improper input validation
-\item missing authorization checks
-\item misconfiguration
-\item other assumptions
-\item education factor {\small (social engineering)}
+\item Improper input validation
+\item Missing authorization checks
+\item Misconfiguration
+\item Other assumptions
+\item Education factor {\small (social engineering)}
 \end{itemize}
 \note{
 Bullet points.
