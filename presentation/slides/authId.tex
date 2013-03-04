@@ -42,30 +42,56 @@ For that, we have encryption.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Encrypting and signing}
-TODO
+\begin{block}{Encryption}
+Transformation of a message in a way that it is readable only by the
+authorized parties.
+\end{block}
+\begin{block}{Hash}
+Fixed-size bit string built using an irreversible function from a message.
+\end{block}
+\begin{block}{Signature}
+Mean to authenticate the identity of the sender of a message.
+\end{block}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Symmetric and asymmetric encryption}
-TODO
+\begin{block}{Symmetric}
+A single key used to encode and decode the messages.
+\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
+\end{block}
+\begin{block}{Asymmetric}
+A private-public key pair, one is used to encrypt the message, the other to
+read it.
+\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+\end{block}
 \end{frame}
 
-%------------------------------------------------
+\begin{frame}
+\frametitle{Symmetric and asymmetric encryption - difference}
+\begin{itemize}
+\item \textbf{Symmetric}: faster, needs a pre-shared key
+	\newline All people holding the key can decrypt the message.
+\item \textbf{Asymmetric}: no need for a pre-shared key
+	\newline Message can be decrypted by the person holding the right key.
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Public-private keys}
-The classical cryptography approach is to use the same key to encrypt
-and decrypt a message but there is a major drawback: in order to be
-able to communicate with someone, you have to use a pre-established
-key.
-
-Public key cryptography was designed to solve that
-problem. With those schemes, you encrypt (and sign) with the private
-key and decrypt with the public one. Each participant generates a public
-private key pair and give the public one to the other.
+By definition, the public key is shared.
+\begin{itemize}
+\item Encrypt with the recipient's public key
+\item Sign with your private key
+\end{itemize}
+\begin{exampleblock}{Signature}
+Encrypted hash of a message.
+\end{exampleblock}
 \begin{block}{PKI}
-A PKI or Public Key Infrastructure is a mean to distribute the public
-key in a secure way.
+A Public Key Infrastructure (PKI) is a mean to distribute the public key in a
+secure way.
+Validates the identity of the key owner.
 \end{block}
 \end{frame}
 
