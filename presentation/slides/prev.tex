@@ -11,35 +11,31 @@
 \begin{frame}
 \frametitle{Different moments}
 Preventing security flaws is something that has to be done during the
-whole life cycle of the application.
+whole life of the application.
+\begin{columns}
+\begin{column}{0.5\textwidth}
 \begin{itemize}
 \item Architecture
 \item Development
 \item Maintenance
 \end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includeimage[width=\linewidth,height=0.5\textheight]{milos3d}
+\end{column}
+\end{columns}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Architecture}
-\begin{quote}
-The highest-level breakdown of a system into its parts; the decisions that are
-hard to change; there are multiple architectures in a system; what is
-architecturally significant can change over a system's lifetime; and, in the
-end, architecture boils down to whatever the important stuff is.
-\textit{-- Martin Fowler, Patterns of Enterprise Application Architecture}
-\end{quote}
-\end{frame}
-
-\begin{frame}
-\frametitle{Architecture}
 \begin{itemize}
-\item Security has to be taken into account from the beginning.
-	Retrofitting security in an unsecure application is much more difficult
-	than conceiving it securely from the start.
+\item Security has to be taken into account as soon as
+  possible. Retrofitting security in an unsecure application is much
+  more difficult than conceiving it securely from the start
 \item You have to ask yourself the good questions and those questions
-  vary from one application to the other.
-\item Know the threats you are facing.
+  vary from one application to the other
+\item Know the threats you are facing
 \item There is no miracle receipt... just guidelines
 \end{itemize}
 \note{
@@ -48,7 +44,6 @@ end, architecture boils down to whatever the important stuff is.
 	\item Who are the end-users?
 	\item In what environment will the application run?
 	\item Who has access to the data?
-	\item Are there other systems that access data? What are the rules?
 	\end{itemize}
 	Source:
 	\url{https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet}
@@ -71,7 +66,7 @@ lock-out, ...
 cookies, implementing an easily accessible logout, ...
 \item Input validation: always on server side, use a positive
   approach
-\item Use ad-hoc protection for known attacks.
+\item Use ad-hoc protection for known attacks
 \end{itemize}
 \note{
 	Ad-hoc protection means a protection specialized for a particular attack
@@ -84,10 +79,9 @@ cookies, implementing an easily accessible logout, ...
 \frametitle{Development: secure development cycle}
 A secure development cycle should set aside some time for:
 \begin{itemize}
-\item Code review {\small (security oriented and general)}
+\item Code review \small{(security oriented and general)}
 \item Pentesting
 \item Security training of the developers
-\item Sensitizing business owners to security trade-offs
 \item Choosing a secure and well maintained framework
 	%(more on frameworks later)
 \item Devising a secure configuration for deployment
@@ -124,9 +118,9 @@ requests that are exploits.
 \end{itemize}
 \begin{block}{Some security mechanisms}
 \begin{itemize}
-\item authentication support
-\item escaping of values
-\item standard input validation
+\item Authentication support
+\item Escaping of values
+\item Standard input validation
 \end{itemize}
 \end{block}
 \begin{block}{Disadvantages}
@@ -148,8 +142,8 @@ Java. It does feature many components including some dedicated to security.
 \end{exampleblock}
 
 \begin{exampleblock}{ESAPI}
-The OWASP Enterprise Security API) is a free, open source, web application
-security control library that are designed to make it easier for programmers
+The OWASP Enterprise Security API is a free, open source, web application
+security control library that is designed to make it easier for programmers
 to retrofit security into existing applications.
 The ESAPI libraries also serve as a solid foundation for new development.
 \end{exampleblock}
@@ -171,6 +165,7 @@ web applications.
 \item User session management
 \item Error handling
 \item Input encoding
+\item etc.
 \end{itemize}
 \end{frame}
 
@@ -203,19 +198,13 @@ content.
 \textbf{TLS} (Transport Layer Security) is the successor of \textbf{SSL}
 (Secured Socket Layer).
 Equal in terms of security.
+The main difference: TLS begins with an insecure "hello".
 \begin{block}{What provides HTTPS?}
 HTTPS provides \emph{encryption} and \emph{authentication} for HTTP.
 \newline Protects against eavesdropping and spoofing.
 \end{block}
 \vspace{1em}
 HTTPS is a part of a solution, it does not ensure full security.
-\note{
-\begin{block}{SSL vs TLS}
-TLS is an open-community standard and allows both secure and unsecure
-communications.
-\newline TSL~1.0 is equivalent to SSL~3.1
-\end{block}
-}
 \end{frame}
 
 %------------------------------------------------
@@ -229,7 +218,7 @@ communications.
 	\\ Exceptions defined using \texttt{Access-Control}
 \item Possibility of disabling JavaScript and plug-ins (Flash)
 \item Private navigation mode
-	\\ Does not store data on the disk.
+	\\ Does not store data on the disk
 \item Cookies access is limited by
 	\begin{itemize}
 	\item URL
@@ -290,12 +279,12 @@ b=dzdVyOfAKCdLXdJOc9G2q8LoXSlEniSbav+yuU4zGeeruD00lszZVoG4ZHRNiYzR
 Impossible to test all the setups.
 \end{center}
 \begin{itemize}
-\item Servers {\small (and their configuration)}
+\item Servers \small{(and their configuration)}
 \item Networks
 \item Clients
 	\begin{itemize}
 	\item Browsers
-		\\ hacks {\small (example: IE6)} are just more code to test
+		\\ hacks \small{(example: IE6)} are just more code to test
 	\item Mobile
 	\item M2M
 	\end{itemize}
