@@ -191,26 +191,30 @@ Certificate:
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[allowframebreaks]
+\begin{frame}
 \frametitle{Certificates - How are they used?}
 Certificates are often used as a mean to distribute keys in a public
-key infrastructure (PKI): you start with a certificate provided by a root CA,
-usually embedded into the application or browser, and you check the other
-certificates using it.
+key infrastructure (PKI).
 A typical example is for SSL/TLS in web browsers.
 \begin{itemize}
 \item Each CA does generate it's public-private key pair. They
   self-sign their certificates with their public key.
-\item Browsers are distributed with some preinstalled certificates.
+\item Browsers are distributed with some pre-installed certificates.
   You can also add them manually.
-\item When a website owner wants a certificate he also generates
-  a public-private key pair. Then, he makes it sign by a CA.
-\item The CA checks the integrity of the request and performs some
-  checks on the identity of the owner. Finally, it signs the certificate.
 \item When websites want to sign a message, they sign it with
   theirs private key and send the signed object and theirs certificates.
 \item The browser checks the certificates against the CA
   certificate and the message against the checked certificate.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Obtaining a certificate}
+\begin{itemize}
+\item When a website owner wants a certificate, he generates a public-private
+key pair and then sends it to a CA.
+\item The CA checks the integrity of the request and performs some checks on
+the identity of the owner. Finally, it signs the certificate.
 \end{itemize}
 \end{frame}
 
