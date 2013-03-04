@@ -4,15 +4,28 @@
 \begin{frame}
 \frametitle{Identity vs Authentication vs Authorization}
 \begin{block}{Identity}
-The identity of somebody/something is who/what he/it is.
+Who you are.
+\end{block}
+\pause
+\begin{block}{Authentication}
+Are you who you claim to be?
+\end{block}
+\pause
+\begin{block}{Authorization}
+What are you allowed to do?
+\end{block}
+\note{
+\begin{block}{Identity}
+The identity of somebody is who he is.
 \end{block}
 \begin{block}{Authentication}
-Authentication is the act of asserting the identity of something/someone.
+Authentication is the act of asserting the identity of someone.
 \end{block}
 \begin{block}{Authorization}
 Authorization is determining whether the user has the permission to do some
 action.
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -22,8 +35,8 @@ action.
 \textbf{Identification and confidentiality}
 \end{center}
 \note{
-Authentication is needed when you want to transmit confidential
-information, you want to be sure that your correspondent isn't
+Authentication is needed when you want to transmit
+information and be sure that your correspondent isn't
 impersonated by somebody else.
 \begin{block}{Confidentiality}
 Authentication by itself doesn't imply confidentiality.
@@ -38,10 +51,7 @@ For that, we have encryption.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Password}
-\begin{center}
-\includeimage{login}
-The most common form of authentication
-\end{center}
+\includeimage[width=0.6\linewidth]{login}
 \note{
 \begin{itemize}
 \item Password is the most common form of authentication
@@ -54,7 +64,7 @@ The most common form of authentication
 
 \begin{frame}
 \frametitle{Password complexity}
-\includeimage[height=0.8\textheight]{browserPasswordValidation}
+\includeimage[height=0.8\textheight,width=0.8\linewidth]{browserPasswordValidation}
 \note{
 Enforcing a minimum password strength:
 \begin{itemize}
@@ -69,14 +79,15 @@ letter, etc.)
 \begin{frame}
 \frametitle{Password strength}
 \includeimage[height=0.75\textheight,width=\linewidth]{xkcd936_password_strength}
+\note{
+A passphrase vs a common password.
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{One time passwords}
-\begin{center}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{one-time-password}
-\end{center}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{one-time-password}
 \note{
 \textbf{One time passwords} (OTP) are passwords which are valid only for a
 single use.
@@ -96,16 +107,19 @@ single use.
 
 \begin{frame}
 \frametitle{One time passwords - choice and distribution}
-\begin{center}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{de}
-Chosen using a random or at least pseudo-random way
-\end{center}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\includeimage[width=\linewidth,height=0.7\textheight]{dice}
+\end{column}
+\begin{column}{0.5\linewidth}
+\includeimage[width=\linewidth,height=0.7\textheight]{secure-id-token}
+\end{column}
+\end{columns}
 \note{
 To avoid prediction, passwords must be chosen using a random or at
 least pseudo-random way.
 \begin{itemize}
 \item Time-based generation: passwords valid for a short time.
-\includeimage[height=0.2\textheight]{SecureID_token_new}
 \item Sent by SMS, e-mail, etc.
 \item Software on a mobile phone
 \end{itemize}
@@ -115,7 +129,7 @@ least pseudo-random way.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Certificates}
-\includeimage[width=1\linewidth,height=1\textheight]{certificatesVariety}
+\includeimage[width=\linewidth,height=0.7\textheight]{certificatesVariety}
 \note{
 A trusted authority (Certification Authority) issues certificates to
 confirm the identity of something. Those certificates may be of varying
@@ -125,40 +139,39 @@ quality and are most often used in SSL/TLS by web browsers.
 
 \begin{frame}[fragile]
 \frametitle{Certificates - What are they made of?}
-Classical web certificates are using X.509 v3 standard.
+X.509~v3 standard
 \begin{lstlisting}
 Certificate:
-   Data:
-       Version: 1 (0x0)
-       Serial Number: 7829 (0x1e95)
-       Signature Algorithm: md5WithRSAEncryption
-       Issuer: C=ZA, ST=Western Cape,...
-               OU=Certification Services Division,
-               CN=Thawte Server CA/emailAddress=...
-       Validity
-           Not Before: Jul  9 16:04:02 1998 GMT
-           Not After : Jul  9 16:04:02 1999 GMT
+	Data:
+		Version: 1 (0x0)
+		Serial Number: 7829 (0x1e95)
+		Signature Algorithm: md5WithRSAEncryption
+		Issuer: C=ZA, ST=Western Cape,...
+		        OU=Certification Services Division,
+		        CN=Thawte Server CA/emailAddress=...
+		Validity
+			Not Before: Jul  9 16:04:02 1998 GMT
+			Not After : Jul  9 16:04:02 1999 GMT
 \end{lstlisting}
 \end{frame}
-
 \begin{frame}[fragile]
 \begin{lstlisting}
-       Subject: C=US, ST=Maryland,...
-                OU=FreeSoft, CN=www.freesoft.org/emailAddress=...
-       Subject Public Key Info:
-           Public Key Algorithm: rsaEncryption
-           RSA Public Key: (1024 bit)
-               Modulus (1024 bit):
-                   00:be ...:41:8f
-               Exponent: 65537 (0x10001)
-   Signature Algorithm: md5WithRSAEncryption
-       93:5f...:68:9f
+		Subject: C=US, ST=Maryland,...
+		         OU=FreeSoft, CN=www.freesoft.org/emailAddress=...
+		Subject Public Key Info:
+			Public Key Algorithm: rsaEncryption
+			RSA Public Key: (1024 bit)
+				Modulus (1024 bit):
+					00:be ...:41:8f
+				Exponent: 65537 (0x10001)
+	Signature Algorithm: md5WithRSAEncryption
+		93:5f...:68:9f
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[allowframebreaks]
+\begin{frame}
 \frametitle{Certificates - How are they used?}
-\includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
+\includeimage[width=0.8\linewidth,height=0.75\textheight]{ssl-handshake}
 \note{
 Certificates are often used as a mean to distribute key in a public
 key infrastructure: you start with a root CA certificate (usually
@@ -186,6 +199,14 @@ SSL/TLS in web browsers.
 \end{frame}
 
 \begin{frame}
+\frametitle{Certificates - Distribution}
+\includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
+\note{
+TODO merge with academic slides
+}
+\end{frame}
+
+\begin{frame}
 \frametitle{One way certification}
 \includeimage[scale=0.7]{one-way-ssl}
 \note{
@@ -201,11 +222,6 @@ The browser authenticates the server but the opposite isn't true.
 \note{
 \begin{block}{Two-way authentication}
 Both ends are authenticated.
-The server also checks the user's certificate but two one-way
-authentication doesn't always make a good two-way authentication.
-% May be vulnerable to Mitm-type attack see 
-% http://www.montefiore.ulg.ac.be/~leduc/cours/ISIR/GSRI-ch2.pdf
-% p55
 \end{block}
 }
 \end{frame}
@@ -213,7 +229,7 @@ authentication doesn't always make a good two-way authentication.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Tokens}
-\includeimage{token}
+\includeimage[height=0.6\textheight]{token}
 \note{
 \textbf{Token} are something of which ownership gives a form of
 authentication.
@@ -224,32 +240,33 @@ authentication.
 \item Badges
 \item Digipass
 \end{itemize}
-
 \end{exampleblock}
-\includeimage[height=0.2\textheight]{SecureID_token_new}
 }
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Multi-factor authentication}
-\begin{columns}
+\begin{columns}[T]
 \begin{column}{0.3\linewidth}
 \begin{center}
+\bfseries
 IS
-\includeimage[width=0.8\linewidth]{multifactor-is}
+\includeimage[width=\linewidth]{multifactor-is}
 \end{center}
 \end{column}
 \begin{column}{0.3\linewidth}
 \begin{center}
+\bfseries
 OWNS
-\includeimage[width=0.8\linewidth]{multifactor-own}
+\includeimage[width=\linewidth]{multifactor-own}
 \end{center}
 \end{column}
 \begin{column}{0.3\linewidth}
 \begin{center}
+\bfseries
 KNOWS
-\includeimage[width=0.8\linewidth]{multifactor-know}
+\includeimage[width=\linewidth]{multifactor-know}
 \end{center}
 \end{column}
 \end{columns}
@@ -272,7 +289,7 @@ The entity is authenticated by:
 %------------------------------------------------
 \begin{frame}
 \frametitle{Public-private keys}
-\includeimage[scale=0.7]{ppk}
+\includeimage[width=0.8\linewidth]{ppk}
 \note{
 The classical cryptography approach is to use the same key to encrypt
 and decrypt a message but there is a major drawback: in order to be
@@ -293,13 +310,13 @@ key in a secure way.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Signature challenge - principle}
-\includeimage[scale=0.7]{signature}
+\includeimage[width=0.7\linewidth]{signature}
 \note{
 An authentication based upon "answering" a question about a secret
 known by the participants.
 \begin{exampleblock}{A nonce}
 When I encrypt a nonce with my correspondent's public key and ask him for the
-decrypted and encrypted message. Nonce stands for number used once. 
+decrypted and encrypted message. Nonce stands for number used once.
 It's a random number used once to avoid replay attack.
 \end{exampleblock}
 }
@@ -311,9 +328,7 @@ It's a random number used once to avoid replay attack.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Single sign-on - principle}
-\includeimage[scale=0.7]{sso}
-\textbf{Single sign-on} (SSO) is a property of access control of multiple
-related, but independent software systems.
+\includeimage[width=0.8\linewidth,height=0.75\textheight]{sso}
 \note{
 \textbf{Single sign-on} (SSO) is a property of access control of multiple
 related but independent software systems. With this property a user
@@ -344,8 +359,6 @@ log in again for each of them.
 \begin{frame}
 \frametitle{Kerberos}
 \includeimage[width=3cm]{kerberos-logo}
-\textbf{Kerberos} is a SSO developed at MIT to solve the problem of allowing
-some users to use restricted resources.
 \note{
 \textbf{Kerberos} is a SSO developed at MIT to solve the problem of allowing
 some users to use restricted resources.
@@ -356,7 +369,15 @@ commercial products.
 
 \begin{frame}
 \frametitle{Kerberos - How does it work?}
-\includeimage[scale=0.6]{kerberos}
+\includeimage[width=0.8\linewidth]{kerberos}
+\note{
+\begin{enumerate}
+\item The client gets a \emph{ticket} for a distribution center to
+authenticate itself
+\item The client gets a \emph{service ticket}
+\item The \emph{service ticket} can be used on another server
+\end{enumerate}
+}
 \end{frame}
 
 %------------------------------------------------
@@ -401,9 +422,7 @@ commercial products.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Compromised authentication mean}
-\begin{center}
-\textbf{User may lose its authentication !}
-\end{center}
+\includeimage[width=0.8\linewidth]{lost-credentials}
 \note{
 When you implement authentication you have to take into account that
 the user may lose its authentication mean or it can get stolen.
@@ -418,6 +437,11 @@ the user may lose its authentication mean or it can get stolen.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Example: Lost password}
+\begin{itemize}
+\item Security questions
+\item Another channel {\small (e-mail)}
+\end{itemize}
+\note{
 If one of your users loses his password, he has to get a new one but doing
 this in a secure way can be challenging.
 \begin{itemize}
@@ -425,5 +449,6 @@ this in a secure way can be challenging.
 \item Send a token over a side channel \small{(e-mail)}
 \item Confirm the change
 \end{itemize}
+}
 \end{frame}
 
