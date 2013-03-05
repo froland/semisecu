@@ -52,6 +52,8 @@ For that, we have encryption.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Encrypting and signing}
+TODO
+\note{
 \begin{block}{Encryption}
 Transformation of a message in a way that it is readable only by the
 authorized parties.
@@ -62,11 +64,14 @@ Fixed-size bit string built using an irreversible function from a message.
 \begin{block}{Signature}
 Mean to authenticate the identity of the sender of a message.
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Symmetric and asymmetric encryption}
+TODO
+\note{
 \begin{block}{Symmetric}
 A single key used to encode and decode the messages.
 \[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
@@ -76,21 +81,26 @@ A private-public key pair, one is used to encrypt the message, the other to
 read it.
 \[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
 \end{block}
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{Symmetric and asymmetric encryption - difference}
+TODO
+\note{
 \begin{itemize}
 \item \textbf{Symmetric}: faster, needs a pre-shared key
 	\newline All people holding the key can decrypt the message.
 \item \textbf{Asymmetric}: no need for a pre-shared key
 	\newline Message can be decrypted by the person holding the right key.
 \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{Public-private keys}
 \includeimage[width=0.8\linewidth]{ppk}
+\note{
 By definition, the public key is shared.
 \begin{itemize}
 \item Encrypt with the recipient's public key
@@ -104,12 +114,15 @@ A Public Key Infrastructure (PKI) is a mean to distribute the public key in a
 secure way.
 Validates the identity of the key owner.
 \end{block}
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Signature challenge}
 \includeimage[width=0.7\linewidth]{signature}
+TODO see notes
+\note{
 An authentication based upon "answering" a question about a secret
 known by the participants.
 \begin{exampleblock}{A nonce}
@@ -117,7 +130,6 @@ When I encrypt a nonce with my correspondent's public key and ask him for the
 decrypted and encrypted message.
 \end{exampleblock}
 This form of authentication is often used to sign online transactions.
-\note{
 	\begin{description}
 	\item[Nonce]
 	Nonce stands for number used once. It's a random number used
@@ -307,7 +319,7 @@ Both ends are authenticated.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Tokens}
-\includeimage[height=0.6\textheight]{token}
+\includeimage[width=0.7\linewidth,height=0.6\textheight]{token}
 \note{
 \textbf{Token} are something of which ownership gives a form of
 authentication.
@@ -374,6 +386,8 @@ related but independent software systems. With this property a user
 logs in once and gains access to all systems without being prompted to
 log in again for each of them.
 \textit{-- Wikipedia}
+\begin{columns}
+\begin{column}{0.5\linewidth}
 \begin{block}{Pro}
 \begin{itemize}
 \item Easier for the user
@@ -382,12 +396,16 @@ log in again for each of them.
 \item Enter the password less often
 \end{itemize}
 \end{block}
+\end{column}
+\begin{column}{0.5\linewidth}
 \begin{block}{Cons}
 \begin{itemize}
 \item All your eggs in the same basket (impact if compromised)
 \item You are dependent upon your provider (confidence, availability, ...)
 \end{itemize}
 \end{block}
+\end{column}
+\end{columns}
 }
 \end{frame}
 
