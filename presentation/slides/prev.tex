@@ -51,10 +51,8 @@ Question examples:
 \item Who has access to the data?
 \item Are there other systems that access data? What are the rules?
 \end{itemize}
-\begin{small}
-Source:
-\url{https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet}
-\end{small}
+% Source:
+% https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet}
 }
 \end{frame}
 
@@ -129,10 +127,10 @@ requests that are exploits.
 \begin{frame}
 \frametitle{Frameworks}
 \begin{quote}
-Your application is not the first
+Your application is not the first.
 \end{quote}
 \note{
-Frameworks ease development while providing security mechanisms such as:
+Frameworks ease development while providing security mechanisms:
 \begin{itemize}
 \item Authentication support
 \item Escaping of values
@@ -227,11 +225,17 @@ content.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Secure protocols}
-\begin{itemize}
-\item SSL
-\item TLS (successor of SSL)
-\item HTTPS
-\end{itemize}
+\includeimage[width=0.5\linewidth]{https}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\centering\Huge\bfseries
+SSL
+\end{column}
+\begin{column}{0.5\linewidth}
+\centering\Huge\bfseries
+TLS
+\end{column}
+\end{columns}
 \note{
 \textbf{TLS} (Transport Layer Security) is the successor of \textbf{SSL}
 (Secured Socket Layer).
@@ -256,10 +260,7 @@ communications.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Browser restrictions}
-\begin{center}
-\textbf{Browsers offer different options to increase security.}
-\end{center}
-\includeimage[width=0.9\linewidth,height=0.9\textheight]{browserSecurity} 
+\includeimage[width=0.9\linewidth,height=0.9\textheight]{browserSecurity}
 \note{
 \begin{itemize}
 \item Cross-domain XMLHttpRequest (XHR) is disabled by default
@@ -332,10 +333,7 @@ domain for the recipient to read the message's header.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Variety of environments}
-\begin{center}
-\textbf{Impossible to test all the setups.}
-\end{center}
-\includeimage[width=0.8\linewidth,height=0.8\textheight]{testAll} 
+\includeimage[width=0.8\linewidth,height=0.8\textheight]{various-environments}
 \note{
 \begin{itemize}
 \item Servers {\small (and their configuration)}
