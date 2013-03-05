@@ -26,8 +26,14 @@ Avoiding this situation.
 
 \begin{frame}
 \frametitle{Tools}
-\includeimage[width=0.8\linewidth,height=0.7\textheight]{bt5-screenshot}
-% TODO image nmap, ntop, etc.
+\begin{columns}
+\begin{column}{0.35\linewidth}
+\includeimage[width=\linewidth]{pentesting-tools}
+\end{column}
+\begin{column}{0.65\linewidth}
+\includeimage[width=\linewidth,height=0.7\textheight]{bt5-screenshot}
+\end{column}
+\end{columns}
 \note{
 \begin{itemize}
 \item \href{http://nmap.org/}{nmap}:
@@ -66,7 +72,6 @@ such addresses are blocked.
 \begin{frame}
 \frametitle{NIDS}
 \includeimage[width=0.8\linewidth,height=0.7\textheight]{logo-snort}
-% TODO try to find some schema
 \note{
 \textbf{Network Intrusion Detection System} (NIDS) is a system that scans
 network activity and tries to detect attacks.
@@ -106,7 +111,6 @@ Detects SYN port scans, etc.
 \begin{frame}
 \frametitle{After an attack}
 \includeimage[width=0.8\linewidth,height=0.7\textheight]{investigation}
-% TODO better quality image
 \note{
 \begin{itemize}
 \item \emph{When} did the attack happen
@@ -154,8 +158,7 @@ Once the attack is effective, the outbound traffic drops.
 
 \begin{frame}
 \frametitle{Analysis - tools}
-\includeimage[width=0.8\linewidth,height=0.7\textheight]{weblog}
-% TODO add another image
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{analysis-tools}
 \note{
 \begin{itemize}
 \item \href{http://www.ntop.org/products/ntop/}{ntop}: traffic monitoring
