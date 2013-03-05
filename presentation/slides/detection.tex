@@ -18,16 +18,16 @@ system with the consent of the owner in the goal of finding security holes.
 \end{frame}
 
 \begin{frame}
-\frametitle{Pentesting}
 \begin{center}
 Avoiding this situation.
 \end{center}
-\includeimage[height=0.6\textheight]{fence-fail}
+\includeimage[width=\linewidth,height=0.7\textheight]{fence-fail}
 \end{frame}
 
 \begin{frame}
 \frametitle{Tools}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{bt5-screenshot}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{bt5-screenshot}
+% TODO image nmap, ntop, etc.
 \note{
 \begin{itemize}
 \item \href{http://nmap.org/}{nmap}:
@@ -48,7 +48,7 @@ Avoiding this situation.
 
 \begin{frame}
 \frametitle{Honeypot}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{honeypot}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{honeypot}
 \note{
 A \textbf{honeypot} is a mocked website or web application that is exposed for
 attackers who try to penetrate some system. A honeypot is a non-patched server
@@ -65,7 +65,8 @@ such addresses are blocked.
 
 \begin{frame}
 \frametitle{NIDS}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{snort}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{snort}
+% TODO try to find some schema
 \note{
 \textbf{Network Intrusion Detection System} (NIDS) is a system that scans
 network activity and tries to detect attacks.
@@ -104,7 +105,8 @@ Detects SYN port scans, etc.
 
 \begin{frame}
 \frametitle{After an attack}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{investigation}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{investigation}
+% TODO better quality image
 \note{
 \begin{itemize}
 \item \emph{When} did the attack happen
@@ -141,11 +143,19 @@ Detects SYN port scans, etc.
 \includeimage[width=\linewidth]{dos-bw}
 \end{column}
 \end{columns}
+\note{
+Read the logs and alerts.
+\begin{exampleblock}{DoS}
+Peak in server load and in input traffic.
+Once the attack is effective, the outbound traffic drops.
+\end{exampleblock}
+}
 \end{frame}
 
 \begin{frame}
 \frametitle{Analysis - tools}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{weblog}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{weblog}
+% TODO add another image
 \note{
 \begin{itemize}
 \item \href{http://www.ntop.org/products/ntop/}{ntop}: traffic monitoring
@@ -169,7 +179,7 @@ real-time alerting and active response
 
 \begin{frame}
 \frametitle{Noise as a diversion}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{train_cache}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{train_cache}
 \note{
 When an attack happens, it can be masked by another attack which would serve
 as a diversion from the real attack.
@@ -183,7 +193,7 @@ DoS generates lot of traffic and can mask attacks as generated logs are huge.
 
 \begin{frame}
 \frametitle{Performances}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{performance}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{performance}
 \note{
 \begin{itemize}
 \item Slow response time and high load might be a symptom of an attack
