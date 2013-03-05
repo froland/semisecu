@@ -26,6 +26,9 @@ architecturally significant can change over a system's lifetime; and, in the
 end, architecture boils down to whatever the important stuff is.
 \textit{-- Martin Fowler, Patterns of Enterprise Application Architecture}
 \end{quote}
+\note{
+Definition of \emph{architecture}.
+}
 \end{frame}
 
 \begin{frame}
@@ -48,8 +51,10 @@ Question examples:
 \item Who has access to the data?
 \item Are there other systems that access data? What are the rules?
 \end{itemize}
+\begin{small}
 Source:
 \url{https://www.owasp.org/index.php/Application_Security_Architecture_Cheat_Sheet}
+\end{small}
 }
 \end{frame}
 
@@ -101,7 +106,7 @@ A secure development cycle should set aside some time for:
 %------------------------------------------------
 \begin{frame}
 \frametitle{Maintenance}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{patches}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{patched}
 \note{
 \begin{block}{Patching}
 When vulnerabilities have been discovered they have to be patched as soon as
@@ -123,18 +128,16 @@ requests that are exploits.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Frameworks}
-\begin{itemize}
-\item Your application is not the first
-\item Frameworks ease development while providing security mechanisms
-\end{itemize}
+\begin{quote}
+Your application is not the first
+\end{quote}
 \note{
-\begin{block}{Some security mechanisms}
+Frameworks ease development while providing security mechanisms such as:
 \begin{itemize}
 \item Authentication support
 \item Escaping of values
 \item Standard input validation
 \end{itemize}
-\end{block}
 \begin{block}{Disadvantages}
 \begin{itemize}
 \item Changing a framework may prove difficult
@@ -150,16 +153,10 @@ requests that are exploits.
 \frametitle{Frameworks - examples}
 \begin{columns}
 \begin{column}{0.5\linewidth}
-\begin{center}
-Spring
-\includeimage[width=0.8\linewidth]{spring-security}
-\end{center}
+\includeimage[width=0.8\linewidth]{spring}
 \end{column}
 \begin{column}{0.5\linewidth}
-\begin{center}
-ESAPI
 \includeimage[width=0.8\linewidth]{esapi}
-\end{center}
 \end{column}
 \end{columns}
 \note{
