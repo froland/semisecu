@@ -1,0 +1,22 @@
+digraph ClientServer {
+	rankdir = LR
+	ranksep = 1
+	node [ shape = none ]
+
+	{
+		Client [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-computer.png" />
+			</td></tr></table>> ]
+		rank = min
+	}
+	{
+		Server [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-server.png" />
+			</td></tr></table>> ]
+		rank = max
+	}
+
+	Client -> Server [ label = "HTTP", dir = both ]
+}
