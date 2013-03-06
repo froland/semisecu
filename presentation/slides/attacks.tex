@@ -413,10 +413,8 @@ The impact is severe, this attack is common.
 \includeimage[width=\linewidth,height=3cm]{cybercafe}
 \end{column}
 \begin{column}{0.3\linewidth}
-\begin{center}
-\Large
-\emph{XSS}
-\end{center}
+\centering\Huge\bfseries
+XSS
 \end{column}
 \end{columns}
 \vspace{6mm}
@@ -763,8 +761,8 @@ SSL/TLS can be used to secure the connection.
 
 \begin{frame}[fragile]
 \frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
-\includeimage[scale=0.6]{webapp-forward}
-\vspace{1cm}
+\includeimage[scale=0.5]{webapp-forward}
+\vspace{6mm}
 \begin{lstlisting}[style=beamer]
 http://example.com/forward.jsp?@fwd=admin.jsp@
 \end{lstlisting}
@@ -786,8 +784,8 @@ Easy to detect, uncommonly present.
 
 \begin{frame}[fragile]
 \frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
-\includeimage[scale=0.6]{webapp-redirect}
-\vspace{1cm}
+\includeimage[scale=0.5]{webapp-redirect}
+\vspace{6mm}
 \begin{lstlisting}[style=beamer]
 http://@bank.com/secured@/../redirect
 ?@url=http://evil-bank.com/secured@
@@ -979,6 +977,13 @@ masquerading as a legitimate web site.
 \item Help to identify legitimate web sites
 \end{itemize}
 \end{block}
+}
+\end{frame}
+
+\begin{frame}
+\includeimage[height=0.75\textheight,width=\linewidth]{cloned-website}
+\note{
+A \emph{cloned} website.
 }
 \end{frame}
 

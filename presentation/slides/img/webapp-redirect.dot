@@ -1,12 +1,29 @@
 digraph Redirect {
 	rankdir = LR
 	margin = 0
+	node [ shape = none ]
 
-	{ Client; rank = min }
-	Server [ shape = box3d, label = "Server 1" ]
-	Server2 [ shape = box3d, label = "Server 2" ]
+	{
+		Client [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-computer.png" />
+			</td></tr></table>> ]
+		rank = min
+	}
+	{
+		Server [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-server.png" />
+			</td></tr><tr><td>Server 1
+			</td></tr></table>> ]
+		Server2 [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-server.png" />
+			</td></tr><tr><td>Server 2
+			</td></tr></table>> ]
+	}
 
-	Client -> Server [ label = "1. request" ]
+	Client -> Server [ label = "1. first request" ]
 	Server -> Client [ label = "2. 302 Moved" ]
-	Client -> Server2 [ label = "3. request 2" ]
+	Client -> Server2 [ label = "3. second request" ]
 }

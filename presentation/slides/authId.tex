@@ -62,6 +62,9 @@ authorized parties.
 A single key used to encode and decode the messages.
 \[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
 \end{block}
+\begin{exampleblock}{Symmetric cryptography algorithms}
+AES, DES, Twofish, ...
+\end{exampleblock}
 }
 \end{frame}
 
@@ -74,6 +77,10 @@ A private-public key pair, one is used to encrypt the message, the other to
 read it.
 \[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
 \end{block}
+\begin{exampleblock}{Asymmetric cryptography algorithms}
+RSA (Rivest Shamir Adleman),
+Diffie-Hellman, DSA (Digital Signature Algorithm), ...
+\end{exampleblock}
 }
 \end{frame}
 
@@ -93,6 +100,10 @@ Needs a pre-shared key & No need for a pre-shared key \\
 \item \textbf{Asymmetric}: no need for a pre-shared key
 	\newline Message can be decrypted by the person holding the right key.
 \end{itemize}
+\begin{block}{Usual usage}
+A connection starts using an \emph{asymmetric} algorithm to exchange keys and
+then switches to a \emph{symmetric} algorithm as it is faster.
+\end{block}
 }
 \end{frame}
 
@@ -127,6 +138,21 @@ Fixed-size bit string built using an irreversible function from a message.
 \begin{block}{Signature}
 Mean to authenticate the identity of the sender of a message.
 \end{block}
+}
+\end{frame}
+
+\begin{frame}
+\frame{Signature challenge}
+\begin{columns}
+\begin{column}{0.7\linewidth}
+\includeimage[width=\linewidth,height=0.7\textheight]{challenge-accepted}
+\end{column}
+\begin{column}{0.3\linewidth}
+\centering\Large\bfseries
+nonce
+\end{column}
+\end{columns}
+\note{
 \begin{exampleblock}{A nonce}
 Nonce stands for number used once. It's a random number used once to avoid
 replay attack.
