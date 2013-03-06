@@ -1,0 +1,283 @@
+%% Content of websecurity-document
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Psycho-sociological Aspects}
+
+During the early years of the Web, when it still was a trusted and closed
+environment originally developped by the U.S Department of Defense, security was
+not a concern. At this time, only a few research and government sites were
+linked together to share data. Later, in the middle of the eighties, the first
+real network security incident appeared, causing several computer to crash down
+among those research and government sites. The Network then continued to grow to
+finally become the Internet as we know it today, but security problems continued
+to appear in the same time, with both aggressive and defensive technologies
+becoming more sophisticated. Nowadays security is present everywhere in our
+electronic life: from our personal web applications (YouTube, Facebook) to our
+financial web services (Online Banking, Tax-On-Web) and of course in our
+professional lifes (e-mail, calendars). Security efforts are made to bring trust
+to users, giving them a false sentiment of security. They need to gain some
+level of trust but not to be lure by this false security feeling. Indeed, don't
+we believe that HTTPS websites could be seen as fully secured web sites? In
+reality they just prevent some of the attacks. Though, every web site should
+indeed earn the confidence of its users because these ones will share their
+personal data throught the network and it should be unacceptable to see these
+data stolen because of a compromised web site.
+
+That's why security aspect requires more specific measures, more guarantees and
+a stronger protection against all kinds of fraud. But security is also a user's
+responsability. They can divulgue their credentials, use unsecured web sites or
+compromised software and, most of the time, they don't always understand what
+they do. In addition, each critical web service now requires to use a password.
+But with a number of services getting more and more important, remenbering
+multiple passwords can become a hard task. A consequence is that most users use
+the same password for several web sites. More, these passwords are generally
+shorter than height characters and pass-phrases are most of the time not used.
+Some online passwords storage services are existing to do the job for users, but
+these services are also a way to track all yout different passwords. A
+compromise between high security and ease of usability must then be found to
+give users a trust in their web sites. This implies to make a choice between the
+use of a secure or simple password, between using encoded data or, on the other
+hand, using plain text but also to make the choice to use no authentication at
+all or, on the other hand, some authorization checks. We discuss in the next
+chapter several of these points through the study of different attacks.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Attack}
+
+\subsection{Attack trees}
+We will start our study of different attacks by describing the attack tree model
+which give a description of how an asset can be attacked. In other words, this
+kind of model is used to determine and understand threats that may arise on a
+system. For an example, administration access to a database can be obtained
+thanks to the knowledge of the password. One way to get this password is to
+steal it. To steal it we can either use social engineering or sniffing
+techniques. This reflexion able us to build an attack tree model showing threats
+for the administration access asset. Threats are numerous and diversified and we
+can distinguish several reasons to these attacks: \begin{itemize}{} \item
+Threats can exists with the only purpose to break thinks. These attacks can come
+from internet hackers or viruses but also from internal threats in your
+enterprise such as unsatisfied employees. \item The second category of threats
+has a different purpose which is to obtain a gain. That's the case with
+organized crime or competitors wanting to acquire financial or technical
+information. \item Last but not least, threats can simply be unintentional or
+accidental such as loss of electricity, a software failure, a hardware failure
+but also due to a natural disaster. \end{itemize}
+
+To understand the risk encountered by systems vulnerable to such attacks,
+let's first define what is a risk. A risk is the potential that a given threat
+will exploit vulnerabilities of an asset or group of assets and thereby cause
+harm to the organization. Is is measured in terms of a combination of the
+probability of occurrence of an event and its consequence (Wikipedia). In
+other terms, the risk is the relation between the probability of a successful
+attack on an asset and the damages caused by this attack such as the loss of
+confidentiality, integrity, availability and accountability, but also some
+financial or reputation damages or even privacy violation.
+Web applications are particularly sensitive to these attacks. Indeed, the
+context of execution of web applications is quite complex and implies a lot of
+components: browser, router, firewall, application server or database. A
+single point of failure from one of these components would prevent the entire
+system from correctly working. A worldwide organization known as OWASP (Open
+Web Application Security Project) focuses on improving the security of
+software through the publication of standards, librairies and books. They also
+provided a top ten of most critical web applications risks. From higher risk
+to lower risk we can find:
+\begin{itemize}{}
+\item Injection
+\item Cross-site scripting (XSS)
+\item Authentication and Session Management
+\item Insecure Direct Object References
+\item Cross-site Request Forgery (CSRF)
+\item Security Misconfiguration
+\item Insecure Cryptographic Storage
+\item Failure to Restrict URL Access
+\item Insufficient Transport Layer Protection
+\item Unvalidated Forwards and Redirects
+\end{itemize}
+
+Let's study each security flaw listed above, their risks, their impacts and
+how they can be prevented using adapted mechanisms.
+
+\subsubsection{Injection}
+First of all, "Injection" is the mechanism consisting in sending untrusted
+data to an interpreter. In other words, hackers enter code to execute directly
+into input fields of a web form. That is a very common attack, easy to
+exploit, that can produces a lot of impacts such as data loss, corruption or
+even lack of accountability. To avoid such security flaws, it is recommended
+to use a parametrized interface, to escape routines and to use white list
+validation to specify valid input patterns.
+
+\subsubsection{Cross-site scripting (XSS)}
+Cross-site scripting is an attack consisting in code injection directly into
+the page that will be sent to the user. This code can be a script that will
+finally be interpreted by the browser. This kind of attack requires some
+knowledge from the attacker but impacts are generally moderated. Let's include
+the hijack of a user session, the change of a page content or also the user
+redirection to another web site. Once again, using escaping values before
+sending them to the users or using white list validation can reduce risks
+against this kind of attack.
+
+\subsubsection{Authentication and Session Management}
+Our third attack is the use of flaws in authentication and session management
+implemented for a given web site to steal someone else's identity such as a
+session hijacking or a session fixation. This can be possible, for an example,
+by using a stolen session id directly into the URL. This type of attack is
+very common and impacts are often important. Indeed, with the identity of
+someone else, the attacker can do anything the real user can do. To avoid this
+kind of attack, a few practices should be used. First do not forget to log out
+on public computer because your session could be easily used by someone else.
+A good practice is also to use session timeout and visible log out buttons.
+Then, it is important to prevent against cross-site scripting attack because a
+session id could be easily stolen thanks to this mechanism.
+
+\subsubsection{Insecure Direct Object References}
+Insecure direct object references is an attack that requires changes in the
+URL request to obtain a direct object reference that should not be able to
+access. For example by replacing an identifier into the request referencing an
+accessible object by another identifier referencing an initially non
+accessible object. This kind of attack is very simple to exploit and can
+compromise referenced data. To bring more security, source code in web
+applications should always checks if the user has the rights to access the
+object before manipulating it.
+
+\subsubsection{Cross-site Request Forgery (CSRF)}
+Cross-site request forgery is a mechanism that consists in generating requests
+when a user, the victim, visits the attacker's web page. The visited web page
+then contains malicious code that can submit requests to the attacked web site
+using the visiting user identity. This is a widespread attack but fortunately
+easy to detect. To counter it, each request should contains an unique token
+linked to the user session. This way, the attacker's website will not be able
+to generate the correct requests, and so, will be unable to act as the victim.
+
+\subsubsection{Security Misconfiguration}
+Security flaws can also appear through security misconfiguration. Default
+configuration used for application, server or database are not necessaraly a
+good choice. It can let the possibility to gain information such as versions,
+stack traces or debug messages that can lead to bigger threats which could
+compromised the whole system (gain unauthorized access, use known bugs to hack
+an application, etc). Keeping an up-to-date system is the first recommendation
+to prevent such attacks. In combination, a good separation between components
+is also more secure.
+
+\subsubsection{Insecure Cryptographic Storage}
+Insecure cryptographic storage is the next threat. Most sensitive data are
+indeed generally stored insecurely without crypting. Gaining access to data is
+the first step but once it is done, a cryptographic barrier should be used to
+prevent attackers to read it. Risks are high for unencrypted data which will
+be compromised. This kind of attack is fortunately quite difficult to perform
+for attackers.
+
+\subsubsection{Failure to Restrict URL Access}
+Another threat implies missing URL access restriction. Attackers can change
+their URL to switch to a privilieged page with functions requiring
+permissions. This is a quite uncommon flaw but easy to exploit. Main impact is
+of course the threat to give administrative functions available to the
+attackers. To bring more security, authorisation mechanisms should be used
+even if administration pages are not necesseraly referenced from any other
+page.
+
+\subsubsection{Insufficient Transport Layer Protection}
+Next case concerns insufficient transport layer protection which is the
+possibility for an attacker to sniff the data over the network to access it.
+Examples of common attacks are sniffing a WiFi network, scannng for HTTP
+requests or even analysing conversations. Any sniffer can be used to sniff a
+network, however, results are often difficult to exploit. HTTPS protocol can
+secure connections using SSL/TLS. Secure cookies will not be sent through an
+unencrypted connection and certificates will be verify to ensure their
+validity.
+
+\subsubsection{Unvalidated Forwards and Redirects}
+The last attack implies unvalidated forwards and redirects. This means that an
+URL may appear as trustworthy but actually contains unvalidated forward or
+redirect giving the opportunity to the attacker to bypass authorization
+functionnalities. That's an easy attack to detect and nowadays a rarely
+present kind of attack, impacting victims  into disclosing information or
+permitting access control bypass. A barrier against these attacks should be to
+avoid redirects and forwards as much as possible, and in the case if this is
+not possible, to validate and authorize the user after each redirection.
+
+Besides these attacks listed by the OWASP organization, we can also mentionned
+other common attacks.
+
+Denial of service is one of them. This attack aims to bring down (or at least
+make unavailable) some service usually by causing server overload. Common
+denial of service attacks are SYN flood, application level flood, DDoS or
+unintentional DoS.
+
+Another well knwon attack is the man in the middle attack. In this attack, the
+attacker plays the role of the server to the client and the role of the client
+to the server. This way, all communications transit trhough the attacker who
+can modily messages as they are sent.
+
+A less technical attack is social engineering. This attack simply consists in
+manipulationg people so they divulgue confidential information. Different
+scenarios are used by attackers in social engineering to achieve thier goal.
+Pretexting is one of them and consist in using invented scenario to engage a
+targeted victim in a manner that increases the chance the victim will divulgue
+information or perform actions that would be unlikely ordinary circumstances.
+The only way to fight against social engineering is to educate users and use a
+framework of trust.
+
+Phishing is the attemps to acquire user information through maquerading as a
+legitimate website. Tricks used can be cloned websites, link manipulation or
+even phone phishing.
+
+Brute force is an attack whose purpose is to try all possible combinations of
+a password to discover it. A dictionary attack is based on the same principle
+but only try a list of common passwords.
+
+As we can see, many forms of attacks exist and, as technology evolves, new
+ones appear. So, instead of trying to fix vulerabilities, we should focus on
+establishing strong security controls.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Authentication and Identity}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Prevention}
+
+\section{Detection and Analysis}
+To find security holes in a system, penetration testing, or pentesting, is
+used to attack this system with the consent of the owner. The purpose is to
+identify vulnerabilities, to exploit them as well as to test the ability to
+detect them and give an appropriate response.
+
+Several tools have been created to perform these tasks. NMap is a port
+scanning tool, Metasploit is able to identify vulnerabilities and automates
+assesments. Nessus is a vulnerability scanner. WebScarab is an intercepting
+proxy.
+
+Internet provides what we call Honeypot. A Honeypot si a mocked website or web
+application running on a non patched server and that is exposed for attackers
+who try to penetrate some system.
+
+Some network Intrusion Detection Systems (NIDS) are systems that can scan
+network activity and tries to detect attacks. Snort is a NIDS and can detect
+attacks such as and take actions accordingly.
+
+Among those attacks, Snort can perform signature-based detection, which means
+it can find patterns in packets on the network, detects SQL injection or XSS
+attacks. Snort can also perform statistical anomaly-based detection. It looks
+for peaks in traffic, connection coming from a single host and other anomalies
+or detect brute force attacks. In the end, Snort can realize stateful protocol
+detection to catch SYN port scans or follow a protocol conversation.
+
+If such an attack is detected on a system, several questions can be asked to
+try to solve the problem. First, when did the attack happen? Maybe is this
+attack still in progress? Then, what was compromised? Is it compromised or
+modified? What systems failed to work? Finally, how to fix the problem to
+prevent furure attacks?
+
+To discover if an attack happened, a first clue could be to read traffic logs
+and graphs as well as application logs.
+Analysis tools such as ntop, Snare or OSSEC also exist to perform this kind of
+job.
+
+But looking for a specific attack can masked another one. Denial of service
+can be used to generates lot of traffic and can mask attacks as generated logs
+are huge.
+
+Testing performances can also be used to detect possible attacks. Indeed, slow
+response time and high load might be a symptom of an attack.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Detection}

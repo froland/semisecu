@@ -1,0 +1,45 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+
+\usepackage[pdftex]{hyperref} % URLs and links
+\usepackage[pdftex]{graphicx} % Include graphics
+\usepackage{grffile} % File names fix (graphicsx '.' in names)
+\usepackage[table]{xcolor} % Colors
+\usepackage{float} % Floats (extended)
+\usepackage{tabularx} % Tables (extended)
+
+\usepackage{enumitem} % For enumerations
+\usepackage{lastpage} % \pageref{LastPage} % Must be compiled 2 times!
+\usepackage{setspace} % Changing the interline
+\usepackage{wrapfig} % Wrapping text around figures
+
+%% Header and footer
+\usepackage{fancyhdr} % Headers and footers
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+
+%% Set the margins
+\usepackage{a4wide}
+
+%% hyperref config
+\hypersetup{pdftex
+	,pdfauthor={Hermes ECS}
+	,pdftitle={Security in Web Applications}
+	,colorlinks=true
+	,linkcolor=black
+	,urlcolor=blue
+	,citecolor=teal
+	,filecolor=magenta
+	}
+
+\title{Security in Web Applications}
+\author{}
+
+\begin{document}
+\maketitle
+
+\include{content}
+
+\end{document}
