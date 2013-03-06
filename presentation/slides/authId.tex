@@ -142,7 +142,7 @@ Mean to authenticate the identity of the sender of a message.
 \end{frame}
 
 \begin{frame}
-\frame{Signature challenge}
+\frametitle{Signature challenge}
 \begin{columns}
 \begin{column}{0.7\linewidth}
 \includeimage[width=\linewidth,height=0.7\textheight]{challenge-accepted}
@@ -256,9 +256,7 @@ quality and are most often used in SSL/TLS by web browsers.
 }
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Certificates - What are they made of?}
-X.509~v3 standard
+\defverbatim\LstA{
 \begin{lstlisting}
 Certificate:
 	Data:
@@ -272,8 +270,8 @@ Certificate:
 			Not Before: Jul  9 16:04:02 1998 GMT
 			Not After : Jul  9 16:04:02 1999 GMT
 \end{lstlisting}
-\end{frame}
-\begin{frame}[fragile]
+}
+\defverbatim\LstB{
 \begin{lstlisting}
 		Subject: C=US, ST=Maryland,...
 		         OU=FreeSoft, CN=www.freesoft.org/emailAddress=...
@@ -286,6 +284,14 @@ Certificate:
 	Signature Algorithm: md5WithRSAEncryption
 		93:5f...:68:9f
 \end{lstlisting}
+}
+\begin{frame}
+\frametitle{Certificates - What are they made of?}
+X.509~v3 standard
+\LstA
+\end{frame}
+\begin{frame}
+\LstB
 \end{frame}
 
 \begin{frame}

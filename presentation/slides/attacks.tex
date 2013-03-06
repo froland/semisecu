@@ -277,16 +277,19 @@ Easy to exploit, has a severe impact, it is quite common.
 }
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{exampleblock}{\emph{THE} password}
-\includeimage[height=0.4\textheight]{the-password}
-\pause
-\begin{embeddedcode}{bad}
+\defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
 String query = "select * from users"
 	+ " where user_name = '" @+ name +@ "'"
 	+ " and password = '" @+ password +@ "'";
 \end{lstlisting}
+}
+\begin{frame}
+\begin{exampleblock}{\emph{THE} password}
+\includeimage[height=0.4\textheight]{the-password}
+\pause
+\begin{embeddedcode}{bad}
+\Lst
 \end{embeddedcode}
 \end{exampleblock}
 \note{
@@ -300,14 +303,17 @@ user.
 }
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{embeddedcode}{good}
+\defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
 String query = "select * from users where @user_name = ?@";
 PreparedStatement st = con.prepareStatement(query);
 @st.setString(1, name);@
 ResultSet rs = st.executeQuery();
 \end{lstlisting}
+}
+\begin{frame}
+\begin{embeddedcode}{good}
+\Lst
 \end{embeddedcode}
 \pause
 \begin{itemize}
@@ -351,21 +357,27 @@ It requires an average knowledge to be exploited and the impacts are moderate.
 }
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{embeddedcode}{bad}
-\begin{lstlisting}
+\defverbatim[colored]\LstBad{
+\begin{lstlisting}[style=beamer]
 <div>
-	${hotel.description}
+	@${hotel.description}@
 </div>
 \end{lstlisting}
+}
+\defverbatim[colored]\LstGood{
+\begin{lstlisting}[style=beamer]
+<div>
+	@<c:out value="${hotel.description}" />@
+</div>
+\end{lstlisting}
+}
+\begin{frame}
+\begin{embeddedcode}{bad}
+\LstBad
 \end{embeddedcode}
 \badgoodsep
 \begin{embeddedcode}{good}
-\begin{lstlisting}
-<div>
-	<c:out value="${hotel.description}" />
-</div>
-\end{lstlisting}
+\LstGood
 \end{embeddedcode}
 \note{
 Unescaped included text in a JSP.
@@ -407,7 +419,12 @@ The impact is severe, this attack is common.
 }
 \end{frame}
 
-\begin{frame}[fragile]
+\defverbatim[colored]\Lst{
+\begin{lstlisting}[style=beamer]
+http://example.com/page@;jsessionid=dfd4f5fda35df@...
+\end{lstlisting}
+}
+\begin{frame}
 \begin{columns}
 \begin{column}{0.7\linewidth}
 \includeimage[width=\linewidth,height=3cm]{cybercafe}
@@ -418,9 +435,7 @@ XSS
 \end{column}
 \end{columns}
 \vspace{6mm}
-\begin{lstlisting}[style=beamer]
-http://example.com/page@;jsessionid=dfd4f5fda35df@...
-\end{lstlisting}
+\Lst
 \badgoodsep
 \includeimage[height=3cm]{irisscan}
 \note{
@@ -448,12 +463,15 @@ The user's session can be obtained using XSS.
 
 \subsubsection{Attack 4 - Insecure Direct Object References}
 
-\begin{frame}[fragile]
-\frametitle{4. Insecure Direct Object References}
-\begin{center}
+\defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
 http://example.com/user/@152@
 \end{lstlisting}
+}
+\begin{frame}
+\frametitle{4. Insecure Direct Object References}
+\begin{center}
+\Lst
 \end{center}
 \note{
 The attacker changes a parameter in the request to obtain a \textbf{direct
@@ -496,7 +514,7 @@ Use indirect references for each session.
 
 \subsubsection{Attack 5 - CSRF}
 
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{5. CSRF}
 \includeimage[width=0.8\linewidth]{client-server-csrf}
 \note{
@@ -518,21 +536,27 @@ Widespread and easy to detect, the impact is moderate.
 }
 \end{frame}
 
-\begin{frame}[fragile]
-\begin{embeddedcode}{bad}
+\defverbatim[colored]\LstBad{
 \begin{lstlisting}[style=beamer]
 <img src="http://@example.com@/forum/thread1/
 @addComment@?text=hello%20world" alt="" />
 \end{lstlisting}
-\end{embeddedcode}
-\badgoodsep
-\begin{embeddedcode}{good}
+}
+\defverbatim[colored]\LstGood{
 \begin{lstlisting}[style=beamer]
 <form @method="post"@ action="addComment">
 	<input type=@"hidden"@ name="token" value=@"<random>"@ />
 	...
 </form>
 \end{lstlisting}
+}
+\begin{frame}
+\begin{embeddedcode}{bad}
+\LstBad
+\end{embeddedcode}
+\badgoodsep
+\begin{embeddedcode}{good}
+\LstGood
 \end{embeddedcode}
 \note{
 \begin{exampleblock}{Post a comment}
@@ -679,11 +703,14 @@ Both the hash and salt are stored in a database.
 
 \subsubsection{Attack 8 - Failure to Restrict URL Access}
 
-\begin{frame}[fragile]
-\frametitle{8. Failure to Restrict URL Access}
+\defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
 http://example.com/@admin@
 \end{lstlisting}
+}
+\begin{frame}
+\frametitle{8. Failure to Restrict URL Access}
+\Lst
 \note{
 \textbf{URL access is not restricted} to functions requiring permissions.
 \begin{example}
@@ -759,13 +786,16 @@ SSL/TLS can be used to secure the connection.
 
 \subsubsection{Attack 10 - Unvalidated Forwards and Redirects}
 
-\begin{frame}[fragile]
-\frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
-\includeimage[scale=0.5]{webapp-forward}
-\vspace{6mm}
+\defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
 http://example.com/forward.jsp?@fwd=admin.jsp@
 \end{lstlisting}
+}
+\begin{frame}
+\frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
+\includeimage[scale=0.5]{webapp-forward}
+\vspace{6mm}
+\Lst
 \note{
 A URL may appear as trustworthy, but it contains an \textbf{unvalidated
 forward or redirect}.
@@ -782,14 +812,17 @@ Easy to detect, uncommonly present.
 }
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
-\includeimage[scale=0.5]{webapp-redirect}
-\vspace{6mm}
+\defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
 http://@bank.com/secured@/../redirect
 ?@url=http://evil-bank.com/secured@
 \end{lstlisting}
+}
+\begin{frame}
+\frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
+\includeimage[scale=0.5]{webapp-redirect}
+\vspace{6mm}
+\Lst
 \note{
 \begin{example}
 Placing a URL with a redirect that seems trustworthy redirecting to a
@@ -1008,12 +1041,15 @@ Try a list of common passwords.
 }
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Path traversal}
+\defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
 http://example.com/forum/download.jsp
 ?@path=/etc/shadow@
 \end{lstlisting}
+}
+\begin{frame}
+\frametitle{Path traversal}
+\Lst
 \note{
 An input is a relative unvalidated path.
 You can download or upload any file that the server contains.
