@@ -125,6 +125,8 @@ even lack of accountability. To avoid such security flaws, it is recommended
 to use a parametrized interface, to escape routines and to use white list
 validation to specify valid input patterns.
 
+\includeimage[width=0.5\linewidth]{client-server-injection}
+
 \subsubsection{Cross-site scripting (XSS)}
 Cross-site scripting is an attack consisting in code injection directly into
 the page that will be sent to the user. This code can be a script that will
@@ -134,6 +136,8 @@ the hijack of a user session, the change of a page content or also the user
 redirection to another web site. Once again, using escaping values before
 sending them to the users or using white list validation can reduce risks
 against this kind of attack.
+
+\includeimage[width=0.5\linewidth]{client-server-xss}
 
 \subsubsection{Authentication and Session Management}
 Our third attack is the use of flaws in authentication and session management
@@ -147,6 +151,8 @@ on public computer because your session could be easily used by someone else.
 A good practice is also to use session timeout and visible log out buttons.
 Then, it is important to prevent against cross-site scripting attack because a
 session id could be easily stolen thanks to this mechanism.
+\\
+http://example.com/page@;jsessionid=dfd4f5fda35df@...
 
 \subsubsection{Insecure Direct Object References}
 Insecure direct object references is an attack that requires changes in the
@@ -157,6 +163,9 @@ accessible object. This kind of attack is very simple to exploit and can
 compromise referenced data. To bring more security, source code in web
 applications should always checks if the user has the rights to access the
 object before manipulating it.
+\\
+http://example.com/user/152
+
 
 \subsubsection{Cross-site Request Forgery (CSRF)}
 Cross-site request forgery is a mechanism that consists in generating requests
@@ -166,6 +175,8 @@ using the visiting user identity. This is a widespread attack but fortunately
 easy to detect. To counter it, each request should contains an unique token
 linked to the user session. This way, the attacker's website will not be able
 to generate the correct requests, and so, will be unable to act as the victim.
+
+\includeimage[width=0.5\linewidth]{client-server-csrf}
 
 \subsubsection{Security Misconfiguration}
 Security flaws can also appear through security misconfiguration. Default
@@ -193,6 +204,8 @@ of course the threat to give administrative functions available to the
 attackers. To bring more security, authorisation mechanisms should be used
 even if administration pages are not necessarily referenced from any other
 page.
+\\
+http://example.com/admin
 
 \subsubsection{Insufficient Transport Layer Protection}
 Next case concerns insufficient transport layer protection which is the
@@ -213,6 +226,10 @@ present kind of attack, impacting victims  into disclosing information or
 permitting access control bypass. A barrier against these attacks should be to
 avoid redirects and forwards as much as possible, and in the case if this is
 not possible, to validate and authorize the user after each redirection.
+
+\includeimage[scale=0.5]{webapp-forward}
+
+\subsubsection*{ }
 
 Besides these attacks listed by the OWASP organization, we can also mentioned
 other common attacks.
