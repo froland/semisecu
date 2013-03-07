@@ -15,6 +15,14 @@
 \usepackage{setspace} % Changing the interline
 \usepackage{wrapfig} % Wrapping text around figures
 
+\usepackage{graphicx} %images
+% Macro to include images
+\newcommand{\includeimage}[2][scale=1.0]{
+	\begin{center}
+	\includegraphics[keepaspectratio=true,#1]{img/#2}
+	\end{center}
+}
+
 %% Set the margins
 \usepackage{a4wide}
 
