@@ -4,7 +4,7 @@
 \section{Psycho-sociological Aspects}
 
 During the early years of the Web, when it still was a trusted and closed
-environment originally developped by the U.S Department of Defense, security was
+environment originally developed by the U.S Department of Defense, security was
 not a concern. At this time, only a few research and government sites were
 linked together to share data. Later, in the middle of the eighties, the first
 real network security incident appeared, causing several computer to crash down
@@ -20,20 +20,20 @@ level of trust but not to be lure by this false security feeling. Indeed, don't
 we believe that HTTPS websites could be seen as fully secured web sites? In
 reality they just prevent some of the attacks. Though, every web site should
 indeed earn the confidence of its users because these ones will share their
-personal data throught the network and it should be unacceptable to see these
+personal data through the network and it should be unacceptable to see these
 data stolen because of a compromised web site.
 
 That's why security aspect requires more specific measures, more guarantees and
 a stronger protection against all kinds of fraud. But security is also a user's
-responsability. They can divulgue their credentials, use unsecured web sites or
+responsibility. They can divulge their credentials, use unsecured web sites or
 compromised software and, most of the time, they don't always understand what
 they do. In addition, each critical web service now requires to use a password.
-But with a number of services getting more and more important, remenbering
+But with a number of services getting more and more important, remembering
 multiple passwords can become a hard task. A consequence is that most users use
 the same password for several web sites. More, these passwords are generally
 shorter than height characters and pass-phrases are most of the time not used.
 Some online passwords storage services are existing to do the job for users, but
-these services are also a way to track all yout different passwords. A
+these services are also a way to track all your different passwords. A
 compromise between high security and ease of usability must then be found to
 give users a trust in their web sites. This implies to make a choice between the
 use of a secure or simple password, between using encoded data or, on the other
@@ -51,7 +51,7 @@ kind of model is used to determine and understand threats that may arise on a
 system. For an example, administration access to a database can be obtained
 thanks to the knowledge of the password. One way to get this password is to
 steal it. To steal it we can either use social engineering or sniffing
-techniques. This reflexion able us to build an attack tree model showing threats
+techniques. This reflection able us to build an attack tree model showing threats
 for the administration access asset. Threats are numerous and diversified and we
 can distinguish several reasons to these attacks: \begin{itemize}{} \item
 Threats can exists with the only purpose to break thinks. These attacks can come
@@ -78,7 +78,7 @@ components: browser, router, firewall, application server or database. A
 single point of failure from one of these components would prevent the entire
 system from correctly working. A worldwide organization known as OWASP (Open
 Web Application Security Project) focuses on improving the security of
-software through the publication of standards, librairies and books. They also
+software through the publication of standards, libraries and books. They also
 provided a top ten of most critical web applications risks. From higher risk
 to lower risk we can find:
 \begin{itemize}{}
@@ -150,7 +150,7 @@ to generate the correct requests, and so, will be unable to act as the victim.
 
 \subsubsection{Security Misconfiguration}
 Security flaws can also appear through security misconfiguration. Default
-configuration used for application, server or database are not necessaraly a
+configuration used for application, server or database are not necessarily a
 good choice. It can let the possibility to gain information such as versions,
 stack traces or debug messages that can lead to bigger threats which could
 compromised the whole system (gain unauthorized access, use known bugs to hack
@@ -160,7 +160,7 @@ is also more secure.
 
 \subsubsection{Insecure Cryptographic Storage}
 Insecure cryptographic storage is the next threat. Most sensitive data are
-indeed generally stored insecurely without crypting. Gaining access to data is
+indeed generally stored insecurely without encryption. Gaining access to data is
 the first step but once it is done, a cryptographic barrier should be used to
 prevent attackers to read it. Risks are high for unencrypted data which will
 be compromised. This kind of attack is fortunately quite difficult to perform
@@ -168,17 +168,17 @@ for attackers.
 
 \subsubsection{Failure to Restrict URL Access}
 Another threat implies missing URL access restriction. Attackers can change
-their URL to switch to a privilieged page with functions requiring
+their URL to switch to a privileged page with functions requiring
 permissions. This is a quite uncommon flaw but easy to exploit. Main impact is
 of course the threat to give administrative functions available to the
 attackers. To bring more security, authorisation mechanisms should be used
-even if administration pages are not necesseraly referenced from any other
+even if administration pages are not necessarily referenced from any other
 page.
 
 \subsubsection{Insufficient Transport Layer Protection}
 Next case concerns insufficient transport layer protection which is the
 possibility for an attacker to sniff the data over the network to access it.
-Examples of common attacks are sniffing a WiFi network, scannng for HTTP
+Examples of common attacks are sniffing a WiFi network, scanning for HTTP
 requests or even analysing conversations. Any sniffer can be used to sniff a
 network, however, results are often difficult to exploit. HTTPS protocol can
 secure connections using SSL/TLS. Secure cookies will not be sent through an
@@ -189,13 +189,13 @@ validity.
 The last attack implies unvalidated forwards and redirects. This means that an
 URL may appear as trustworthy but actually contains unvalidated forward or
 redirect giving the opportunity to the attacker to bypass authorization
-functionnalities. That's an easy attack to detect and nowadays a rarely
+functionalities. That's an easy attack to detect and nowadays a rarely
 present kind of attack, impacting victims  into disclosing information or
 permitting access control bypass. A barrier against these attacks should be to
 avoid redirects and forwards as much as possible, and in the case if this is
 not possible, to validate and authorize the user after each redirection.
 
-Besides these attacks listed by the OWASP organization, we can also mentionned
+Besides these attacks listed by the OWASP organization, we can also mentioned
 other common attacks.
 
 Denial of service is one of them. This attack aims to bring down (or at least
@@ -203,21 +203,21 @@ make unavailable) some service usually by causing server overload. Common
 denial of service attacks are SYN flood, application level flood, DDoS or
 unintentional DoS.
 
-Another well knwon attack is the man in the middle attack. In this attack, the
+Another well known attack is the man in the middle attack. In this attack, the
 attacker plays the role of the server to the client and the role of the client
-to the server. This way, all communications transit trhough the attacker who
-can modily messages as they are sent.
+to the server. This way, all communications transit through the attacker who
+can modify messages as they are sent.
 
 A less technical attack is social engineering. This attack simply consists in
-manipulationg people so they divulgue confidential information. Different
-scenarios are used by attackers in social engineering to achieve thier goal.
+manipulating people so they divulge confidential information. Different
+scenarios are used by attackers in social engineering to achieve their goal.
 Pretexting is one of them and consist in using invented scenario to engage a
-targeted victim in a manner that increases the chance the victim will divulgue
+targeted victim in a manner that increases the chance the victim will divulge
 information or perform actions that would be unlikely ordinary circumstances.
 The only way to fight against social engineering is to educate users and use a
 framework of trust.
 
-Phishing is the attemps to acquire user information through maquerading as a
+Phishing is the attempts to acquire user information through masquerading as a
 legitimate website. Tricks used can be cloned websites, link manipulation or
 even phone phishing.
 
@@ -226,7 +226,7 @@ a password to discover it. A dictionary attack is based on the same principle
 but only try a list of common passwords.
 
 As we can see, many forms of attacks exist and, as technology evolves, new
-ones appear. So, instead of trying to fix vulerabilities, we should focus on
+ones appear. So, instead of trying to fix vulnerabilities, we should focus on
 establishing strong security controls.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -405,7 +405,7 @@ Question like:
 There are lots of best practices that can make your application more secure. 
 \begin{itemize}
 \item Passwords: enforcing a minimum complexity policy, storing them securely, having the user rotate them, preventing brute-force by implementing temporary lock-out,...
-\item Session management: setting an inactivity time out, setting the secure-flag gor sensitive cookies, using the HTTP-Only flag for cookies, implementing an easily accessible logout,...
+\item Session management: setting an inactivity time out, setting the secure-flag for sensitive cookies, using the HTTP-Only flag for cookies, implementing an easily accessible logout,...
 \item Input validation: always on server side, use a positive approach
 \item Use ad-hoc protection for known attacks. Ad-hoc protection means a protection specialized for a particular attack in this context
 \end{itemize}
