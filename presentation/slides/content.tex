@@ -230,54 +230,289 @@ ones appear. So, instead of trying to fix vulerabilities, we should focus on
 establishing strong security controls.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Authentication and Identity}
+\section{Authentication and identity}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Intro}
+The identity of somebody/something is who/what he/it claims to be.
+The authentication is the act of asserting the identity of something or someone.
+Authentication is needed when you want to transmit confidential
+information, you want to be sure that your correspondent isn't
+impersonated by somebody else.
+The authorization is determining whether the user has the permission to perform some action.
+Beware that authentication by itself does not imply confidentiality.
+%--------------------------------------------------------------------
+\subsection{Cryptography introduction}
+\subsection{Symmetric cryptography}
+The goal of the encryption is to obtain a message in a way that is readable only by the authorized parties.
+This encryption can be symmetric, that is, a single key is used to encode and decode the message. 
+\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
+Symmetric cryptography algorithms are AES, DES, Twofish.
+\subsubsection{Asymmetric cryptography}
+A private-public key pair is used to realize asymmetric encryption. The message is encrypted with the public key and decrypted with the private key. 
+\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+Asymmetric cryptography algorithms are RSA, Diffie-Hellman, DSA.
+\subsubsection{Symmetric versus Asymmetric}
+\begin{itemize}
+\item Symmetric 
+is faster, need a pre-shared key and all the people holding the key can decrypt the message.
+\item Asymmetric is slower but does not need a pre-shared key, messages can be decrypted by the person holding the right key.
+\end{itemize}
+The usual usage is to use asymmetric algorithm to exchange keys and then symmetric algorithm is used for the rest of the connection as it is faster.
+\subsubsection{Public - Private keys}
+By definition, the public key is shared. 
+\begin{itemize}
+\item Encrypt with the recipient's public key
+\item Sign with your private key
+\end{itemize}
+The term to name the mean to distribute the public key in a secure way is a Public Key Infrastructure (PKI). That allows us to validate the identity of the owner.
+%--------------------------------------------------------------------
+\subsection{Types of authentication}
+\subsubsection{Password}
+This is the most common form of authentication.
+Passwords must have a sufficient complexity and must be easy to change periodically.
+Complexity has to be checked on both client and server side.
+People should use different passwords for different services.
+\subsubsection{One time Passwords}
+One time passwords are used to prevent replay attacks. 
+The main difficulty of this technique is to give users their passwords (logistical problem). 
+This technique is used mainly by services who can afford big infrastructures (banks, states,...).
+\subsubsection{Signatures}
+The signature is the encrypted hash of a message.
+The hash is a fixed size string built using an irreversible function from a message.
+The signature is then a mean to authenticate the identity of the sender of a message.
+\subsubsection{Challenge}
+A challenge use a nonce, this stands for number used once.
+It's a random number used once to avoid replay attack.
+The nonce is encrypted with the correspondent's public key and he is then asked for the decrypted and encrypted message.
+This form of authentication is often used to sign online transactions.
+\subsubsection{Certificates}
+A trusted authority issues certificates to confirm the identity of something. They are used in SSL or TLS.
+Only one participant of the conversation can be certified (client or server) or both.\\
+Certificates are often used as a mean to distribute keys in a PKI. A typical example is for SSL/TLS in web browsers. A CA is a Certification Authority, an entity that issues digital certificates.
+\begin{itemize}
+\item Each CA does generate its public-private key pair. They self-sign their certificates with their public key
+\item Browsers are distributed with some pre-installed certificates. You can also add them manually
+\item When websites want to sign a message, they sign it with their private key and send the signed object and their certificate
+\item The browser checks the certificates against the CA certificate and the message against the checked certificate
+\end{itemize}
+\subsubsubsection*{How to obtain a certificate ?}
+When a website owner wants a certificate, he generates a public-private key pair and then sends it to a CA.
+The CA checks the integrity of the request and performs some checks on the identity of the owner. Finally, it signs the certificate.
+\subsubsection{Token}
+"Something which ownership gives a form of identification"\\
+For example: Keys, Bank cards, Badges, Digipass,...
+\subsubsection{2 factors rule}
+One entity must be authenticated by two of the following:
+\begin{itemize}
+\item What it is (biometrics)
+\item What it owns (bank card,...)
+\item What it knows (password, pin code,...)
+\end{itemize}
+
+%--------------------------------------------------------------------
+\subsection{Single Sign-On}
+The SSO is a property of access control of multiple related but independent software systems. With this property a user logs in once and gains access to all systems without being prompted to log in again for each of them. -Wikipedia
+
+\textbf{Pro}
+\begin{itemize}
+\item Easier for the user
+\item Implementation already exist
+\item If they have only one password, users tend to treat it with more care
+\item Enter the password less often
+\end{itemize}
+
+\textbf{Cons}
+\begin{itemize}
+\item All your eggs in the same basket (impact greater if compromised)
+\item You are dependent upon your provider (confidence, availability,...)
+\end{itemize}
+%--------------------------------------------------------------------
+
+\subsection{Kerberos}
+Kerberos is a SSO developed at MIT to solve the problem of allowing
+some users to use restricted resources. MIT provide a free
+implementation of the protocol but it's also found in many commercial
+products.
+
+\subsubsection*{How it works}
+\begin{enumerate}
+\item The client gets a ticket from a distribution center to authenticate itself
+\item The client gets a service ticker
+\item The service ticket can be used on another server
+\end{enumerate}
+%--------------------------------------------------------------------
+\subsection{Provider extensions}
+Common SSO used over the web:
+\begin{itemize}
+\item Facebook account
+\item Google
+\item OpenID
+\end{itemize}
+These organisations provide single sign-on to other websites for free
+using a dedicated API which is much simpler than devising your own
+sign-on mechanism.
+%--------------------------------------------------------------------
+\subsection{Compromised authentication}
+When you implement authentication you have to take into account that the user may lose its authentication mean or it can get stolen.
+The process is the following:
+\begin{enumerate}
+\item Deactivate a compromised authentication mean
+\item Authenticate the user with a still safe mean
+\item Give the user a new primary authentication mean
+\end{enumerate}
+\subsubsection{Password recovery}
+Usability versus security trade-off.
+
+How to do it properly?
+\begin{enumerate}
+\item Use of security question or other strong authentication
+\item Send a token over a side channel
+\item Allow the user to change password
+\item Confirm change
+\end{enumerate}
+Beware that an attacker may use social engineering to get answers to security questions.
+%--------------------------------------------------------------------
 \section{Prevention}
 
-\section{Detection and Analysis}
-To find security holes in a system, penetration testing, or pentesting, is
-used to attack this system with the consent of the owner. The purpose is to
-identify vulnerabilities, to exploit them as well as to test the ability to
-detect them and give an appropriate response.
+\subsection{Different moments}
+Preventing security flaws is something that has to be done during the
+whole life of the application.
 
-Several tools have been created to perform these tasks. NMap is a port
-scanning tool, Metasploit is able to identify vulnerabilities and automates
-assesments. Nessus is a vulnerability scanner. WebScarab is an intercepting
-proxy.
+\subsubsection{Architecture}
+Integrate a security review into your architecture design process. Start
+early on, and as your design changes, review those changes with the
+steps given in this chapter.
+Evolve your security review. This chapter provides questions that you
+can ask to improve the security of your design. To complete the review
+process, you might also need to add specific questions that are unique
+to your application.
+Know the threats you are reviewing against. List the threats that affect the various components and layers that make up your application. 
+Knowing these threats is essential to improving the results of your review process.
+There are no miracle receipts when it comes to designing a secure
+application. Although there are some guidelines which can help you. You
+have to ask yourself the good questions and make decisions on a case by
+case basis.
 
-Internet provides what we call Honeypot. A Honeypot si a mocked website or web
-application running on a non patched server and that is exposed for attackers
-who try to penetrate some system.
+Question like:
+\begin{itemize}
+\item Who are the end-users?
+\item In what environment will the application run ? 
+\item Who has access to the data? 
+\item Are there other systems that access data? What are the rules?
+\end{itemize}
 
-Some network Intrusion Detection Systems (NIDS) are systems that can scan
-network activity and tries to detect attacks. Snort is a NIDS and can detect
-attacks such as and take actions accordingly.
+\subsubsection{Development}
+There are lots of best practices that can make your application more secure. 
+\begin{itemize}
+\item Passwords: enforcing a minimum complexity policy, storing them securely, having the user rotate them, preventing brute-force by implementing temporary lock-out,...
+\item Session management: setting an inactivity time out, setting the secure-flag gor sensitive cookies, using the HTTP-Only flag for cookies, implementing an easily accessible logout,...
+\item Input validation: always on server side, use a positive approach
+\item Use ad-hoc protection for known attacks. Ad-hoc protection means a protection specialized for a particular attack in this context
+\end{itemize}
 
-Among those attacks, Snort can perform signature-based detection, which means
-it can find patterns in packets on the network, detects SQL injection or XSS
-attacks. Snort can also perform statistical anomaly-based detection. It looks
-for peaks in traffic, connection coming from a single host and other anomalies
-or detect brute force attacks. In the end, Snort can realize stateful protocol
-detection to catch SYN port scans or follow a protocol conversation.
+However, a secure development cycle should set aside some time for:
+\begin{itemize}
+\item Code review (security-oriented and general)
+\item Pentesting
+\item Security training of the developers 
+\item Sensitizing business owners to security trade-off
+\item Choosing a secure and well maintained framework
+\item Devising a secure configuration for deployment 
+\end{itemize}
 
-If such an attack is detected on a system, several questions can be asked to
-try to solve the problem. First, when did the attack happen? Maybe is this
-attack still in progress? Then, what was compromised? Is it compromised or
-modified? What systems failed to work? Finally, how to fix the problem to
-prevent furure attacks?
+\subsubsection{Maintenance}
+When vulnerabilities have been discovered they have to be patched as soon as
+possible. Beware of regressions and new security breaches.
 
-To discover if an attack happened, a first clue could be to read traffic logs
-and graphs as well as application logs.
-Analysis tools such as ntop, Snare or OSSEC also exist to perform this kind of
-job.
+\subsubsection*{Virtual patching}
+Virtual patching is a security policy layer that prevents the exploitation of a known vulnerability until a patch is released.
+It does so by filtering the traffic that goes to and from the application server and blocking requests that are exploits.
 
-But looking for a specific attack can masked another one. Denial of service
-can be used to generates lot of traffic and can mask attacks as generated logs
-are huge.
+\subsubsection{Using frameworks}
+You do not develop the first web application. Frameworks already exists to
+ease the development of your application while providing several security
+mechanisms.
+A framework will come generally with authentication support, escaping of values and standard input validation.
+However, when a bug is found in a framework, all the web sites that use the
+framework are affected. Changing a framework may prove difficult though.\\
 
-Testing performances can also be used to detect possible attacks. Indeed, slow
-response time and high load might be a symptom of an attack.
+Examples of frameworks: Spring (Java), OWASP which provides an Enterprise Security API that defines a security API for various languages.
+
+\subsection{Security in application servers}
+Application servers offer various services that can help you to configure
+secured web applications.
+
+\begin{itemize}
+\item Authentication management
+\item Directory listing disabling
+\item User session management
+\item Error handling
+\item Input encoding
+\end{itemize}
+
+\subsection{Web Application firewall}
+Application firewall are filters which inspects the traffic that comes
+from and goes to your application and is able to block inappropriate
+content.\\
+They provide an additional layer of protection, by example, against
+SQL injection by scanning HTML form for SQL content.
+Also, an application firewall can detect connection patterns (see IDS).
+\\
+They can be used to patch security holes of applications which aren't modifiable for some reason (virtual patching).
+
+\subsection{HTTPS}
+\textbf{TLS} (Transport Layer Security) is the successor of \textbf{SSL}
+(Secured Socket Layer).
+They are equal in terms of security.
+HTTPS provides \emph{encryption} and \emph{authentication} for HTTP.
+\newline Protects against eavesdropping and spoofing.
+HTTPS is a part of a solution, it does not ensure full security.
+TLS is an open-community standard and allows both secure and unsecure
+communications.
+\newline TSL~1.0 is equivalent to SSL~3.1
+
+\subsection{Browser restrictions}
+Cross-domain XHR: the browsers disallow contacting other websites
+through the use of JavaScript. A website can ask for the browser to
+lift selectively this restriction via header "Access-Control".\\
+Some browsers allow to block (selectively) the execution of Flash and/or
+JavaScript to protect the user against malicious code hosted by those sites.
+\\
+There is also often a "private navigation" mode which prevents the
+browser from storing data.\\
+Cookies are stored on the user's computer; they are also limited by the URL
+and the time stamp.\\
+In modern browsers tabs are sandboxed in order to prevent one tab from
+accessing data used by others.
+\\
+Browsers also validate SSL certificates and prompt users when a
+dubious certificate is found.\\
+Some of them also provide blacklisting of known rogue sites and
+correct misspelled addresses to protect users from phishing.
+
+\subsection{E-mail}
+E-mail is one of the most used application. It's plagued by spam and
+spoofing. Some defensive measure have been taken.
+
+\subsubsection{Sender Policy Framework}
+SPF validates e-mails by verifying sender's ip address against DNS records. Administrators can define allowed hosts.
+
+\subsubsection{Domain Keys Identified Mail}
+DKIM associates domain names and email messages using a digital signature added to the header of messages, a public key is added to the DNS record of the domain for the recipient to read the message's header.
+
+\subsection{Variety of environments}
+The variety of environments available to the users leads to
+difficulties when it comes to test possible setups for
+vulnerabilities.\\
+\begin{itemize}
+\item Servers and their configuration
+\item Networks (proxy, caches,...)
+\item Clients
+\item Machine to Machine
+\end{itemize}
+Moreover some browsers (e.g. IE6) require workarounds to
+display pages correctly which extend the amount of code and thus
+increase vulnerability likeliness.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Detection}
