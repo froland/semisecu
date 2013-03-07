@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[a4paper,11pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts, amsmath, amssymb, amsthm}
@@ -15,18 +15,55 @@
 \usepackage{setspace} % Changing the interline
 \usepackage{wrapfig} % Wrapping text around figures
 
+%% Set the margins
+\usepackage{a4wide}
+
+%% Commands
+\def\doctitle{Security in Web Applications}
+\def\docauthor{Hermes ECS}
+
+%% Listings
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\lstset{basicstyle=\lstbasicstyle
+	,tabsize=4
+%	,frame=single
+%	,numbers=left
+	,numberstyle=\tiny
+	,numbersep=5pt
+	,numberfirstline=true
+	,firstnumber=1
+	,stepnumber=5
+	,showspaces=false
+	,showstringspaces=false
+	,showtabs=false
+	,breaklines=false
+	,breakatwhitespace=true
+	,xleftmargin=3pt
+	,xrightmargin=3pt
+}
+
 %% Header and footer
 \usepackage{fancyhdr} % Headers and footers
 \renewcommand{\headrulewidth}{0pt}
 \pagestyle{fancy}
-
-%% Set the margins
-\usepackage{a4wide}
+\fancyhead{}
+\fancyhead[RO]{\itshape\doctitle}
+%\fancyhead[LE]{\nouppercase{\leftmark}}
+\fancyfoot{}
+\fancyfoot[RO,LE]{\thepage{} of \pageref{LastPage}}
+%\fancyfoot[LO]{\footnotesize\docauthor}
+% Redefine plain style for chapters, etc.
+\fancypagestyle{plain}{
+	\fancyhead{}
+	\renewcommand{\headrulewidth}{0pt}
+}
 
 %% hyperref config
 \hypersetup{pdftex
-	,pdfauthor={Hermes ECS}
-	,pdftitle={Security in Web Applications}
+	,pdfauthor={\docauthor}
+	,pdftitle={\doctitle}
 	,colorlinks=true
 	,linkcolor=black
 	,urlcolor=blue
@@ -34,11 +71,19 @@
 	,filecolor=magenta
 	}
 
-\title{Security in Web Applications}
-\author{}
-
 \begin{document}
-\maketitle
+\begin{titlepage}
+\begin{flushright}
+\includegraphics[width=0.35\linewidth]{img/hermes}
+\end{flushright}
+\vspace*{\fill}
+\begin{center}
+{\Huge\doctitle}
+\end{center}
+\vspace*{\fill}
+\end{titlepage}
+
+\tableofcontents
 
 \include{content}
 
