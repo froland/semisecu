@@ -61,34 +61,40 @@ quite safe.
 \section{Attack}
 
 \subsection{Attack trees}
-We will start our study of different attacks by describing the attack tree model
-which gives a description of how an asset can be attacked. In other words, this
-kind of model is used to determine and understand threats that may arise on a
-system.
-\includeimage[width=\linewidth,height=6cm]{attack-tree-admin}
 
-For an example, administration access to a database can be obtained
+We will start our study of different attacks by describing the attack tree model.
+The attack tree describes how an asset can be attacked. In other words, this
+kind of model is used to determine and understand threats that may arise.
+
+\begin{figure}[htb]
+\includeimage[width=\linewidth,height=6cm]{attack-tree-admin}
+%\caption{Attack tree example}
+\end{figure}
+
+For an example, administration access can be obtained
 thanks to the knowledge of the password. One way to get this password is to
 steal it. To steal it we can either use social engineering or sniffing
-techniques. This reflexion able us to build an attack tree model showing threats
-for the administration access asset.
+techniques.
+This reflection enable us to build an attack tree model showing threats
+for the administration access.
 
 \subsection{Threats}
-Threats are numerous and diversified and we can distinguish several reasons to
-these attacks:
+
+Threats are numerous and diversified.
 \begin{itemize}
-\item Threats can exists with the only purpose to break thinks. These attacks
-	can come from internet hackers or viruses but also from internal threats
-	in your enterprise such as unsatisfied employees.
-\item The second category of threats has a different purpose which is to
-	obtain a gain. That's the case with organized crime or competitors wanting
+\item Sole purpose to break thinks.
+	These attacks can come from internet hackers or viruses but also from
+	internal threats in your enterprise such as unsatisfied employees.
+\item Obtaining a gain.
+	That's the case with organized crime or competitors wanting
 	to acquire financial or technical information.
-\item Last but not least, threats can simply be unintentional or accidental
-	such as loss of electricity, a software failure, a hardware failure but
-	also due to a natural disaster.
+\item Can simply be unintentional or accidental.
+	Examples include: loss of electricity, a software failure, a hardware
+	failure, but also natural disasters.
 \end{itemize}
 
-\subsection{Risks}
+\subsection{Risk}
+
 To understand the risk encountered by systems vulnerable to such attacks, let's
 first define what is a risk.
 
@@ -117,22 +123,36 @@ and impact factors such as
 \item Privacy violation
 \end{itemize}
 
-\subsection{Context of Web applications}
-Web applications are particularly sensitive to these attacks. Indeed, the
-context of execution of web applications is quite complex and implies a lot of
-components: browser, router, firewall, application server or database. A single
-point of failure from one of these components could prevent the entire system
-from working correctly. In the next sections, we will analyse security threats
-existing in the context of web applications.
+\subsection{Context of web applications}
 
-\subsection{Open Web Application Security Project}
-A worldwide organization known as OWASP (Open Web Application Security Project)
-focuses on improving the security of software through the publication of
-standards, libraries and books.
+Basically, the web is based on a client-server model. The protocol used to
+retrieve web pages is HTTP. Anyone can access a public server and send
+requests, the client is not uniquely identified on the server.
+For this, websites use a session ID for each client. It is a "unique number"
+that is saved on the client's computer when he accesses the website for the
+first time. There is still no guarantee that this number is unique, even if
+conflicts are improbable.
 
-\subsection{Top 10 most critical web applications risks}
+In reality, the client is not directly connected to the server. A lot of
+intermediaries are present, each of them plays a different role and an attack
+can happen at any level.
+For example, the client can be on a WiFi network that is connected to the
+internet. The web server is on another network where other computers are
+present: other clients, intrusion detection systems, databases, etc. In
+between, we can find firewalls, demilitarized zones and others.
+Any component may fail: whether the web site continues to work depends on the
+duplication of components on the network. A single point of failure is a part
+of the system such that when it fails the system stop to work properly.
+
+\subsection{Open Web Application Security Project (OWASP)}
+
+A worldwide organization known as \href{https://www.owasp.org/}{Open Web
+Application Security Project} (OWASP) focuses on improving the security of
+software through the publication of standards, libraries and books.
+
+\subsection{Top 10 of most critical web applications risks}
+
 OWASP provides a top ten of most critical web applications risks.
-From higher risk to lower risk we can find:
 \begin{enumerate}
 \item Injection
 \item Cross-site scripting (XSS)
@@ -146,39 +166,57 @@ From higher risk to lower risk we can find:
 \item Unvalidated Forwards and Redirects
 \end{enumerate}
 
-% TODO Separate each attack in description and then another paragraph for
-% examples and explanations
-
 \subsubsection{Injection}
+
 \emph{Injection} is the mechanism consisting in sending untrusted data to an
 interpreter. In other words, hackers enter code directly into input fields of
-a web form that is executed on the server.  That is a very common attack, easy
-to exploit, that can produces a lot of impacts such as data loss, corruption
-or even lack of accountability.
-
-To avoid such security flaws, it is recommended to use a parametrized
-interface, escape routines or to use white-list validation to specify valid
-input patterns.
-% TODO explain why not black-list
+a web form that is executed on the server.
+This is a very common attack, easy to exploit, and can produce a huge impact
+such as data loss, data corruption and lack of accountability.
 
 \includeimage[width=0.5\linewidth]{client-server-injection}
 
+To avoid such security flaws, it is recommended to use a parametrized
+interface (see \autoref{lst:parametrized-interface}), escape routines or to
+use white-list validation to specify valid input patterns.
+Black lists are discouraged, because it is easier to forget some rule and
+it is often possible to use workarounds.
+Usually, this vulnerability is present when the code to execute is built using
+simple concatenation.
+
+\begin{lstlisting}[style=beamer,
+	caption={Parametrized interface in Java},
+	label=lst:parametrized-interface]
+String query = "select * from users where @user_name = ?@";
+PreparedStatement st = con.prepareStatement(query);
+@st.setString(1, name);@
+ResultSet rs = st.executeQuery();
+\end{lstlisting}
+
 \subsubsection{Cross-site scripting (XSS)}
-Cross-site scripting is an attack consisting in code injection directly into the
-page that will be sent to the user. This code can be a script that will finally
-be interpreted by the browser. This kind of attack requires some knowledge from
-the attacker but impacts are generally moderated.
+
+\emph{Cross-site scripting} is an attack consisting in code injection directly
+into the page that will be sent to the user.
+This code can be a script that will finally be interpreted by the browser.
+This kind of attack requires some knowledge from the attacker but impacts are
+generally moderated.
+However, this is the most widespread vulnerability on the web.
 
 \includeimage[width=0.5\linewidth]{client-server-xss}
 
-Let's include the hijack of a user session, the change of a page content or
-also the user redirection to another web site. Once again, using escaping
-values before sending them to the users or using white list validation can
-reduce risks against this kind of attack.
+Possible attacks include session hijacking, the change of a page content or
+user redirection to another web site. Once again, using escaping routines
+before sending values to the users or using white list validation prevents
+this attack.
 
-% TODO include an example <script>alert(...
+\begin{lstlisting}[style=beamer,
+	caption={XSS test},
+	label=lst:xss-input]
+Hello @<script>alert("Hello world!");</script>@ world!
+\end{lstlisting}
 
 \subsubsection{Authentication and Session Management}
+
 The use of flaws in authentication and session management
 implemented for a given web site to steal someone else's identity using
 session hijacking or session fixation. This type of attack is very
@@ -190,96 +228,139 @@ forget to log out on public computer because your session could be easily used
 by someone else. A good practice is also to use session timeout and visible
 log out buttons. Then, it is important to prevent against cross-site scripting
 attack because a session ID could be easily stolen thanks to this mechanism.
-% TODO explain session hijacking vs session fixation
-This can be possible, for an example, by using a stolen session ID directly
-into the URL.
+
+For example, session hijacking consist in stealing the session ID of another
+user through the use of an attack like XSS. Session fixation consists in
+forcing a user to use a particular session ID; it is sometimes possible to
+inject the session ID into the URL.
 
 \subsubsection{Insecure Direct Object References}
-Insecure direct object references is an attack that requires changes in the URL
-request to obtain a direct object reference that should not be able to access.
+
+Insecure direct object references consists in changing a parameter in the URL
+so that another entity or document shared by the web site could be accessed.
 For example by replacing an identifier into the request referencing an
 accessible object by another identifier referencing an initially non accessible
 object. This kind of attack is very simple to exploit and can compromise
-referenced data. To bring more security, source code in web applications should
-always checks if the user has the rights to access the object before
+referenced data.
+
+\begin{lstlisting}[style=beamer]
+http://example.com/user/@152@
+\end{lstlisting}
+
+To bring more security, source code in web applications should
+always check whether the user has the rights to access the object before
 manipulating it.
 
 \subsubsection{Cross-site Request Forgery (CSRF)}
+
 Cross-site request forgery is a mechanism that consists in generating requests
 when a user, the victim, visits the attacker's web page. The visited web page
-then contains malicious code that can submit requests to the attacked web site
-using the visiting user identity. This is a widespread attack but fortunately
-easy to detect. To counter it, each request should contains an unique token
-linked to the user session. This way, the attacker's website will not be able to
-generate the correct requests, and so, will be unable to act as the victim.
+contains malicious code that can submit requests to the attacked web site
+using the visiting user's identity.
+This is a widespread attack but fortunately easy to detect.
 
 \includeimage[width=0.5\linewidth]{client-server-csrf}
 
+CSRF can be countered using a simple technique:
+each request should contain an unique token linked to the user's session. This
+way, the attacker's website will not be able to generate the correct requests,
+and so, will be unable to act as the victim.
+
+\begin{lstlisting}[style=beamer,
+	caption={A protected form against CSRF}]
+<form @method="post"@ action="addComment">
+	<input @type="hidden"@ name="token" @value="<random>"@ />
+	...
+</form>
+\end{lstlisting}
+
 \subsubsection{Security Misconfiguration}
+
 Security flaws can also appear through security misconfiguration. Default
 configuration used for application, server or database are not necessarily a
-good choice. It can let the possibility to gain information such as versions,
+good choice. It could be possible to gain information such as versions,
 stack traces or debug messages that can lead to bigger threats which could
 compromised the whole system (gain unauthorized access, use known bugs to hack
-an application, etc). Keeping an up-to-date system is the first recommendation
-to prevent such attacks. In combination, a good separation between components is
-also more secure.
+an application, etc.).
+
+Keeping an up-to-date system is the first recommendation to prevent such
+attacks. In combination with a good separation between components, the systems
+will be only partially affected.
 
 \subsubsection{Insecure Cryptographic Storage}
-Insecure cryptographic storage is the next threat. Most sensitive data are
-indeed generally stored insecurely without encrypting. Gaining access to data is
-the first step but once it is done, a cryptographic barrier should be used to
-prevent attackers to read it. Risks are high for unencrypted data which will be
+
+Sensitive data should be stored securely.
+When an attacker gains access to the data, a cryptographic barrier should be
+used to prevent the attackers from reading it. Unencrypted data will be
 compromised. This kind of attack is fortunately quite difficult to perform for
 attackers.
 
+For example, a lost unencrypted backup of the database would contain all the
+information for the attacker.
+Also, information such as passwords must be hashed and a salt should be
+applied to prevent rainbow table attacks.
+
 \subsubsection{Failure to Restrict URL Access}
-Another threat implies missing URL access restriction. Attackers can change
-their URL to switch to a privileged page with functions requiring permissions.
-This is a quite uncommon flaw but easy to exploit. Main impact is of course the
-threat to give administrative functions available to the attackers. To bring
-more security, authorisation mechanisms should be used even if administration
+
+A missing URL access restriction is always a vulnerability.
+Attackers can change their URL to switch to a privileged page with functions
+requiring permissions.
+This is a quite uncommon flaw but it is easy to exploit. The main impact is of
+course the threat to give administrative functions to the attackers.
+
+To prevent this attack, authorisation mechanisms should be used even if
 pages are not necessarily referenced from any other page.
 
 \subsubsection{Insufficient Transport Layer Protection}
-Next case concerns insufficient transport layer protection which is the
-possibility for an attacker to sniff the data over the network to access it.
+
+It is possible to capture traffic between a client and a server.
+Insufficient transport layer protection is the lack of encryption mechanisms
+when sensitive data is being sent.
 Examples of common attacks are sniffing a WiFi network, scanning for HTTP
-requests or even analysing conversations. Any sniffer can be used to sniff a
-network, however, results are often difficult to exploit. HTTPS protocol can
-secure connections using SSL/TLS. Secure cookies will not be sent through an
-unencrypted connection and certificates will be verify to ensure their validity.
+requests or even analysing conversations.
+
+HTTPS can secure connections using SSL/TLS. Secure cookies will not be sent
+through an unencrypted connection and certificates will be verified by the
+browser to ensure their validity.
 
 \subsubsection{Unvalidated Forwards and Redirects}
+
 The last attack implies unvalidated forwards and redirects. This means that an
-URL may appear as trustworthy but actually contains unvalidated forward or
-redirect giving the opportunity to the attacker to bypass authorization
-functionalities. That's an easy attack to detect and nowadays a rarely present
-kind of attack, impacting victims into disclosing information or permitting
-access control bypass. A barrier against these attacks should be to avoid
-redirects and forwards as much as possible, and in the case if this is not
-possible, to validate and authorize the user after each redirection.
+URL may appear as trustworthy but actually contain unvalidated redirect to an
+unsecure page or it can contain a forward attempting to bypass authorization
+functionalities. This is an easy attack to detect and nowadays a rarely
+present kind of attack.
+
+A barrier against these attacks is to avoid redirects and forwards as much as
+possible, and in the case when this is not possible, to validate and authorize
+the user after each redirection or forward.
 
 \subsection{Other common attacks}
-Besides these attacks listed by the OWASP organization, we can also mentioned
-other common attacks. Here is a few of them.
+
+Besides these attacks listed by the OWASP organization, we can also mention
+other common attacks. Here are a few of them.
 
 \subsubsection{Denial of service}
+
 The attack by denial of service aims to bring down (or at least make
 unavailable) some service usually by causing server overload.
 
-There are several
-types of denial of service.
 \begin{description}
 \item[SYN flood]
-It is used in combination with the TCP protocol. When a client
-initiate a connection with a server, it sends a SYN request. The server then
-sends a confirmation to the client that the connection is accepted and the
-client terminates this three-way handshake by responding to the server with an
-acknowledgment. A SYN flood attack consists in sending a huge quantity of SYN
+When a client initiates a connection with a server, it sends a SYN request.
+The server then sends a confirmation (ACK) to the client that the connection
+is accepted and the client terminates this three-way handshake by responding
+to the server with an acknowledgment (SYN-ACK).
+A SYN flood attack consists in sending a huge quantity of SYN
 requests without responding to the server with an acknowledgment. This way, the
-server uses more and more resources but never free them, causing either a denial
+server uses more and more resources but never frees them, causing either a denial
 of service or, for the worst case, a crash.
+\item[Application level flood]
+Request can be sent to the server to initiate cpu-intensive tasks or to save
+lot of data causing the disks to become full.
+\item[R-U-Dead-Yet]
+The attack consists in sending data very slowly to the server. This is similar
+to a SYN flood, but the connection stays alive.
 \item[DDoS] (Distributed Denial Of Service)
 Follows the same principle as a traditional Denial Of Service attack but it is
 launched by several attackers in the same time.
@@ -291,66 +372,96 @@ Using firewalls as well as Intrusion Prevention System can reduce the risks to
 be a victim of this kind of attack.
 
 \subsubsection{Man in the middle}
-Another well known attack is the man in the middle attack. In this attack, the
+
+Another well known attack is the man in the middle attack. The
 attacker plays the role of the server to the client and the role of the client
 to the server. This way, all communications transit through the attacker who can
 modify messages as they are sent. The victims believe they use a private
 connection but the attacker, the man in the middle, controls the whole exchange.
 
 \subsubsection{Social engineering}
+
 A less technical but nevertheless damaging attack is the use of social
 engineering. Social engineering simply consists in manipulation people so they
 divulge confidential information. Different scenarios are used by attackers in
 social engineering to achieve their goal. Pretexting is one of them and consists
 in using invented scenario to engage a targeted victim in a manner that
 increases the chance the victim will divulge information or perform actions
-that would be unlikely in ordinary circumstances. The only way to fight against
-social engineering is to educate users and use a framework of trust. Another
-kind of social engineering attack is phishing, which is described in the next
-section.
+that would be unlikely in ordinary circumstances. Another technique is
+\textit{quid pro quo}, which consists in helping some user while getting from
+them confidential information such as passwords.
+
+The only way to fight against social engineering is to educate users and use a
+framework of trust.
+
+Another kind of social engineering attack is phishing, which is described in
+the next section.
 
 \subsubsection{Phishing}
+
 Phishing is the attempt to acquire user information, such as passwords or credit
 card details, through masquerading as a legitimate website. Tricks used can be
 cloned websites, link manipulation or even phone phishing but most of the time
 phishing is carried out by e-mail or instant messaging. Most of the time,
-phishing e-mails contains links that redirect the user to malicious web sites
-containing malwares or to fake web sites looking like the original ones. Victims
-then enter their confidential information that are finally recovered by the
-attacker.
+phishing e-mails contains links that redirect the user to malicious web sites.
+Victims then enter their confidential information that are finally recovered
+by the attacker.
 
 \subsubsection{Brute force}
-Brute force is an attack whose purpose is to try all possible combinations of a
-password to discover it. A dictionary attack is based on the same principle but
-only try a list of common passwords. This kind of attack is very sensitive to
-the length of the passwords. The more the length of the password will be
-important, the more the attacker will have difficulties to discover it.
+
+Brute force is an attack whose purpose is to try all possible combinations of
+passwords to discover the right one. A dictionary attack is based on the same
+principle, but only tries a list of common passwords.
+This kind of attack is very sensitive to the length and the complexity of the
+passwords. The longer the password, the more the attacker will have
+difficulties to discover it.
 
 \subsubsection{Path traversal}
-The goal of this attack is to access files that are contained into a server. It
+
+The goal of this attack is to access files that are present on a server. It
 is possible by browsing the application, looking for relative links to file on
 the server. Then, by manipulating those file references, it may be possible to
 access confidential or critical files stored into the server.
 
+\begin{lstlisting}[style=beamer,
+	caption={Getting a file from the server}]
+http://example.com/forum/download.jsp?@path=/etc/shadow@
+\end{lstlisting}
+
 \subsubsection{Failure to restrict automation}
-Web sites are not protected against automation. A program can launch commands to
-execute functionalities as if it was a human being doing the manipulation. To
-prevent this threat, a challenge-response test, called captcha, can be put in
-place. A captcha generally ask a user to complete a simple test which is
-difficult for a computer to answer. But a captcha cracking stays possible.
-Indeed, a malicious web site could present the same captcha existing on another
-web site. Users surfing on the evil web site would crack unknowingly the other
-web site's protection by giving the correct answer to the captcha.
+
+Often, web sites are not protected against automation. A program can launch
+commands to execute functionalities as if it was a human being doing the
+manipulation. The web server could be overloaded or spammed in this way.
+
+To prevent this threat, a challenge-response test, called captcha, can be put
+in place. A captcha generally ask a user to complete a simple test which is
+difficult for a computer to answer. But captcha cracking stays possible.
+Indeed, a malicious web site could present the same captcha existing on
+another web site. Users surfing on the evil web site would crack unknowingly
+the other web site's protection by giving the correct answer to the captcha.
+
+Against overloading, a maximum number of requests per IP for a fixed time
+period could be set up.
 
 \subsection{Common points}
+
 We can distinguish common points among these multiple attacks explaining why
-such attacks should arise. First, improper input validation is a redundant
-problem, as well as missing authorization checks. Then, misconfiguration seems
-to be a regular problem too. In the end, education factor plays an important
-role in Web security, as wee saw it with social engineering. As we can see, many
-forms of attacks exist and, as technology evolves, new attacks appear. So,
-instead of trying to fix vulnerabilities, we should focus on establishing strong
-security controls.
+such attacks should arise.
+
+\begin{itemize}
+\item Improper input validation is a redundant problem. The data can be used
+	in many ways, at each step the data must be checked whether it is valid
+	and must also be escaped when it is meant to be interpreted.
+\item Missing authorization checks are always a problem.
+\item Misconfigurations given more information for the attacker.
+\item The education factor plays an important role in web security as we saw
+	it with social engineering techniques.
+\end{itemize}
+
+As we can see, many forms of attacks exist and, as technology evolves, new
+attacks appear. So, instead of trying to fix vulnerabilities, we should focus
+on establishing strong security controls.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Authentication and identity}

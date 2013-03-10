@@ -544,7 +544,7 @@ Widespread and easy to detect, the impact is moderate.
 \defverbatim[colored]\LstGood{
 \begin{lstlisting}[style=beamer]
 <form @method="post"@ action="addComment">
-	<input type=@"hidden"@ name="token" value=@"<random>"@ />
+	<input @type="hidden"@ name="token" @value="<random>"@ />
 	...
 </form>
 \end{lstlisting}
@@ -1073,6 +1073,8 @@ The web site is not protected against automation.
 \begin{itemize}
 \item Common for REST API
 \item Programs may overload the website unintentionally
+	\newline
+	(Fix: maximum number of requests per IP for a time period)
 \end{itemize}
 \begin{exampleblock}{Captcha - prevention}
 Challenge-response test easy for humans, difficult for machines.
