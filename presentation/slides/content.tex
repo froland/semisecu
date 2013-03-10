@@ -663,26 +663,26 @@ questions.
 \section{Prevention}
 
 \subsection{Different moments}
+
 Preventing security flaws is something that has to be done during the
-whole life of the application.
+whole life cycle of the application.
 
 \subsubsection{Architecture}
+
 Integrate a security review into your architecture design process. Start
 early on, and as your design changes, review those changes with the
 steps given in this chapter.
-Evolve your security review. This chapter provides questions that you
-can ask to improve the security of your design. To complete the review
+Evolve your security review. To complete the review
 process, you might also need to add specific questions that are unique
 to your application.
 Know the threats you are reviewing against. List the threats that affect the
 various components and layers that make up your application.
 Knowing these threats is essential to improving the results of your review process.
-There are no miracle receipts when it comes to designing a secure
+There is no miracle receipt when it comes to designing a secure
 application. Although there are some guidelines which can help you. You
 have to ask yourself the good questions and make decisions on a case by
 case basis.
 
-Question like:
 \begin{itemize}
 \item Who are the end-users?
 \item In what environment will the application run?
@@ -691,20 +691,22 @@ Question like:
 \end{itemize}
 
 \subsubsection{Development}
+
 There are lots of best practices that can make your application more secure.
 \begin{itemize}
 \item Passwords: enforcing a minimum complexity policy, storing them securely,
 having the user rotate them, preventing brute-force by implementing temporary
-lock-out,...
+lock-out, ...
 \item Session management: setting an inactivity time out, setting the
 secure-flag for sensitive cookies, using the HTTP-Only flag for cookies,
-implementing an easily accessible logout,...
-\item Input validation: always on server side, use a positive approach
+implementing an easily accessible logout, ...
+\item Input validation: always on server side, use a positive approach.
+	% TODO describe a positive approach
 \item Use ad-hoc protection for known attacks. Ad-hoc protection means a
-protection specialized for a particular attack in this context
+protection specialized for a particular attack in this context.
 \end{itemize}
 
-However, a secure development cycle should set aside some time for:
+However, a secure development cycle should foresee some time for:
 \begin{itemize}
 \item Code review (security-oriented and general)
 \item Pentesting
@@ -716,49 +718,53 @@ However, a secure development cycle should set aside some time for:
 
 \subsubsection{Maintenance}
 When vulnerabilities have been discovered they have to be patched as soon as
-possible. Beware of regressions and new security breaches.
+possible. Beware of regressions and new security breaches; this is where
+automated testing comes in.
 
-\subsubsection*{Virtual patching}
+\paragraph{Virtual patching}
+\label{sec:virtual-patching}
 Virtual patching is a security policy layer that prevents the exploitation of
 a known vulnerability until a patch is released.
 It does so by filtering the traffic that goes to and from the application
 server and blocking requests that are exploits.
 
-\subsubsection{Using frameworks}
+\subsection{Using frameworks}
+
 You do not develop the first web application. Frameworks already exists to
 ease the development of your application while providing several security
 mechanisms.
 A framework will come generally with authentication support, escaping of
 values and standard input validation.
-However, when a bug is found in a framework, all the web sites that use the
-framework are affected. Changing a framework may prove difficult though.
 
-Examples of frameworks: Spring (Java), OWASP which provides an Enterprise
+However, when a bug is found in a framework, all the web sites that use the
+framework are affected. Changing a framework may prove difficult as the
+written code may be coupled to the framework or follow the conventions used by
+that framework.
+
+Examples of frameworks include Spring (Java) or OWASP which provides an Enterprise
 Security API that defines a security API for various languages.
 
 \subsection{Security in application servers}
+
 Application servers offer various services that can help you to configure
 secured web applications.
-
-\begin{itemize}
-\item Authentication management
-\item Directory listing disabling
-\item User session management
-\item Error handling
-\item Input encoding
-\end{itemize}
+Often the following aspects are configurable: authentication management,
+directory listing, user session management, error handling, input encoding,
+etc.
 
 \subsection{Web Application firewall}
-Application firewall are filters which inspects the traffic that comes
+
+Application firewall are filters which inspect the traffic that comes
 from and goes to your application and is able to block inappropriate
 content.
-They provide an additional layer of protection, by example, against
-SQL injection by scanning HTML form for SQL content.
+They provide an additional layer of protection, for example, against
+SQL injection by scanning parameters for SQL content.
 Also, an application firewall can detect connection patterns (see IDS).
 They can be used to patch security holes of applications which aren't
-modifiable for some reason (virtual patching).
+modifiable for some reason (\autoref{sec:virtual-patching}).
 
 \subsection{HTTPS}
+
 \textbf{TLS} (Transport Layer Security) is the successor of \textbf{SSL}
 (Secured Socket Layer).
 They are equal in terms of security.
@@ -767,50 +773,52 @@ HTTPS provides \emph{encryption} and \emph{authentication} for HTTP.
 HTTPS is a part of a solution, it does not ensure full security.
 TLS is an open-community standard and allows both secure and unsecure
 communications.
-\newline TSL~1.0 is equivalent to SSL~3.1
 
 \subsection{Browser restrictions}
-Cross-domain XHR: the browsers disallow contacting other websites
-through the use of JavaScript. A website can ask for the browser to
-lift selectively this restriction via header \texttt{Access-Control}.
-Some browsers allow to block (selectively) the execution of Flash and/or
-JavaScript to protect the user against malicious code hosted by those sites.
 
-There is also often a "private navigation" mode which prevents the
-browser from storing data.
-Cookies are stored on the user's computer; they are also limited by the URL
-and the time stamp.
-In modern browsers tabs are sandboxed in order to prevent one tab from
-accessing data used by others.
+Nowadays, browsers come with preconfigured security measures.
 
-Browsers also validate SSL certificates and prompt users when a
-dubious certificate is found.
-Some of them also provide blacklisting of known rogue sites and
-correct misspelled addresses to protect users from phishing.
+\begin{itemize}
+\item Cross-domain XMLHttpRequests (XHR) are blocked.
+	Browsers disallow contacting other domains through the use of JavaScript.
+	A website can ask the browser to lift selectively this restriction via the
+	header \texttt{Access-Control}.
+\item Some browsers allow to block (selectively) the execution of JavaScript,
+	Flash, or other plug-ins to protect the user against malicious code hosted
+	by those sites.
+\item A "private navigation" mode is often present which prevents the browser
+	from storing data on disk.
+\item Cookies are stored on the user's computer; access to them is limited by
+	the URL and the time stamp marks the validity expiration.
+\item Multiple opened pages are sandboxed: isolated from other pages to
+	prevent accessing data in between websites visited by the client.
+\item Validation of SSL certificates is done.
+\item Some provide a blacklist of known rogue web sites.
+\end{itemize}
 
 \subsection{E-mail}
+
 E-mail is one of the most used application. It's plagued by spam and
-spoofing. Some defensive measure have been taken.
+spoofing. Some defensive measures have been taken.
 
 \subsubsection{Sender Policy Framework}
-SPF validates e-mails by verifying sender's ip address against DNS records.
-Administrators can define allowed hosts.
+SPF validates e-mails by verifying sender's IP address against DNS records.
+Administrators can define allowed hosts for some domain.
 
 \subsubsection{Domain Keys Identified Mail}
-DKIM associates domain names and email messages using a digital signature
+DKIM associates domain names and e-mail messages using a digital signature
 added to the header of messages, a public key is added to the DNS record of
 the domain for the recipient to read the message's header.
 
 \subsection{Variety of environments}
+
 The variety of environments available to the users leads to
-difficulties when it comes to test possible setups for
+difficulties when it comes to testing possible setups for
 vulnerabilities.
-\begin{itemize}
-\item Servers and their configuration
-\item Networks (proxy, caches,...)
-\item Clients
-\item Machine to Machine
-\end{itemize}
+
+We have different servers and their configurations, networks (proxy, caches,
+etc.), browser clients, mobile clients, machine clients (machine to machine
+communication) and so on.
 Moreover some browsers (e.g. IE6) require workarounds to
 display pages correctly which extend the amount of code and thus
 increase vulnerability likeliness.
