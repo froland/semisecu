@@ -828,9 +828,9 @@ increase vulnerability likeliness.
 
 \subsection{Penetration testing}
 
-To find security holes in a system, penetration testing, or pentesting, is a
+To find security holes in a system, penetration testing, or \emph{pentesting}, is a
 method used to attack this system with the consent of the owner, using both
-external and internal attackers. The goals of penetration testing are multiple:
+external and internal attackers. The goals of penetration testing are:
 \begin{itemize}
 \item Identifying vulnerabilities
 \item Exploiting vulnerabilities
@@ -841,50 +841,58 @@ external and internal attackers. The goals of penetration testing are multiple:
 Several tools have been designed to perform these tasks.
 Here are some of them:
 \begin{itemize}
-\item Nmap (abbreviation for Network Mapper) is a free open source tool
+\item \textit{Nmap} (abbreviation for Network Mapper) is a free open source tool
 	dedicated for network discovery and security auditing. Nmap suite includes
 	a port scanning tool, a packet generation and response analysis tool as
 	well as a scan results comparator tool.  It is nowadays one of the most
 	popular security tool, distributed with many open source operating systems
 	and supported by a large community of users and developers.
-\item Metasploit is able to identify security vulnerabilities and automates
-	assesments.
-\item Nessus is a proprietary vulnerability scanner. A vulnerability scanner
-	is a tool designed to detect computers, systems, networks and applications
-	for weaknesses.
-\item WebScarab is a web security application testing tool, developed by the
-	Open Web Application Security Project, which serves as an intercepting
-	proxy. It is able to intercept web browser requests and web server
+\item \textit{Metasploit} is able to identify security vulnerabilities and
+	automates assessments.
+\item \textit{Nessus} is a proprietary vulnerability scanner. A vulnerability
+	scanner is a tool designed to detect computers, systems, networks and
+	applications weaknesses.
+\item \textit{WebScarab} is a web security application testing tool, developed
+	by OWASP, which serves as an intercepting proxy.
+	It is able to intercept web browser requests and web server
 	responses. A WebScarab user will then be able to capture and modify
 	requests exchanged between the client and the server.
 \end{itemize}
 
 \subsection{Honeypot}
+
 Internet provides a way to detect and counteract attacks upon systems thanks to
 dedicated assets. Those traps are called "Honeypot". A Honeypot is a mocked
 website or web application running on a non patched server and that is exposed
-for attackers who try to penetrate some systems. Honeypots can be distinguished
-in two types: production honeypots and research honeypots. The first group
-refers to honeypots used by organizations. They uses production honeypots to
-improve their overall state of security by capturing limited information. The
-second category concerns research honeypots. Those honeypots have a sensible
-different purpose. They are used to give a company informations about the
-motivations and tactics of the attackers by capturing much more information than
-a production honeypot, showing how to better defend itself against thoses
-attackers, but do not add direct value to an organization.
+for attackers who try to penetrate some systems.
+
+Honeypots can be distinguished in two types: production honeypots and research
+honeypots. The first group refers to honeypots used by organizations. They use
+production honeypots to improve their overall state of security by capturing
+limited information. The second category concerns research honeypots. They are
+used to give a company informations about the motivations and tactics of the
+attackers by capturing much more information than a production honeypot,
+showing how to better defend itself against these attackers, but do not add
+direct value to an organization.
+
+% TODO add an example (see slides)
 
 \subsection{Network Intrusion Detection System}
+
 Network Intrusion Detection Systems (NIDS) are systems that can scan network
-activity and tries to detect attacks. "Snort" is a NIDS and can detect attacks
+activity and try to detect attacks.
+
+For example, \textit{Snort} is a NIDS and can detect attacks
 and take actions accordingly. Among those attacks, Snort can perform
 signature-based detection, which means it can find patterns in packets on the
-network, detects SQL injection or XSS attacks. Snort can also perform
+network, detect SQL injection or XSS attacks. Snort can also perform
 statistical anomaly-based detection. It looks for peaks in traffic, connection
-coming from a single host and other anomalies or detect brute force attacks. In
-the end, Snort can realize stateful protocol detection to catch SYN port scans
-or follow a protocol conversation.
+coming from a single host and other anomalies or detects brute force attacks.
+In the end, Snort can realize stateful protocol detection to catch SYN port
+scans or follow a protocol conversation.
 
 \subsection{Post-mortem analysis and performances}
+
 When an attack is detected on a system, several questions can be asked to try
 to solve the problem:
 \begin{itemize}
@@ -896,24 +904,24 @@ to solve the problem:
 \item How to prevent future attacks?
 \end{itemize}
 
-But now, how to discover if an attack happened? A first clue could be to read
-traffic logs and graphs as well as application logs. Looking for peak in the
-server load and looking at the monitored traffic could indeed shows an anomaly.
+But now, how to discover whether an attack happened? A first clue could be to read
+traffic logs and graphs as well as application logs. Looking for peaks in the
+server load or traffic could show an anomaly.
 In combination, using analysis tools such as ntop, Snare or OSSEC can also help
 to detect attacks:
 \begin{itemize}
-\item Ntop is traffic monitoring platforml designed to probe network usage.
-\item Snare (abbreviation for System iNtrusion Analysis and Reporting
+\item \textit{Ntop} is traffic monitoring platform designed to probe network usage.
+\item \textit{Snare} (abbreviation for System iNtrusion Analysis and Reporting
 	Environment) is a tool created to audit log data and to centralize log
 	analysis coming from different applications or operating systems.
-\item OSSEC is an open source NIDS that can perform various tasks such as log
+\item \textit{OSSEC} is an open source NIDS that can perform various tasks such as log
 analysis supporting multiple formats, file integrity checking, policy
 monitoring, rootkit detection and intrusion detection.
 \end{itemize}
 
 However, looking for a particular attack can mask another one which would serve
-as a diversion for the real attack. Denial of service can be used to generates a
+as a diversion for the real attack. Denial of service can be used to generate a
 lot of traffic and can mask other attacks as generated logs become huge. In the
-field of threats detection and analysis, testing performances can also be used
-to detect possible attacks. Indeed, slow response time and high load might be a
-symptom of an attack.
+field of threat detection and analysis, testing performances can also be used
+to detect possible attacks. Indeed, slow response time and high load might be
+symptoms of an attack.
