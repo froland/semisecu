@@ -16,15 +16,15 @@ computer to crash down. Among those were research and government sites.
 The Network then continued to grow to finally become the Internet as we know
 it today, but security problems continued to appear in the same time. Both
 aggressive and defensive technologies become more sophisticated.
-Nowadays, internet is present everywhere in our electronic life: we use them
-from our personal informations and leisures (YouTube, Facebook), for financial
+Nowadays, internet is present everywhere in our electronic life: we use it
+for our personal informations and leisures (YouTube, Facebook), for financial
 management (online Banking, Tax-On-Web) and of course in our professional
 lives (e-mail, calendars).
 
 \subsection{Sentiment of security}
 
 Security efforts are made to bring trust to users, sometimes giving them a
-false sentiment of security. They need to gain some level of trust, still they
+false sentiment of security. Web services need to gain some level of trust, still they
 must not lure the users. Indeed, don't we believe that HTTPS websites could be
 seen as fully secured web sites? In reality, they just prevent some of the
 attacks.
@@ -89,7 +89,7 @@ Threats are numerous and diversified.
 	That's the case with organized crime or competitors wanting
 	to acquire financial or technical information.
 \item Can simply be unintentional or accidental.
-	Examples include: loss of electricity, a software failure, a hardware
+	Examples include: loss of electricity, software failure, hardware
 	failure, but also natural disasters.
 \end{itemize}
 
@@ -223,10 +223,10 @@ session hijacking or session fixation. This type of attack is very
 common and impacts are often important. Indeed, with the identity of someone
 else, the attacker can do anything the real user can do.
 
-To avoid this kind of attack, a few practices should be used. First do not
+To avoid this kind of attack, a few ``good practices'' should be used. First do not
 forget to log out on public computer because your session could be easily used
-by someone else. A good practice is also to use session timeout and visible
-log out buttons. Then, it is important to prevent against cross-site scripting
+by someone else. The use of session timeout and visible
+log out buttons are also ``good practices''. Then, it is important to prevent the use of cross-site scripting
 attack because a session ID could be easily stolen thanks to this mechanism.
 
 For example, session hijacking consist in stealing the session ID of another
@@ -529,7 +529,7 @@ One time passwords are used to prevent replay attacks.
 The main difficulty of this technique is to give users their passwords
 (logistical problem).
 This technique is used mainly by services who can afford big infrastructures
-(banks, states,...).
+(banks, states,\ldots).
 
 \subsubsection{Signatures}
 The signature is the encrypted hash of a message.
@@ -606,7 +606,7 @@ all systems without being prompted to log in again for each of them.
 \hfill
 \begin{itemize}
 \item All your eggs in the same basket (impact greater if compromised)
-\item You are dependent upon your provider (confidence, availability,...)
+\item You are dependent upon your provider (confidence, availability,\ldots)
 \end{itemize}
 \end{description}
 
@@ -696,17 +696,18 @@ There are lots of best practices that can make your application more secure.
 \begin{itemize}
 \item Passwords: enforcing a minimum complexity policy, storing them securely,
 having the user rotate them, preventing brute-force by implementing temporary
-lock-out, ...
+lock-out,\ldots
 \item Session management: setting an inactivity time out, setting the
 secure-flag for sensitive cookies, using the HTTP-Only flag for cookies,
-implementing an easily accessible logout, ...
-\item Input validation: always on server side, use a positive approach.
-	% TODO describe a positive approach
+implementing an easily accessible logout,\ldots
+\item Input validation: always on server side, use a positive
+  approach: instead of forbidding some inputs, define the set of
+  allowed input (usually through the use of regexp)
 \item Use ad-hoc protection for known attacks. Ad-hoc protection means a
 protection specialized for a particular attack in this context.
 \end{itemize}
 
-However, a secure development cycle should foresee some time for:
+However, a secure development cycle should set aside some time for:
 \begin{itemize}
 \item Code review (security-oriented and general)
 \item Pentesting
@@ -786,7 +787,7 @@ Nowadays, browsers come with preconfigured security measures.
 \item Some browsers allow to block (selectively) the execution of JavaScript,
 	Flash, or other plug-ins to protect the user against malicious code hosted
 	by those sites.
-\item A "private navigation" mode is often present which prevents the browser
+\item A ``private navigation'' mode is often present which prevents the browser
 	from storing data on disk.
 \item Cookies are stored on the user's computer; access to them is limited by
 	the URL and the time stamp marks the validity expiration.
@@ -862,7 +863,7 @@ Here are some of them:
 \subsection{Honeypot}
 
 Internet provides a way to detect and counteract attacks upon systems thanks to
-dedicated assets. Those traps are called "Honeypot". A Honeypot is a mocked
+dedicated assets. Those traps are called ``Honeypot''. A Honeypot is a mocked
 website or web application running on a non patched server and that is exposed
 for attackers who try to penetrate some systems.
 
