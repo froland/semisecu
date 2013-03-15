@@ -34,7 +34,7 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{courier}
-\lstset{basicstyle=\lstbasicstyle
+\lstset{basicstyle=\ttfamily
 	,tabsize=4
 %	,frame=single
 %	,numbers=left
@@ -50,6 +50,16 @@
 	,breakatwhitespace=true
 	,xleftmargin=3pt
 	,xrightmargin=3pt
+}
+\lstdefinestyle{highlight}{
+	keywordstyle=\color{red},
+	commentstyle=\color{green},
+}
+\lstdefinestyle{beamer}{
+	basicstyle=\ttfamily\color{black!50},
+	keywordstyle=\color{red!50},
+	commentstyle=\color{green!50},
+	moredelim=**[is][{\color{black}\lstset{style=highlight}}]{@}{@},
 }
 
 %% Header and footer
