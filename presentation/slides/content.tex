@@ -11,7 +11,7 @@ Security was not a concern. At this time, only a few research and government
 sites were linked together to share data. Later, in the middle of the
 eighties, the first real network security incident appeared: a German
 spy, named Markus Hess, managed to get into the US military network and
-stole information. 
+stole information.
 
 The Network then continued to grow to finally become the Internet as we know
 it today, but security problems continued to appear in the same time. Both
@@ -108,7 +108,7 @@ occurrence of an event and its consequence.
 \[
    risk = likelihood * impact
 \]
-In other terms, the risk is the relation between vulnerability factors such as 
+In other terms, the risk is the relation between vulnerability factors such as
 \begin{itemize}
 \item Ease of discovery
 \item Ease of exploit
@@ -127,11 +127,7 @@ and impact factors such as
 
 Basically, the web is based on a client-server model. The protocol used to
 retrieve web pages is HTTP. Anyone can access a public server and send
-requests, the client is not uniquely identified on the server.
-For this, websites use a session ID for each client. It is a "unique number"
-that is saved on the client's computer when he accesses the website for the
-first time. There is still no guarantee that this number is unique, even if
-conflicts are improbable.
+requests.
 
 In reality, the client is not directly connected to the server. A lot of
 intermediaries are present, each of them plays a different role and an attack
@@ -143,6 +139,73 @@ between, we can find firewalls, demilitarized zones and others.
 Any component may fail: whether the web site continues to work depends on the
 duplication of components on the network. A single point of failure is a part
 of the system such that when it fails the system stop to work properly.
+
+\subsection{Technical introduction}
+
+\subsubsection*{HTTP}
+
+\begin{lstlisting}[style=beamer]
+@GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
+Host: en.wikipedia.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+@Cookie@: mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx; ...
+Connection: keep-alive
+...
+\end{lstlisting}
+
+A \emph{request} consists of a method (\texttt{GET}, \texttt{POST}, ...), a
+resource path and options such as the host, the user-agent, cookies, etc.
+The \emph{response} follows the same schema and is followed by the content.
+
+HTTP is \emph{stateless}: no information is saved between requests.
+To overcome this limitation, cookies were introduced. These are key-value data
+stored on the client's computer. They are sent in each request and can be
+defined in the response by the server.
+
+To track clients, websites use a session ID cookie for each client.
+It is a "unique number" generated when the user accesses the website for the
+first time. There is still no guarantee that this number is unique, even if
+conflicts are improbable.
+
+\subsubsection*{Cryptography introduction}
+
+\paragraph{Symmetric cryptography}
+The goal of the encryption is to obtain a message in a way that is readable
+only by the authorized parties.
+This encryption can be symmetric, that is, a single key is used to encode and
+decode the message.
+\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
+Symmetric cryptography algorithms are AES, DES, Twofish.
+
+\paragraph{Asymmetric cryptography}
+A private-public key pair is used to realize asymmetric encryption. The
+message is encrypted with the public key and decrypted with the private key.
+\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+
+Asymmetric cryptography algorithms are RSA, Diffie-Hellman, DSA.
+
+\paragraph{Symmetric versus Asymmetric}
+
+\begin{description}
+\item[Symmetric]
+faster, need a pre-shared key and all the people holding the key can
+decrypt the message.
+\item[Asymmetric]
+slower but does not need a pre-shared key, messages can be decrypted by the
+person holding the right key.
+\end{description}
+
+The usual usage is to use asymmetric algorithm to exchange keys and then
+symmetric algorithm is used for the rest of the connection as it is faster.
+
+By definition, the public key is shared.
+To encrypt a message, you use the recipient's public key. This way he is the
+only one who can decrypt it. The signature is made using your private key.
+
+A Public Key Infrastructure (PKI) can be used to distribute public keys in a
+secure way. The role of the PKI is to validate the identity of the owner of
+the key.
 
 \subsection{Open Web Application Security Project (OWASP)}
 
@@ -223,10 +286,11 @@ session hijacking or session fixation. This type of attack is very
 common and impacts are often important. Indeed, with the identity of someone
 else, the attacker can do anything the real user can do.
 
-To avoid this kind of attack, a few ``good practices'' should be used. First do not
+To avoid this kind of attack, a few "good practices" should be used. First do not
 forget to log out on public computer because your session could be easily used
 by someone else. The use of session timeout and visible
-log out buttons are also ``good practices''. Then, it is important to prevent the use of cross-site scripting
+log out buttons are also "good practices". Then, it is important to prevent
+the use of cross-site scripting
 attack because a session ID could be easily stolen thanks to this mechanism.
 
 For example, session hijacking consist in stealing the session ID of another
@@ -475,45 +539,6 @@ impersonated by somebody else.
 The \emph{authorization} is the act of determining whether the user has the
 permission to perform some action.
 Beware that authentication by itself does not imply confidentiality.
-
-\subsection{Cryptography introduction}
-
-\subsubsection{Symmetric cryptography}
-The goal of the encryption is to obtain a message in a way that is readable
-only by the authorized parties.
-This encryption can be symmetric, that is, a single key is used to encode and
-decode the message.
-\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
-Symmetric cryptography algorithms are AES, DES, Twofish.
-
-\subsubsection{Asymmetric cryptography}
-A private-public key pair is used to realize asymmetric encryption. The
-message is encrypted with the public key and decrypted with the private key.
-\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
-
-Asymmetric cryptography algorithms are RSA, Diffie-Hellman, DSA.
-
-\subsubsection{Symmetric versus Asymmetric}
-
-\begin{description}
-\item[Symmetric]
-faster, need a pre-shared key and all the people holding the key can
-decrypt the message.
-\item[Asymmetric]
-slower but does not need a pre-shared key, messages can be decrypted by the
-person holding the right key.
-\end{description}
-
-The usual usage is to use asymmetric algorithm to exchange keys and then
-symmetric algorithm is used for the rest of the connection as it is faster.
-
-By definition, the public key is shared.
-To encrypt a message, you use the recipient's public key. This way he is the
-only one who can decrypt it. The signature is made using your private key.
-
-A Public Key Infrastructure (PKI) can be used to distribute public keys in a
-secure way. The role of the PKI is to validate the identity of the owner of
-the key.
 
 \subsection{Types of authentication}
 
@@ -787,7 +812,7 @@ Nowadays, browsers come with preconfigured security measures.
 \item Some browsers allow to block (selectively) the execution of JavaScript,
 	Flash, or other plug-ins to protect the user against malicious code hosted
 	by those sites.
-\item A ``private navigation'' mode is often present which prevents the browser
+\item A \emph{private navigation} mode is often present which prevents the browser
 	from storing data on disk.
 \item Cookies are stored on the user's computer; access to them is limited by
 	the URL and the time stamp marks the validity expiration.
@@ -863,7 +888,7 @@ Here are some of them:
 \subsection{Honeypot}
 
 Internet provides a way to detect and counteract attacks upon systems thanks to
-dedicated assets. Those traps are called ``Honeypot''. A Honeypot is a mocked
+dedicated assets. Those traps are called \emph{Honeypots}. A Honeypot is a mocked
 website or web application running on a non patched server and that is exposed
 for attackers who try to penetrate some systems.
 
@@ -876,7 +901,9 @@ attackers by capturing much more information than a production honeypot,
 showing how to better defend itself against these attackers, but do not add
 direct value to an organization.
 
-Project Honey Pot is an anti-spammer project. Websites can publish fake e-mails addresses for the spammers to be lured and once the spammer's crawlers have sent emails to these addresses, they are referenced and blocked. 
+Project Honey Pot is an anti-spammer project. Websites can publish fake
+e-mails addresses for the spammers to be lured and once the spammer's crawlers
+have sent emails to these addresses, they are referenced and blocked.
 
 \subsection{Network Intrusion Detection System}
 

@@ -47,124 +47,6 @@ For that, we have encryption.
 \end{frame}
 
 %------------------------------------------------
-\subsection{Cryptography introduction}
-
-%------------------------------------------------
-\begin{frame}
-\frametitle{Symmetric cryptography}
-\includeimage[width=0.8\linewidth]{cryptography-symm}
-\note{
-\begin{block}{Encryption}
-Transformation of a message in a way that it is readable only by the
-authorized parties.
-\end{block}
-\begin{block}{Symmetric}
-A single key used to encode and decode the messages.
-\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
-\end{block}
-\begin{exampleblock}{Symmetric cryptography algorithms}
-AES, DES, Twofish, ...
-\end{exampleblock}
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Asymmetric cryptography}
-\includeimage[width=0.8\linewidth]{cryptography-asym}
-\note{
-\begin{block}{Asymmetric}
-A private-public key pair, one is used to encrypt the message, the other to
-read it.
-\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
-\end{block}
-\begin{exampleblock}{Asymmetric cryptography algorithms}
-RSA (Rivest Shamir Adleman),
-Diffie-Hellman, DSA (Digital Signature Algorithm), ...
-\end{exampleblock}
-}
-\end{frame}
-
-\begin{frame}
-\begin{center}
-\begin{tabular}{c|c}
-\bfseries Symmetric & \bfseries Asymmetric \\
-\hline
-Fast & Slow \\
-Needs a pre-shared key & No need for a pre-shared key \\
-\end{tabular}
-\end{center}
-\note{
-\begin{itemize}
-\item \textbf{Symmetric}: faster, needs a pre-shared key
-	\newline All people holding the key can decrypt the message.
-\item \textbf{Asymmetric}: no need for a pre-shared key
-	\newline Message can be decrypted by the person holding the right key.
-\end{itemize}
-\begin{block}{Usual usage}
-A connection starts using an \emph{asymmetric} algorithm to exchange keys and
-then switches to a \emph{symmetric} algorithm as it is faster.
-\end{block}
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Public-private keys}
-\includeimage[width=0.8\linewidth]{ppk}
-\note{
-By definition, the public key is shared.
-\begin{itemize}
-\item Encrypt with the recipient's public key
-\item Sign with your private key
-\end{itemize}
-\begin{exampleblock}{Signature}
-Encrypted hash of a message.
-\end{exampleblock}
-\begin{block}{PKI}
-A Public Key Infrastructure (PKI) is a mean to distribute the public key in a
-secure way.
-Validates the identity of the key owner.
-\end{block}
-}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}
-\frametitle{Signatures}
-\includeimage[width=0.7\linewidth]{signature}
-\note{
-\begin{block}{Hash}
-Fixed-size bit string built using an irreversible function from a message.
-\end{block}
-\begin{block}{Signature}
-Mean to authenticate the identity of the sender of a message.
-\end{block}
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Signature challenge}
-\begin{columns}
-\begin{column}{0.6\linewidth}
-\includeimage[width=\linewidth,height=0.7\textheight]{challenge-accepted}
-\end{column}
-\begin{column}{0.4\linewidth}
-\centering\Large\bfseries
-nonce
-\end{column}
-\end{columns}
-\note{
-\begin{exampleblock}{A nonce}
-Nonce stands for number used once. It's a random number used once to avoid
-replay attack.
-\par
-When I encrypt a nonce with my correspondent's public key and ask him for the
-decrypted and encrypted message.
-\end{exampleblock}
-This form of authentication is often used to sign online transactions.
-}
-\end{frame}
-
-%------------------------------------------------
 \subsection{Different means of authentication}
 
 %------------------------------------------------
@@ -345,6 +227,29 @@ The browser authenticates the server but the opposite isn't true.
 \begin{block}{Two-way authentication}
 Both ends are authenticated.
 \end{block}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Signature challenge}
+\begin{columns}
+\begin{column}{0.6\linewidth}
+\includeimage[width=\linewidth,height=0.7\textheight]{challenge-accepted}
+\end{column}
+\begin{column}{0.4\linewidth}
+\centering\Large\bfseries
+nonce
+\end{column}
+\end{columns}
+\note{
+\begin{exampleblock}{A nonce}
+Nonce stands for number used once. It's a random number used once to avoid
+replay attacks.
+\par
+I encrypt a nonce with my correspondent's public key and ask him for the
+decrypted and encrypted message.
+\end{exampleblock}
+This form of authentication is often used to sign online transactions.
 }
 \end{frame}
 
