@@ -322,30 +322,23 @@ then switches to a \emph{symmetric} algorithm as it is faster.
 
 \begin{frame}
 \frametitle{Public-private keys}
-\includeimage[width=0.8\linewidth]{ppk}
+\includeimage[width=\linewidth,height=0.6\textheight]{ppk}
 \note{
 By definition, the public key is shared.
 \begin{itemize}
 \item Encrypt with the recipient's public key
 \item Sign with your private key
 \end{itemize}
-\begin{exampleblock}{Signature}
-Encrypted hash of a message.
-\end{exampleblock}
-\begin{block}{PKI}
-A Public Key Infrastructure (PKI) is a mean to distribute the public key in a
-secure way.
-Validates the identity of the key owner.
-\end{block}
 }
 \end{frame}
 
 \begin{frame}
 \frametitle{Signatures}
-\includeimage[width=0.7\linewidth]{signature}
+\includeimage[width=\linewidth]{signature-schema}
 \note{
 \begin{block}{Hash}
 Fixed-size bit string built using an irreversible function from a message.
+\newline Guarantees \emph{integrity}.
 \end{block}
 \begin{block}{Signature}
 Mean to authenticate the identity of the sender of a message.

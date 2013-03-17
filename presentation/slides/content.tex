@@ -198,11 +198,15 @@ symmetric algorithm is used for the rest of the connection as it is faster.
 
 By definition, the public key is shared.
 To encrypt a message, you use the recipient's public key. This way he is the
-only one who can decrypt it. The signature is made using your private key.
+only one who can decrypt it.
 
-A Public Key Infrastructure (PKI) can be used to distribute public keys in a
-secure way. The role of the PKI is to validate the identity of the owner of
-the key.
+\paragraph{Signatures}
+The signature is then a mean to authenticate the identity of the sender of a
+message.
+The signature is made using your private key.
+It is the encrypted hash of a message.
+The hash is a fixed size string built using an irreversible function from a
+message. Hashes are used to guarantee the \emph{integrity} of the document.
 
 \subsection{Open Web Application Security Project (OWASP)}
 
@@ -553,14 +557,7 @@ The main difficulty of this technique is to give users their passwords
 This technique is used mainly by services who can afford big infrastructures
 (banks, states,\ldots).
 
-\subsubsection{Signatures}
-The signature is the encrypted hash of a message.
-The hash is a fixed size string built using an irreversible function from a
-message.
-The signature is then a mean to authenticate the identity of the sender of a
-message.
-
-\subsubsection{Challenge}
+\subsubsection{Signature challenge}
 A challenge use a nonce, this stands for number used once.
 It's a random number used once to avoid replay attack.
 The nonce is encrypted with the correspondent's public key and he is then
@@ -572,9 +569,11 @@ A trusted authority issues certificates to confirm the identity of something.
 They are used in SSL or TLS.
 Only one participant of the conversation can be certified (client or server)
 or both.
-Certificates are often used as a mean to distribute keys in a PKI. A typical
-example is for SSL/TLS in web browsers. A CA is a Certification Authority, an
-entity that issues digital certificates.
+A Public Key Infrastructure (PKI) can be used to distribute public keys in a
+secure way. The role of the PKI is to validate the identity of the owner of
+the key.
+A typical example is for SSL/TLS in web browsers. A CA is a Certification
+Authority, an entity that issues digital certificates.
 \begin{itemize}
 \item Each CA does generate its public-private key pair. They self-sign their
 certificates with their public key
