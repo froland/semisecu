@@ -1,5 +1,6 @@
 digraph AttackAdmin {
 	rankdir = TB
+	margin = 0
 	node [ shape = box ]
 	edge [ dir = back ]
 
@@ -14,7 +15,7 @@ digraph AttackAdmin {
 	Sniff [ label = "Sniff the\npassword" ]
 
 	Admin -> { Password Privilege }
-	Password -> { Bruteforce Guess Steal Blackmail Bribe }
+	Password -> { Bruteforce Guess Steal }
 	Steal -> { SocialEngineering Garbage Sniff }
-	Privilege -> { Injection CSRF SessionStealing }
+	Privilege -> { Injection SessionStealing }
 }

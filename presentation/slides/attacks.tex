@@ -4,7 +4,7 @@
 \subsection{Attack trees}
 
 \begin{frame}
-\includeimage[width=\linewidth,height=6cm]{attack-tree-admin}
+\includeimage[width=\linewidth,height=0.8\textheight]{attack-tree-admin}
 \note{
 \begin{block}{What is it?}
 Model describing how an \emph{asset} can be attacked.
@@ -21,7 +21,7 @@ Used to determine and understand threats that may arise.
 \begin{frame}
 \begin{columns}
 \begin{column}{0.6\linewidth}
-\includeimage[width=\linewidth,height=5cm]{hacker}
+\includeimage[width=\linewidth,height=4cm]{hacker}
 \end{column}
 \begin{column}{0.4\linewidth}
 \includeimage[width=\linewidth,height=3cm]{yes-i-can}
@@ -33,6 +33,10 @@ Used to determine and understand threats that may arise.
 	\hfill
 	\begin{itemize}
 	\item internet users
+		\begin{itemize}
+		\item white-hat
+		\item black-hat
+		\end{itemize}
 	\item viruses
 	\end{itemize}
 \item[Internal threats]
@@ -46,7 +50,8 @@ Used to determine and understand threats that may arise.
 \begin{frame}
 \begin{columns}
 \begin{column}{0.6\linewidth}
-\includeimage[width=\linewidth]{organized-crime}
+\includeimage[width=\linewidth,height=4cm]{organized-crime}
+\includeimage[width=\linewidth,height=4cm]{competitors}
 \end{column}
 \begin{column}{0.4\linewidth}
 \includeimage[width=0.6\linewidth]{money}
@@ -77,19 +82,18 @@ may influence risk.
 
 \begin{frame}
 \begin{columns}
-\begin{column}{0.5\linewidth}
-\includeimage[width=\linewidth,height=4cm]{crew}
+\begin{column}{0.4\linewidth}
+\includeimage[width=\linewidth,height=4cm]{no-electricity}
 \end{column}
-\begin{column}{0.5\linewidth}
-\includeimage[width=\linewidth]{disaster}
+\begin{column}{0.6\linewidth}
+%\includeimage[width=\linewidth,height=4cm]{crew}
+\includeimage[width=\linewidth,height=3.5cm]{mean-old-lady}
 \end{column}
 \end{columns}
 \note{
 \begin{description}
 \item[Internal threats]
 	Employees, crew
-\item[Natural threats]
-	(disasters)
 \item[Technical failure]
 	\hfill
 	\begin{itemize}
@@ -103,18 +107,43 @@ may influence risk.
 }
 \end{frame}
 
+\begin{frame}
+\includeimage[width=\linewidth,height=0.5\textheight]{disaster}
+\pause
+\begin{exampleblock}{In {\bfseries Belgium} between 1980-2010}
+\begin{center}
+\begin{tabular}{lr}
+No of events: & 39 \\
+Economic damage per year: & 69 million \\
+Gross National Product: & $\sim$ 400 milliards \\
+% vs Gross National Product (0.00017)
+\end{tabular}
+% Source:
+% http://www.preventionweb.net/english/countries/statistics/?cid=17
+\end{center}
+\end{exampleblock}
+\note{
+\begin{description}
+\item[Natural threats]
+	(disasters)
+	\newline Storms, floods, earthquakes, ...
+	\newline Insignificant: 0.00017 of GNP
+\end{description}
+}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Risk}
 
 \begin{frame}
 \frametitle{What is a \emph{risk}?}
 \begin{quote}
-The potential that a given threat will exploit vulnerabilities of
-an asset or group of assets and thereby cause harm to the organization. It
-is measured in terms of a combination of the probability of occurrence of an
-event and its consequence.
-\textit{-- Wikipedia}
+The probable {\Large frequency} and probable {\Large magnitude} of {\Large
+future loss}.
+\textit{-- The Open Group}
 \end{quote}
+% Source:
+% http://www.riskmanagementinsight.com/media/docs/FAIR_introduction.pdf
 \note{
 Just a good definition.
 Explanation in the next slide.
@@ -178,13 +207,13 @@ Explanation in the next slide.
 \item Browser: the client, uses scripting
 \item Router: connected to the browser (by WiFi) - LAN
 \item Internet: not detailed here - WAN
-\item DMZ: demilitarized zone
+\item DMZ: demilitarized zone {\small (exposed subnetwork)}
 \item Web Application Firewall, IDS, Load Balancer
 \item Application Server: with the contained application
-\item Database: where the application stores its data
 \end{itemize}
 \begin{block}{Points of failure}
 Any component may fail; will the web site continue to work?
+\par It is possible to intervene at multiple levels.
 \begin{description}
 \item[Single point of failure]
 A part of a system that prevents the entire system from working when it fails.

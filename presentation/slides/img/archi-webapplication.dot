@@ -25,32 +25,31 @@ digraph ArchiWebApp {
 		<<table border="0"><tr><td>
 		<img src="icon-firewall.png" />
 		</td></tr></table>> ]
-	DMZ [ label =
-		<<table border="0"><tr><td>
-		<img src="icon-server.png" />
-		</td></tr><tr><td>DMZ
-		</td></tr></table>> ]
+	{
+		DMZ [ shape = circle ]
+		WebServer [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-server.png" />
+			</td></tr><tr><td>Web server
+			</td></tr></table>> ]
+		rank = same
+	}
 	Firewall [ label =
 		<<table border="0"><tr><td>
 		<img src="icon-firewall.png" />
 		</td></tr></table>> ]
-	IDS [ label =
-		<<table border="0"><tr><td>
-		<img src="icon-server.png" />
-		</td></tr><tr><td>IDS
-		</td></tr></table>> ]
 	{
 		RouterServer [ shape = point ]
-		LocalClient [ label=
+		WebApplication [ label =
 			<<table border="0"><tr><td>
-			<img src="icon-computer.png" />
+			<img src="icon-server.png" />
+			</td></tr><tr><td>Web application server
 			</td></tr></table>> ]
 		rank = same
 	}
-	WebServer [ label =
+	LocalClient [ label =
 		<<table border="0"><tr><td>
-		<img src="icon-server.png" />
-		</td></tr><tr><td>Web server
+		<img src="icon-computer.png" />
 		</td></tr></table>> ]
 	Database [ label =
 		<<table border="0"><tr><td>
@@ -58,9 +57,9 @@ digraph ArchiWebApp {
 		</td></tr></table>> ]
 
 	{ WebClient1 WebClient2 } -> RouterLAN [ style = dotted ]
-	RouterServer -> { LocalClient IDS }
+	RouterServer -> { LocalClient }
 	RouterLAN -> Internet -> FirewallExt -> DMZ
+	DMZ -> WebServer
 	DMZ -> Firewall -> RouterServer
-	RouterServer -> WebServer
-	WebServer -> Database
+	RouterServer -> { WebApplication Database }
 }
