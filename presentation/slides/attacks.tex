@@ -357,6 +357,9 @@ Mean to authenticate the identity of the sender of a message.
 {\bfseries\usebeamercolor[fg]{block title}S}ecurity
 {\bfseries\usebeamercolor[fg]{block title}P}roject
 \includeimage[width=0.5\linewidth,height=3cm]{logo-owasp}
+\begin{center}
+\url{https://www.owasp.org/}
+\end{center}
 \note{
 \begin{block}{OWASP}
 \begin{itemize}
@@ -402,7 +405,6 @@ Top 10 of most critical web application \emph{risks}.
 
 \begin{frame}
 \frametitle{Demo website}
-% TODO screenshot
 \begin{description}
 \item[Theme]
 	Hotel rating website
@@ -426,11 +428,18 @@ Used technologies, etc. for the demo.
 }
 \end{frame}
 
+\begin{frame}
+\includeimage[width=\linewidth,height=0.75\textheight]{demo-website}
+\note{
+Screenshot of the demo website.
+}
+\end{frame}
+
 \subsubsection{Attack 1 - Injection}
 
 \begin{frame}
 \frametitle{1. Injection}
-\includeimage[width=0.8\linewidth]{client-server-injection}
+\includeimage[scale=0.5]{client-server-injection}
 \note{
 \textbf{Injection} consists in sending untrusted data to an interpreter.
 Attacker enters code to execute into input fields.
@@ -514,7 +523,7 @@ List of valid input patterns.
 
 \begin{frame}
 \frametitle{2. XSS}
-\includeimage[width=0.8\linewidth]{client-server-xss}
+\includeimage[scale=0.5]{client-server-xss}
 \note{
 \textbf{Cross-site scripting} allows attackers to inject code into the page
 sent to the user. The injected code can be a script interpreted by the
@@ -576,7 +585,7 @@ XSS as sometimes special characters must be accepted.
 
 \begin{frame}
 \frametitle{3. Authentication and Session Management}
-\includeimage[width=0.8\linewidth]{client-server-session}
+\includeimage[scale=0.5]{client-server-session}
 \note{
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
@@ -696,7 +705,7 @@ Use indirect references for each session.
 
 \begin{frame}
 \frametitle{5. CSRF}
-\includeimage[width=0.8\linewidth]{client-server-csrf}
+\includeimage[scale=0.5]{client-server-csrf}
 \note{
 \textbf{Cross-site Request Forgery} consists in generating requests when the
 user visits the attacker's web page.
@@ -1037,11 +1046,24 @@ Map input values to the actual URLs.
 \subsection{DoS}
 
 \begin{frame}
+\begin{center}
+\Huge\bfseries
+What about just crashing the system?
+\end{center}
+\note{
+Transition...
+}
+\end{frame}
+
+\begin{frame}
 \frametitle{Denial of Service (DoS)}
 \includeimage[width=0.8\linewidth,height=0.8\textheight]{overwhelmed-donkey}
 \note{
 Attack that aims to bring down (or make unavailable) some service usually by
 causing server overload.
+\begin{quote}
+An \emph{important load} causes \emph{service overload}.
+\end{quote}
 \begin{itemize}
 \item SYN flood
 \item Application level flood
@@ -1060,6 +1082,7 @@ causing server overload.
 \begin{column}{0.5\linewidth}
 \includeimage[width=\linewidth,height=0.5\textheight]{anonymous-group}
 \end{column}
+\pause
 \begin{column}{0.5\linewidth}
 \includeimage[width=\linewidth]{dos-unintentional}
 \end{column}
@@ -1090,6 +1113,16 @@ The anonymous group attack.
 \subsection{MitM}
 
 \begin{frame}
+\begin{center}
+\Huge\bfseries
+And modifying the contents?
+\end{center}
+\note{
+Transition...
+}
+\end{frame}
+
+\begin{frame}
 \frametitle{Man in the Middle attack}
 \includeimage[height=0.6\textheight]{phone-tapping}
 \note{
@@ -1100,6 +1133,9 @@ they are sent.
 \begin{exampleblock}{Public WiFi}
 Vulnerable on public WiFi networks.
 \\ Tools such as \texttt{ettercap} allow to perform the attack.
+\end{exampleblock}
+\begin{exampleblock}{Common example}
+Submitting a bank transfer request and modifying the parameters.
 \end{exampleblock}
 \hrule
 \begin{block}{Prevention}
@@ -1119,6 +1155,19 @@ Use cryptography: HTTPS, PKI (Public Key Infrastructure)
 \textbf{Social engineering} consists in manipulating people so they divulge
 confidential information.
 \\ Similar to fraud.
+}
+\end{frame}
+
+\begin{frame}
+\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security}
+\note{
+Recall how you can break strong encryption.
+\begin{block}{E-mail}
+Once the e-mail account has been hacked, you can reset the password for other
+services that would send an e-mail when recovering a lost password.
+\par
+A secret question could be targeted by social engineering.
+\end{block}
 }
 \end{frame}
 
@@ -1143,7 +1192,7 @@ Help a user solve a problem, they might give you passwords in exchange.
 \end{description}
 \begin{block}{Protection}
 \begin{itemize}
-\item Education
+\item Rising awareness {\small (sensibilization)}
 \item Framework of trust
 \end{itemize}
 \end{block}

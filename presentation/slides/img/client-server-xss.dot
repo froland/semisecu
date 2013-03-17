@@ -9,12 +9,14 @@ digraph XSS {
 			<img src="icon-evil.png" />
 			</td><td>
 			<img src="icon-computer.png" />
+			</td></tr><tr><td colspan="2">Mallory
 			</td></tr></table>> ]
 		Client [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-good.png" />
 			</td><td>
 			<img src="icon-computer.png" />
+			</td></tr><tr><td colspan="2">Alice
 			</td></tr></table>> ]
 		rank = min
 	}
@@ -24,6 +26,7 @@ digraph XSS {
 			<img src="icon-server.png" />
 			</td><td>
 			<img src="icon-good.png" />
+			</td></tr><tr><td colspan="2">Bob
 			</td></tr></table>> ]
 		rank = max
 	}

@@ -7,6 +7,7 @@ digraph Redirect {
 		Client [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-computer.png" />
+			</td></tr><tr><td>Alice
 			</td></tr></table>> ]
 		rank = min
 	}
@@ -14,12 +15,12 @@ digraph Redirect {
 		Server [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-server.png" />
-			</td></tr><tr><td>Server 1
+			</td></tr><tr><td>bank.com
 			</td></tr></table>> ]
 		Server2 [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-server.png" />
-			</td></tr><tr><td>Server 2
+			</td></tr><tr><td>evil-bank.com
 			</td></tr></table>> ]
 	}
 
