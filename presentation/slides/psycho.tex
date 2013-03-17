@@ -8,7 +8,7 @@ Army, Universities, ...
 \pause\par
 \emph{Security?}
 \pause
-\includeimage[width=\linewidth,height=0.5\textheight]{top-secret-unclass-web}
+\includeimage[width=\linewidth,height=0.5\textheight]{mainframe}
 \note{
 The web:
 \begin{itemize}
@@ -51,11 +51,14 @@ Security concerns various aspects of our internet life.
 
 \begin{frame}
 \begin{columns}
-\begin{column}{0.5\linewidth}
-\includeimage[width=0.8\linewidth]{https}
+\begin{column}{0.45\linewidth}
+\includeimage[width=0.9\linewidth]{https}
 \end{column}
-\begin{column}{0.5\linewidth}
-\includeimage[width=0.8\linewidth]{secure-website}
+\begin{column}{0.1\linewidth}
+{\centering\Huge $\nRightarrow$}
+\end{column}
+\begin{column}{0.45\linewidth}
+\includeimage[width=0.9\linewidth]{secure-website}
 \end{column}
 \end{columns}
 \note{
@@ -70,9 +73,16 @@ Users may think that an HTTPS web site is secured.
 \end{frame}
 
 \begin{frame}
+\begin{columns}
+\begin{column}{0.3\linewidth}
+\includeimage[width=\linewidth]{logo-psn}
+\end{column}
+\begin{column}{0.6\linewidth}
 \begin{exampleblock}{PlayStation Network outage}
 77 million accounts affected.
 \end{exampleblock}
+\end{column}
+\end{columns}
 \note{
 A web site must earn the confidence of its users.
 \begin{block}{Why?}
@@ -91,11 +101,15 @@ Information from approximately 77 million accounts was stolen.
 
 \begin{frame}
 \includeimage[width=0.8\linewidth]{secure-payment-logos}
+\begin{center}
+\begin{minipage}{0.5\linewidth} % to get the list centered
 \begin{itemize}
 \item Security measures
 \item Guarantees
 \item Protection
 \end{itemize}
+\end{minipage}
+\end{center}
 \note{
 \begin{center}
 You don't trust everyone with your money.
@@ -115,7 +129,15 @@ Visa, MasterCard, PayPal, etc.
 
 \begin{frame}
 \frametitle{Security}
-\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security}
+\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security-1}
+\note{
+How can we hack that security?
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Security}
+\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security-2}
 \note{
 \begin{itemize}
 \item Users can divulge their credentials
@@ -134,8 +156,7 @@ and eventually steal his identity.
 \end{frame}
 
 \begin{frame}
-\frametitle{Passwords}
-\pause
+\frametitle{Most used passwords}
 \begin{scriptsize}
 \begin{enumerate}
 \item password
@@ -151,12 +172,12 @@ and eventually steal his identity.
 \item ...
 \end{enumerate}
 \end{scriptsize}
+% TODO fill the blank
 \note{
 	Remembering multiple passwords is... \emph{difficult}.
 	\begin{itemize}
-	\item Who has a different password for each web site?
-	\item Who has passwords longer than 8 characters?
-	\item Who uses pass-phrases?
+	\item How many different passwords do you have? More than 5?
+	\item Is it better to have a larger alphabet or a longer password?
 	\end{itemize}
 	Most used passwords source:
 	\url{http://www.cbsnews.com/8301-205_162-57539366/the-25-most-common-passwords-of-2012/}
@@ -164,7 +185,8 @@ and eventually steal his identity.
 \end{frame}
 
 \begin{frame}
-\includeimage[height=0.75\textheight,width=\linewidth]{bad-password-storage}
+\includeimage[height=0.75\textheight,width=\linewidth]{password-post-its}
+% TODO add URLs to online services on the page
 \note{
 \textbf{Bad password storage}
 \par
@@ -180,10 +202,25 @@ Online services for storing passwords:
 \end{frame}
 
 \begin{frame}
-\begin{exampleblock}{How much is your password worth?}
+\begin{columns}
+\begin{column}{0.4\linewidth}
+\Large
+\centering
+\emph{password}
+\end{column}
+\begin{column}{0.2\linewidth}
+\includeimage[height=8mm]{vs}
+\end{column}
+\begin{column}{0.4\linewidth}
+\includeimage[width=\linewidth,height=3cm]{pen}
+\end{column}
 \pause
+\end{columns}
+\begin{exampleblock}{Infosecurity Europe 2003 survey}
 \begin{quote}
-90\% of people gave away their passwords in exchange for a pen.
+In a 2003 information security survey, {\Large 90\%} of office workers gave
+researchers what they claimed was their {\Large password} in answer to a
+survey question in exchange for a {\Large cheap pen}.
 \end{quote}
 \end{exampleblock}
 \note{
@@ -201,9 +238,14 @@ Online services for storing passwords:
 \begin{frame}
 \begin{center}
 \begin{tabular}{rcl}
-secure password & \includegraphics[width=5mm]{img/vs} & simple password \\
-authorization checks & \includegraphics[width=5mm]{img/vs} & no authentication \\
-encoded data & \includegraphics[width=5mm]{img/vs} & plain text \\
+\pause
+secure password & \includegraphics[width=5mm]{img/vs} & simple password
+\\[2em]
+\pause
+authorization checks & \includegraphics[width=5mm]{img/vs} & no authentication
+\\[2em]
+\pause
+encoded data & \includegraphics[width=5mm]{img/vs} & plain text
 \end{tabular}
 \end{center}
 \note{
