@@ -400,11 +400,36 @@ Top 10 of most critical web application \emph{risks}.
 }
 \end{frame}
 
+\begin{frame}
+\frametitle{Demo website}
+% TODO screenshot
+\begin{description}
+\item[Theme]
+	Hotel rating website
+	\hfill
+	\begin{itemize}
+	\item Any user can post comments
+	\item Administration to approve new hotels
+	\item Unapproved hotels are not listed
+	\end{itemize}
+\item[Technologies]
+	Java website
+	\hfill
+	\begin{itemize}
+	\item Spring - core, MVC
+	\item Hibernate - h2database
+	\item JSP
+	\end{itemize}
+\end{description}
+\note{
+Used technologies, etc. for the demo.
+}
+\end{frame}
+
 \subsubsection{Attack 1 - Injection}
 
 \begin{frame}
 \frametitle{1. Injection}
-%\includeimage[width=0.8\linewidth,height=0.75\textheight]{syringe}
 \includeimage[width=0.8\linewidth]{client-server-injection}
 \note{
 \textbf{Injection} consists in sending untrusted data to an interpreter.
@@ -437,21 +462,26 @@ String query = "select * from users"
 \end{embeddedcode}
 \end{exampleblock}
 \note{
-\begin{exampleblock}{SQL injection - demo}
-Getting the users' passwords as administrator.
-\end{exampleblock}
+%\begin{exampleblock}{SQL injection - demo}
+%Getting the users' passwords as administrator.
+%\end{exampleblock}
 \begin{exampleblock}{JPQL injection - demo}
 Searching hotels that have a manager that has the same password as a given
 user.
 \end{exampleblock}
+The \emph{concatenation} is the cause of the injection: the query
+is built from unvalidated input.
 }
 \end{frame}
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
-String query = "select * from users where @user_name = ?@";
+String query = "select * from users"
+	+ " where @user_name = ?@"
+	+ " and @password = ?@";
 PreparedStatement st = con.prepareStatement(query);
 @st.setString(1, name);@
+@st.setString(2, password);@
 ResultSet rs = st.executeQuery();
 \end{lstlisting}
 }
@@ -459,6 +489,7 @@ ResultSet rs = st.executeQuery();
 \begin{embeddedcode}{good}
 \Lst
 \end{embeddedcode}
+\vspace{1cm}
 \pause
 \begin{itemize}
 \item Parametrized interface
@@ -467,7 +498,8 @@ ResultSet rs = st.executeQuery();
 \end{itemize}
 \note{
 \begin{block}{Using parametrized interface}
-Usage of placeholders for values let's the interpreter escape input values.
+Usage of placeholders for values let's the interpreter escape and validate
+input values.
 \end{block}
 \begin{block}{Escaping routines}
 Some languages have special functions to escape manually values.
@@ -524,10 +556,11 @@ It requires an average knowledge to be exploited and the impacts are moderate.
 \LstGood
 \end{embeddedcode}
 \note{
+{\bfseries JSP page}\par
 Unescaped included text in a JSP.
 \begin{exampleblock}{Getting the user's cookies - demo}
-Just use \lstinline!document.cookie! in JavaScript and send it somewhere.
-\newline Explain what are \emph{cookies} orally.
+Just use \lstinline!document.cookie! in JavaScript and send it to
+\emph{another server}.
 \end{exampleblock}
 \begin{block}{Escaping the values}
 All the values should be escaped before sending them to the users.
@@ -543,7 +576,7 @@ XSS as sometimes special characters must be accepted.
 
 \begin{frame}
 \frametitle{3. Authentication and Session Management}
-\includeimage[width=0.8\linewidth]{session-hijacking}
+\includeimage[width=0.8\linewidth]{client-server-session}
 \note{
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
@@ -565,23 +598,26 @@ The impact is severe, this attack is common.
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
-http://example.com/page@;jsessionid=dfd4f5fda35df@...
+http://host.com/page@;jsessionid=dfd4f5fda35df@...
 \end{lstlisting}
 }
 \begin{frame}
 \begin{columns}
-\begin{column}{0.7\linewidth}
-\includeimage[width=\linewidth,height=3cm]{cybercafe}
-\end{column}
 \begin{column}{0.3\linewidth}
 \centering\Huge\bfseries
 XSS
+\end{column}
+\begin{column}{0.6\linewidth}
+\includeimage[width=\linewidth,height=3cm]{cybercafe}
 \end{column}
 \end{columns}
 \vspace{6mm}
 \Lst
 \badgoodsep
-\includeimage[height=3cm]{irisscan}
+\begin{center}
+\Huge\bfseries
+Good authentication mechanism
+\end{center}
 \note{
 \begin{exampleblock}{Public computer}
 Forgetting to log out...
@@ -609,7 +645,7 @@ The user's session can be obtained using XSS.
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
-http://example.com/user/@152@
+http://myhotel.com/user/@152@
 \end{lstlisting}
 }
 \begin{frame}
@@ -682,7 +718,7 @@ Widespread and easy to detect, the impact is moderate.
 
 \defverbatim[colored]\LstBad{
 \begin{lstlisting}[style=beamer]
-<img src="http://@example.com@/forum/thread1/
+<img src="http://@host.com@/forum/thread1/
 @addComment@?text=hello%20world" alt="" />
 \end{lstlisting}
 }
@@ -749,7 +785,7 @@ Easy to exploit and to detect.
 \end{frame}
 
 \begin{frame}
-\includeimage[height=0.7\textheight]{box}
+\includeimage[height=0.7\textheight,width=\linewidth]{out-of-the-box}
 \note{
 The out-of-the-box configuration is not always the best.
 }
@@ -817,7 +853,7 @@ The attack is however difficult to perform.
 After dumping the table \texttt{USERS}, the passwords might be stored in
 plain text.
 \end{exampleblock}
-\begin{exampleblock}{Rainbow tables}
+\begin{exampleblock}{\textbf{Rainbow tables}}
 Precomputed table for decoding hashed values.
 \href{http://www.md5this.com/list.php?page=133&key=1}{\texttt{md5this.com}}
 \end{exampleblock}
@@ -835,14 +871,21 @@ The database backup is lost.
 
 \begin{frame}
 \frametitle{Hash + Salt}
-\includeimage[height=0.7\textheight,width=\linewidth]{hash-salt}
+\begin{center}
+hash("hello") = "b1946ac92492d2347c6235b4d2611184" \\[1cm]
+\begin{flushright}
+\includegraphics[width=1.5cm]{img/icon-salt}
+\end{flushright}
+hash("hello", salt1) = "5b1cdd3502528d92b16925aebb99e785" \\
+hash("hello", salt2) = "72a11579b4256c9f604875ea17dbd803" \\
+\end{center}
 \note{
 Ensure passwords are hashed with a standard algorithm and a different salt is
 used for each password.
-\par
-Prevents rainbow table attacks.
-\par
-Both the hash and salt are stored in a database.
+\begin{itemize}
+\item Prevents \emph{rainbow table} attacks
+\item Both the hash and salt are stored in a database
+\end{itemize}
 }
 \end{frame}
 
@@ -850,7 +893,7 @@ Both the hash and salt are stored in a database.
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
-http://example.com/@admin@
+http://myhotel.com/@admin@
 \end{lstlisting}
 }
 \begin{frame}
@@ -876,7 +919,7 @@ Easy to exploit, but the flaw is uncommon.
 \end{center}
 \note{
 \begin{exampleblock}{Administration page}
-\url{http://example.com/admin} is not referenced from any other page, but
+\url{http://myhotel.com/admin} is not referenced from any other page, but
 the authentication is not enforced.
 \end{exampleblock}
 \hrule
@@ -933,7 +976,7 @@ SSL/TLS can be used to secure the connection.
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
-http://example.com/forward.jsp?@fwd=admin.jsp@
+http://host.com/forward.jsp?@fwd=admin.jsp@
 \end{lstlisting}
 }
 \begin{frame}
@@ -959,7 +1002,7 @@ Easy to detect, uncommonly present.
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
-http://@bank.com/secured@/../redirect
+https://@bank.com/secured@/../redirect
 ?@url=http://evil-bank.com/secured@
 \end{lstlisting}
 }
@@ -1162,7 +1205,7 @@ Try a list of common passwords.
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
-http://example.com/forum/download.jsp
+http://host.com/forum/download.jsp
 ?@path=/etc/shadow@
 \end{lstlisting}
 }

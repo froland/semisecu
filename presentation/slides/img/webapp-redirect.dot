@@ -24,6 +24,6 @@ digraph Redirect {
 	}
 
 	Client -> Server [ label = "1. first request" ]
-	Server -> Client [ label = "2. 302 Moved" ]
+	Server -> Client [ label = "2. redirect" ]
 	Client -> Server2 [ label = "3. second request" ]
 }

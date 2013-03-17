@@ -1,0 +1,33 @@
+digraph SessionHijacking {
+	rankdir = LR
+	ranksep = 1
+	node [ shape = none ]
+
+	{
+		Client [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-good.png" />
+			</td><td>
+			<img src="icon-computer.png" />
+			</td></tr></table>> ]
+		Attacker [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-computer.png" />
+			</td><td>
+			<img src="icon-evil.png" />
+			</td></tr></table>> ]
+		rank = min
+	}
+	{
+		Server [ label =
+			<<table border="0"><tr><td>
+			<img src="icon-server.png" />
+			</td><td>
+			<img src="icon-good.png" />
+			</td></tr></table>> ]
+		rank = max
+	}
+
+	Client -> Session [ label = "SessionID = 93e5a243600c32c017e892852f8239b7" ]
+	Attacker -> Session [ label = "SessionID = 93e5a243600c32c017e892852f8239b7" ]
+}
