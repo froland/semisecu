@@ -156,7 +156,8 @@ and eventually steal his identity.
 \end{frame}
 
 \begin{frame}
-\frametitle{Most used passwords}
+\begin{columns}
+\begin{column}{0.4\linewidth}
 \begin{scriptsize}
 \begin{enumerate}
 \item password
@@ -172,6 +173,13 @@ and eventually steal his identity.
 \item ...
 \end{enumerate}
 \end{scriptsize}
+\end{column}
+
+\begin{column}{0.6\linewidth}
+ \includeimage[height=1\textheight,width=\linewidth]{most-common-password-list}
+\end{column}
+
+\end{columns}
 % TODO fill the blank
 \note{
 	Remembering multiple passwords is... \emph{difficult}.
@@ -184,13 +192,29 @@ and eventually steal his identity.
 }
 \end{frame}
 
+
 \begin{frame}
-\includeimage[height=0.75\textheight,width=\linewidth]{password-post-its}
-% TODO add URLs to online services on the page
+\includeimage[scale=0.6]{code-bad}
+\includeimage[scale=0.6]{password-post-its}
+\note{
+Don't do that...
+}
+\end{frame}
+
+
+
+\begin{frame}
+\includeimage[scale=0.6]{code-good}
+\begin{itemize}
+\item 1password \\ \url{https://agilebits.com/onepassword} 
+\item lastpass \\ \url{https://lastpass.com}
+\item pwdhash \\ \url{https://www.pwdhash.com}
+\end{itemize}
+
 \note{
 \textbf{Bad password storage}
 \par
-... vs tracking all your different passwords.
+Do this instead.
 \par
 Online services for storing passwords:
 \begin{itemize}
