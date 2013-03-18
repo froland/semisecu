@@ -18,5 +18,6 @@ digraph ClientServer {
 		rank = max
 	}
 
-	Client -> Server [ label = "HTTP", dir = both ]
+	Client -> Server [ label = "Request", dir = right ]
+	Server -> Client [ label = "Response", dir = left ]
 }
