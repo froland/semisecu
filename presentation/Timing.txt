@@ -1,6 +1,3 @@
-Timing
-======
-
 * Intro - 6 slides - 10 min - François
 * Aspect psycho - 23 slides - 15 min
 * Attacks - ~90 slides - 50 min
@@ -11,18 +8,16 @@ Timing
 * conclusion - 3 slides - 5 min - François
 * Q & R - 20 min
 
-Repartiton
-==========
-
+--------------------------------------------
 Répétition 1:
 K: Attacks + Detection
 M: Psycho + Auth + Prev
 
 Répétition 2:
-V: Auth + Prev + Detection
+V: Auth + Prev + detect
 M: Psycho + Attacks
-
+ 
 Other:
 K: Psycho + Attacks
-V: Auth + Prev + Detection
-
+V: Auth + Prev + detect
+ 
