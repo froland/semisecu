@@ -1,0 +1,331 @@
+FEEDBACK
+========
+
+Michael:
+/!\ eeeeeeeeeeeeeeeeeeeeuh
+- mémorisation, pas lire
+- Fluidité
+
+Général:
+- avoir un fil conducteur, transitions entre les parties
+- définitions de certains concepts, ne pas dire "je vous laisse lire"
+- faire défiler les slides pendant le discours, pas slide - parler - slide - parler
+- Maintenir le public en haleine
+- poser plus de questions mais moins d'affilées, faire des sondages où les gens ne se dévoilent pas, demander un pronostic
+
+Slides:
+-Mettre une police plus grande, prendre plus de place, aérer
+-Ajouter des références
+-raccrocher une structure
+
+Changer l'ordre => rappels crypto, protocoles,... avant les attaques
+
+
+Conclusions:
+-références
+-aller plus loin
+
+
+
+
+QUESTIONS:
+-----------
+
+Que va-t-on distribuer ? Slides, slides + notes ? 
+
+
+
+
+
+/SLIDES/
+-Logo PSN
+
+Slide 20:
+XKCD => 2 slides et poser la question au public entre les deux
+
+21:
+
+22:
+Raccourcir la liste et ne pas poser toutes les questions
+
+23:
+exemples systemes + changer image meme type
+
+24:
+rapprocher ce slide de l'exemple mdp + argent
+
+26:
+rajouter titre + marquer opposition
+
+28:
+Pas lisible
+
+29:
+rajouter un titre 
+
+30:
+titre, elargir le scope, crime organisé, criminels
+
+31:
+statistiques ? rajouter comme une feinte
+
+32:
+risk => définition avec connotation positive
+
+33: 
+
+34:
+ajouter request response
+
+35:
+trop petit + dmz incorrect
+pas d'ids
+
+36:
+URL du site owasp 
+
+37:
+
+-----------------------------------------------------------
+Rajouter des slides pour l'intro de l'appli + explications
+-----------------------------------------------------------
+
+38:
+reprendre couleurs méchant gentil
+
+39:
+
+40:
+
+43:
+
+44:
+
+46:
+réutiliser les images ? 
+Expliquer le sessionID sur l'identité
+
+48:
+oeil => mot
+
+49:
+trop petit, pas centré
+
+56:
+titre
+
+61 hash+salt:
+déplacer ce slide dans les rappels + expliquer hashage
+
+64:
+Insister sur le wifi
+
+67:
+302 moved
+httpS
+gentil, méchant ? 
+
+68:
+charge systeme, interruption du service
+
+69:
+séparer intentionnel, non intenionnel
+
+71:
+remettre BD xkcd pour rappeler
+lister types social engineering
+
+72:
+image appropriée ? 
+
+74:
+Education => sensibilisation 
+
+75:
+explication => mieux expliquer le phishing en lui meme 
+
+76:
+trop petit
+
+77:
+image pas professionnelle  (françois)
+
+78:
+trop petit
+rajouter image dossier ou hierarchie, expliciter le fichier shadow => mot de passe
+
+79:
+explication pas claire, incohérence titre ? 
+exemple api rest ??
+
+81:
+trop petit
+
+82-86:
+trop petit
+
+90:
+ajouter schéma pour visualiser définitions + différences entre chaque concept
+
+91:
+trop petit
+
+92:
+retravailler schéma, même couleur ou truc pour montrer que c'est la même clé
+pertinence citer algos de cryptage ? 
+
+93:
+insister sur la différence des clés
+
+94:
+rajouter les images d'avant + combinaison des deux 
++ ajouter dernier argument 
+
+95:
+trop petit
++ placer avant comparaison ? 
+
+96:
+trop petit + mieux expliquer la motivation des fonctions de hashage (enlever base64)
+
+97:
+expliciter l'acronyme, N + ONCE
+image + petite ?
+
+98:
+expliquer pourquoi 1 mdp différent pour chaque site
+
+99:
+indiquer la présence de password policies
+
+100:
+BD trop petite, trop longue... 
+supprimer des cases ? + expliquer oralement
+
+103:
+rajouter slide pour expliquer authorité certification
+
+104:
+virer x509...
+
+106:
+changer l'image
+
+107:
+déplacer le slide avant le 106 et simplifier le schéma
+
+108:
+modifier le schéma:
+client : web browser
+server : web server
+
+112:
+rajouter dans les inconvénients:
+perte de l'anonymat
+
+113:
+trop petit
+
+114:
+trop petit
+fort chargé
+
+115:
+déplacer avant kerberos
+
+116:
+image trop sombre (changer?)
+
+117:
+trop petit
+fournir + de canaux alternatifs (sms, poste)
+
+119:
+trop petit
+
+120:
+focus sur certains mots
+un mot sur Martin Fowler
+référence + image bouquin
+
+121:
+trop petit, contraste, ajouter titre, trouver une autre image ? 
+
+122:
+pas de tiret ad hoc
+ne pas parler des flags des cookies
+
+123:
+ajouter mots clés pour les concepts
+nuancer ("il faut" => "on pourrait faire")
+
+124:
+ne pas parler du virtual patching
+
+125:
+trop petit, centré
+
+126:
+Rajouter nom en dessous des icones + lien internet
+
+127:
+trop petit, centré
+définir serveur applicatif
+
+128:
+parler ici du virtual patching
+
+130:
+/!\ XHR n'est pas désactivé par défaut !! Sauf si serveur différent de celui qui produit la page
+ insérer les noms sous les logos
+
+131-133:
+préciser qu'il existe des solutions pour se protéger et les expliquer sans rentrer dans les détails
+
+136:
+pentesting => penetration testing
+
+137:
+image pas claire
+ne pas utiliser double négation
+
+138:
+rajouter les noms + références
+définir l'utilité de l'outil, séparer en plusieurs slides + backtrack = distrib avec tous ces outils
+
+139:
+virer l'exemple spam
+mieux expliquer honeypot
+
+140:
+abbréviation non expliquée et pas claire
+
+141:
+expliquer scan de port (ou porc hoho)
+
+142:
+trop d'idées pour un seul slide (???)
+
+143-44:
+enlever le texte et mettre les images
+
+145:
+ajouter nom et motivation des outils, préciser outil payant-gratuit
+
+146:
+changer image
+
+147:
+
+
+
+
+
+
+
+
+
+
+
+
+
