@@ -5,15 +5,12 @@
 
 %------------------------------------------------
 \begin{frame}
-%TODO : too small 
 \frametitle{Different moments}
 
 \begin{itemize}
-\Huge
 \item Architecture
 \item Development
 \item Maintenance
-\normalsize
 \end{itemize}
 \note{
 Preventing security flaws is something that has to be done during the
@@ -23,13 +20,15 @@ whole life cycle of the application.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : Focus on important words
+\frametitle{Architecture}
 \begin{quote}
-The highest-level breakdown of a system into its parts; the decisions that are
-hard to change; there are multiple architectures in a system; what is
+\scriptsize
+The {\large highest-level breakdown} of a system into its parts; the decisions that are
+{\large hard to change}; there are multiple architectures in a system; what is
 architecturally significant can change over a system's lifetime; and, in the
-end, architecture boils down to whatever the {\Large important stuff} is.
-\textit{-- Martin Fowler, Patterns of Enterprise Application Architecture}
+end, architecture boils down to whatever the {\large important stuff} is.
+\newline \textit{-- Martin Fowler, Patterns of Enterprise Application Architecture}
+\normalsize
 \end{quote}
 \note{
 Definition of \emph{architecture}.
@@ -37,8 +36,8 @@ Definition of \emph{architecture}.
 \end{frame}
 
 \begin{frame}
-%TODO : too small, contrast, add title, find another image ?
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{architecture-problem}
+\frametitle{Security design\ldots}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{useless-barrier}
 \note{
 \begin{itemize}
 \item Security has to be taken into account from the beginning.
@@ -64,7 +63,7 @@ Question examples:
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Development: implementation tricks}
+\frametitle{Development: tips and tricks}
 \begin{itemize}
 \item Passwords
 \item Session management
@@ -90,9 +89,9 @@ this context.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : add keywords for the concepts, don't be too authoritarian in explanation
-\frametitle{Development: secure development cycle}
+\frametitle{Secure development cycle}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{microsoft-sdl-shield}
+{\small Code review, Pentesting, Training,\ldots}
 \note{
 A secure development cycle should set aside some time for:
 \begin{itemize}
@@ -109,7 +108,6 @@ A secure development cycle should set aside some time for:
 
 %------------------------------------------------
 \begin{frame}
-%TODO : do not talk about virtual patching here
 \frametitle{Maintenance}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{patched}
 \note{
@@ -117,12 +115,6 @@ A secure development cycle should set aside some time for:
 When vulnerabilities have been discovered they have to be patched as soon as
 possible.
 Beware of regressions and new security breaches.
-\end{block}
-\begin{block}{Virtual Patching}
-Virtual Patching is a security policy layer that prevents the exploitation of a known
-vulnerability until a patch is released. It does so by filtering the
-traffic that goes to and from the application server and blocking
-requests that are exploits.
 \end{block}
 }
 \end{frame}
@@ -132,10 +124,11 @@ requests that are exploits.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : too small, not centered
 \frametitle{Frameworks}
 \begin{quote}
+\begin{center}
 Your application is not the first.
+\end{center}
 \end{quote}
 \note{
 Frameworks ease development while providing security mechanisms:
@@ -156,14 +149,21 @@ Frameworks ease development while providing security mechanisms:
 
 %------------------------------------------------
 \begin{frame}
-%TODO : add names under the logos + link 
 \frametitle{Frameworks - examples}
 \begin{columns}
-\begin{column}{0.5\linewidth}
+\begin{column}{0.55\linewidth}
+\begin{figure}
 \includeimage[width=0.8\linewidth]{logo-spring}
+Spring
+\newline \scriptsize{\url{http://www.springsource.org/}}
+\end{figure}
 \end{column}
-\begin{column}{0.5\linewidth}
+\begin{column}{0.45\linewidth}
+\begin{figure}
 \includeimage[width=0.8\linewidth]{logo-esapi}
+ESAPI 
+\newline \scriptsize{\url{https://www.owasp.org}}
+\end{figure}
 \end{column}
 \end{columns}
 \note{
@@ -185,8 +185,8 @@ The ESAPI libraries also serve as a solid foundation for new development.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : define application server
 \frametitle{Security in application servers}
+Application server = the program that runs the web application.
 \begin{itemize}
 \item Authentication management
 \item Directory listing disabling
@@ -212,20 +212,17 @@ web applications.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : talk here about virtual patching
 \frametitle{Web Application Firewall}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{firewall}
 \note{
 \textbf{Web Application Firewall} (WAF) are filters which inspects the traffic
 that goes in and out your application and are able to block inappropriate
 content.
-\begin{block}{Some features}
-\begin{itemize}
-\item Virtual patching
-\item Scanning content
-%\item Detecting connection patterns
-% Masked as it is explained in detection
-\end{itemize}
+\begin{block}{Virtual Patching}
+Virtual Patching is a security policy layer that prevents the exploitation of a known
+vulnerability until a patch is released. It does so by filtering the
+traffic that goes to and from the application server and blocking
+requests that are exploits.
 \end{block}
 }
 \end{frame}
@@ -269,13 +266,13 @@ communications.
 \subsection{Browser restrictions}
 
 %------------------------------------------------
-%TODO : XHR is not disabled by default ! correct the explanation + insert name under logos
+%TODO : insert name under logos
 \begin{frame}
 \frametitle{Browser restrictions}
-\includeimage[width=0.9\linewidth,height=0.9\textheight]{browserSecurity}
+\includeimage[width=0.9\linewidth,height=0.9\textheight]{browser-security-subtitled}
 \note{
 \begin{itemize}
-\item Cross-domain XMLHttpRequest (XHR) is disabled by default
+\item Cross-domain XMLHttpRequest (XHR) is disabled by default for other websites
 	\\ Exceptions defined using \texttt{Access-Control}
 \item Possibility of disabling JavaScript and plug-ins (Flash)
 \item Private navigation mode
@@ -294,42 +291,19 @@ communications.
 
 %------------------------------------------------
 \subsection{E-mail}
-%TODO : explain that there are solution to avoid spams, explain them after without too much details
 %------------------------------------------------
 \begin{frame}
 \frametitle{E-mail}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{spam}
 \note{
 E-mail is one of the most used application.
-And it's plagued by spam and spoofing.
-}
-\end{frame}
+And it's plagued by spam and spoofing. But solutions exists:
 
-\begin{frame}
-\frametitle{E-mail - SPF}
-\begin{center}
-\begin{quote}
-ietf.org. IN SPF "v=spf1 ip4:64.170.98.0/26 ip4:64.170.98.64/28 ip4:64.170.98.80/28 ip6:2001:1890:1112:1::0/64 -all"
-\end{quote}
-\end{center}
-\note{
 \begin{block}{Sender Policy Framework (SPF)}
 SPF validates e-mails by verifying sender's IP address against DNS records.
 Administrators can define allowed hosts.
 \end{block}
-}
-\end{frame}
 
-\begin{frame}
-\frametitle{E-mail - DKIM}
-\begin{quote}
-DKIM-Signature: v=1; a=rsa-sha256; d=example.net; s=brisbane;
-c=relaxed/simple; q=dns/txt; l=1234; t=1117574938; x=1118006938;
-h=from:to:subject:date:keywords:keywords;
-bh=MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=;
-b=dzdVyOfAKCdLXdJOc9G2q8LoXSlEniSbav+yuU4zGeeruD00lszZVoG4ZHRNiYzR
-\end{quote}
-\note{
 \begin{block}{Domain Keys Identified Mail (DKIM)}
 DKIM associates domain names and email messages using a digital signature
 added to the header of messages, a public key is added to the DNS record of the
