@@ -18,6 +18,6 @@ digraph ClientServer {
 		rank = max
 	}
 
-	Client -> Server [ label = "Request", dir = right ]
-	Server -> Client [ label = "Response", dir = left ]
+	Client -> Server [ label = "HTTP Request", dir = right, fontsize=18 ]
+	Server -> Client [ label = "HTTP Response", dir = left, fontsize=18 ]
 }
