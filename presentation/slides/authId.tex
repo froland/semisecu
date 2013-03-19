@@ -2,40 +2,37 @@
 
 %------------------------------------------------
 
-%TODO: add a schema to help identify the concepts and mark difference between each one
 \begin{frame}
 \begin{columns}
-\begin{column}{0.4\linewidth}
+\begin{column}{0.5\linewidth}
 \begin{block}{Identity}
 Who you are.
 \end{block}
 \end{column}
-\begin{column}{0.6\linewidth}
-\includeimage[scale=0.2]{identity}
+\begin{column}{0.5\linewidth}
+\includeimage[width=\linewidth,height=0.25\textheight]{identity}
 \end{column}
 \end{columns}
-
 \pause
 \begin{columns}
-\begin{column}{0.4\linewidth}
+\begin{column}{0.5\linewidth}
 \begin{block}{Authentication}
 Are you who you claim to be?
 \end{block}
 \end{column}
-\begin{column}{0.6\linewidth}
-\includeimage[scale=0.3]{authentication}
+\begin{column}{0.5\linewidth}
+\includeimage[width=\linewidth,height=0.25\textheight]{authentication}
 \end{column}
 \end{columns}
-
 \pause
 \begin{columns}
-\begin{column}{0.4\linewidth}
+\begin{column}{0.5\linewidth}
 \begin{block}{Authorization}
 What are you allowed to do?
 \end{block}
 \end{column}
-\begin{column}{0.6\linewidth}
-\includeimage[scale=0.3]{authorization}
+\begin{column}{0.5\linewidth}
+\includeimage[width=\linewidth,height=0.25\textheight]{authorization}
 \end{column}
 \end{columns}
 
@@ -56,7 +53,6 @@ action.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : 
 \frametitle{Why authentication?}
 \begin{center}
 \Large{\textbf{Identification and confidentiality}}
@@ -163,16 +159,17 @@ By definition, the public key is shared.
 \end{frame}
 
 \begin{frame}
-\fontsize{14pt}{25}\selectfont
-%TODO : add a schema (??) and better centering
+%TODO : add a schema (??)
 \begin{center}
+\begin{large}
 \begin{tabular}{c|c}
-\bfseries Symmetric & \bfseries Asymmetric \\
+\bfseries Symmetric & \bfseries Asymmetric \\[0.5em]
 \hline
-Fast & Slow \\
-Needs a pre-shared key & No need for a pre-shared key \\
-Owner(s) of the key & Owner of the private key \\
+Fast & Slow \\[0.2em]
+Needs a pre-shared key & No need for a pre-shared key \\[0.2em]
+Owner(s) of the key & Owner of the private key \\[0.2em]
 \end{tabular}
+\end{large}
 \end{center}
 \note{
 \begin{itemize}

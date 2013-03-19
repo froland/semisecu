@@ -191,9 +191,8 @@ Explanation in the next slide.
 \subsection{Context of web applications}
 
 \subsubsection{Network}
-%TODO : increase image size
 \begin{frame}
-\includeimage[width=1\linewidth]{client-server}
+\includeimage[width=\linewidth,height=0.75\textheight]{client-server}
 \note{
 \begin{itemize}
 \item Applications available on the internet
@@ -227,7 +226,7 @@ Solution: duplication.
 }
 \end{frame}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{OWASP - Top 10}
 
 \begin{frame}
@@ -468,7 +467,6 @@ XSS as sometimes special characters must be accepted.
 \frametitle{3. Authentication and Session Management}
 \includeimage[scale=0.5]{client-server-session}
 \note{
-%TODO : explain session ID
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
 \begin{example}
@@ -539,13 +537,14 @@ The user's session can be obtained using XSS.
 http://myhotel.com/user/@152@
 \end{lstlisting}
 }
-%TODO : Center the code
-
 \begin{frame}
 \frametitle{4. Insecure Direct Object References}
-\begin{center}
+\begin{columns}
+\begin{column}{0.3\linewidth}\end{column}
+\begin{column}{0.5\linewidth}
 \Lst
-\end{center}
+\end{column}
+\end{columns}
 \note{
 The attacker changes a parameter in the request to obtain a \textbf{direct
 object reference} that they should not be able to access.
@@ -791,7 +790,12 @@ http://myhotel.com/@admin@
 }
 \begin{frame}
 \frametitle{8. Failure to Restrict URL Access}
+\begin{columns}
+\begin{column}{0.3\linewidth}\end{column}
+\begin{column}{0.5\linewidth}
 \Lst
+\end{column}
+\end{columns}
 \note{
 \textbf{URL access is not restricted} to functions requiring permissions.
 \begin{example}
@@ -1055,8 +1059,8 @@ A secret question could be targeted by social engineering.
 }
 \end{frame}
 
-
-%TODO : Garder cette frame ? 
+%TODO : Garder cette frame ?
+% si vous la jettez, gardez les notes!
 \begin{frame}
 \includeimage[width=0.8\linewidth,height=0.6\textheight]{hannibal-lecter}
 \begin{quote}
@@ -1145,6 +1149,7 @@ http://host.com/forum/download.jsp
 \end{lstlisting}
 }
 %TODO : Agrandir le code
+% jetter cette faille?
 \begin{frame}
 \frametitle{Path traversal}
 \Lst
@@ -1158,7 +1163,6 @@ Get a file uploaded to a forum... or the password file.
 \includeimage[scale=0.3]{etc-shadow}
 
 \end{frame}
-
 
 %TODO : Exemple rest api ? Change title ?
 \begin{frame}
