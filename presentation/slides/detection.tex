@@ -18,7 +18,6 @@ system with the consent of the owner in the goal of finding security holes.
 \end{frame}
 
 \begin{frame}
-%TODO : image not bright enough
 \begin{center}
 Avoiding this situation.
 \end{center}
@@ -26,29 +25,75 @@ Avoiding this situation.
 \end{frame}
 
 \begin{frame}
-%TODO : add names and references, define why the tool is useful, split in several slides, backtrack is a linux distrib integrating all the tools
-\frametitle{Tools}
+\frametitle{Tools - Vulnerabilities detector}
 \begin{columns}
-\begin{column}{0.35\linewidth}
-\includeimage[width=\linewidth]{pentesting-tools}
+\begin{column}{0.55\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{metasploit-logo}
+Metasploit
+\newline {\scriptsize \url{http://www.metasploit.com/}}
+\end{figure}
 \end{column}
-\begin{column}{0.65\linewidth}
-\includeimage[width=\linewidth,height=0.7\textheight]{bt5-screenshot}
+\begin{column}{0.45\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{nessus-logo}
+Nessus
+\newline {\scriptsize \url{http://www.tenable.com/}}
+\end{figure}
+\end{column}
+\end{columns}
+\note{
+\begin{itemize}
+\item \href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}:
+	identifies vulnerabilities, automates assessments
+\item \href{http://www.tenable.com/products/nessus}{Nessus}:
+	vulnerability scanner
+
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tools - Network}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{nmap-logo}
+NMAP
+\newline {\scriptsize \url{http://nmap.org/}}
+\end{figure}
+\end{column}
+\begin{column}{0.5\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{webscarab-logo}
+WebScarab
+\newline {\scriptsize \url{https://www.owasp.org/}}
+\end{figure}
 \end{column}
 \end{columns}
 \note{
 \begin{itemize}
 \item \href{http://nmap.org/}{nmap}:
 	port scanning
-\item \href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}:
-	identifies vulnerabilities, automates assessments
-\item \href{http://www.tenable.com/products/nessus}{Nessus}:
-	vulnerability scanner
 \item \href{https://www.owasp.org/index.php/Webscarab}{WebScarab}:
 	intercepting proxy
-\item \href{http://www.backtrack-linux.org/}{BackTrack}:
-	Linux distribution
 \end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tools - All in one}
+
+\includeimage[width=\linewidth,height=0.5\textheight]{bt5-screenshot}
+\begin{center}
+BackTrack
+\newline {\scriptsize \url{http://www.backtrack-linux.org/}}
+\end{center}
+\note{
+
+\href{http://www.backtrack-linux.org/}{BackTrack}:
+	Linux distribution
+
 }
 \end{frame}
 
@@ -139,11 +184,6 @@ Detects SYN port scans, etc.
 \begin{frame}
 %TODO : remove text
 \frametitle{How to know?}
-\begin{itemize}
-\item Traffic logs and graphs
-\item Application logs
-\end{itemize}
-\pause
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \includeimage[width=\linewidth]{dos-load}
@@ -162,33 +202,31 @@ Once the attack is effective, the outbound traffic drops.
 \end{frame}
 
 \begin{frame}
-%TODO : add name and motivation of tools + precise if it's free or not
 \frametitle{Analysis - tools}
-\includeimage[width=0.8\linewidth,height=0.7\textheight]{analysis-tools}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{analysis-tools2}
 \note{
 \begin{itemize}
 \item \href{http://www.ntop.org/products/ntop/}{ntop}: traffic monitoring
-platform
+platform GPL
 \item \href{http://www.intersectalliance.com}{Snare}: a collection of tools to
-audit log data and facilitate log analysis
+audit log data and facilitate log analysis NON FREE
 \item \href{http://www.ossec.net/}{OSSEC}: open-source alternative; performs
 log analysis, file integrity checking, policy monitoring, rootkit detection,
 real-time alerting and active response
 \item Web log analysis software
 	\begin{itemize}
-	\item \href{http://www.webalizer.org/}{Webalizer}
-	\item \href{http://awstats.sourceforge.net/}{AWStats}
-	\item \href{http://www.weblogexpert.com/}{WebLog Expert}
+	\item \href{http://www.webalizer.org/}{Webalizer} GPL
+	\item \href{http://awstats.sourceforge.net/}{AWStats} Open source
+	\item \href{http://www.weblogexpert.com/}{WebLog Expert} NON FREE
 	\end{itemize}
 \end{itemize}
 }
 \end{frame}
 
 \subsubsection{Noise as a diversion}
-%TODO : Find another image
 \begin{frame}
 \frametitle{Noise as a diversion}
-\includeimage[width=0.8\linewidth,height=0.7\textheight]{train_cache}
+\includeimage[width=0.8\linewidth,height=0.7\textheight]{firewall-log}
 \note{
 When an attack happens, it can be masked by another attack which would serve
 as a diversion from the real attack.
