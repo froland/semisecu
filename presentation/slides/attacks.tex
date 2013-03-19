@@ -267,6 +267,9 @@ client. But... the client can send anything.
 
 \subsubsection*{Cryptography introduction}
 
+
+%TODO : redo the schema using only 1 key (same color)
+%note : mention exemple encryption algorithm ? 
 \begin{frame}
 \frametitle{Symmetric cryptography}
 \includeimage[width=0.8\linewidth]{cryptography-symm}
@@ -286,6 +289,7 @@ AES, DES, Twofish, ...
 \end{frame}
 
 \begin{frame}
+%TODO : insist on the different keys
 \frametitle{Asymmetric cryptography}
 \includeimage[width=0.8\linewidth]{cryptography-asym}
 \note{
@@ -302,6 +306,7 @@ Diffie-Hellman, DSA (Digital Signature Algorithm), ...
 \end{frame}
 
 \begin{frame}
+%TODO : add a schema and add the last argument
 \begin{center}
 \begin{tabular}{c|c}
 \bfseries Symmetric & \bfseries Asymmetric \\
@@ -324,6 +329,8 @@ then switches to a \emph{symmetric} algorithm as it is faster.
 }
 \end{frame}
 
+
+%TODO : move to before sym and asym compareason, image too small
 \begin{frame}
 \frametitle{Public-private keys}
 \includeimage[width=\linewidth,height=0.6\textheight]{ppk}
@@ -337,6 +344,7 @@ By definition, the public key is shared.
 \end{frame}
 
 \begin{frame}
+%TODO : too small and explain the motivation of hash functions + erase base64 from picture
 \frametitle{Signatures}
 \includeimage[width=\linewidth]{signature-schema}
 \note{
@@ -1282,6 +1290,8 @@ Get a file uploaded to a forum... or the password file.
 
 \end{frame}
 
+
+%TODO : Exemple rest api ? Change title ?
 \begin{frame}
 \frametitle{Failure to restrict automation}
 \begin{itemize}
@@ -1303,16 +1313,14 @@ The web site is not protected against automation.
 Challenge-response test easy for humans, difficult for machines.
 \end{exampleblock}
 \begin{block}{Captcha - cracking}
-An evil website could present a captcha to crack another website's protection.
-Users would crack unknowingly some other website's protection against
-automated attacks.
+The attacker has to make a website with high traffic on it (image boards,...). Once done, the evil website can present a captcha from another website. The users visiting the evil website answer the captcha and the evil website can use this answer to crack the protection of the attacked website.
 \end{block}
 }
 \end{frame}
 
 \begin{frame}
 \frametitle{And so on...}
-\includeimage[width=0.8\linewidth,height=0.75\textheight]{attack-tag-cloud}
+\includeimage[width=0.9\linewidth,height=0.85\textheight]{attack-tag-cloud}
 \note{
 As technology evolves, new forms of attacks appear.
 \par

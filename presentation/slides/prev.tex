@@ -5,6 +5,7 @@
 
 %------------------------------------------------
 \begin{frame}
+%TODO : too small 
 \frametitle{Different moments}
 \begin{itemize}
 \item Architecture
@@ -19,6 +20,7 @@ whole life cycle of the application.
 
 %------------------------------------------------
 \begin{frame}
+%TODO : Focus on important words
 \begin{quote}
 The highest-level breakdown of a system into its parts; the decisions that are
 hard to change; there are multiple architectures in a system; what is
@@ -32,6 +34,7 @@ Definition of \emph{architecture}.
 \end{frame}
 
 \begin{frame}
+%TODO : too small, contrast, add title, find another image ?
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{architecture-problem}
 \note{
 \begin{itemize}
@@ -63,7 +66,7 @@ Question examples:
 \item Passwords
 \item Session management
 \item Input validation
-\item Ad-hoc protection
+\item Ad hoc protection
 \end{itemize}
 \note{
 There are lots of best practices that can make your application more
@@ -73,8 +76,7 @@ secure.
 having the user rotate them, preventing brute-force by implementing temporary
 lock-out, ...
 \item Session management: setting an inactivity time out, setting the
-\emph{secure} flag for sensitive cookies, using the \emph{HTTP-Only} flag for
-cookies, implementing an easily accessible logout, ...
+\emph{secure} flag for sensitive cookies, implementing an easily accessible logout, ...
 \item Input validation: always on server side, use a positive
   approach
 \item Use ad-hoc protection for known attacks. Ad-hoc protection means a protection specialized for a particular attack in
@@ -85,6 +87,7 @@ this context.
 
 %------------------------------------------------
 \begin{frame}
+%TODO : add keywords for the concepts, don't be too authoritarian in explanation
 \frametitle{Development: secure development cycle}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{microsoft-sdl-shield}
 \note{
@@ -103,6 +106,7 @@ A secure development cycle should set aside some time for:
 
 %------------------------------------------------
 \begin{frame}
+%TODO : do not talk about virtual patching here
 \frametitle{Maintenance}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{patched}
 \note{
@@ -125,6 +129,7 @@ requests that are exploits.
 
 %------------------------------------------------
 \begin{frame}
+%TODO : too small, not centered
 \frametitle{Frameworks}
 \begin{quote}
 Your application is not the first.
@@ -148,6 +153,7 @@ Frameworks ease development while providing security mechanisms:
 
 %------------------------------------------------
 \begin{frame}
+%TODO : add names under the logos + link 
 \frametitle{Frameworks - examples}
 \begin{columns}
 \begin{column}{0.5\linewidth}
@@ -176,6 +182,7 @@ The ESAPI libraries also serve as a solid foundation for new development.
 
 %------------------------------------------------
 \begin{frame}
+%TODO : define application server
 \frametitle{Security in application servers}
 \begin{itemize}
 \item Authentication management
@@ -202,6 +209,7 @@ web applications.
 
 %------------------------------------------------
 \begin{frame}
+%TODO : talk here about virtual patching
 \frametitle{Web Application Firewall}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{firewall}
 \note{
@@ -258,6 +266,7 @@ communications.
 \subsection{Browser restrictions}
 
 %------------------------------------------------
+%TODO : XHR is not disabled by default ! correct the explanation + insert name under logos
 \begin{frame}
 \frametitle{Browser restrictions}
 \includeimage[width=0.9\linewidth,height=0.9\textheight]{browserSecurity}
@@ -276,14 +285,13 @@ communications.
 	\end{itemize}
 \item SSL Certificates are validated
 \item Blacklists of known rogue sites
-\item XHR allows retrieving pages using JavaScript.
 \end{itemize}
 }
 \end{frame}
 
 %------------------------------------------------
 \subsection{E-mail}
-
+%TODO : explain that there are solution to avoid spams, explain them after without too much details
 %------------------------------------------------
 \begin{frame}
 \frametitle{E-mail}

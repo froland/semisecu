@@ -1,18 +1,23 @@
 \section{Authentication and Identity}
 
 %------------------------------------------------
+
+%TODO: add a schema to help identify the concepts and mark difference between each one
 \begin{frame}
 \frametitle{Identity vs Authentication vs Authorization}
 \begin{block}{Identity}
 Who you are.
+%\includeimage[scale=0.1]{identity}
 \end{block}
 \pause
 \begin{block}{Authentication}
 Are you who you claim to be?
+%\includeimage[scale=0.1]{authentication}
 \end{block}
 \pause
 \begin{block}{Authorization}
 What are you allowed to do?
+%\includeimage[scale=0.1]{authorization}
 \end{block}
 \note{
 \begin{block}{Identity}
@@ -31,6 +36,7 @@ action.
 
 %------------------------------------------------
 \begin{frame}
+%TODO : 
 \frametitle{Why authentication?}
 \begin{center}
 \textbf{Identification and confidentiality}
@@ -46,11 +52,13 @@ For that, we have encryption.
 }
 \end{frame}
 
+%TODO : too small
 %------------------------------------------------
 \subsection{Different means of authentication}
 
 %------------------------------------------------
 \begin{frame}
+%TODO : explain WHY different passwords for each site
 \frametitle{Password}
 \includeimage[width=0.6\linewidth]{login}
 \note{
@@ -64,6 +72,7 @@ For that, we have encryption.
 \end{frame}
 
 \begin{frame}
+%TODO : mention presence of pre-established password policies
 \frametitle{Password complexity}
 \includeimage[height=0.8\textheight,width=0.8\linewidth]{browserPasswordValidation}
 \note{
@@ -78,6 +87,7 @@ letter, etc.)
 \end{frame}
 
 \begin{frame}
+%TODO : ComicStrip is too small, too long, remove pics and explain orally
 \frametitle{Password strength}
 \includeimage[height=0.75\textheight,width=\linewidth]{xkcd936_password_strength}
 \note{
@@ -127,6 +137,7 @@ least pseudo-random way.
 }
 \end{frame}
 
+%TODO : Add a slide to explain what a CA is
 %------------------------------------------------
 \begin{frame}
 \frametitle{Certificates}
@@ -169,7 +180,6 @@ Certificate:
 }
 \begin{frame}
 \frametitle{Certificates - What are they made of?}
-X.509~v3 standard
 \LstA
 \end{frame}
 \begin{frame}
@@ -177,6 +187,7 @@ X.509~v3 standard
 \end{frame}
 
 \begin{frame}
+%TODO : change schema + remove CA explanation from notes
 \frametitle{Certificates - How are they used?}
 \includeimage[width=0.8\linewidth,height=0.75\textheight]{ssl-handshake}
 \note{
@@ -197,6 +208,7 @@ A typical example is for SSL/TLS in web browsers.
 \end{frame}
 
 \begin{frame}
+%TODO : move slide before the previous one and simplify schema
 \frametitle{Obtaining a certificate}
 \includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
 \note{
@@ -210,6 +222,7 @@ the identity of the owner. Finally, it signs the certificate.
 \end{frame}
 
 \begin{frame}
+%TODO : change schema => client = web browser, server = web server
 \frametitle{One-way certification}
 \includeimage[scale=0.7]{one-way-ssl}
 \note{
@@ -221,6 +234,7 @@ The browser authenticates the server but the opposite isn't true.
 \end{frame}
 
 \begin{frame}
+%TODO : change schema => client = web browser, server = web server
 \frametitle{Two-way certification}
 \includeimage[scale=0.7]{two-way-ssl}
 \note{
@@ -231,6 +245,7 @@ Both ends are authenticated.
 \end{frame}
 
 \begin{frame}
+%TODO : smaller image, Explain N + ONCE
 \frametitle{Signature challenge}
 \begin{columns}
 \begin{column}{0.6\linewidth}
@@ -339,6 +354,7 @@ log in again for each of them.
 \begin{itemize}
 \item All your eggs in the same basket (impact if compromised)
 \item You are dependent upon your provider (confidence, availability, ...)
+\item Loss of anonymity using SSO with public names
 \end{itemize}
 \end{block}
 \end{column}
@@ -350,6 +366,7 @@ log in again for each of them.
 \subsection{Kerberos}
 
 %------------------------------------------------
+%TODO : too small
 \begin{frame}
 \frametitle{Kerberos}
 \includeimage[width=3cm]{logo-kerberos}
@@ -362,6 +379,7 @@ commercial products.
 \end{frame}
 
 \begin{frame}
+%TODO : too small and not clear
 \frametitle{Kerberos - How does it work?}
 \includeimage[width=0.8\linewidth]{kerberos}
 \note{
@@ -379,6 +397,7 @@ authenticate itself
 
 %------------------------------------------------
 \begin{frame}
+%TODO : move to before Kerberos
 \frametitle{Provider extensions}
 \begin{columns}
 \begin{column}[width=\linewidth]{0.3\linewidth}
@@ -413,6 +432,7 @@ authenticate itself
 \subsection{Compromised authentication mean}
 
 %------------------------------------------------
+%TODO : image too dark
 \begin{frame}
 \frametitle{Compromised authentication mean}
 \includeimage[width=0.8\linewidth]{lost-credentials}
@@ -429,6 +449,7 @@ the user may lose its authentication mean or it can get stolen.
 
 %------------------------------------------------
 \begin{frame}
+%TODO : too small and add side channels (post, sms,...)
 \frametitle{Example: Lost password}
 \begin{itemize}
 \item Security questions
