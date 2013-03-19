@@ -111,6 +111,7 @@ may influence risk.
 \end{frame}
 
 \begin{frame}
+\frametitle{Threat agents}
 \includeimage[width=\linewidth,height=0.5\textheight]{disaster}
 \pause
 \begin{exampleblock}{In {\bfseries Belgium} between 1980-2010}
@@ -590,6 +591,7 @@ XSS as sometimes special characters must be accepted.
 \frametitle{3. Authentication and Session Management}
 \includeimage[scale=0.5]{client-server-session}
 \note{
+%TODO : explain session ID
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
 \begin{example}
@@ -660,6 +662,8 @@ The user's session can be obtained using XSS.
 http://myhotel.com/user/@152@
 \end{lstlisting}
 }
+%TODO : Center the code
+
 \begin{frame}
 \frametitle{4. Insecure Direct Object References}
 \begin{center}
@@ -1174,6 +1178,8 @@ A secret question could be targeted by social engineering.
 }
 \end{frame}
 
+
+%TODO : Garder cette frame ? 
 \begin{frame}
 \includeimage[width=0.8\linewidth,height=0.6\textheight]{hannibal-lecter}
 \begin{quote}
@@ -1261,6 +1267,7 @@ http://host.com/forum/download.jsp
 ?@path=/etc/shadow@
 \end{lstlisting}
 }
+%TODO : Agrandir le code
 \begin{frame}
 \frametitle{Path traversal}
 \Lst
@@ -1271,6 +1278,8 @@ You can download or upload any file that the server contains.
 Get a file uploaded to a forum... or the password file.
 \end{exampleblock}
 }
+\includeimage[scale=0.3]{etc-shadow}
+
 \end{frame}
 
 \begin{frame}
