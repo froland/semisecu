@@ -4,21 +4,41 @@
 
 %TODO: add a schema to help identify the concepts and mark difference between each one
 \begin{frame}
-\frametitle{Identity vs Authentication vs Authorization}
+\begin{columns}
+\begin{column}{0.4\linewidth}
 \begin{block}{Identity}
 Who you are.
-%\includeimage[scale=0.1]{identity}
 \end{block}
+\end{column}
+\begin{column}{0.6\linewidth}
+\includeimage[scale=0.2]{identity}
+\end{column}
+\end{columns}
+
 \pause
+\begin{columns}
+\begin{column}{0.4\linewidth}
 \begin{block}{Authentication}
 Are you who you claim to be?
-%\includeimage[scale=0.1]{authentication}
 \end{block}
+\end{column}
+\begin{column}{0.6\linewidth}
+\includeimage[scale=0.3]{authentication}
+\end{column}
+\end{columns}
+
 \pause
+\begin{columns}
+\begin{column}{0.4\linewidth}
 \begin{block}{Authorization}
 What are you allowed to do?
-%\includeimage[scale=0.1]{authorization}
 \end{block}
+\end{column}
+\begin{column}{0.6\linewidth}
+\includeimage[scale=0.3]{authorization}
+\end{column}
+\end{columns}
+
 \note{
 \begin{block}{Identity}
 The identity of somebody is who they claim.
@@ -39,7 +59,7 @@ action.
 %TODO : 
 \frametitle{Why authentication?}
 \begin{center}
-\textbf{Identification and confidentiality}
+\Large{\textbf{Identification and confidentiality}}
 \end{center}
 \note{
 Authentication is needed when you want to transmit
@@ -51,6 +71,139 @@ For that, we have encryption.
 \end{block}
 }
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Technical introduction}
+
+\subsubsection{HTTP}
+
+\defverbatim[colored]\Lst{
+\begin{lstlisting}[style=beamer]
+@GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
+Host: en.wikipedia.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+@Cookie@: @mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx@; centralnotice_bannercount...
+Connection: keep-alive
+...
+\end{lstlisting}
+}
+
+%TODO : transition ???
+\begin{frame}
+\frametitle{How does HTTP work?}
+\Lst
+\note{
+A \emph{request} example.
+\begin{itemize}
+\item Method: \texttt{GET}, \texttt{POST}, etc.
+\item URL: resource path
+\item Options: \texttt{Host}, \texttt{Cookie}, etc.
+\end{itemize}
+The \emph{response} has the same structure.
+\begin{block}{Anonymity}
+No identifier for a web user.
+\par\textbf{Cookies}\\
+Data stored on the client's computer.
+\par\textbf{Session number}\\
+The server identifies its users using a session ID (unique number) for each
+client. But... the client can send anything.
+\end{block}
+}
+\end{frame}
+
+\subsubsection*{Cryptography introduction}
+
+
+%TODO note : mention exemple encryption algorithm ? 
+\begin{frame}
+\frametitle{Symmetric cryptography}
+\includeimage[width=0.8\linewidth]{cryptography-symm}
+\note{
+\begin{block}{Encryption}
+Transformation of a message in a way that it is readable only by the
+authorized parties.
+\end{block}
+\begin{block}{Symmetric}
+A single key used to encode and decode the messages.
+\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
+\end{block}
+\begin{exampleblock}{Symmetric cryptography algorithms}
+AES, DES,...
+\end{exampleblock}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Asymmetric cryptography}
+\includeimage[width=0.8\linewidth]{cryptography-asym}
+\note{
+\begin{block}{Asymmetric}
+A private-public key pair, one is used to encrypt the message, the other to
+read it.
+\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+\end{block}
+\begin{exampleblock}{Asymmetric cryptography algorithms}
+RSA, DSA, ...
+\end{exampleblock}
+}
+\end{frame}
+
+%TODO : image too small
+\begin{frame}
+\frametitle{Public-private keys}
+\includeimage[width=\linewidth,height=\textheight]{ppk}
+\note{
+By definition, the public key is shared.
+\begin{itemize}
+\item Encrypt with the recipient's public key
+\item Sign with your private key
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\fontsize{14pt}{25}\selectfont
+%TODO : add a schema (??) and better centering
+\begin{center}
+\begin{tabular}{c|c}
+\bfseries Symmetric & \bfseries Asymmetric \\
+\hline
+Fast & Slow \\
+Needs a pre-shared key & No need for a pre-shared key \\
+Owner(s) of the key & Owner of the private key \\
+\end{tabular}
+\end{center}
+\note{
+\begin{itemize}
+\item \textbf{Symmetric}: faster, needs a pre-shared key
+	\newline All people holding the key can decrypt the message.
+\item \textbf{Asymmetric}: no need for a pre-shared key
+	\newline Message can be decrypted by the person holding the right key.
+\end{itemize}
+\begin{block}{Usual usage}
+A connection starts using an \emph{asymmetric} algorithm to exchange keys and
+then switches to a \emph{symmetric} algorithm as it is faster.
+\end{block}
+}
+\end{frame}
+
+\begin{frame}
+%TODO : explain the motivation of hash functions
+\frametitle{Signatures}
+\includeimage[width=\linewidth]{signature-schema}
+\note{
+\begin{block}{Hash}
+Fixed-size bit string built using an irreversible function from a message.
+\newline Guarantees \emph{integrity}.
+\end{block}
+\begin{block}{Signature}
+Mean to authenticate the identity of the sender of a message.
+\end{block}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %TODO : too small
 %------------------------------------------------
@@ -72,7 +225,6 @@ For that, we have encryption.
 \end{frame}
 
 \begin{frame}
-%TODO : mention presence of pre-established password policies
 \frametitle{Password complexity}
 \includeimage[height=0.8\textheight,width=0.8\linewidth]{browserPasswordValidation}
 \note{
@@ -137,7 +289,6 @@ least pseudo-random way.
 }
 \end{frame}
 
-%TODO : Add a slide to explain what a CA is
 %------------------------------------------------
 \begin{frame}
 \frametitle{Certificates}
@@ -147,6 +298,13 @@ A trusted authority (Certification Authority) issues certificates to
 confirm the identity of something. Those certificates may be of varying
 quality and are most often used in SSL/TLS by web browsers.
 }
+\end{frame}
+
+\begin{frame}
+\frametitle{Certificate Authority}
+\begin{itemize}
+\item Sign, send and maintain certificates and revocation list
+\end{itemize}
 \end{frame}
 
 \defverbatim\LstA{
