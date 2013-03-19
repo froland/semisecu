@@ -1,41 +1,87 @@
-FEEDBACK
-========
+Repetition 1
+============
+
+15 mars 2013
+
+Presentation: Michael
+=====================
 
 Michael:
 /!\ eeeeeeeeeeeeeeeeeeeeuh
-- mémorisation, pas lire
-- Fluidité
+- mÃ©morisation, pas lire
+- FluiditÃ©
 
-Général:
+GÃ©nÃ©ral:
 - avoir un fil conducteur, transitions entre les parties
-- définitions de certains concepts, ne pas dire "je vous laisse lire"
-- faire défiler les slides pendant le discours, pas slide - parler - slide - parler
+- dÃ©finitions de certains concepts, ne pas dire "je vous laisse lire"
+- faire dÃ©filer les slides pendant le discours, pas slide - parler - slide - parler
 - Maintenir le public en haleine
-- poser plus de questions mais moins d'affilées, faire des sondages où les gens ne se dévoilent pas, demander un pronostic
+- poser plus de questions mais moins d'affilÃ©es, faire des sondages oÃ¹ les gens ne se dÃ©voilent pas, demander un pronostic
 
 Slides:
--Mettre une police plus grande, prendre plus de place, aérer
--Ajouter des références
+-Mettre une police plus grande, prendre plus de place, aÃ©rer
+-Ajouter des rÃ©fÃ©rences
 -raccrocher une structure
 
 Changer l'ordre => rappels crypto, protocoles,... avant les attaques
 
 
 Conclusions:
--références
+-rÃ©fÃ©rences
 -aller plus loin
 
+Presentation: Krzysztof
+=======================
 
+Eviter les mots: donc, euh
+Memorisation et connaissance des slides.
+Prevoir une souris sans fil pour passer les slides.
+"Salt".
+Se deplacer.
 
+Trouver un fil conducteur: liens entre les chapitres (transitions).
+Cassures entre les themes. Sous-titres pour les icones sans texte; pour les
+outils.
+Ne pas laisser lire les slides! Dans les slides chargÃ©s, mettre en evidence les
+mots clÃ©s.
+Manque de references, URLs, ... (ex: bouquin de Martin Fowler)
 
-QUESTIONS:
------------
+Ne pas hesiter Ã  faire apparaitre les bullet-points.
+Trop de temps passÃ© sur un seul slide. Mieux vaut avoir un slide blanc pendant
+une explication un peu plus longue.
 
-Que va-t-on distribuer ? Slides, slides + notes ? 
+Explication moralisatrice: pas en abuser.
+Eduquer => Sensibiliser.
 
+Pas assez d'interactions avec le public. Poser plus, mais seulement quelques
+d'un coup. Plus de questions de choix que des questions rÃ©pondus Ã  la base.
 
+* Remarques: Krzysztof
 
+Mains dans les poches, raconter une histoire, se retourner vers les slides.
+Mieux articuler.
+Trop d'exemples hors slides (Ã  certains moments de trop).
+Selon Vincent, trop nerveux.
+Ne pas tirer en longueur, doit etre plus lineaire dans les explications.
 
+* Remarques: Michael
+
+FluiditÃ© du discours.
+Selon Sarah, stressÃ©.
+
+* Demo
+
+Dans la technologie X, visuel pour l'explication. Trop compliquÃ©, trop vite.
+"Dump" de table.
+
+QUESTIONS
+=========
+
+Que va-t-on distribuer ? Slides, slides + notes ?
+=> webapp-document.pdf
+
+Contenu: Michael
+================
 
 /SLIDES/
 -Logo PSN
@@ -64,13 +110,13 @@ Pas lisible
 rajouter un titre 
 
 30:
-titre, elargir le scope, crime organisé, criminels
+titre, elargir le scope, crime organisÃ©, criminels
 
 31:
 statistiques ? rajouter comme une feinte
 
 32:
-risk => définition avec connotation positive
+risk => dÃ©finition avec connotation positive
 
 33: 
 
@@ -91,7 +137,7 @@ Rajouter des slides pour l'intro de l'appli + explications
 -----------------------------------------------------------
 
 38:
-reprendre couleurs méchant gentil
+reprendre couleurs mÃ©chant gentil
 
 39:
 
@@ -102,20 +148,20 @@ reprendre couleurs méchant gentil
 44:
 
 46:
-réutiliser les images ? 
-Expliquer le sessionID sur l'identité
+rÃ©utiliser les images ? 
+Expliquer le sessionID sur l'identitÃ©
 
 48:
 oeil => mot
 
 49:
-trop petit, pas centré
+trop petit, pas centrÃ©
 
 56:
 titre
 
 61 hash+salt:
-déplacer ce slide dans les rappels + expliquer hashage
+dÃ©placer ce slide dans les rappels + expliquer hashage
 
 64:
 Insister sur le wifi
@@ -123,20 +169,20 @@ Insister sur le wifi
 67:
 302 moved
 httpS
-gentil, méchant ? 
+gentil, mÃ©chant ? 
 
 68:
 charge systeme, interruption du service
 
 69:
-séparer intentionnel, non intenionnel
+sÃ©parer intentionnel, non intenionnel
 
 71:
 remettre BD xkcd pour rappeler
 lister types social engineering
 
 72:
-image appropriée ? 
+image appropriÃ©e ? 
 
 74:
 Education => sensibilisation 
@@ -148,7 +194,7 @@ explication => mieux expliquer le phishing en lui meme
 trop petit
 
 77:
-image pas professionnelle  (françois)
+image pas professionnelle  (franÃ§ois)
 
 78:
 trop petit
@@ -158,7 +204,7 @@ rajouter image dossier ou hierarchie, expliciter le fichier shadow => mot de pas
 
 
 79:
-explication pas claire, incohérence titre ? 
+explication pas claire, incohÃ©rence titre ? 
 exemple api rest ??
 
 81:
@@ -168,17 +214,17 @@ trop petit
 trop petit
 
 90:
-ajouter schéma pour visualiser définitions + différences entre chaque concept
+ajouter schÃ©ma pour visualiser dÃ©finitions + diffÃ©rences entre chaque concept
 
 91:
 trop petit
 
 92:
-retravailler schéma, même couleur ou truc pour montrer que c'est la même clé
+retravailler schÃ©ma, mÃªme couleur ou truc pour montrer que c'est la mÃªme clÃ©
 pertinence citer algos de cryptage ? 
 
 93:
-insister sur la différence des clés
+insister sur la diffÃ©rence des clÃ©s
 
 94:
 rajouter les images d'avant + combinaison des deux 
@@ -196,17 +242,17 @@ expliciter l'acronyme, N + ONCE
 image + petite ?
 
 98:
-expliquer pourquoi 1 mdp différent pour chaque site
+expliquer pourquoi 1 mdp diffÃ©rent pour chaque site
 
 99:
-indiquer la présence de password policies
+indiquer la prÃ©sence de password policies
 
 100:
 BD trop petite, trop longue... 
 supprimer des cases ? + expliquer oralement
 
 103:
-rajouter slide pour expliquer authorité certification
+rajouter slide pour expliquer authoritÃ© certification
 
 104:
 virer x509...
@@ -215,15 +261,15 @@ virer x509...
 changer l'image
 
 107:
-déplacer le slide avant le 106 et simplifier le schéma
+dÃ©placer le slide avant le 106 et simplifier le schÃ©ma
 
 108:
-modifier le schéma:
+modifier le schÃ©ma:
 client : web browser
 server : web server
 
 112:
-rajouter dans les inconvénients:
+rajouter dans les inconvÃ©nients:
 perte de l'anonymat
 
 113:
@@ -231,10 +277,10 @@ trop petit
 
 114:
 trop petit
-fort chargé
+fort chargÃ©
 
 115:
-déplacer avant kerberos
+dÃ©placer avant kerberos
 
 116:
 image trop sombre (changer?)
@@ -249,7 +295,7 @@ trop petit
 120:
 focus sur certains mots
 un mot sur Martin Fowler
-référence + image bouquin
+rÃ©fÃ©rence + image bouquin
 
 121:
 trop petit, contraste, ajouter titre, trouver une autre image ? 
@@ -259,76 +305,199 @@ pas de tiret ad hoc
 ne pas parler des flags des cookies
 
 123:
-ajouter mots clés pour les concepts
+ajouter mots clÃ©s pour les concepts
 nuancer ("il faut" => "on pourrait faire")
 
 124:
 ne pas parler du virtual patching
 
 125:
-trop petit, centré
+trop petit, centrÃ©
 
 126:
 Rajouter nom en dessous des icones + lien internet
 
 127:
-trop petit, centré
-définir serveur applicatif
+trop petit, centrÃ©
+dÃ©finir serveur applicatif
 
 128:
 parler ici du virtual patching
 
 130:
-/!\ XHR n'est pas désactivé par défaut !! Sauf si serveur différent de celui qui produit la page
- insérer les noms sous les logos
+/!\ XHR n'est pas dÃ©sactivÃ© par dÃ©faut !! Sauf si serveur diffÃ©rent de celui qui produit la page
+ insÃ©rer les noms sous les logos
 
 131-133:
-préciser qu'il existe des solutions pour se protéger et les expliquer sans rentrer dans les détails
+prÃ©ciser qu'il existe des solutions pour se protÃ©ger et les expliquer sans rentrer dans les dÃ©tails
 
 136:
 pentesting => penetration testing
 
 137:
 image pas claire
-ne pas utiliser double négation
+ne pas utiliser double nÃ©gation
 
 138:
-rajouter les noms + références
-définir l'utilité de l'outil, séparer en plusieurs slides + backtrack = distrib avec tous ces outils
+rajouter les noms + rÃ©fÃ©rences
+dÃ©finir l'utilitÃ© de l'outil, sÃ©parer en plusieurs slides + backtrack = distrib avec tous ces outils
 
 139:
 virer l'exemple spam
 mieux expliquer honeypot
 
 140:
-abbréviation non expliquée et pas claire
+abbrÃ©viation non expliquÃ©e et pas claire
 
 141:
 expliquer scan de port (ou porc hoho)
 
 142:
-trop d'idées pour un seul slide (???)
+trop d'idÃ©es pour un seul slide (???)
 
 143-44:
 enlever le texte et mettre les images
 
 145:
-ajouter nom et motivation des outils, préciser outil payant-gratuit
+ajouter nom et motivation des outils, prÃ©ciser outil payant-gratuit
 
 146:
 changer image
 
 147:
 
+Contenu: Krzysztof
+==================
 
+Mettre en evidence le titre.
+Theme pour le slide de titre.
 
+Introduction
+------------
 
+Introduire le concept d'application web.
+Architecte et analyste.
 
+Slides avec deux mots, passent trop vite.
 
+Mettre une table de matieres.
 
+Psychosocio
+-----------
 
+Image de gros pc? (blague)
+HTTPS (ajouter) ca n'implique pas Secure.
+Logo PSN
+Web payment: tout centrer
+XKCD: separer en deux slides
+Les top mots de passe: changer les <- plus en rapport avec le sujet
+	liste d'exemples sur les passwords
+	trop de questions
+Les post-its: l'image ne passe pas bien (simplement les post-its)
+Introduire le social engineering.
+Faire resortir la valeur du mot de passe (rapprocher de XKCD, avant les post-its).
+Compromis: espace et faire appaitre un par un
 
+Attaques
+--------
 
+Arbre d'attaques: illisible (plus grand), un zoom.
+Avant de montrer les attaquants, les introduire.
 
+- whitehat
+- blackhat
+- personel malcontent
 
+Crime organisÃ© (pas mafia). Comptetiteurs (parts de marchÃ©) ajouter.
+
+Slide appart pour les catastrophes et les statistiques.
+Vieille mamie pour les femmes de menages.
+
+Risque: ajouter la connotation positive
+
+Likelihood: ajouter la preparation et sensibilisation
+DifficultÃ© Ã  definir l'impact => faire mieux
+
+Request response.
+Ne pas parler de session ID, qui sera introduit avant.
+
+Schema trop petit.
+DMZ: definition et zone; ne pas mettre l'IDS; web-server, application server.
+Point of failure: il est possible d'intervenir Ã  plein d'endroits.
+Parler du cloud?
+
+Top 10
+
+Ensuite, introduire le site de demo et les technologies utilisÃ©es.
+Noms et images dans la demo (exemple: image de la fac).
+Alice, Bob, Eve, Trudy, ... pour les attaques.
+bleu: gentils; rouge: mechants
+Dump des tables: n'est pas parlant
+
+Titres en minuscule.
+
+1.
+Definir escaping, etc. Expliquer mieux l'injection, la concatenation, les
+placeholders.
+
+2.
+XSS expliquer qu'il y a un deuxieme serveur. Expliquer le JSP.
+
+3.
+Meme formalisme.
+Cyber cafe: l'image fait titre, et expliquer le stockage sur les pc.
+Remplacer l'oeil par un mot.
+
+4.
+exemple avec exemple.com
+
+5.
+Revoir l'explication. Distinguer les serveurs (voir noms).
+
+6.
+Expliquer les images n'a pas d'interet.
+Out-of-the-box: mots cles tels que config par defaut.
+
+7.
+meilleure explication
+
+8.
+virer le hash
+Image hash: hash("hello"); hash("hello" + "salt"), etc. Separer les deux
+
+9.
+chien: le probleme a presque disparu en cable, mais reapparait avec les wifi
+
+10.
+meilleure explication du forwarding
+"302 Moved" => Redirect
+Redirect: identitifier le gentil et le mechant
+URL avec HTTPS
+
+DoS: faire une transition
+"charge importante => le systeme est interompu"
+pause entre les deux images
+
+Man in the Middle: faire une transition
+exemple: soumettre un virement
+
+Social engineering
+Remettre l'image XKCD
+(Rappeller les questions secretes), une fois que le mail est compromis, le reste
+peut l'etre.
+Lister quelque part les types.
+Ne plus remettre le vs pen (mettre le slide dans le premier chapitre).
+Peut-etre jetter le framework of trust.
+
+Authentification
+----------------
+
+Partie sur la crypto doit venir avant les attaques!
+Aussi mieux expliquer le session ID.
+
+Prevention
+----------
+
+Detection et Analyse
+--------------------
 
