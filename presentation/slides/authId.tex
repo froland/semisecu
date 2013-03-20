@@ -85,7 +85,7 @@ Connection: keep-alive
 \end{lstlisting}
 }
 
-%TODO : transition + display code properly
+%TODO : display code properly
 \begin{frame}
 \frametitle{How does HTTP work?}
 \Lst
@@ -403,15 +403,15 @@ A typical example is for SSL/TLS in web browsers.
 
 
 \begin{frame}
-%TODO : smaller image, Explain N + ONCE
 \frametitle{Signature challenge}
 \begin{columns}
 \begin{column}{0.6\linewidth}
-\includeimage[width=\linewidth,height=0.7\textheight]{challenge-accepted}
+\includeimage[width=\linewidth,height=0.5\textheight]{challenge-accepted}
 \end{column}
 \begin{column}{0.4\linewidth}
-\centering\Large\bfseries
-nonce
+{\bfseries\usebeamercolor[fg]{block title}N}umber
+used
+{\bfseries\usebeamercolor[fg]{block title}\\O\\N\\C\\E}
 \end{column}
 \end{columns}
 \note{
@@ -420,7 +420,8 @@ Nonce stands for number used once. It's a random number used once to avoid
 replay attacks.
 \par
 I encrypt a nonce with my correspondent's public key and ask him for the
-decrypted and encrypted message.
+decrypted and encrypted (with his private key) message.
+This way, I can verify that I am still talking with the person whom I want to speak with.
 \end{exampleblock}
 This form of authentication is often used to sign online transactions.
 }
@@ -521,51 +522,20 @@ log in again for each of them.
 \end{frame}
 
 %------------------------------------------------
-\subsection{Kerberos}
-
-%------------------------------------------------
-%TODO : too small
-\begin{frame}
-\frametitle{Kerberos}
-\includeimage[width=3cm]{logo-kerberos}
-\note{
-\textbf{Kerberos} is a SSO developed at MIT to solve the problem of allowing
-some users to use restricted resources.
-MIT provides a free implementation of the protocol but it's also found in many
-commercial products.
-}
-\end{frame}
-
-\begin{frame}
-%TODO : too small and not clear
-\frametitle{Kerberos - How does it work?}
-\includeimage[width=0.8\linewidth]{kerberos}
-\note{
-\begin{enumerate}
-\item The client gets a \emph{ticket} for a distribution center to
-authenticate itself
-\item The client gets a \emph{service ticket}
-\item The \emph{service ticket} can be used on another server
-\end{enumerate}
-}
-\end{frame}
-
-%------------------------------------------------
 \subsection{Provider extensions}
 
 %------------------------------------------------
 \begin{frame}
-%TODO : move to before Kerberos
 \frametitle{Provider extensions}
 \begin{columns}
 \begin{column}[width=\linewidth]{0.3\linewidth}
-\includeimage[width=0.8\linewidth]{openid}
+\includeimage[width=0.9\linewidth]{openid}
 \end{column}
 \begin{column}[width=\linewidth]{0.3\linewidth}
-\includeimage[width=0.8\linewidth]{logo-google}
+\includeimage[width=0.9\linewidth]{logo-google}
 \end{column}
 \begin{column}[width=\linewidth]{0.3\linewidth}
-\includeimage[width=0.8\linewidth]{logo-facebook}
+\includeimage[width=0.9\linewidth]{logo-facebook}
 \end{column}
 \end{columns}
 \note{
@@ -587,10 +557,37 @@ authenticate itself
 \end{frame}
 
 %------------------------------------------------
+\subsection{Kerberos}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Kerberos}
+\includeimage[scale=1]{logo-kerberos}
+\note{
+\textbf{Kerberos} is a SSO developed at MIT to solve the problem of allowing
+some users to use restricted resources.
+MIT provides a free implementation of the protocol but it's also found in many
+commercial products.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kerberos - How does it work?}
+\includeimage[width=0.8\linewidth]{kerberos}
+\note{
+\begin{enumerate}
+\item The client gets a \emph{ticket} for a distribution center to
+authenticate itself
+\item The client gets a \emph{service ticket}
+\item The \emph{service ticket} can be used on another server
+\end{enumerate}
+}
+\end{frame}
+
+%------------------------------------------------
 \subsection{Compromised authentication mean}
 
 %------------------------------------------------
-%TODO : image too dark
 \begin{frame}
 \frametitle{Compromised authentication mean}
 \includeimage[width=0.8\linewidth]{lost-credentials}
@@ -607,11 +604,10 @@ the user may lose its authentication mean or it can get stolen.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : too small and add side channels (post, sms,...)
 \frametitle{Example: Lost password}
 \begin{itemize}
 \item Security questions
-\item Another channel {\small (e-mail)}
+\item Another channel {\small (e-mail, post, sms)}
 \end{itemize}
 \note{
 If one of your users loses his password, he has to get a new one but doing
