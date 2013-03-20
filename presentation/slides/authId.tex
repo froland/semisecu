@@ -342,9 +342,39 @@ Certificate:
 \end{frame}
 
 \begin{frame}
-%TODO : change schema + remove CA explanation from notes
+%TODO : move slide before the previous one and simplify schema
+\frametitle{Obtaining a certificate}
+\includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
+\note{
+\begin{itemize}
+\item When a website owner wants a certificate, he generates a public-private
+key pair and then sends it to a CA.
+\item The CA checks the integrity of the request and performs some checks on
+the identity of the owner. Finally, it signs the certificate.
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
 \frametitle{Certificates - How are they used?}
-\includeimage[width=0.8\linewidth,height=0.75\textheight]{ssl-handshake}
+\includeimage[scale=0.7]{one-way-ssl}
+\note{
+\begin{block}{One-way authentication}
+The browser authenticates the server but the opposite isn't true.
+\newline Common on the web.
+\end{block}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Certificates - How are they used?}
+\includeimage[scale=0.7]{two-way-ssl}
+\note{
+\begin{block}{Two-way authentication}
+Both ends are authenticated.
+\end{block}
+}
+
 \note{
 Certificates are often used as a mean to distribute keys in a public
 key infrastructure (PKI).
@@ -362,42 +392,6 @@ A typical example is for SSL/TLS in web browsers.
 }
 \end{frame}
 
-\begin{frame}
-%TODO : move slide before the previous one and simplify schema
-\frametitle{Obtaining a certificate}
-\includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
-\note{
-\begin{itemize}
-\item When a website owner wants a certificate, he generates a public-private
-key pair and then sends it to a CA.
-\item The CA checks the integrity of the request and performs some checks on
-the identity of the owner. Finally, it signs the certificate.
-\end{itemize}
-}
-\end{frame}
-
-\begin{frame}
-%TODO : change schema => client = web browser, server = web server
-\frametitle{One-way certification}
-\includeimage[scale=0.7]{one-way-ssl}
-\note{
-\begin{block}{One-way authentication}
-The browser authenticates the server but the opposite isn't true.
-\newline Common on the web.
-\end{block}
-}
-\end{frame}
-
-\begin{frame}
-%TODO : change schema => client = web browser, server = web server
-\frametitle{Two-way certification}
-\includeimage[scale=0.7]{two-way-ssl}
-\note{
-\begin{block}{Two-way authentication}
-Both ends are authenticated.
-\end{block}
-}
-\end{frame}
 
 \begin{frame}
 %TODO : smaller image, Explain N + ONCE

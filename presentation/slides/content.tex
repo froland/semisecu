@@ -5,7 +5,7 @@
 
 The purpose of this document is to introduce the basics concepts of
 security in web application. In the software engeneering world, web
-applications share some specific: they use many elemnts, some of them
+applications share some specifics: they use many elements, some of them
 beyond the control of the developer. Each of them can be a security
 breach or an opportunity to prevent some attacks. We want to stress
 out that security isn't limited to systems and cryptography. It
@@ -15,7 +15,7 @@ the right trade-off between usability and security or even the project
 manager who has to think about it while keeping the balance between
 cost, time and quality. Moreover, it is also important to be able to
 identify an eventual attack and to diagnose it afterwards. Both of
-theses capabilities require money, competency but above all it
+these capabilities require money and competency but above all it
 requires preparation. 
 
 \section{Psycho-sociological Aspects}
@@ -73,6 +73,229 @@ measures, simple or more complex passwords, plain text or encoded data, etc.
 It is easier to just use a service without worrying about anything, still
 security checks and authorization are necessary to ensure that the data is
 quite safe.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Authentication and identity}
+
+The \emph{identity} of somebody is who they claim to be.
+The \emph{authentication} is the act of asserting the identity of something or
+someone.
+Authentication is needed when you want to transmit confidential
+information, you want to be sure that your correspondent isn't
+impersonated by somebody else.
+The \emph{authorization} is the act of determining whether the user has the
+permission to perform some action.
+Beware that authentication by itself does not imply confidentiality.
+
+\subsection{Technical introduction}
+
+\subsubsection*{HTTP}
+
+\begin{lstlisting}[style=beamer]
+@GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
+Host: en.wikipedia.org
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+@Cookie@: mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx; ...
+Connection: keep-alive
+...
+\end{lstlisting}
+
+A \emph{request} consists of a method (\texttt{GET}, \texttt{POST}, ...), a
+resource path and options such as the host, the user-agent, cookies, etc.
+The \emph{response} follows the same schema and is followed by the content.
+
+HTTP is \emph{stateless}: no information is saved between requests.
+To overcome this limitation, cookies were introduced. These are key-value data
+stored on the client's computer. They are sent in each request and can be
+defined in the response by the server.
+
+To track clients, websites use a session ID cookie for each client.
+It is a "unique number" generated when the user accesses the website for the
+first time. There is still no guarantee that this number is unique, even if
+conflicts are improbable.
+\newline
+\subsubsection*{Cryptography introduction}
+
+\paragraph{Symmetric cryptography}
+The goal of the encryption is to obtain a message in a way that is readable
+only by the authorized parties.
+This encryption can be symmetric, that is, a single key is used to encode and
+decode the message.
+\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
+Widespread symmetric cryptography algorithms are AES, DES, Twofish.
+
+\paragraph{Asymmetric cryptography}
+A private-public key pair is used to realize asymmetric encryption. The
+message is encrypted with the public key and decrypted with the private key.
+\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+
+Widespread cryptography algorithms are RSA, Diffie-Hellman, DSA.
+
+\paragraph{Symmetric versus Asymmetric}
+
+\begin{description}
+\item[Symmetric]
+faster, need a pre-shared key and all the people holding the key can
+decrypt the message.
+\item[Asymmetric]
+slower but does not need a pre-shared key, messages can be decrypted by the
+person holding the right key.
+\end{description}
+
+The usual usage is to use asymmetric algorithm to exchange keys and then
+symmetric algorithm is used for the rest of the connection as it is faster.
+
+By definition, the public key is shared.
+To encrypt a message, you use the recipient's public key. This way he is the
+only one who can decrypt it.
+
+\paragraph{Signatures}
+The signature is then a mean to authenticate the identity of the sender of a
+message.
+The signature is made using your private key.
+It is the encrypted hash of a message.
+The hash is a fixed size string built using an irreversible function from a
+message. Hashes are used to guarantee the \emph{integrity} of the document.
+
+\subsection{Types of authentication}
+
+\subsubsection{Password}
+This is the most common form of authentication.
+Passwords must have a sufficient complexity and must be easy to change
+periodically.
+Complexity has to be checked on both client and server side.
+People should use different passwords for different services.
+
+\subsubsection{One time Passwords}
+One time passwords are used to prevent replay attacks.
+The main difficulty of this technique is to give users their passwords
+(logistical problem).
+This technique is used mainly by services who can afford big infrastructures
+(banks, states,\ldots).
+
+\subsubsection{Signature challenge}
+A challenge use a nonce, this stands for number used once.
+It's a random number used once to avoid replay attack.
+The nonce is encrypted with the correspondent's public key and he is then
+asked for the decrypted and encrypted message.
+This form of authentication is often used to sign online transactions.
+
+\subsubsection{Certificates}
+A trusted authority issues certificates to confirm the identity of something.
+They are used in SSL or TLS.
+Only one participant of the conversation can be certified (client or server)
+or both.
+A Public Key Infrastructure (PKI) can be used to distribute public keys in a
+secure way. The role of the PKI is to validate the identity of the owner of
+the key.
+A typical example is for SSL/TLS in web browsers. A CA is a Certification
+Authority, an entity that issues digital certificates.
+\begin{itemize}
+\item Each CA does generate its public-private key pair. They self-sign their
+certificates with their public key
+\item Browsers are distributed with some pre-installed certificates. You can
+also add them manually
+\item When websites want to sign a message, they sign it with their private
+key and send the signed object and their certificate
+\item The browser checks the certificates against the CA certificate and the
+message against the checked certificate
+\end{itemize}
+
+\paragraph{How to obtain a certificate ?}
+When a website owner wants a certificate, he generates a public-private key
+pair and then sends it to a CA.
+The CA checks the integrity of the request and performs some checks on the
+identity of the owner. Finally, it signs the certificate.
+
+\subsubsection{Token}
+Something which ownership gives a form of identification.
+For example: Keys, Bank cards, Badges, Digipass, ...
+
+\subsubsection{2-factor authentication}
+Identify the entity using multiple authentication methods.
+This way, if one method is compromised, the attacker will not still be able to
+log into the system.
+The authentication methods are the following:
+\begin{itemize}
+\item What it \emph{is} (biometrics)
+\item What it \emph{owns} (bank card,...)
+\item What it \emph{knows} (password, pin code,...)
+\end{itemize}
+
+\subsection{Single Sign-On}
+\begin{quote}
+The SSO is a property of access control of multiple related but independent
+software systems. With this property a user logs in once and gains access to
+all systems without being prompted to log in again for each of them.
+-- Wikipedia
+\end{quote}
+
+\begin{description}
+\item[Pro]
+\hfill
+\begin{itemize}
+\item Easier for the user
+\item Implementation already exist
+\item If they have only one password, users tend to treat it with more care
+\item Enter the password less often
+\end{itemize}
+\item[Cons]
+\hfill
+\begin{itemize}
+\item All your eggs in the same basket (impact greater if compromised)
+\item You are dependent upon your provider (confidence, availability,\ldots)
+\end{itemize}
+\end{description}
+
+\subsection{Kerberos}
+Kerberos is a SSO implementation developed at MIT to solve the problem of
+allowing some users to use restricted resources. MIT provides a free
+implementation of the protocol but it's also found in many commercial
+products.
+
+\paragraph{How it works}
+\begin{enumerate}
+\item The client gets a ticket from a distribution center to authenticate itself
+\item The client gets a service ticket
+\item The service ticket can be used on another server
+\end{enumerate}
+
+\subsection{Provider extensions}
+Common SSO used over the web:
+\begin{itemize}
+\item \href{http://www.facebook.com/}{Facebook account}
+\item \href{http://google.com/}{Google}
+\item OpenID (\href{http://myopenid.com/}{myOpenID},
+\href{http://claimid.com/}{ClaimID},
+\href{http://pip.verisignlabs.com/}{VeriSign}, etc.)
+\end{itemize}
+These organisations provide single sign-on to other websites for free
+using a dedicated API which is much simpler than devising your own
+sign-on mechanism.
+
+\subsection{Compromised authentication}
+When you implement authentication you have to take into account that the user
+may lose its authentication mean or it can get stolen.
+
+The process for revoking the authentication is the following:
+\begin{enumerate}
+\item Deactivate a compromised authentication mean
+\item Authenticate the user with a still safe mean
+\item Give the user a new primary authentication mean
+\end{enumerate}
+
+\subsubsection*{Password recovery}
+Still a usability versus security trade-off.
+How to do it properly?
+\begin{enumerate}
+\item Use of security question or other strong authentication
+\item Send a token over a side channel
+\item Allow the user to change password
+\item Confirm change
+\end{enumerate}
+Beware that an attacker may use social engineering to get answers to security
+questions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Attack}
@@ -153,77 +376,6 @@ between, we can find firewalls, demilitarized zones and others.
 Any component may fail: whether the web site continues to work depends on the
 duplication of components on the network. A single point of failure is a part
 of the system such that when it fails the system stop to work properly.
-
-\subsection{Technical introduction}
-
-\subsubsection*{HTTP}
-
-\begin{lstlisting}[style=beamer]
-@GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
-Host: en.wikipedia.org
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-@Cookie@: mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx; ...
-Connection: keep-alive
-...
-\end{lstlisting}
-
-A \emph{request} consists of a method (\texttt{GET}, \texttt{POST}, ...), a
-resource path and options such as the host, the user-agent, cookies, etc.
-The \emph{response} follows the same schema and is followed by the content.
-
-HTTP is \emph{stateless}: no information is saved between requests.
-To overcome this limitation, cookies were introduced. These are key-value data
-stored on the client's computer. They are sent in each request and can be
-defined in the response by the server.
-
-To track clients, websites use a session ID cookie for each client.
-It is a "unique number" generated when the user accesses the website for the
-first time. There is still no guarantee that this number is unique, even if
-conflicts are improbable.
-
-\subsubsection*{Cryptography introduction}
-
-\paragraph{Symmetric cryptography}
-The goal of the encryption is to obtain a message in a way that is readable
-only by the authorized parties.
-This encryption can be symmetric, that is, a single key is used to encode and
-decode the message.
-\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
-Symmetric cryptography algorithms are AES, DES, Twofish.
-
-\paragraph{Asymmetric cryptography}
-A private-public key pair is used to realize asymmetric encryption. The
-message is encrypted with the public key and decrypted with the private key.
-\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
-
-Asymmetric cryptography algorithms are RSA, Diffie-Hellman, DSA.
-
-\paragraph{Symmetric versus Asymmetric}
-
-\begin{description}
-\item[Symmetric]
-faster, need a pre-shared key and all the people holding the key can
-decrypt the message.
-\item[Asymmetric]
-slower but does not need a pre-shared key, messages can be decrypted by the
-person holding the right key.
-\end{description}
-
-The usual usage is to use asymmetric algorithm to exchange keys and then
-symmetric algorithm is used for the rest of the connection as it is faster.
-
-By definition, the public key is shared.
-To encrypt a message, you use the recipient's public key. This way he is the
-only one who can decrypt it.
-
-\paragraph{Signatures}
-The signature is then a mean to authenticate the identity of the sender of a
-message.
-The signature is made using your private key.
-It is the encrypted hash of a message.
-The hash is a fixed size string built using an irreversible function from a
-message. Hashes are used to guarantee the \emph{integrity} of the document.
 
 \subsection{Open Web Application Security Project (OWASP)}
 
@@ -545,157 +697,6 @@ As we can see, many forms of attacks exist and, as technology evolves, new
 attacks appear. So, instead of trying to fix vulnerabilities, we should focus
 on establishing strong security controls.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Authentication and identity}
-
-The \emph{identity} of somebody is who they claim to be.
-The \emph{authentication} is the act of asserting the identity of something or
-someone.
-Authentication is needed when you want to transmit confidential
-information, you want to be sure that your correspondent isn't
-impersonated by somebody else.
-The \emph{authorization} is the act of determining whether the user has the
-permission to perform some action.
-Beware that authentication by itself does not imply confidentiality.
-
-\subsection{Types of authentication}
-
-\subsubsection{Password}
-This is the most common form of authentication.
-Passwords must have a sufficient complexity and must be easy to change
-periodically.
-Complexity has to be checked on both client and server side.
-People should use different passwords for different services.
-
-\subsubsection{One time Passwords}
-One time passwords are used to prevent replay attacks.
-The main difficulty of this technique is to give users their passwords
-(logistical problem).
-This technique is used mainly by services who can afford big infrastructures
-(banks, states,\ldots).
-
-\subsubsection{Signature challenge}
-A challenge use a nonce, this stands for number used once.
-It's a random number used once to avoid replay attack.
-The nonce is encrypted with the correspondent's public key and he is then
-asked for the decrypted and encrypted message.
-This form of authentication is often used to sign online transactions.
-
-\subsubsection{Certificates}
-A trusted authority issues certificates to confirm the identity of something.
-They are used in SSL or TLS.
-Only one participant of the conversation can be certified (client or server)
-or both.
-A Public Key Infrastructure (PKI) can be used to distribute public keys in a
-secure way. The role of the PKI is to validate the identity of the owner of
-the key.
-A typical example is for SSL/TLS in web browsers. A CA is a Certification
-Authority, an entity that issues digital certificates.
-\begin{itemize}
-\item Each CA does generate its public-private key pair. They self-sign their
-certificates with their public key
-\item Browsers are distributed with some pre-installed certificates. You can
-also add them manually
-\item When websites want to sign a message, they sign it with their private
-key and send the signed object and their certificate
-\item The browser checks the certificates against the CA certificate and the
-message against the checked certificate
-\end{itemize}
-
-\paragraph{How to obtain a certificate ?}
-When a website owner wants a certificate, he generates a public-private key
-pair and then sends it to a CA.
-The CA checks the integrity of the request and performs some checks on the
-identity of the owner. Finally, it signs the certificate.
-
-\subsubsection{Token}
-Something which ownership gives a form of identification.
-For example: Keys, Bank cards, Badges, Digipass, ...
-
-\subsubsection{2-factor authentication}
-Identify the entity using multiple authentication methods.
-This way, if one method is compromised, the attacker will not still be able to
-log into the system.
-The authentication methods are the following:
-\begin{itemize}
-\item What it \emph{is} (biometrics)
-\item What it \emph{owns} (bank card,...)
-\item What it \emph{knows} (password, pin code,...)
-\end{itemize}
-
-\subsection{Single Sign-On}
-\begin{quote}
-The SSO is a property of access control of multiple related but independent
-software systems. With this property a user logs in once and gains access to
-all systems without being prompted to log in again for each of them.
--- Wikipedia
-\end{quote}
-
-\begin{description}
-\item[Pro]
-\hfill
-\begin{itemize}
-\item Easier for the user
-\item Implementation already exist
-\item If they have only one password, users tend to treat it with more care
-\item Enter the password less often
-\end{itemize}
-\item[Cons]
-\hfill
-\begin{itemize}
-\item All your eggs in the same basket (impact greater if compromised)
-\item You are dependent upon your provider (confidence, availability,\ldots)
-\end{itemize}
-\end{description}
-
-\subsection{Kerberos}
-Kerberos is a SSO implementation developed at MIT to solve the problem of
-allowing some users to use restricted resources. MIT provides a free
-implementation of the protocol but it's also found in many commercial
-products.
-
-\paragraph{How it works}
-\begin{enumerate}
-\item The client gets a ticket from a distribution center to authenticate itself
-\item The client gets a service ticket
-\item The service ticket can be used on another server
-\end{enumerate}
-
-\subsection{Provider extensions}
-Common SSO used over the web:
-\begin{itemize}
-\item \href{http://www.facebook.com/}{Facebook account}
-\item \href{http://google.com/}{Google}
-\item OpenID (\href{http://myopenid.com/}{myOpenID},
-\href{http://claimid.com/}{ClaimID},
-\href{http://pip.verisignlabs.com/}{VeriSign}, etc.)
-\end{itemize}
-These organisations provide single sign-on to other websites for free
-using a dedicated API which is much simpler than devising your own
-sign-on mechanism.
-
-\subsection{Compromised authentication}
-When you implement authentication you have to take into account that the user
-may lose its authentication mean or it can get stolen.
-
-The process for revoking the authentication is the following:
-\begin{enumerate}
-\item Deactivate a compromised authentication mean
-\item Authenticate the user with a still safe mean
-\item Give the user a new primary authentication mean
-\end{enumerate}
-
-\subsubsection*{Password recovery}
-Still a usability versus security trade-off.
-How to do it properly?
-\begin{enumerate}
-\item Use of security question or other strong authentication
-\item Send a token over a side channel
-\item Allow the user to change password
-\item Confirm change
-\end{enumerate}
-Beware that an attacker may use social engineering to get answers to security
-questions.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prevention}
