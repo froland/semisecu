@@ -33,5 +33,5 @@ digraph SessionHijacking {
 
 	edge [ label = "SessionID = 93e5a243600c32c0" ]
 	Client -> Server
-	Attacker -> Server
+	Attacker -> Server [ fontcolor = "#C00000" ]
 }

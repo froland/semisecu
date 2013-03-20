@@ -21,14 +21,15 @@ whole life cycle of the application.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Architecture}
+% TODO: ajouter une image du livre?
 \begin{quote}
-\scriptsize
-The {\large highest-level breakdown} of a system into its parts; the decisions that are
-{\large hard to change}; there are multiple architectures in a system; what is
+\begin{small}
+The {\Large highest-level breakdown} of a system into its parts; the decisions that are
+{\Large hard to change}; there are multiple architectures in a system; what is
 architecturally significant can change over a system's lifetime; and, in the
-end, architecture boils down to whatever the {\large important stuff} is.
+end, architecture boils down to whatever the {\Large important stuff} is.
 \newline \textit{-- Martin Fowler, Patterns of Enterprise Application Architecture}
-\normalsize
+\end{small}
 \end{quote}
 \note{
 Definition of \emph{architecture}.
@@ -65,10 +66,10 @@ Question examples:
 \begin{frame}
 \frametitle{Development: tips and tricks}
 \begin{itemize}
-\item Passwords
-\item Session management
-\item Input validation
-\item Ad hoc protection
+\item<+-> Passwords
+\item<+-> Session management
+\item<+-> Input validation
+\item<+-> Ad hoc protection
 \end{itemize}
 \note{
 There are lots of best practices that can make your application more
@@ -81,8 +82,8 @@ lock-out, ...
 \emph{secure} flag for sensitive cookies, implementing an easily accessible logout, ...
 \item Input validation: always on server side, use a positive
   approach
-\item Use ad-hoc protection for known attacks. Ad-hoc protection means a protection specialized for a particular attack in
-this context.
+\item Use ad-hoc protection for known attacks. Ad-hoc protection means a
+protection specialized for a particular attack in this context.
 \end{itemize}
 }
 \end{frame}
@@ -91,6 +92,8 @@ this context.
 \begin{frame}
 \frametitle{Secure development cycle}
 \includeimage[width=0.7\linewidth,height=0.7\textheight]{microsoft-sdl-shield}
+% TODO le texte est trop petit et illisible
+% -> à remplacer par des bullet-points ou a jetter
 {\small Code review, Pentesting, Training,\ldots}
 \note{
 A secure development cycle should set aside some time for:
@@ -161,8 +164,8 @@ Spring
 \begin{column}{0.45\linewidth}
 \begin{figure}
 \includeimage[width=0.8\linewidth]{logo-esapi}
-ESAPI 
-\newline \scriptsize{\url{https://www.owasp.org}}
+ESAPI
+\newline \scriptsize{\url{https://www.owasp.org/}}
 \end{figure}
 \end{column}
 \end{columns}
@@ -186,7 +189,10 @@ The ESAPI libraries also serve as a solid foundation for new development.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Security in application servers}
-Application server = the program that runs the web application.
+% TODO definition inconsistante avec le style de la presentation
+% (besoin de mettre ca sur le slide?)
+Application server = the program that runs the web application
+\vspace{1em}
 \begin{itemize}
 \item Authentication management
 \item Directory listing disabling
@@ -266,8 +272,8 @@ communications.
 \subsection{Browser restrictions}
 
 %------------------------------------------------
-%TODO : insert name under logos
 \begin{frame}
+% TODO: Image "Javascript" => "JavaScript"
 \frametitle{Browser restrictions}
 \includeimage[width=0.9\linewidth,height=0.9\textheight]{browser-security-subtitled}
 \note{
