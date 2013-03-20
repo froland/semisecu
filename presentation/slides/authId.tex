@@ -79,7 +79,7 @@ For that, we have encryption.
 Host: en.wikipedia.org
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-@Cookie@: @mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx@; centralnotice_bannercount...
+@Cookie@: @mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx@; 
 Connection: keep-alive
 ...
 \end{lstlisting}
@@ -111,7 +111,6 @@ client. But... the client can send anything.
 \subsubsection*{Cryptography introduction}
 
 
-%TODO note : mention exemple encryption algorithm ? 
 \begin{frame}
 \frametitle{Symmetric cryptography}
 \includeimage[width=0.8\linewidth]{cryptography-symm}
@@ -145,7 +144,6 @@ RSA, DSA, ...
 }
 \end{frame}
 
-%TODO : image too small
 \begin{frame}
 \frametitle{Public-private keys}
 \includeimage[width=\linewidth,height=\textheight]{ppk}
@@ -186,12 +184,13 @@ then switches to a \emph{symmetric} algorithm as it is faster.
 \end{frame}
 
 \begin{frame}
-%TODO : explain the motivation of hash functions
 \frametitle{Signatures}
 \includeimage[width=\linewidth]{signature-schema}
 \note{
 \begin{block}{Hash}
-Fixed-size bit string built using an irreversible function from a message.
+Fixed-size string built using an irreversible function from a message.
+It's simple to use and a hash has a relatively small size. 
+Signing the hash is more convenient than signing the whole message.
 \newline Guarantees \emph{integrity}.
 \end{block}
 \begin{block}{Signature}
@@ -212,7 +211,6 @@ Mean to authenticate the identity of the sender of a message.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : explain WHY different passwords for each site
 \frametitle{Password}
 \includeimage[width=0.6\linewidth]{login}
 \note{
@@ -240,10 +238,10 @@ letter, etc.)
 \end{frame}
 
 \begin{frame}
-%TODO : ComicStrip is too small, too long, remove pics and explain orally
 \frametitle{Password strength}
 \includeimage[height=0.75\textheight,width=\linewidth]{xkcd936_password_strength}
 \note{
+Explain the comic strip orally 
 A passphrase vs a common password.
 }
 \end{frame}
@@ -293,7 +291,15 @@ least pseudo-random way.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Certificates}
-\includeimage[width=\linewidth,height=0.7\textheight]{certificatesVariety}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\includeimage[scale=0.5]{certificatesVariety1}
+\end{column}
+\begin{column}{0.5\linewidth}
+\includeimage[scale=0.5]{certificatesVariety2}
+\end{column}
+\end{columns}
+\includeimage[scale=0.5]{certificatesVariety3}
 \note{
 A trusted authority (Certification Authority) issues certificates to
 confirm the identity of something. Those certificates may be of varying
@@ -346,6 +352,20 @@ Certificate:
 \end{frame}
 
 \begin{frame}
+%TODO : simplify schema
+\frametitle{Obtaining a certificate}
+\includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
+\note{
+\begin{itemize}
+\item When a website owner wants a certificate, he generates a public-private
+key pair and then sends it to a CA.
+\item The CA checks the integrity of the request and performs some checks on
+the identity of the owner. Finally, it signs the certificate.
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
 %TODO : change schema + remove CA explanation from notes
 \frametitle{Certificates - How are they used?}
 \includeimage[width=0.8\linewidth,height=0.75\textheight]{ssl-handshake}
@@ -362,20 +382,6 @@ A typical example is for SSL/TLS in web browsers.
   theirs private key and send the signed object and theirs certificates.
 \item The browser checks the certificates against the CA
   certificate and the message against the checked certificate.
-\end{itemize}
-}
-\end{frame}
-
-\begin{frame}
-%TODO : move slide before the previous one and simplify schema
-\frametitle{Obtaining a certificate}
-\includeimage[width=0.8\linewidth,height=0.75\textheight]{certification-process}
-\note{
-\begin{itemize}
-\item When a website owner wants a certificate, he generates a public-private
-key pair and then sends it to a CA.
-\item The CA checks the integrity of the request and performs some checks on
-the identity of the owner. Finally, it signs the certificate.
 \end{itemize}
 }
 \end{frame}
