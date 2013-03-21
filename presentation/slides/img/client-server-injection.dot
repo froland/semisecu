@@ -1,7 +1,7 @@
 digraph Injection {
 	rankdir = LR
 	ranksep = 1
-	node [ shape = none ]
+	node [ shape = none, fontsize=35 ]
 
 	{
 		Attacker [ label =

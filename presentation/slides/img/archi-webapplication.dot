@@ -2,8 +2,8 @@ digraph ArchiWebApp {
 	rankdir = LR
 	ranksep = 0.4
 	nodesep = 0.5
-	node [ shape = none, fontsize = 20 ]
-	edge [ arrowhead = none, arrowtail = none ]
+	node [ shape = none, fontsize = 60 ]
+	edge [ arrowhead = none, arrowtail = none, fontsize = 60 ]
 
 	WebClient1 [ label =
 		<<table border="0"><tr><td>

@@ -1,7 +1,7 @@
 digraph SessionHijacking {
 	rankdir = LR
 	ranksep = 1
-	node [ shape = none ]
+	node [ shape = none, fontsize = 20 ]
 
 	{
 		Client [ label =
@@ -31,7 +31,7 @@ digraph SessionHijacking {
 		rank = max
 	}
 
-	edge [ label = "SessionID = 93e5a243600c32c0" ]
+	edge [ label = "SessionID = 93a24360c", fontsize = 15 ]
 	Client -> Server
 	Attacker -> Server [ fontcolor = "#C00000" ]
 }
