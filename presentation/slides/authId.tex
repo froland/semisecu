@@ -78,14 +78,13 @@ For that, we have encryption.
 @GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
 Host: en.wikipedia.org
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-@Cookie@: @mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx@; 
+Accept: text/html,application/xhtml+xml, application/xml;q=0.9,*/*;q=0.8
+@Cookie@: @mediaWiki.user.id=m5MFt3bI4Lrx@; 
 Connection: keep-alive
 ...
 \end{lstlisting}
 }
 
-%TODO : display code properly
 \begin{frame}
 \frametitle{How does HTTP work?}
 \Lst
@@ -311,10 +310,14 @@ quality and are most often used in SSL/TLS by web browsers.
 \begin{frame}
 \frametitle{Certificate Authority}
 \begin{itemize}
-\item 
+\item Private organism
+\item Verify the identity of certificate applicants
 \item Sign, send and maintain certificates and revocation list
-\item 
 \end{itemize}
+
+\note{
+	Bullet point
+}
 \end{frame}
 
 \defverbatim\LstA{
