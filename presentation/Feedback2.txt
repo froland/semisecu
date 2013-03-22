@@ -1,0 +1,61 @@
+Feedback
+========
+
+2013-03-22
+
+Remarques generales: Krzysztof
+==============================
+
+Prendre une boutille d'eau.
+
+"Il existe des cas..." à remplacer par un cas précis.
+
+Insister sur les *compromis*.
+
+Expliquer *pourquoi*.
+
+Vincent
+-------
+
+Continuer, sans s'eterniser sur les erreurs.
+Ne pas accelerer... c'est deja rapide.
+Les mains dans les dos.
+Regarder l'audience.
+
+Explications claires et dirigés.
+Guide bien le public.
+
+"Je vous defie de ..." à ne pas faire.
+
+Krzysztof
+---------
+
+Ne pas expliquer l'image sur le slide.
+Presentation saccadée: choisir 3-4 personnes auxquelles on explique tout.
+
+"Et donc", "là", "alors"
+
+Amene trop vite les slides. D'abord raconter et puis montrer le slide.
+
+Contenu: Krzysztof
+==================
+
+Psycho-socio
+------------
+
+XKCD
+Apres la question:
+"... j'ai une autre solution à vous proposer"
+
+Ne pas s'attarder sur "usability et security".
+
+Authentification
+----------------
+
+"Hashage et salage", comme chez le boucher
+... rattraper le slide
+
+Introduire les mechanismes d'authentification par une liste.
+
+Secret et crypto symmetrique.
+
