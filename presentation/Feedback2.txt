@@ -12,7 +12,7 @@ Prendre une boutille d'eau.
 
 Insister sur les *compromis*.
 
-Expliquer *pourquoi*.
+Expliquer *pourquoi*. Presenter bien l'objectif.
 
 Vincent
 -------
@@ -40,11 +40,17 @@ Amene trop vite les slides. D'abord raconter et puis montrer le slide.
 Contenu: Krzysztof
 ==================
 
+LE PLUS IMPORTANT: les titres, les transitions
+
 Taille des titres dans les slides entre les chapitres.
 
-Couleurs pour mettre en evidence.
+Couleurs pour mettre en evidence! (dans les images et les definitions)
 Compenser le manque des titres par des pages de titre (cf. attaques) ou alors
 mettre des titres sur les slides.
+
+Slide des references.
+
+Puis, mettre les couleurs pour indiquer la facilité d'attaques.
 
 Psycho-socio
 ------------
@@ -126,10 +132,130 @@ Ne pas mettre "Example" dans le titre dans lost password et ajouter une image
 Attaques
 --------
 
-Mamie -> remplacer par des cables arrachés
+Arbre d'attaques: s'attarder sur l'explication generale.
 
+White-hat et black-hat: ne pas en parler (l'attention importe peu)
+Pour l'exemple de crime organiser voir Maxime.
+L'image concurrence n'est pas necessaire.
+
+Mamie -> remplacer par des cables arrachés
+Prise debranché du mur.
+
+Image tornade trop petite.
+Pour les statistiques: mettre les unités et utiliser les chiffres pour l'IT.
+(Idee: données)
+
+Risque: citation en dessous et en plus petit.
+Pas besoin de resortir des mots dans cette definition.
+
+Explication trop longue pour le slide.
+
+Transition avant le HTTP.
+Taille du texte dans le detail. Insister sur l'aspect securité.
+(à reutiliser dans MitM)
+
+OWASP logo plus petit, titre plus grand
+Top 10: c'est ici que vient l'explication que c'est fait par OWASP, parcourir
+les 10; bien insister sur l'ordonencement par le risque.
+
+Application demo:
+Ne pas mettre le theme sur le slide et faire une video de l'usage normal de
+l'application.
+Pour Spring, dire que c'est du middleware; ces issues sont presentes dans
+*toutes les technologies*.
+
+PLAN A SUIVRE POUR LES ATTAQUES
 Montrer la partie de la demo
 Montrer le code qui est deriere
 Objectif: detourner l'usage
 Ensuite, montrer l'attaque
 Et finalement, la correction.
+
+1. Injection
+Les deux codes sur la meme page.
+Mettre l'accent sur le parametrage des requetes.
+Le premier bullet point doit etre au debut avant le code.
+
+2. XSS
+La demo etait plus rapide que le discours, introduire le serveur.
+Parler des frameworks plutot que des <c:out> sepecifique à JSP.
+
+3. Session
+Mettre l'URL au dessus, ajouter un titre "Session Stealing"
+Autre moyen: predire les nouveaux numeros
+
+4. ObjRef
+Trop petit, tout sur le meme slide.
+Check permission *for each request* (après une pause).
+
+5. CSRF
+<random> à remplacer
+Pour l'image expliquer que c'est bien une action.
+
+6. Misconfiguration
+Configuration par defaut, sortir le "out-of-the-box".
+
+7. Crypto Storage
+Rainbow table: plus grand, pour le texte
+
+8. URL access
+Trop petit. (cf. attaque 4)
+
+9. Transmission
+Anecdote à mettre.
+
+10. Forward and Redirect
+Trop petit et remettre alice, bob, etc. aussi les couleurs.
+
+(Finalement: insister sur la compatibilité des techniques)
+
+Comme pour la prevention, classer le reste des attaques des serveurs aux
+clients.
+
+DoS: ne pas citer les types d'attaques
+Il faut un titre pour l'exemple.
+
+"And modifying the content?" => "And altering the content?"
+
+MitM: deja plus compliqué, citer le ARP poisoning
+"espionner le contenu et meme l'alterer"
+
+Social Engineering
+Raconter l'histoire du quid pro quo.
+
+Path traversal => A jetter
+
+Automation => A jetter
+
+Common points
+Plus classifier les attaques selon les differentes categories (tous en petit).
+Presentation en accordeon.
+"Pour lutter contre le social engineering, il est bon de sensibiliser vos
+utilisateurs."
+
+Prevention
+----------
+
+Secure development cycle: texte plus petit, changer l'image (copyright) et la
+mettre en plus petit.
+
+Frameworks: Spring n'a pas sa place ici? Mettre plus de
+frameworks/technologies.
+
+Browser restriction: ne pas descendre Flash (il faut etre a jour).
+Les images ne sont pas proportionnelles aux contenu. Ajouter bien le sandbox:
+voir les notes!
+
+Detection and analysis
+----------------------
+
+Peneration testing à mettre dans prevention.
+"Avoid this situation": jetter le slide
+
+Avoir une partie outils:
+à la fin avec les references
+
+metasploit et nessus: ne pas remettre le texte
+
+Noise as a diversion: trop petit et pas lisible (mettre un focus sur une ligne)
+
