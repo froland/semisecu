@@ -3,6 +3,7 @@
 %------------------------------------------------
 
 \begin{frame}
+\begin{large}
 \begin{columns}
 \begin{column}{0.5\linewidth}
 \begin{block}{Identity}
@@ -35,7 +36,7 @@ What are you allowed to do?
 \includeimage[width=\linewidth,height=0.25\textheight]{authorization}
 \end{column}
 \end{columns}
-
+\end{large}
 \note{
 \begin{block}{Identity}
 The identity of somebody is who they claim.
@@ -79,7 +80,7 @@ For that, we have encryption.
 Host: en.wikipedia.org
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
 Accept: text/html,application/xhtml+xml, application/xml;q=0.9,*/*;q=0.8
-@Cookie@: @mediaWiki.user.id=m5MFt3bI4Lrx@; 
+@Cookie@: @mediaWiki.user.id=m5MFt3bI4Lrx@;
 Connection: keep-alive
 ...
 \end{lstlisting}
@@ -157,7 +158,7 @@ By definition, the public key is shared.
 
 \begin{frame}
 \begin{center}
-\begin{large}
+\begin{Large}
 \begin{tabular}{c|c}
 \bfseries Symmetric & \bfseries Asymmetric \\[0.5em]
 \hline
@@ -165,7 +166,7 @@ Fast & Slow \\[0.2em]
 Pre-shared key & No pre-shared key \\[0.2em]
 Owner(s) of the key & Owner of the private key \\[0.2em]
 \end{tabular}
-\end{large}
+\end{Large}
 \end{center}
 \note{
 \begin{itemize}
@@ -187,7 +188,7 @@ then switches to a \emph{symmetric} algorithm as it is faster.
 \note{
 \begin{block}{Hash}
 Fixed-size string built using an irreversible function from a message.
-It's simple to use and a hash has a relatively small size. 
+It's simple to use and a hash has a relatively small size.
 Signing the hash is more convenient than signing the whole message.
 \newline Guarantees \emph{integrity}.
 \end{block}
@@ -239,8 +240,9 @@ letter, etc.)
 \frametitle{Password strength}
 \includeimage[height=0.75\textheight,width=\linewidth]{xkcd936_password_strength}
 \note{
-Explain the comic strip orally 
-A passphrase vs a common password.
+Explain the comic strip orally.
+\par
+A \emph{passphrase} vs a \emph{common password}.
 }
 \end{frame}
 
@@ -608,10 +610,12 @@ the user may lose its authentication mean or it can get stolen.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Example: Lost password}
+\begin{Large}
 \begin{itemize}
 \item Security questions
 \item Another channel {\small (e-mail, post, sms)}
 \end{itemize}
+\end{Large}
 \note{
 If one of your users loses his password, he has to get a new one but doing
 this in a secure way can be challenging.
