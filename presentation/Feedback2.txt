@@ -40,22 +40,96 @@ Amene trop vite les slides. D'abord raconter et puis montrer le slide.
 Contenu: Krzysztof
 ==================
 
+Taille des titres dans les slides entre les chapitres.
+
+Couleurs pour mettre en evidence.
+Compenser le manque des titres par des pages de titre (cf. attaques) ou alors
+mettre des titres sur les slides.
+
 Psycho-socio
 ------------
+
+History: ne pas parler de l'image
+Internet a ete pensé au depart pour qu'il soit difficile d'interrompre le
+service. Garde devant un terminal => robuste et à usage interne.
+Texte et image trop petits.
+
+Carte de debit et pas de credit.
+
+Fleche trop petite.
+D'abord la partie de gauche, ensuite celle de droite.
+
+PSN: date de l'attaque
+
+Afficher le bic apres l'explication (apres le texte).
+En 3 etapes: juste les images sans le texte.
+Creer un effet d'attente.
 
 XKCD
 Apres la question:
 "... j'ai une autre solution à vous proposer"
+Titre ne sert à rien.
+
+Inverser l'image et la liste de mots de passe (afficher par la suite).
+
+Mettre un ecran sur l'arriere-plan. Virer la croix rouge.
+Expliquer ici le nombre avant de passer sur le slide suivant qui n'est qu'un
+exemple.
 
 Ne pas s'attarder sur "usability et security".
+Montrer bien les avantages des deux et pas seulement un coté.
+auth à gauche et pareil à droite
+Titre dans un tableau.
 
 Authentification
 ----------------
 
+Titre ou pas de titre.
+
+Symmetric cryptography changer la couleur.
+
+"tres difficile, quasi impossible"
+
+Cles sont inversés entre publique et private.
+
+Meme formalisme "vs" pour symmetric et asymmetric.
+Changer key en secret.
+
+Hash+Salt autour du slide de la signature.
+Hashage: image trop petite (+ couleurs)
 "Hashage et salage", comme chez le boucher
-... rattraper le slide
+Ajouter les objectifs: integrité et auth.
 
 Introduire les mechanismes d'authentification par une liste.
 
-Secret et crypto symmetrique.
+Deux passwords sur la page.
+OTP: On n'a pas peur! :)
+Budget pour la securité.
+Remplacer ou jetter les dés.
+Remplacer les images sur les certificats?
+Certification Authority: Verizon, etc. (images) aussi les self-sign
+Avoir les points en couleurs - certificates what are they made of?
+Citer les types des verifications pour l'obtention du certificat.
+One-way et two-way: "Browser" et "Server" sans "web"; image trop petite;
+remplacer le titre par x-way.
+NONCE trop petit.
+Tokens placer juste avant ou après les OTP.
+Multi-factor: remplacer la carte par un autre token, l'oeil -> emprunte.
+Multi-factor: meme tailles.
+"Provider extensions": changer le titre; contraste interne (kerberos;ajouter
+l'active-directory) et externe
 
+Transition avant le compromised authentication means.
+Ne pas mettre "Example" dans le titre dans lost password et ajouter une image
+(comme SMS).
+
+Attaques
+--------
+
+Mamie -> remplacer par des cables arrachés
+
+Montrer la partie de la demo
+Montrer le code qui est deriere
+Objectif: detourner l'usage
+Ensuite, montrer l'attaque
+Et finalement, la correction.
