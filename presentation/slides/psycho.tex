@@ -4,15 +4,19 @@
 
 \begin{frame}
 \frametitle{Internet Security History}
+\begin{Large}
 Army, Universities, ...
 \pause\par
 \emph{Security?}
+\end{Large}
 \pause
+% TODO une autre image?
 \includeimage[width=\linewidth,height=0.5\textheight]{mainframe}
 \note{
 The web:
 \begin{itemize}
 \item Designed in a \emph{trusted environment}
+\item Designed to resist service interruptions (\emph{robust})
 \item Became global
 \end{itemize}
 Security was not a concern in a closed environment.
@@ -26,6 +30,7 @@ Security was not a concern in a closed environment.
 \includeimage[width=\linewidth]{logo-facebook}
 \end{column}
 \begin{column}{0.4\linewidth}
+% TODO remplacer la carte par une carte de debit (et pas de credit)
 \includeimage[width=\linewidth]{visa}
 \end{column}
 \begin{column}{0.3\linewidth}
@@ -55,7 +60,7 @@ Security concerns various aspects of our internet life.
 \includeimage[width=0.9\linewidth]{https}
 \end{column}
 \begin{column}{0.1\linewidth}
-{\centering\Huge $\nRightarrow$}
+{\centering\fontsize{46pt}{52pt}\selectfont $\nRightarrow$}
 \end{column}
 \begin{column}{0.45\linewidth}
 \includeimage[width=0.9\linewidth]{secure-website}
@@ -78,7 +83,7 @@ Users may think that an HTTPS web site is secured.
 \includeimage[width=\linewidth]{logo-psn}
 \end{column}
 \begin{column}{0.6\linewidth}
-\begin{exampleblock}{PlayStation Network outage}
+\begin{exampleblock}{PlayStation Network outage (2011)}
 77 million accounts affected.
 \end{exampleblock}
 \end{column}
@@ -126,32 +131,39 @@ Visa, MasterCard, PayPal, etc.
 \end{frame}
 
 \begin{frame}
+% TODO revoir ce slide avec vos notes
+% c'est comme ca que j'ai compris... (jetter ce comment si c'est bon)
 \begin{columns}
 \begin{column}{0.4\linewidth}
 \Large
 \centering
 \emph{password}
 \end{column}
+\pause
 \begin{column}{0.2\linewidth}
 \includeimage[height=8mm]{vs}
 \end{column}
 \begin{column}{0.4\linewidth}
 \includeimage[width=\linewidth,height=3cm]{pen}
 \end{column}
-\pause
 \end{columns}
-\begin{exampleblock}{Infosecurity Europe 2003 survey}
-\begin{quote}
-\footnotesize{In a 2003 information security survey, {\Large 90\%} of office workers gave
-researchers what they claimed was their {\Large password} in answer to a
-survey question in exchange for a {\Large cheap pen}.}
-\end{quote}
+\pause
+\begin{center}
+\begin{minipage}{0.6\linewidth}
+\begin{exampleblock}{\centering Infosecurity Europe 2003 survey}
+\Large
+\centering
+90\%
 \end{exampleblock}
+\end{minipage}
+\end{center}
 \note{
 	\begin{exampleblock}{What do you trade your password for?}
 	\begin{quote}
-	90\% of people gave away their passwords in exchange for a pen.
-	--~Infosecurity~Europe~2003
+	In a 2003 information security survey, {\Large 90\%} of office workers
+	gave researchers what they claimed was their {\Large password} in answer
+	to a survey question in exchange for a {\Large cheap pen}.
+	\newline -- Infosecurity~Europe~2003
 	\end{quote}
 	\end{exampleblock}
 }
@@ -161,16 +173,17 @@ survey question in exchange for a {\Large cheap pen}.}
 \subsection{Users as a security flaw}
 
 \begin{frame}
-\frametitle{Security}
-\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security-1}
+\includeimage[height=0.9\textheight,width=\linewidth]{xkcd538_security-1}
 \note{
 How can we hack that security?
+\begin{quote}
+... I can offer you a solution.
+\end{quote}
 }
 \end{frame}
 
 \begin{frame}
-\frametitle{Security}
-\includeimage[height=0.75\textheight,width=\linewidth]{xkcd538_security-2}
+\includeimage[height=0.9\textheight,width=\linewidth]{xkcd538_security-2}
 \note{
 \begin{itemize}
 \item Users can divulge their credentials
@@ -190,6 +203,10 @@ and eventually steal his identity.
 
 \begin{frame}
 \begin{columns}
+\begin{column}{0.6\linewidth}
+\includeimage[height=0.6\textheight,width=\linewidth]{most-common-password-list}
+\end{column}
+\pause
 \begin{column}{0.4\linewidth}
 \begin{enumerate}
 \item password
@@ -205,9 +222,6 @@ and eventually steal his identity.
 \item ...
 \end{enumerate}
 \end{column}
-\begin{column}{0.6\linewidth}
-\includeimage[height=0.6\textheight,width=\linewidth]{most-common-password-list}
-\end{column}
 \end{columns}
 \note{
 	Remembering multiple passwords is... \emph{difficult}.
@@ -220,17 +234,22 @@ and eventually steal his identity.
 }
 \end{frame}
 
-
+{
+% Includes a background image in this block
+% however, it does not appear in the notes
+\usebackgroundtemplate{\includegraphics[width=2\paperwidth]{img/monitor}}
 \begin{frame}
-\includeimage[width=2cm]{code-bad}
 \includeimage[scale=0.6]{password-post-its}
 \note{
 Don't do that...
+\begin{block}{Why?}
+Because users have too many too much complicated passwords.
+\end{block}
 }
 \end{frame}
+}
 
 \begin{frame}
-\includeimage[width=2cm]{code-good}
 \begin{itemize}
 \item 1password \\ \url{https://agilebits.com/onepassword}
 \item lastpass \\ \url{https://lastpass.com}
@@ -253,15 +272,19 @@ Online services for storing passwords:
 
 \subsection{Trade-off: security vs usability}
 \begin{frame}
-\frametitle{Security versus Usability}
 \begin{center}
 \begin{Large}
 \begin{tabular}{rcl}
+\Huge\bfseries Security
+& \includegraphics[width=5mm]{img/vs} &
+\Huge\bfseries Usability
+\\[2em]
 \pause
 secure password & \includegraphics[width=5mm]{img/vs} & simple password
 \\[2em]
 \pause
-authorization checks & \includegraphics[width=5mm]{img/vs} & no authentication
+authentication & \includegraphics[width=5mm]{img/vs} & no authentication
+% was "authorization checks" on the left side
 \\[2em]
 \pause
 encoded data & \includegraphics[width=5mm]{img/vs} & plain text
