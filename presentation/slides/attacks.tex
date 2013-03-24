@@ -761,26 +761,6 @@ The database backup is lost.
 }
 \end{frame}
 
-\begin{frame}
-\frametitle{Hash + Salt}
-\begin{center}
-hash("hello") = "b1946ac92492d2347c6235b4d2611184" \\[1cm]
-\begin{flushright}
-\includegraphics[width=1.5cm]{img/icon-salt}
-\end{flushright}
-hash("hello", salt1) = "5b1cdd3502528d92b16925aebb99e785" \\
-hash("hello", salt2) = "72a11579b4256c9f604875ea17dbd803" \\
-\end{center}
-\note{
-Ensure passwords are hashed with a standard algorithm and a different salt is
-used for each password.
-\begin{itemize}
-\item Prevents \emph{rainbow table} attacks
-\item Both the hash and salt are stored in a database
-\end{itemize}
-}
-\end{frame}
-
 \subsubsection{Attack 8 - Failure to Restrict URL Access}
 
 \defverbatim[colored]\Lst{

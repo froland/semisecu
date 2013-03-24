@@ -1,14 +1,16 @@
 digraph Signature {
 	rankdir = LR
 	margin = 0
+	ranksep = 0.3
+	nodesep = 1.5
 	node [ shape = none ]
 
-	Input [ shape = box, fontsize = 35 ]
-	HashFunction [ label = "hash()", fontsize = 35 ]
-	Hash [ shape = box, label = "\"6f5902ac237024bd\"", fontsize = 35]
-	PrivateKey [ shape = box, label = "Private key", fontsize = 35 ]
-	Encryption [ label = "encrypt()", fontsize = 35 ]
-	Signature [ shape = box, label = "Digital Signature", fontsize = 35 ]
+	Input [ shape = box ]
+	HashFunction [ label = "hash()" ]
+	Hash [ shape = box, label = "\"6f5902ac237024bd\"" ]
+	PrivateKey [ shape = box, label = "Private key" ]
+	Encryption [ label = "encrypt()" ]
+	Signature [ shape = box, label = "Digital\nSignature" ]
 
 	Input -> HashFunction -> Hash
 	{ Hash PrivateKey } -> Encryption -> Signature

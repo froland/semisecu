@@ -54,7 +54,6 @@ action.
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Why authentication?}
 \begin{center}
 \Large{\textbf{Identification and confidentiality}}
 \end{center}
@@ -113,6 +112,7 @@ client. But... the client can send anything.
 
 \begin{frame}
 \frametitle{Symmetric cryptography}
+% TODO changer la couleur de la clé (le rouge ne passe pas bien)
 \includeimage[width=0.8\linewidth]{cryptography-symm}
 \note{
 \begin{block}{Encryption}
@@ -146,6 +146,7 @@ RSA, DSA, ...
 
 \begin{frame}
 \frametitle{Public-private keys}
+% TODO les couleurs sont inversées pour les clefs
 \includeimage[width=\linewidth,height=\textheight]{ppk}
 \note{
 By definition, the public key is shared.
@@ -159,12 +160,23 @@ By definition, the public key is shared.
 \begin{frame}
 \begin{center}
 \begin{Large}
-\begin{tabular}{c|c}
-\bfseries Symmetric & \bfseries Asymmetric \\[0.5em]
-\hline
-Fast & Slow \\[0.2em]
-Pre-shared key & No pre-shared key \\[0.2em]
-Owner(s) of the key & Owner of the private key \\[0.2em]
+\begin{tabular}{rcl}
+\bfseries Symmetric
+& \includegraphics[width=5mm]{img/vs} &
+\bfseries Asymmetric
+\\[0.5em]
+Fast
+& \includegraphics[width=5mm]{img/vs} &
+Slow
+\\[0.2em]
+Pre-shared secret
+& \includegraphics[width=5mm]{img/vs} &
+No pre-shared secret
+\\[0.2em]
+Owner(s) of the secret
+& \includegraphics[width=5mm]{img/vs} &
+Owner of the private secret
+\\[0.2em]
 \end{tabular}
 \end{Large}
 \end{center}
@@ -190,11 +202,32 @@ then switches to a \emph{symmetric} algorithm as it is faster.
 Fixed-size string built using an irreversible function from a message.
 It's simple to use and a hash has a relatively small size.
 Signing the hash is more convenient than signing the whole message.
-\newline Guarantees \emph{integrity}.
+\newline\bfseries Guarantees \emph{integrity}.
 \end{block}
 \begin{block}{Signature}
 Mean to authenticate the identity of the sender of a message.
+\newline\bfseries Signing the hash guarantees the identity.
 \end{block}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hash + Salt}
+\begin{center}
+hash("hello") = "b1946ac92492d2347c6235b4d2611184" \\[1cm]
+\begin{flushright}
+\includegraphics[width=1.5cm]{img/icon-salt}
+\end{flushright}
+hash("hello", salt1) = "5b1cdd3502528d92b16925aebb99e785" \\
+hash("hello", salt2) = "72a11579b4256c9f604875ea17dbd803" \\
+\end{center}
+\note{
+Ensure passwords are hashed with a standard algorithm and a different salt is
+used for each password.
+\begin{itemize}
+\item Prevents \emph{rainbow table} attacks
+\item Both the hash and salt are stored in a database
+\end{itemize}
 }
 \end{frame}
 
@@ -206,11 +239,14 @@ Mean to authenticate the identity of the sender of a message.
 \begin{center}
 \Huge{\textbf{Authentication means}}
 \end{center}
+% TODO list the authentication means before presenting them
+\note{
+% TODO missing note
+}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Password}
 \includeimage[width=0.6\linewidth]{login}
 \note{
 \begin{itemize}
@@ -248,6 +284,25 @@ A \emph{passphrase} vs a \emph{common password}.
 
 %------------------------------------------------
 \begin{frame}
+\frametitle{Tokens}
+\includeimage[width=0.7\linewidth,height=0.6\textheight]{token}
+\note{
+\textbf{Token} are something of which ownership gives a form of
+authentication.
+\begin{exampleblock}{Forms in everyday life}
+\begin{itemize}
+\item Keys
+	{\small (car keys $\Rightarrow$ driving the car)}
+\item Bank cards
+\item Badges
+\item Digipass
+\end{itemize}
+\end{exampleblock}
+}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
 \frametitle{One time passwords}
 \includeimage[width=0.8\linewidth,height=0.7\textheight]{one-time-password}
 \note{
@@ -271,6 +326,7 @@ single use.
 \frametitle{One time passwords - choice and distribution}
 \begin{columns}
 \begin{column}{0.5\linewidth}
+% TODO replace or remove the following image
 \includeimage[width=\linewidth,height=0.7\textheight]{dice}
 \end{column}
 \begin{column}{0.5\linewidth}
@@ -291,6 +347,7 @@ least pseudo-random way.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Certificates}
+% TODO change images?
 \begin{columns}
 \begin{column}{0.5\linewidth}
 \includeimage[scale=0.5]{certificatesVariety1}
@@ -314,30 +371,33 @@ quality and are most often used in SSL/TLS by web browsers.
 \item Verify the identity of certificate applicants
 \item Sign, send and maintain certificates and revocation list
 \end{itemize}
+% TODO add examples: Verizon, etc.
+% TODO parler des self-signature au niveau CA
 \note{
 	Bullet points.
 }
 \end{frame}
 
-\defverbatim\LstA{
-\begin{lstlisting}
+\defverbatim[colored]\LstA{
+% TODO revoir les parties en couleur (entre les @)
+\begin{lstlisting}[style=beamer]
 Certificate:
 	Data:
 		Version: 1 (0x0)
 		Serial Number: 7829 (0x1e95)
 		Signature Algorithm: md5WithRSAEncryption
-		Issuer: C=ZA, ST=Western Cape,...
+		@Issuer:@ C=ZA, ST=Western Cape,...
 		        OU=Certification Services Division,
 		        CN=ThawteServerCA/emailAddress=...
-		Validity
+		@Validity@
 			Not Before: Jul  9 16:04:02 1998 GMT
 			Not After : Jul  9 16:04:02 1999 GMT
 \end{lstlisting}
 }
-\defverbatim\LstB{
-\begin{lstlisting}
-		Subject: C=US, ST=Maryland,...
-		         OU=FreeSoft, CN=www.freesoft.org
+\defverbatim[colored]\LstB{
+\begin{lstlisting}{style=beamer}
+		@Subject: C=US, ST=Maryland,...@
+		         @OU=FreeSoft, CN=www.freesoft.org@
 		Subject Public Key Info:
 			Public Key Algorithm: rsaEncryption
 			RSA Public Key: (1024 bit)
@@ -366,11 +426,22 @@ key pair and then sends it to a CA.
 \item The CA checks the integrity of the request and performs some checks on
 the identity of the owner. Finally, it signs the certificate.
 \end{itemize}
+\begin{block}{Verification types}
+\begin{enumerate}
+% TODO check that
+\item Online verification
+\item Document ID check
+\item Physical identity check
+\end{enumerate}
+\end{block}
 }
 \end{frame}
 
+% TODO one-way, two-way
+% indiquer "Browser" et "Server" dans les images
+% les images sont trop petites (=> width=\linewidth?)
 \begin{frame}
-\frametitle{Certificates - How are they used?}
+\frametitle{One-way}
 \includeimage[scale=0.7]{one-way-ssl}
 \note{
 \begin{block}{One-way authentication}
@@ -381,19 +452,19 @@ The browser authenticates the server but the opposite isn't true.
 \end{frame}
 
 \begin{frame}
-\frametitle{Certificates - How are they used?}
+\frametitle{Two-way}
 \includeimage[scale=0.7]{two-way-ssl}
 \note{
 \begin{block}{Two-way authentication}
 Both ends are authenticated.
 \end{block}
 }
-
 \note{
 Certificates are often used as a mean to distribute keys in a public
 key infrastructure (PKI).
 A typical example is for SSL/TLS in web browsers.
 \begin{itemize}
+% TODO simplifier l'explication
 \item Each CA does generate it's public-private key pair. They
   self-sign their certificates with their public key.
 \item Browsers are distributed with some pre-installed certificates.
@@ -414,6 +485,7 @@ A typical example is for SSL/TLS in web browsers.
 \includeimage[width=\linewidth,height=0.5\textheight]{challenge-accepted}
 \end{column}
 \begin{column}{0.4\linewidth}
+\LARGE
 {\bfseries\usebeamercolor[fg]{block title}N}umber
 used
 {\bfseries\usebeamercolor[fg]{block title}\\O\\N\\C\\E}
@@ -434,30 +506,13 @@ This form of authentication is often used to sign online transactions.
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Tokens}
-\includeimage[width=0.7\linewidth,height=0.6\textheight]{token}
-\note{
-\textbf{Token} are something of which ownership gives a form of
-authentication.
-\begin{exampleblock}{Forms in everyday life}
-\begin{itemize}
-\item Keys
-\item Bank cards
-\item Badges
-\item Digipass
-\end{itemize}
-\end{exampleblock}
-}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}
 \frametitle{Multi-factor authentication}
 \begin{columns}[T]
 \begin{column}{0.3\linewidth}
 \begin{center}
 \bfseries
 IS
+% TODO replace the image by a fingerprint
 \includeimage[width=\linewidth]{multifactor-is}
 \end{center}
 \end{column}
@@ -474,6 +529,8 @@ OWNS
 KNOWS
 \includeimage[width=\linewidth]{multifactor-know}
 \end{center}
+% TODO the images must be the same size
+% (personal note: the height is more important than width)
 \end{column}
 \end{columns}
 \note{
@@ -527,11 +584,11 @@ log in again for each of them.
 \end{frame}
 
 %------------------------------------------------
-\subsection{Provider extensions}
+\subsection{SSO providers}
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Provider extensions}
+\frametitle{SSO providers}
 \begin{columns}
 \begin{column}[width=\linewidth]{0.3\linewidth}
 \includeimage[width=0.9\linewidth]{openid}
@@ -589,8 +646,12 @@ authenticate itself
 }
 \end{frame}
 
+% TODO SSO: add Active Directory
+
 %------------------------------------------------
 \subsection{Compromised authentication mean}
+
+% TODO transition frame needed
 
 %------------------------------------------------
 \begin{frame}
@@ -609,13 +670,14 @@ the user may lose its authentication mean or it can get stolen.
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Example: Lost password}
+\frametitle{Lost password}
 \begin{Large}
 \begin{itemize}
 \item Security questions
 \item Another channel {\small (e-mail, post, sms)}
 \end{itemize}
 \end{Large}
+% TODO add an image (such as SMS)
 \note{
 If one of your users loses his password, he has to get a new one but doing
 this in a secure way can be challenging.
