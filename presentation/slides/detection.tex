@@ -1,6 +1,7 @@
 \section{Detection and Analysis}
 
 \subsection{Penetration testing}
+% TODO pentesting devrait etre dans la prevention
 
 \begin{frame}
 \frametitle{Penetration testing}
@@ -17,39 +18,30 @@ system with the consent of the owner in the goal of finding security holes.
 }
 \end{frame}
 
-\begin{frame}
-\begin{center}
-\LARGE
-Avoiding this situation.
-\end{center}
-\includeimage[width=\linewidth,height=0.7\textheight]{fence-fail}
-\end{frame}
-
+% TODO la partie sur les outils pourrait se trouver dans les references à la
+% fin de la presentation ou apres le prentesting
 \begin{frame}
 \frametitle{Tools - Vulnerabilities detector}
 \begin{columns}
 \begin{column}{0.55\linewidth}
 \begin{figure}
 \includeimage[width=0.8\linewidth]{logo-metasploit}
-Metasploit
-\newline {\scriptsize \url{http://www.metasploit.com/}}
+{\scriptsize \url{http://www.metasploit.com/}}
 \end{figure}
 \end{column}
 \begin{column}{0.45\linewidth}
 \begin{figure}
 \includeimage[width=0.8\linewidth]{logo-nessus}
-Nessus
-\newline {\scriptsize \url{http://www.tenable.com/}}
+{\scriptsize \url{http://www.tenable.com/}}
 \end{figure}
 \end{column}
 \end{columns}
 \note{
 \begin{itemize}
 \item \href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}:
-	identifies vulnerabilities, automates assessments
+	identifies vulnerabilities, automates assessments; attack a host
 \item \href{http://www.tenable.com/products/nessus}{Nessus}:
 	vulnerability scanner
-
 \end{itemize}
 }
 \end{frame}
@@ -228,9 +220,11 @@ real-time alerting and active response
 \end{frame}
 
 \subsubsection{Noise as a diversion}
+
 \begin{frame}
 \frametitle{Noise as a diversion}
-\includeimage[width=0.8\linewidth,height=0.7\textheight]{firewall-log}
+% TODO revoir cette image (j'ai modifié, c'est assez?)
+\includeimage[width=\linewidth,height=0.7\textheight]{firewall-log}
 \note{
 When an attack happens, it can be masked by another attack which would serve
 as a diversion from the real attack.
