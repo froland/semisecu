@@ -159,6 +159,19 @@
 \end{columns}
 }
 
+% Macro frametransition
+\newenvironment{frametransition}[1]{
+\begin{frame}
+\begin{center}
+\Huge\bfseries #1
+\end{center}
+}{
+\note{
+	Transition...
+}
+\end{frame}
+}
+
 % Begin each section with a dedicated frame
 \AtBeginSection[]{
 	\begin{frame}
