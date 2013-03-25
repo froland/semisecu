@@ -91,9 +91,7 @@ protection specialized for a particular attack in this context.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Secure development cycle}
-% TODO changer l'image (copyright)
-% trouver une autre avec un logo plus petit et texte plus grand
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{microsoft-sdl-shield}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{development-cycle}
 \note{
 A secure development cycle should set aside some time for:
 \begin{itemize}
@@ -105,6 +103,92 @@ A secure development cycle should set aside some time for:
 	%(more on frameworks later)
 \item Devising a secure configuration for deployment
 \end{itemize}
+}
+\end{frame}
+%------------------------------------------------
+
+\subsection{Penetration testing}
+
+\begin{frame}
+\frametitle{Penetration testing}
+\includeimage[width=0.7\linewidth,height=0.7\textheight]{pentesting}
+\note{
+\textbf{Penetration testing} (or pentesting) is the action of attacking a
+system with the consent of the owner in the goal of finding security holes.
+\begin{itemize}
+\item Identifying vulnerabilities
+\item Exploit vulnerabilities
+\item Testing ability to detect and respond to an attack
+\item Social engineering
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tools - Vulnerabilities detector}
+\begin{columns}
+\begin{column}{0.55\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{logo-metasploit}
+{\scriptsize \url{http://www.metasploit.com/}}
+\end{figure}
+\end{column}
+\begin{column}{0.45\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{logo-nessus}
+{\scriptsize \url{http://www.tenable.com/}}
+\end{figure}
+\end{column}
+\end{columns}
+\note{
+\begin{itemize}
+\item \href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}:
+	identifies vulnerabilities, automates assessments; attack a host
+\item \href{http://www.tenable.com/products/nessus}{Nessus}:
+	vulnerability scanner
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tools - Network}
+\begin{columns}
+\begin{column}{0.5\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{logo-nmap}
+NMAP
+\newline {\scriptsize \url{http://nmap.org/}}
+\end{figure}
+\end{column}
+\begin{column}{0.5\linewidth}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{logo-webscarab}
+WebScarab
+\newline {\scriptsize \url{https://www.owasp.org/}}
+\end{figure}
+\end{column}
+\end{columns}
+\note{
+\begin{itemize}
+\item \href{http://nmap.org/}{nmap}:
+	port scanning
+\item \href{https://www.owasp.org/index.php/Webscarab}{WebScarab}:
+	intercepting proxy
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tools - All in one}
+
+\includeimage[width=\linewidth,height=0.6\textheight]{bt5-screenshot}
+\begin{center}
+BackTrack
+\newline {\scriptsize \url{http://www.backtrack-linux.org/}}
+\end{center}
+\note{
+\href{http://www.backtrack-linux.org/}{BackTrack}:
+	Linux distribution
 }
 \end{frame}
 
@@ -153,7 +237,6 @@ Frameworks ease development while providing security mechanisms:
 %------------------------------------------------
 \begin{frame}
 \frametitle{Frameworks - examples}
-% TODO mettre une image avec plein de frameworks
 \begin{columns}
 \begin{column}{0.55\linewidth}
 \begin{figure}
@@ -161,12 +244,22 @@ Frameworks ease development while providing security mechanisms:
 Spring
 \newline \scriptsize{\url{http://www.springsource.org/}}
 \end{figure}
+\begin{figure}
+\includeimage[width=0.8\linewidth]{apache-shiro}
+Apache shiro
+\newline \scriptsize{\url{https://shiro.apache.org/}}
+\end{figure}
+
 \end{column}
 \begin{column}{0.45\linewidth}
 \begin{figure}
 \includeimage[width=0.8\linewidth]{logo-esapi}
 ESAPI
 \newline \scriptsize{\url{https://www.owasp.org/}}
+\end{figure}
+\begin{figure}
+\includeimage[width=0.7\linewidth]{dotnet-logo}
+\scriptsize{\url{https://www.microsoft.com/net}}
 \end{figure}
 \end{column}
 \end{columns}
@@ -280,7 +373,7 @@ communications.
 % * Ajouter le sandbox
 % voir les notes du slide
 \frametitle{Browser restrictions}
-\includeimage[width=0.9\linewidth,height=0.9\textheight]{browser-security-subtitled}
+\includeimage[width=0.9\linewidth,height=0.9\textheight]{browser-security2}
 \note{
 \begin{itemize}
 \item Cross-domain XMLHttpRequest (XHR) is disabled by default for other websites
