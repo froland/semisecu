@@ -1,107 +1,16 @@
 \section{Detection and Analysis}
 
-\subsection{Penetration testing}
-% TODO pentesting devrait etre dans la prevention
-
-\begin{frame}
-\frametitle{Penetration testing}
-\includeimage[width=0.7\linewidth,height=0.7\textheight]{pentesting}
-\note{
-\textbf{Penetration testing} (or pentesting) is the action of attacking a
-system with the consent of the owner in the goal of finding security holes.
-\begin{itemize}
-\item Identifying vulnerabilities
-\item Exploit vulnerabilities
-\item Testing ability to detect and respond to an attack
-\item Social engineering
-\end{itemize}
-}
-\end{frame}
-
-% TODO la partie sur les outils pourrait se trouver dans les references à la
-% fin de la presentation ou apres le prentesting
-\begin{frame}
-\frametitle{Tools - Vulnerabilities detector}
-\begin{columns}
-\begin{column}{0.55\linewidth}
-\begin{figure}
-\includeimage[width=0.8\linewidth]{logo-metasploit}
-{\scriptsize \url{http://www.metasploit.com/}}
-\end{figure}
-\end{column}
-\begin{column}{0.45\linewidth}
-\begin{figure}
-\includeimage[width=0.8\linewidth]{logo-nessus}
-{\scriptsize \url{http://www.tenable.com/}}
-\end{figure}
-\end{column}
-\end{columns}
-\note{
-\begin{itemize}
-\item \href{http://www.metasploit.com/about/penetration-testing-basics/}{Metasploit}:
-	identifies vulnerabilities, automates assessments; attack a host
-\item \href{http://www.tenable.com/products/nessus}{Nessus}:
-	vulnerability scanner
-\end{itemize}
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Tools - Network}
-\begin{columns}
-\begin{column}{0.5\linewidth}
-\begin{figure}
-\includeimage[width=0.8\linewidth]{logo-nmap}
-NMAP
-\newline {\scriptsize \url{http://nmap.org/}}
-\end{figure}
-\end{column}
-\begin{column}{0.5\linewidth}
-\begin{figure}
-\includeimage[width=0.8\linewidth]{logo-webscarab}
-WebScarab
-\newline {\scriptsize \url{https://www.owasp.org/}}
-\end{figure}
-\end{column}
-\end{columns}
-\note{
-\begin{itemize}
-\item \href{http://nmap.org/}{nmap}:
-	port scanning
-\item \href{https://www.owasp.org/index.php/Webscarab}{WebScarab}:
-	intercepting proxy
-\end{itemize}
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Tools - All in one}
-
-\includeimage[width=\linewidth,height=0.6\textheight]{bt5-screenshot}
-\begin{center}
-BackTrack
-\newline {\scriptsize \url{http://www.backtrack-linux.org/}}
-\end{center}
-\note{
-\href{http://www.backtrack-linux.org/}{BackTrack}:
-	Linux distribution
-}
-\end{frame}
-
 \subsection{Honeypot}
-%TODO : do not mention the spam project example and explain honeypot concept more clearly
 \begin{frame}
 \frametitle{Honeypot}
 \includeimage[width=0.8\linewidth,height=0.7\textheight]{honeypot}
 \note{
 A \textbf{honeypot} is a mocked website or web application that is exposed for
 attackers who try to penetrate some system. A honeypot is a non-patched server
-that is monitored for attacks and serves no other purpose.
-\begin{exampleblock}{\href{https://www.projecthoneypot.org/about_us.php}{Project Honey Pot}}
-Anti-spammer project.
-Web sites publish some fake e-mails and spammer's crawlers sending e-mail to
-such addresses are blocked.
-\end{exampleblock}
+that is monitored for attacks and serves no other purpose. Thus, all
+the traffic can be considered as an attack. The drawback of this
+approach is that you have a vulnerable server that can be used as a
+stepstone to attack other server in your network.
 }
 \end{frame}
 
@@ -126,7 +35,6 @@ take actions accordingly.
 \end{frame}
 
 \begin{frame}
-%TODO : explain port scanning
 \frametitle{NIDS - detection types}
 \begin{itemize}
 \item Signature-based detection
@@ -146,6 +54,12 @@ Detects stealth port scans, brute force attacks, etc.
 \begin{block}{Stateful protocol analysis}
 Follows a protocol conversation.
 Detects SYN port scans, etc.
+
+A port scan or portscan is "An attack that sends client requests to a
+range of server port addresses on a host, with the goal of finding an
+active port and exploiting a known vulnerability of that service."
+\url{http://encyclopedia.thefreedictionary.com/Port+scanner}
+
 \end{block}
 }
 \end{frame}
@@ -178,7 +92,6 @@ Detects SYN port scans, etc.
 \end{frame}
 
 \begin{frame}
-%TODO : remove text
 \frametitle{How to know?}
 \begin{columns}
 \begin{column}{0.5\textwidth}
@@ -223,7 +136,6 @@ real-time alerting and active response
 
 \begin{frame}
 \frametitle{Noise as a diversion}
-% TODO revoir cette image (j'ai modifié, c'est assez?)
 \includeimage[width=\linewidth,height=0.7\textheight]{firewall-log}
 \note{
 When an attack happens, it can be masked by another attack which would serve
