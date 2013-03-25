@@ -13,6 +13,8 @@ Model describing how an \emph{asset} can be attacked.
 \end{block}
 \begin{block}{Goal}
 Used to determine and understand threats that may arise.
+An asset is vulnerable when there exists a path from the root to the leaf of
+the tree.
 \end{block}
 }
 \end{frame}
@@ -55,13 +57,13 @@ Used to determine and understand threats that may arise.
 \begin{columns}
 \begin{column}{0.6\linewidth}
 \includeimage[width=\linewidth,height=4cm]{organized-crime}
-\includeimage[width=\linewidth,height=4cm]{competitors}
 \end{column}
 \begin{column}{0.4\linewidth}
 \includeimage[width=0.6\linewidth]{money}
 \end{column}
 \end{columns}
 \note{
+% TODO Maxime Mathy avait un exemple pour le crime organisé, demandez-lui.
 \begin{description}
 \item[External threats]
 	\hfill
@@ -86,6 +88,7 @@ may influence risk.
 
 \begin{frame}
 %TODO : virer la mamie et mettre une prise débranchée du mur
+% (ou des cables arrachés)
 \frametitle{Threat agents}
 \begin{columns}
 \begin{column}{0.4\linewidth}
@@ -93,7 +96,6 @@ may influence risk.
 \end{column}
 \begin{column}{0.6\linewidth}
 %\includeimage[width=\linewidth,height=4cm]{crew}
-\includeimage[width=\linewidth,height=3.5cm]{mean-old-lady}
 \end{column}
 \end{columns}
 \note{
@@ -114,28 +116,16 @@ may influence risk.
 \end{frame}
 
 \begin{frame}
-%TODO : image trop petite, virer les chiffres
 \frametitle{Threat agents}
-\includeimage[height=0.3\textheight]{disaster}
-\pause
-\begin{exampleblock}{In {\bfseries Belgium} between 1980-2010}
-\begin{center}
-\begin{tabular}{lr}
-No of events: & 39 \\
-Economic damage per year: & 69 million \\
-Gross National Product: & $\sim$ 400 milliards \\
-% vs Gross National Product (0.00017)
-\end{tabular}
-% Source:
-% http://www.preventionweb.net/english/countries/statistics/?cid=17
-\end{center}
-\end{exampleblock}
+\includeimage[width=\linewidth,height=0.75\textheight]{disaster}
+% TODO voir (peut-etre trouver des stats pour l'IT)
+% http://resource.onlinetech.com/2011-cloud-it-disaster-recovery-statistics/
 \note{
 \begin{description}
 \item[Natural threats]
 	(disasters)
 	\newline Storms, floods, earthquakes, ...
-	\newline Insignificant: 0.00017 of GNP
+	\newline Insignificant
 \end{description}
 }
 \end{frame}
@@ -144,12 +134,13 @@ Gross National Product: & $\sim$ 400 milliards \\
 \subsection{Risk}
 
 \begin{frame}
-%TODO : mieux mettre en évidence, utiliser de la couleur
 \frametitle{What is a \emph{risk}?}
 \begin{quote}
-The probable {\Large frequency} and probable {\Large magnitude} of {\Large
-future loss}.
-\textit{-- The Open Group}
+{\LARGE
+The probable {\color{emphasis} frequency} and probable {\color{emphasis}
+magnitude} of {\color{emphasis} future loss}.
+}
+\newline \textit{-- The Open Group}
 \end{quote}
 % Source:
 % http://www.riskmanagementinsight.com/media/docs/FAIR_introduction.pdf
@@ -189,13 +180,16 @@ Explanation in the next slide.
 \end{itemize}
 \end{column}
 \end{columns}
+% Explain in a KISS way
 }
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Context of web applications}
 
-%TODO : pas de transition, pas de titre
+\begin{frametransition}{How is the web structured?}
+\end{frametransition}
+
 \subsubsection{Network}
 \begin{frame}
 \includeimage[width=\linewidth,height=0.75\textheight]{client-server}
@@ -210,7 +204,6 @@ Explanation in the next slide.
 \subsubsection{Architecture of a web application}
 
 \begin{frame}
-%TODO : image trop petite
 \includeimage[width=\linewidth,height=0.8\textheight]{archi-webapplication}
 \note{
 \begin{itemize}
@@ -237,15 +230,15 @@ Solution: duplication.
 \subsection{OWASP - Top 10}
 
 \begin{frame}
-%TODO : logo + petit et police plus grande
-\centering
+\begin{center}
+{\LARGE
 {\bfseries\usebeamercolor[fg]{block title}O}pen
 {\bfseries\usebeamercolor[fg]{block title}W}eb
 {\bfseries\usebeamercolor[fg]{block title}A}pplication
 {\bfseries\usebeamercolor[fg]{block title}S}ecurity
 {\bfseries\usebeamercolor[fg]{block title}P}roject
-\includeimage[width=0.5\linewidth,height=3cm]{logo-owasp}
-\begin{center}
+}
+\includeimage[width=0.5\linewidth,height=23mm]{logo-owasp}
 \url{https://www.owasp.org/}
 \end{center}
 \note{
@@ -256,9 +249,6 @@ Solution: duplication.
 \item Books
 \item Etc.
 \end{itemize}
-\end{block}
-\begin{block}{Project: Top 10}
-OWASP compiles a top 10 of most critical web application \emph{risks}.
 \end{block}
 }
 \end{frame}
@@ -279,7 +269,8 @@ OWASP compiles a top 10 of most critical web application \emph{risks}.
 \end{enumerate}
 \note{
 \begin{block}{Project: Top 10}
-Top 10 of most critical web application \emph{risks}.
+OWASP compiles a top 10 of most critical web application \emph{risks}.
+% Insist on risk!
 \end{block}
 \begin{block}{Demo application}
 \begin{itemize}
@@ -294,34 +285,34 @@ Top 10 of most critical web application \emph{risks}.
 \begin{frame}
 \frametitle{Demo website}
 \begin{description}
-\item[Theme]
-	Hotel rating website
-	\hfill
-	\begin{itemize}
-	\item Any user can post comments
-	\item Administration to approve new hotels
-	\item Unapproved hotels are not listed
-	\end{itemize}
 \item[Technologies]
 	Java website
 	\hfill
 	\begin{itemize}
-	\item Spring - core, MVC
+	\item Spring
 	\item Hibernate - h2database
-	\item JSP
 	\end{itemize}
 \end{description}
 \note{
 Used technologies, etc. for the demo.
+\begin{block}{Generality}
+The issues presented afterwards are common to many technologies.
+\end{block}
+\begin{exampleblock}{The demo}
+Run the normal usage demo.
+% TODO make a video of the demo of the website
+% (je vais la faire)
+\end{exampleblock}
 }
 \end{frame}
 
-\begin{frame}
-\includeimage[width=\linewidth,height=0.75\textheight]{demo-website}
-\note{
-Screenshot of the demo website.
-}
-\end{frame}
+% TODO PLAN A SUIVRE POUR LES ATTAQUES
+% - Montrer la partie de la demo
+% - Montrer le code qui est deriere
+% - Objectif: detourner l'usage
+% - Ensuite, montrer l'attaque
+% - Et finalement, la correction.
+% TODO ajouter widespread, high impact pour les attaques
 
 \subsubsection{Attack 1 - Injection}
 
@@ -343,35 +334,23 @@ Easy to exploit, has a severe impact, it is quite common.
 }
 \end{frame}
 
-\defverbatim[colored]\Lst{
+\begin{frame}
+\begin{exampleblock}{\emph{THE} password}
+\includeimage[height=0.4\textheight]{the-password}
+\end{exampleblock}
+\note{
+Explanation in the following slide.
+}
+\end{frame}
+
+\defverbatim[colored]\LstBad{
 \begin{lstlisting}[style=beamer]
 String query = "select * from users"
 	+ " where user_name = '" @+ name +@ "'"
 	+ " and password = '" @+ password +@ "'";
 \end{lstlisting}
 }
-\begin{frame}
-\begin{exampleblock}{\emph{THE} password}
-\includeimage[height=0.4\textheight]{the-password}
-\pause
-\begin{embeddedcode}{bad}
-\Lst
-\end{embeddedcode}
-\end{exampleblock}
-\note{
-%\begin{exampleblock}{SQL injection - demo}
-%Getting the users' passwords as administrator.
-%\end{exampleblock}
-\begin{exampleblock}{JPQL injection - demo}
-Searching hotels that have a manager that has the same password as a given
-user.
-\end{exampleblock}
-The \emph{concatenation} is the cause of the injection: the query
-is built from unvalidated input.
-}
-\end{frame}
-
-\defverbatim[colored]\Lst{
+\defverbatim[colored]\LstGood{
 \begin{lstlisting}[style=beamer]
 String query = "select * from users"
 	+ " where @user_name = ?@"
@@ -383,21 +362,39 @@ ResultSet rs = st.executeQuery();
 \end{lstlisting}
 }
 \begin{frame}
-\begin{embeddedcode}{good}
-\Lst
+\begin{embeddedcode}{bad}
+\LstBad
 \end{embeddedcode}
-\vspace{1cm}
-\pause
+\badgoodsep
 \begin{itemize}
-\item Parametrized interface
-\item Escaping routines
-\item White list validation
+\item Parameterized interface
 \end{itemize}
+\begin{embeddedcode}{good}
+\LstGood
+\end{embeddedcode}
 \note{
+%\begin{exampleblock}{SQL injection - demo}
+%Getting the users' passwords as administrator.
+%\end{exampleblock}
+\begin{exampleblock}{JPQL injection - demo}
+Searching hotels that have a manager that has the same password as a given
+user.
+\end{exampleblock}
+The \emph{concatenation} is the cause of the injection: the query
+is built from unvalidated input.
 \begin{block}{Using parametrized interface}
 Usage of placeholders for values let's the interpreter escape and validate
 input values.
 \end{block}
+}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item Escaping routines
+\item White list validation
+\end{itemize}
+\note{
 \begin{block}{Escaping routines}
 Some languages have special functions to escape manually values.
 \end{block}
@@ -445,6 +442,7 @@ It requires an average knowledge to be exploited and the impacts are moderate.
 \end{lstlisting}
 }
 \begin{frame}
+% TODO parler plutot des frameworks que de JSP
 \begin{embeddedcode}{bad}
 \LstBad
 \end{embeddedcode}
@@ -458,6 +456,7 @@ Unescaped included text in a JSP.
 \begin{exampleblock}{Getting the user's cookies - demo}
 Just use \lstinline!document.cookie! in JavaScript and send it to
 \emph{another server}.
+\newline \textbf{Introduce the other server!}
 \end{exampleblock}
 \begin{block}{Escaping the values}
 All the values should be escaped before sending them to the users.
@@ -500,6 +499,10 @@ http://host.com/page@;jsessionid=dfd4fa35df@...
 }
 \begin{frame}
 %TODO : virer logo cybercafé, url trop petite, XSS => mauvaise abbréviation(utilisée nulle part avant)
+% (regarde le titre de l'attaque precedente...)
+\frametitle{Session Stealing}
+\Lst
+\vspace{3mm}
 \begin{columns}
 \begin{column}{0.3\linewidth}
 \centering\huge\bfseries
@@ -509,8 +512,6 @@ XSS
 \includeimage[width=\linewidth,height=2cm]{cybercafe}
 \end{column}
 \end{columns}
-\vspace{3mm}
-\Lst
 \badgoodsep
 \begin{center}
 \huge\bfseries
@@ -524,7 +525,9 @@ Forgetting to log out...
 In older application server, the session ID could be set using the URL.
 You could send that URL to someone else.
 \end{exampleblock}
-\pause
+\begin{exampleblock}{Session guessing}
+Guess the next generated session ID.
+\end{exampleblock}
 \begin{exampleblock}{XSS session hijacking - demo}
 The user's session can be obtained using XSS.
 \end{exampleblock}
@@ -542,15 +545,15 @@ The user's session can be obtained using XSS.
 \subsubsection{Attack 4 - Insecure Direct Object References}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer]
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\Large]
 http://myhotel.com/user/@152@
 \end{lstlisting}
 }
 \begin{frame}
 \frametitle{4. Insecure Direct Object References}
 \begin{columns}
-\begin{column}{0.3\linewidth}\end{column}
-\begin{column}{0.5\linewidth}
+\begin{column}{0.1\linewidth}\end{column}
+\begin{column}{0.7\linewidth}
 \Lst
 \end{column}
 \end{columns}
@@ -569,6 +572,7 @@ Easy to exploit and detect. The impact is moderate.
 }
 \end{frame}
 
+% TODO fusionner avec le slide precedent
 \begin{frame}
 \begin{center}
 {\Huge\bfseries Check permissions}
@@ -626,14 +630,12 @@ Widespread and easy to detect, the impact is moderate.
 \defverbatim[colored]\LstGood{
 \begin{lstlisting}[style=beamer]
 <form @method="post"@ action="addComment">
-	<input @type="hidden"@ name="token" @value="<random>"@ />
+	<input @type="hidden"@ name="token" @value="sd5646sdfse8wd"@ />
 	...
 </form>
 \end{lstlisting}
 }
 \begin{frame}
-
-%TODO : trop petit
 \begin{embeddedcode}{bad}
 \LstBad
 \end{embeddedcode}
@@ -643,7 +645,7 @@ Widespread and easy to detect, the impact is moderate.
 \end{embeddedcode}
 \note{
 \begin{exampleblock}{Post a comment}
-The attacker's page may contain:
+The attacker's page may contain a URL that executes an \emph{action}.
 \end{exampleblock}
 \hrule
 \begin{block}{Unpredictable token}
@@ -690,7 +692,7 @@ Easy to exploit and to detect.
 \begin{frame}
 \includeimage[height=0.7\textheight,width=\linewidth]{out-of-the-box}
 \note{
-The out-of-the-box configuration is not always the best.
+The \emph{out-of-the-box} configuration is not always the best.
 }
 \end{frame}
 
@@ -775,16 +777,15 @@ The database backup is lost.
 \subsubsection{Attack 8 - Failure to Restrict URL Access}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer]
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\Large]
 http://myhotel.com/@admin@
 \end{lstlisting}
 }
 \begin{frame}
-%TODO : trop petit
 \frametitle{8. Failure to Restrict URL Access}
 \begin{columns}
-\begin{column}{0.3\linewidth}\end{column}
-\begin{column}{0.5\linewidth}
+\begin{column}{0.1\linewidth}\end{column}
+\begin{column}{0.7\linewidth}
 \Lst
 \end{column}
 \end{columns}
@@ -802,6 +803,7 @@ Easy to exploit, but the flaw is uncommon.
 }
 \end{frame}
 
+% TODO fusionner avec le slide precedent (cf. attaque 4)
 \begin{frame}
 \begin{center}
 {\Huge\bfseries Authorization}
@@ -840,6 +842,7 @@ Account theft, expose individual user's data.
 Detectable using any sniffer.
 However, often difficult to exploit.
 \end{alertblock}
+% TODO anecdote a ajouter? (je ne sais plus ce que je voulais dire par la...)
 }
 \end{frame}
 
@@ -897,7 +900,7 @@ https://@bank.com/secured@/../redirect
 }
 \begin{frame}
 \frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
-\includeimage[scale=0.45]{webapp-redirect}
+\includeimage[scale=0.5]{webapp-redirect}
 \vspace{4mm}
 \Lst
 \note{
@@ -925,6 +928,8 @@ Map input values to the actual URLs.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %TODO : faire un plan des attaques qui vont suivre
+% je dirais qu'il faut juste suivre un chemin logique comme pour la
+% prevention, par exemple du serveur au client
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{DoS}
@@ -941,6 +946,7 @@ causing server overload.
 \begin{quote}
 An \emph{important load} causes \emph{service overload}.
 \end{quote}
+FYI:
 \begin{itemize}
 \item SYN flood
 \item Application level flood
@@ -955,7 +961,7 @@ An \emph{important load} causes \emph{service overload}.
 \end{frame}
 
 \begin{frame}
-%TODO : titre
+\frametitle{DoS attack types}
 \begin{columns}
 \begin{column}{0.5\linewidth}
 \includeimage[width=\linewidth,height=0.5\textheight]{anonymous-group}
@@ -990,7 +996,7 @@ The anonymous group attack.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{MitM}
 
-\begin{frametransition}{And modifying the content?}
+\begin{frametransition}{And altering the content?}
 \end{frametransition}
 
 \begin{frame}
@@ -1001,8 +1007,12 @@ The attacker plays the role of the server to the client and the role of the
 client to the server.
 All communication transits through the attacker who can modify messages as
 they are sent.
+% In french: "esionner le contenu et même l'altérer"
 \begin{exampleblock}{Public WiFi}
 Vulnerable on public WiFi networks.
+\end{exampleblock}
+\begin{exampleblock}{ARP poisoning}
+Just become the router.
 \\ Tools such as \texttt{ettercap} allow to perform the attack.
 \end{exampleblock}
 \begin{exampleblock}{Common example}
@@ -1014,6 +1024,7 @@ Use cryptography: HTTPS, PKI (Public Key Infrastructure)
 \end{block}
 }
 \end{frame}
+% TODO reuse archi-webapplication
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Social engineering}
@@ -1042,8 +1053,6 @@ A secret question could be targeted by social engineering.
 }
 \end{frame}
 
-%TODO : Garder cette frame ? ajouter un titre
-% si vous la jettez, gardez les notes!
 \begin{frame}
 \includeimage[width=0.8\linewidth,height=0.6\textheight]{hannibal-lecter}
 \begin{quote}
@@ -1063,9 +1072,12 @@ See the next point.
 Something for something:
 Help a user solve a problem, they might give you passwords in exchange.
 \end{description}
+\begin{block}{Story: Silence of the Lambs}
+% TODO story behind the image
+\end{block}
 \begin{block}{Protection}
 \begin{itemize}
-\item Rising awareness {\small (sensibilization)}
+\item Rising awareness % In french: "sensibilisation"
 \item Framework of trust
 \end{itemize}
 \end{block}
@@ -1125,57 +1137,50 @@ Try a list of common passwords.
 }
 \end{frame}
 
-%TODO VIRER ces slides jusque 127
+%\defverbatim[colored]\Lst{
+%\begin{lstlisting}[style=beamer]
+%http://host.com/forum/download.jsp
+%?@path=/etc/shadow@
+%\end{lstlisting}
+%}
+%\begin{frame}
+%\frametitle{Path traversal}
+%\Lst
+%\includeimage[scale=0.3]{etc-shadow}
+%\note{
+%An input is a relative unvalidated path.
+%You can download or upload any file that the server contains.
+%\begin{exampleblock}{Download form}
+%Get a file uploaded to a forum... or the password file.
+%\end{exampleblock}
+%}
+%\end{frame}
 
-\defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer]
-http://host.com/forum/download.jsp
-?@path=/etc/shadow@
-\end{lstlisting}
-}
-%TODO : Agrandir le code
-% jeter cette faille?
-\begin{frame}
-\frametitle{Path traversal}
-\Lst
-\note{
-An input is a relative unvalidated path.
-You can download or upload any file that the server contains.
-\begin{exampleblock}{Download form}
-Get a file uploaded to a forum... or the password file.
-\end{exampleblock}
-}
-\includeimage[scale=0.3]{etc-shadow}
-
-\end{frame}
-
-%TODO : Exemple rest api ? Change title ?
-% jeter cette faille?
-\begin{frame}
-\frametitle{Failure to restrict automation}
-\begin{itemize}
-\item<+-> Spamming
-\item<+-> REST API
-\end{itemize}
-\pause
-\vspace{1cm}
-\includeimage[width=0.6\linewidth]{recaptcha-example}
-\note{
-The web site is not protected against automation.
-\begin{itemize}
-\item Common for REST API
-\item Programs may overload the website unintentionally
-	\newline
-	(Fix: maximum number of requests per IP for a time period)
-\end{itemize}
-\begin{exampleblock}{Captcha - prevention}
-Challenge-response test easy for humans, difficult for machines.
-\end{exampleblock}
-\begin{block}{Captcha - cracking}
-The attacker has to make a website with high traffic on it (image boards,...). Once done, the evil website can present a captcha from another website. The users visiting the evil website answer the captcha and the evil website can use this answer to crack the protection of the attacked website.
-\end{block}
-}
-\end{frame}
+%\begin{frame}
+%\frametitle{Failure to restrict automation}
+%\begin{itemize}
+%\item<+-> Spamming
+%\item<+-> REST API
+%\end{itemize}
+%\pause
+%\vspace{1cm}
+%\includeimage[width=0.6\linewidth]{recaptcha-example}
+%\note{
+%The web site is not protected against automation.
+%\begin{itemize}
+%\item Common for REST API
+%\item Programs may overload the website unintentionally
+%    \newline
+%    (Fix: maximum number of requests per IP for a time period)
+%\end{itemize}
+%\begin{exampleblock}{Captcha - prevention}
+%Challenge-response test easy for humans, difficult for machines.
+%\end{exampleblock}
+%\begin{block}{Captcha - cracking}
+%The attacker has to make a website with high traffic on it (image boards,...). Once done, the evil website can present a captcha from another website. The users visiting the evil website answer the captcha and the evil website can use this answer to crack the protection of the attacked website.
+%\end{block}
+%}
+%\end{frame}
 
 \begin{frame}
 \frametitle{And so on...}
@@ -1201,8 +1206,11 @@ security controls.
 \item<+-> Other assumptions
 \item<+-> Education factor {\small (social engineering)}
 \end{itemize}
+% TODO classify attacks (accordion presentation)
 \note{
 Bullet points.
+% In French: "Pour lutter contre le social engineering, il est bon de
+% sensibiliser vos utilisateurs."
 }
 \end{frame}
 

@@ -103,6 +103,9 @@
 % ITE package (for conditional compilation)
 \usepackage{ifthen}
 
+% Color for emphasis
+\definecolor{emphasis}{rgb}{0.1,0.1,0.8}
+
 % Listings (code)
 \usepackage{listings}
 \usepackage{courier}
@@ -131,7 +134,7 @@
 	basicstyle=\ttfamily\footnotesize\color{black!50},
 	keywordstyle=\color{red!50},
 	commentstyle=\color{green!50},
-	moredelim=**[is][{\color{blue}\lstset{style=highlight}}]{@}{@},
+	moredelim=**[is][{\color{emphasis}\lstset{style=highlight}}]{@}{@},
 }
 
 % Macro to include images
