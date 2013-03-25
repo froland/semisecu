@@ -1,5 +1,7 @@
 \section{Attacks}
 
+%TODO : expliquer en quoi les attaques sont complémentaires (remarque pour tout le chapitre)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Attack trees}
 
@@ -83,6 +85,7 @@ may influence risk.
 \end{frame}
 
 \begin{frame}
+%TODO : virer la mamie et mettre une prise débranchée du mur
 \frametitle{Threat agents}
 \begin{columns}
 \begin{column}{0.4\linewidth}
@@ -111,6 +114,7 @@ may influence risk.
 \end{frame}
 
 \begin{frame}
+%TODO : image trop petite, virer les chiffres
 \frametitle{Threat agents}
 \includeimage[height=0.3\textheight]{disaster}
 \pause
@@ -140,6 +144,7 @@ Gross National Product: & $\sim$ 400 milliards \\
 \subsection{Risk}
 
 \begin{frame}
+%TODO : mieux mettre en évidence, utiliser de la couleur
 \frametitle{What is a \emph{risk}?}
 \begin{quote}
 The probable {\Large frequency} and probable {\Large magnitude} of {\Large
@@ -190,6 +195,7 @@ Explanation in the next slide.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Context of web applications}
 
+%TODO : pas de transition, pas de titre
 \subsubsection{Network}
 \begin{frame}
 \includeimage[width=\linewidth,height=0.75\textheight]{client-server}
@@ -204,6 +210,7 @@ Explanation in the next slide.
 \subsubsection{Architecture of a web application}
 
 \begin{frame}
+%TODO : image trop petite
 \includeimage[width=\linewidth,height=0.8\textheight]{archi-webapplication}
 \note{
 \begin{itemize}
@@ -230,6 +237,7 @@ Solution: duplication.
 \subsection{OWASP - Top 10}
 
 \begin{frame}
+%TODO : logo + petit et police plus grande
 \centering
 {\bfseries\usebeamercolor[fg]{block title}O}pen
 {\bfseries\usebeamercolor[fg]{block title}W}eb
@@ -491,6 +499,7 @@ http://host.com/page@;jsessionid=dfd4fa35df@...
 \end{lstlisting}
 }
 \begin{frame}
+%TODO : virer logo cybercafé, url trop petite, XSS => mauvaise abbréviation(utilisée nulle part avant)
 \begin{columns}
 \begin{column}{0.3\linewidth}
 \centering\huge\bfseries
@@ -623,6 +632,8 @@ Widespread and easy to detect, the impact is moderate.
 \end{lstlisting}
 }
 \begin{frame}
+
+%TODO : trop petit
 \begin{embeddedcode}{bad}
 \LstBad
 \end{embeddedcode}
@@ -769,6 +780,7 @@ http://myhotel.com/@admin@
 \end{lstlisting}
 }
 \begin{frame}
+%TODO : trop petit
 \frametitle{8. Failure to Restrict URL Access}
 \begin{columns}
 \begin{column}{0.3\linewidth}\end{column}
@@ -911,6 +923,10 @@ Map input values to the actual URLs.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%TODO : faire un plan des attaques qui vont suivre
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{DoS}
 
 \begin{frametransition}{What about just crashing the system?}
@@ -939,6 +955,7 @@ An \emph{important load} causes \emph{service overload}.
 \end{frame}
 
 \begin{frame}
+%TODO : titre
 \begin{columns}
 \begin{column}{0.5\linewidth}
 \includeimage[width=\linewidth,height=0.5\textheight]{anonymous-group}
@@ -1107,6 +1124,8 @@ Try a list of common passwords.
 \end{block}
 }
 \end{frame}
+
+%TODO VIRER ces slides jusque 127
 
 \defverbatim[colored]\Lst{
 \begin{lstlisting}[style=beamer]
