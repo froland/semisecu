@@ -1,13 +1,15 @@
 digraph Forward {
 	rankdir = LR
-	margin = 0
-	node [ shape = none ]
+	node [ shape = none, fontsize = 30 ]
+	edge [ fontsize = 24 ]
 
 	{
 		Client [ label =
 			<<table border="0"><tr><td>
+			<img src="icon-evil.png" />
+			</td><td>
 			<img src="icon-computer.png" />
-			</td></tr><tr><td>Client
+			</td></tr><tr><td colspan="2">Mallory
 			</td></tr></table>> ]
 		rank = min
 	}
@@ -15,13 +17,18 @@ digraph Forward {
 		Server [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-component.png" />
-			</td></tr><tr><td>Component 1
+			</td><td>
+			<img src="icon-good.png" />
+			</td></tr><tr><td colspan="2">Alice
 			</td></tr></table>> ]
 		Component [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-component.png" />
-			</td></tr><tr><td>Component 2
+			</td><td>
+			<img src="icon-good.png" />
+			</td></tr><tr><td colspan="2">Bob
 			</td></tr></table>> ]
+		rank = max
 	}
 
 	Client -> Server [ label = "1. request" ]

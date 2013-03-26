@@ -135,11 +135,11 @@ Attaques
 Arbre d'attaques: s'attarder sur l'explication generale.
 
 White-hat et black-hat: ne pas en parler (l'attention importe peu)
-Pour l'exemple de crime organiser voir Maxime.
+Pour l'exemple de crime organisé voir Maxime.
 L'image concurrence n'est pas necessaire.
 
 Mamie -> remplacer par des cables arrachés
-Prise debranché du mur.
+Prise debranchée du mur.
 
 Image tornade trop petite.
 Pour les statistiques: mettre les unités et utiliser les chiffres pour l'IT.

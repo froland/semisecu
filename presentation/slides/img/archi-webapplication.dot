@@ -1,9 +1,9 @@
 digraph ArchiWebApp {
 	rankdir = LR
 	ranksep = 0.4
-	nodesep = 0.5
-	node [ shape = none, fontsize = 60 ]
-	edge [ arrowhead = none, arrowtail = none, fontsize = 60 ]
+	nodesep = 0.8
+	node [ shape = none, fontsize = 30 ]
+	edge [ arrowhead = none, arrowtail = none ]
 
 	WebClient1 [ label =
 		<<table border="0"><tr><td>
@@ -43,7 +43,7 @@ digraph ArchiWebApp {
 		WebApplication [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-server.png" />
-			</td></tr><tr><td>Web application server
+			</td></tr><tr><td>Web application<br />server
 			</td></tr></table>> ]
 		rank = same
 	}

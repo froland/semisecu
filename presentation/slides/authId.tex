@@ -156,9 +156,8 @@ By definition, the public key is shared.
 \end{frame}
 
 \begin{frame}
-\begin{center}
 \begin{Large}
-\begin{tabular}{rcl}
+\begin{tabularx}{\linewidth}{X<{\raggedleft}cX}
 \bfseries Symmetric
 & \includegraphics[width=5mm]{img/vs} &
 \bfseries Asymmetric
@@ -175,9 +174,8 @@ Owner(s) of the secret
 & \includegraphics[width=5mm]{img/vs} &
 Owner of the private secret
 \\[0.2em]
-\end{tabular}
+\end{tabularx}
 \end{Large}
-\end{center}
 \note{
 \begin{itemize}
 \item \textbf{Symmetric}: faster, needs a pre-shared key
@@ -380,7 +378,7 @@ Certificate:
 \end{lstlisting}
 }
 \defverbatim[colored]\LstB{
-\begin{lstlisting}{style=beamer}
+\begin{lstlisting}[style=beamer]
 		@Subject: C=US, ST=Maryland,...@
 		         @OU=FreeSoft, CN=www.freesoft.org@
 		Subject Public Key Info:

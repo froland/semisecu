@@ -98,8 +98,13 @@
 \usepackage{color}
 % Allows the use of \toprule, \midrule and \bottomrule in tables
 \usepackage{booktabs}
+% Extended tables
+\usepackage{tabularx}
 % ITE package (for conditional compilation)
 \usepackage{ifthen}
+
+% Color for emphasis
+\definecolor{emphasis}{rgb}{0.1,0.1,0.8}
 
 % Listings (code)
 \usepackage{listings}
@@ -129,7 +134,7 @@
 	basicstyle=\ttfamily\footnotesize\color{black!50},
 	keywordstyle=\color{red!50},
 	commentstyle=\color{green!50},
-	moredelim=**[is][{\color{blue}\lstset{style=highlight}}]{@}{@},
+	moredelim=**[is][{\color{emphasis}\lstset{style=highlight}}]{@}{@},
 }
 
 % Macro to include images
@@ -244,12 +249,13 @@
 \begin{frame}
 \includeimage[height=0.7\textheight]{security-cloud}
 \note{
-We have reviewed various threats to web application
-but this list is by no means exhaustive. Those are merely example, the
-important point is the use of good security practice and procedure in
-order to reduce the risk. Preventive action should be taken but you
-should also be able to detect attack and to analyse them to prevent in
-the future. It's also important to assess the damage.
+	There it is. After a few reminders on cryptography and identity management, we showed you how easy it can be to exploit applications. And how small vulnerabilities can sum up and have impacts on your applications, on your users and finally degrade your image.
+
+	After talking about some hints to fix, avoid or mitigate those threats, we took a look at which tools can help you detect and analyze attacks.
+
+	We hope that you enjoyed this summary. We hope that you will look at your applications with its security in mind. Not in an extreme way, throwing money out the window for the sake of building a new digital Fort Knox. But rather with balance in mind and knowing the trade off you make.
+
+	We will now have a small question and answer session. But if you don't have time to ask you questions or if you're a little shy of doing it in public, feel free to contact me on Twitter or by email. You can also download the slides of this presentation on ... where we will also publish a paper with the content in this presentation.
 }
 \end{frame}
 
@@ -260,6 +266,9 @@ Thanks
 \end{flushright}
 \vspace{1cm}
 \includeimage[width=6cm]{hermes}
+\note{
+	Thank you.
+}
 \end{frame}
 
 %\begin{frame}

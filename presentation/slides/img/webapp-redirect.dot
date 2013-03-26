@@ -1,13 +1,15 @@
 digraph Redirect {
 	rankdir = LR
-	margin = 0
-	node [ shape = none ]
+	node [ shape = none, fontsize = 30 ]
+	edge [ fontsize = 24 ]
 
 	{
 		Client [ label =
 			<<table border="0"><tr><td>
+			<img src="icon-good.png" />
+			</td><td>
 			<img src="icon-computer.png" />
-			</td></tr><tr><td>Alice
+			</td></tr><tr><td colspan="2">Alice
 			</td></tr></table>> ]
 		rank = min
 	}
@@ -15,13 +17,18 @@ digraph Redirect {
 		Server [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-server.png" />
-			</td></tr><tr><td>bank.com
+			</td><td>
+			<img src="icon-good.png" />
+			</td></tr><tr><td colspan="2">bank.com
 			</td></tr></table>> ]
 		Server2 [ label =
 			<<table border="0"><tr><td>
 			<img src="icon-server.png" />
-			</td></tr><tr><td>evil-bank.com
+			</td><td>
+			<img src="icon-evil.png" />
+			</td></tr><tr><td colspan="2">evil-bank.com
 			</td></tr></table>> ]
+		rank = max
 	}
 
 	Client -> Server [ label = "1. first request" ]
