@@ -55,15 +55,14 @@ the tree.
 \begin{frame}
 \frametitle{Threat agents}
 \begin{columns}
-\begin{column}{0.6\linewidth}
-\includeimage[width=\linewidth,height=4cm]{organized-crime}
+\begin{column}{0.8\linewidth}
+\includeimage[width=\linewidth]{new-fbi-greendot-moneypak-virus}
 \end{column}
-\begin{column}{0.4\linewidth}
+\begin{column}{0.2\linewidth}
 \includeimage[width=0.6\linewidth]{money}
 \end{column}
 \end{columns}
 \note{
-% TODO Maxime Mathy avait un exemple pour le crime organisé, demandez-lui.
 \begin{description}
 \item[External threats]
 	\hfill
@@ -95,7 +94,7 @@ may influence risk.
 \includeimage[width=\linewidth,height=4cm]{no-electricity}
 \end{column}
 \begin{column}{0.6\linewidth}
-%\includeimage[width=\linewidth,height=4cm]{crew}
+\includeimage[width=\linewidth,height=4cm]{power-plug}
 \end{column}
 \end{columns}
 \note{
@@ -558,7 +557,13 @@ http://myhotel.com/user/@152@
 \Lst
 \end{column}
 \end{columns}
+\hrule
+\begin{center}
+{\Huge\bfseries Check permissions}
+\end{center}
+
 \note{
+\small
 The attacker changes a parameter in the request to obtain a \textbf{direct
 object reference} that they should not be able to access.
 \begin{example}
@@ -570,15 +575,7 @@ Compromise the data that can be referenced.
 \begin{alertblock}{Risks}
 Easy to exploit and detect. The impact is moderate.
 \end{alertblock}
-}
-\end{frame}
 
-% TODO fusionner avec le slide precedent
-\begin{frame}
-\begin{center}
-{\Huge\bfseries Check permissions}
-\end{center}
-\note{
 \begin{block}{Missing access verification}
 Often objects are retrieved by their ID, the developer can forget to check
 whether the user is allowed to see that object.
