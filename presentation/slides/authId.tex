@@ -207,6 +207,8 @@ Mean to authenticate the identity of the sender of a message.
 }
 \end{frame}
 
+%TODO : slides blague avec hachage salage ?
+
 \begin{frame}
 \frametitle{Hash + Salt}
 \begin{center}
@@ -233,7 +235,21 @@ used for each password.
 \subsection{Different means of authentication}
 \begin{frametransition}{Authentication means}
 \end{frametransition}
-%TODO list the authentication means before presenting them
+
+\begin{frame}
+\frametitle{Authentication means}
+\begin{itemize}
+\item Password
+\item Tokens
+\item One time passwords
+\item Certificates
+\item Signature challenge
+\item Single Sign-On
+\end{itemize}
+\note{
+	bulletpoint
+}
+\end{frame}
 
 %------------------------------------------------
 \begin{frame}
@@ -330,7 +346,6 @@ least pseudo-random way.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Certificates}
-% TODO change images?
 \begin{columns}
 \begin{column}{0.5\linewidth}
 \includeimage[scale=0.5]{certificatesVariety1}
