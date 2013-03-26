@@ -86,8 +86,6 @@ may influence risk.
 \end{frame}
 
 \begin{frame}
-%TODO : virer la mamie et mettre une prise débranchée du mur
-% (ou des cables arrachés)
 \frametitle{Threat agents}
 \begin{columns}
 \begin{column}{0.4\linewidth}
@@ -403,10 +401,10 @@ List of valid input patterns.
 }
 \end{frame}
 
-\subsubsection{Attack 2 - XSS}
+\subsubsection{Attack 2 - Cross-site scripting (XSS)}
 
 \begin{frame}
-\frametitle{2. XSS}
+\frametitle{2. Cross-site scripting (XSS)}
 \includeimage[scale=0.5]{client-server-xss}
 \note{
 \textbf{Cross-site scripting} allows attackers to inject code into the page
@@ -492,49 +490,36 @@ The impact is severe, this attack is common.
 \end{frame}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer]
-http://host.com/page@;jsessionid=dfd4fa35df@...
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\huge,text-align=center]
+  http://host.com/page@;
+jsessionid=dfd4fa35df2@...
 \end{lstlisting}
 }
 \begin{frame}
-%TODO : virer logo cybercafé, url trop petite, XSS => mauvaise abbréviation(utilisée nulle part avant)
-% (regarde le titre de l'attaque precedente...)
-% je ne fais que transcrire mes notes des corrections ;-)
 \frametitle{Session Stealing}
 \Lst
 \vspace{3mm}
-\begin{columns}
-\begin{column}{0.3\linewidth}
 \centering\huge\bfseries
-XSS
-\end{column}
-\begin{column}{0.6\linewidth}
-\includeimage[width=\linewidth,height=2cm]{cybercafe}
-\end{column}
-\end{columns}
+cross-site scripting (XSS)
 \badgoodsep
 \begin{center}
 \huge\bfseries
 Good authentication mechanism
 \end{center}
 \note{
-\begin{exampleblock}{Public computer}
-Forgetting to log out...
-\end{exampleblock}
-\begin{exampleblock}{Session fixation}
-In older application server, the session ID could be set using the URL.
+\begin{exampleblock}{Examples}
+\begin{itemize}
+\item \small Public computer : Forgetting to log out...
+\item Session fixation: In older application server, the session ID could be set using the URL.
 You could send that URL to someone else.
-\end{exampleblock}
-\begin{exampleblock}{Session guessing}
-Guess the next generated session ID.
-\end{exampleblock}
-\begin{exampleblock}{XSS session hijacking - demo}
-The user's session can be obtained using XSS.
+\item Session guessing: Guess the next generated session ID.
+\item XSS session hijacking - demo: The user's session can be obtained using XSS.
+\end{itemize}
 \end{exampleblock}
 \hrule
 \begin{block}{Good authentication mechanism}
 \begin{itemize}
-\item Use a proven authentication mechanism
+\item \small Use a proven authentication mechanism
 \item Prevent \emph{XSS attacks}
 \item Good session timeouts and accessible log out buttons
 \end{itemize}
@@ -545,7 +530,7 @@ The user's session can be obtained using XSS.
 \subsubsection{Attack 4 - Insecure Direct Object References}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\Large]
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\LARGE]
 http://myhotel.com/user/@152@
 \end{lstlisting}
 }
@@ -566,39 +551,54 @@ http://myhotel.com/user/@152@
 \small
 The attacker changes a parameter in the request to obtain a \textbf{direct
 object reference} that they should not be able to access.
-\begin{example}
-Replace some object identifier in the request.
-\end{example}
-\begin{block}{Impacts}
-Compromise the data that can be referenced.
-\end{block}
-\begin{alertblock}{Risks}
-Easy to exploit and detect. The impact is moderate.
-\end{alertblock}
-
-\begin{block}{Missing access verification}
-Often objects are retrieved by their ID, the developer can forget to check
+\begin{itemize}
+\item \small Example: Replace some object identifier in the request.
+\item Impacts: Compromise the data that can be referenced.
+\item Risks: Easy to exploit and detect. The impact is moderate.
+\item Missing access verification: Often objects are retrieved by their ID, the developer can forget to check
 whether the user is allowed to see that object.
-\end{block}
-\hrule
-\begin{exampleblock}{An unvalidated hotel - demo}
-See an unvalidated hotel as a normal user.
-\end{exampleblock}
-\hrule
-\begin{block}{\textbf{Check permissions}}
-Check whether the user has the permissions to access the object before
+\item An unvalidated hotel - demo: See an unvalidated hotel as a normal user.
+\item Check permissions: Check whether the user has the permissions to access the object before
 manipulating it.
-\end{block}
-\begin{block}{References by session}
-Use indirect references for each session.
-\end{block}
+\item References by session: Use indirect references for each session.
+\end{itemize}
 }
+%\note{
+%\small
+%The attacker changes a parameter in the request to obtain a \textbf{direct
+%object reference} that they should not be able to access.
+%\begin{example}
+%Replace some object identifier in the request.
+%\end{example}
+%\begin{block}{Impacts}
+%Compromise the data that can be referenced.
+%\end{block}
+%\begin{alertblock}{Risks}
+%Easy to exploit and detect. The impact is moderate.
+%\end{alertblock}
+%\begin{block}{Missing access verification}
+%Often objects are retrieved by their ID, the developer can forget to check
+%whether the user is allowed to see that object.
+%\end{block}
+%\hrule
+%\begin{exampleblock}{An unvalidated hotel - demo}
+%See an unvalidated hotel as a normal user.
+%\end{exampleblock}
+%\hrule
+%\begin{block}{\textbf{Check permissions}}
+%Check whether the user has the permissions to access the object before
+%manipulating it.
+%\end{block}
+%\begin{block}{References by session}
+%Use indirect references for each session.
+%\end{block}
+%}
 \end{frame}
 
-\subsubsection{Attack 5 - CSRF}
+\subsubsection{Attack 5 - Cross-site Request Forgery (CSRF)}
 
 \begin{frame}
-\frametitle{5. CSRF}
+\frametitle{5. Cross-site Request Forgery (CSRF)}
 \includeimage[scale=0.5]{client-server-csrf}
 \note{
 \textbf{Cross-site Request Forgery} consists in generating requests when the
@@ -669,12 +669,13 @@ stored only on the application server.
 \frametitle{6. Security Misconfiguration}
 \includeimage[width=0.7\linewidth]{misconfiguration}
 \note{
+\small
 \textbf{Security configuration} can happen at any level: the application, the
 web server, the framework, etc.
 The default behavior is not always the wanted one.
 \begin{example}
 \begin{itemize}
-\item Accessing: default accounts, unprotected files and directories
+\item \small Accessing: default accounts, unprotected files and directories
 \item Gaining information: versions, stack traces, debug messages
 \end{itemize}
 \end{example}
@@ -787,6 +788,11 @@ http://myhotel.com/@admin@
 \Lst
 \end{column}
 \end{columns}
+\badgoodsep
+\begin{center}
+\huge\bfseries
+Authorization
+\end{center}
 \note{
 \textbf{URL access is not restricted} to functions requiring permissions.
 \begin{example}
@@ -798,15 +804,6 @@ Administrative functions may become available to the attacker.
 \begin{alertblock}{Risks}
 Easy to exploit, but the flaw is uncommon.
 \end{alertblock}
-}
-\end{frame}
-
-% TODO fusionner avec le slide precedent (cf. attaque 4)
-\begin{frame}
-\begin{center}
-{\Huge\bfseries Authorization}
-\end{center}
-\note{
 \begin{exampleblock}{Administration page}
 \url{http://myhotel.com/admin} is not referenced from any other page, but
 the authentication is not enforced.
@@ -865,13 +862,14 @@ SSL/TLS can be used to secure the connection.
 \subsubsection{Attack 10 - Unvalidated Forwards and Redirects}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer]
-http://host.com/forward.jsp?@fwd=admin.jsp@
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\Large]
+http://host.com/forward.jsp?
+@fwd=admin.jsp@
 \end{lstlisting}
 }
 \begin{frame}
 \frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
-\includeimage[scale=0.5]{webapp-forward}
+\includeimage[width=0.7\linewidth]{webapp-forward}
 \vspace{6mm}
 \Lst
 \note{
@@ -891,15 +889,15 @@ Easy to detect, uncommonly present.
 \end{frame}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer]
-https://@bank.com/secured@/../redirect
-?@url=http://evil-bank.com/secured@
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\Large]
+https://@bank.com/secured@/../redirect?
+@url=http://evil-bank.com/secured@
 \end{lstlisting}
 }
 \begin{frame}
 \frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
-\includeimage[scale=0.5]{webapp-redirect}
-\vspace{4mm}
+\includeimage[width=0.7\linewidth]{webapp-redirect}
+\vspace{2mm}
 \Lst
 \note{
 \begin{example}
@@ -928,6 +926,18 @@ Map input values to the actual URLs.
 %TODO : faire un plan des attaques qui vont suivre
 % je dirais qu'il faut juste suivre un chemin logique comme pour la
 % prevention, par exemple du serveur au client
+
+\begin{frame}
+\frametitle{Others attacks}
+\begin{enumerate}
+\item Denial of Service
+\item Man in the Middle
+\item Social Engineering
+\item Phishing
+\item Brute Force
+\item And so on...
+\end{enumerate}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{DoS}
@@ -1005,7 +1015,7 @@ The attacker plays the role of the server to the client and the role of the
 client to the server.
 All communication transits through the attacker who can modify messages as
 they are sent.
-% In french: "esionner le contenu et même l'altérer"
+% In french: "espionner le contenu et même l'altérer"
 \begin{exampleblock}{Public WiFi}
 Vulnerable on public WiFi networks.
 \end{exampleblock}
@@ -1198,11 +1208,11 @@ security controls.
 \frametitle{Common points}
 \pause
 \begin{itemize}
-\item<+-> Improper input validation
-\item<+-> Missing authorization checks
-\item<+-> Misconfiguration
-\item<+-> Other assumptions
-\item<+-> Education factor {\small (social engineering)}
+\item<2-6> Improper input validation
+\item<3-6> Missing authorization checks
+\item<4-6> Misconfiguration
+\item<5-6> Other assumptions
+\item<6-6> Education factor {\small (social engineering)}
 \end{itemize}
 % TODO classify attacks (accordion presentation)
 \note{
@@ -1212,3 +1222,69 @@ Bullet points.
 }
 \end{frame}
 
+\begin{frame}
+\frametitle{Common points}
+\begin{itemize}
+\item Improper input validation
+	\begin{itemize}
+		\item<2-6> Injection
+		\item<3-6> Cross-site scripting (XSS)
+		\item<4-6> Session Stealing via XSS
+		\item<5-6> Cross-Site Request Forgery (CSRF) %TODO ???
+		\item<6-6> Unvalidated Forwards and Redirects
+	\end{itemize}
+\item Missing authorization checks
+\item Misconfiguration
+\item Other assumptions
+\item Education factor {\small (social engineering)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Common points}
+\begin{itemize}
+\item Improper input validation
+\item Missing authorization checks
+	\begin{itemize}
+		\item<2-3> Insecure Direct Object References
+		\item<3> Failure to Restrict URL Access
+	\end{itemize}
+\item Misconfiguration
+\item Other assumptions
+\item Education factor {\small (social engineering)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Common points}
+\begin{itemize}
+\item Improper input validation
+\item Missing authorization checks
+\item Misconfiguration
+\item Other assumptions
+	\begin{itemize}
+		\item<2-5> Insecure Cryptographic Storage
+		\item<3-5> Insufficient Transport Layer Protection
+		\item<4-5> Denial of Service
+		\item<5> Man in the Middle
+	\end{itemize}
+\item Education factor {\small (social engineering)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Common points}
+\begin{itemize}
+\item Improper input validation
+\item Missing authorization checks
+\item Misconfiguration
+\item Other assumptions
+\item Education factor {\small (social engineering)}
+	\begin{itemize}
+		\item<2-5> Session stealing (cybercafe)
+		\item<3-5> Social engineering
+		\item<4-5> Phishing
+		\item<5> (Brute Force) %car si les gens mettaient des mega password, brute force inutile
+	\end{itemize}
+\end{itemize}
+\end{frame}
