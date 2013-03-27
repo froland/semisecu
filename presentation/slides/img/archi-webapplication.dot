@@ -17,6 +17,7 @@ digraph ArchiWebApp {
 		<<table border="0"><tr><td>
 		<img src="icon-wifi.png" />
 		</td></tr></table>> ]
+	{
 	Internet [ label =
 		<<table border="0"><tr><td>
 		<img src="icon-cloud.png" />
@@ -25,15 +26,13 @@ digraph ArchiWebApp {
 		<<table border="0"><tr><td>
 		<img src="icon-firewall.png" />
 		</td></tr></table>> ]
-	{
-		DMZ [ shape = circle ]
-		WebServer [ label =
-			<<table border="0"><tr><td>
-			<img src="icon-server.png" />
-			</td></tr><tr><td>Web server
-			</td></tr></table>> ]
-		rank = same
-	}
+	DMZ [ shape = circle ]
+	rank = same }
+	WebServer [ label =
+		<<table border="0"><tr><td>
+		<img src="icon-server.png" />
+		</td></tr><tr><td>Web server
+		</td></tr></table>> ]
 	Firewall [ label =
 		<<table border="0"><tr><td>
 		<img src="icon-firewall.png" />
@@ -56,10 +55,11 @@ digraph ArchiWebApp {
 		<img src="icon-database.png" />
 		</td></tr></table>> ]
 
-	{ WebClient1 WebClient2 } -> RouterLAN [ style = dotted ]
+	RouterLAN -> { WebClient1 WebClient2 } [ style = dotted ]
 	RouterServer -> { LocalClient }
-	RouterLAN -> Internet -> FirewallExt -> DMZ
-	DMZ -> WebServer
+	Internet -> RouterLAN
+	Internet -> FirewallExt -> DMZ
+	WebServer -> DMZ
 	DMZ -> Firewall -> RouterServer
 	RouterServer -> { WebApplication Database }
 }
