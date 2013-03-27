@@ -143,8 +143,7 @@ Visa, MasterCard, PayPal, etc.
 \begin{columns}
 \begin{column}{0.4\linewidth}
 \huge
-\centering
-\emph{password}
+\flushright\emph{password}
 \end{column}
 \pause
 \begin{column}{0.2\linewidth}
@@ -270,28 +269,60 @@ Online services for storing passwords:
 \subsection{Trade-off: security vs usability}
 \begin{frame}
 \begin{Large}
-\begin{tabularx}{\linewidth}{X<{\raggedleft}cX<{\raggedright}}
-\Huge\bfseries Security
-& \includegraphics[width=5mm]{img/vs} &
-\Huge\bfseries Usability
+\begin{columns}
+\begin{column}{0.4\linewidth}
+\flushright\Huge\bfseries Security
+\end{column}
+\begin{column}{0.2\linewidth}
+\includeimage[height=8mm]{vs}
+\end{column}
+\begin{column}{0.4\linewidth}
+\flushleft\Huge\bfseries Usability
+\end{column}
+\end{columns}
 \pause
-\\[1em]
-secure password & \includegraphics[width=5mm]{img/vs} & simple password
+\begin{columns}
+\begin{column}{0.4\linewidth}
+\flushright secure password
+\end{column}
+\begin{column}{0.2\linewidth}
+\includeimage[height=5mm]{vs}
+\end{column}
+\begin{column}{0.4\linewidth}
+\flushleft simple password
+\end{column}
+\end{columns}
 \pause
-\\[1em]
-authentication & \includegraphics[width=5mm]{img/vs} & no authentication
-% was "authorization checks" on the left side
+\begin{columns}
+\begin{column}{0.4\linewidth}
+\flushright authentication
+\end{column}
+\begin{column}{0.2\linewidth}
+\includeimage[height=5mm]{vs}
+\end{column}
+\begin{column}{0.4\linewidth}
+\flushleft no authentication
+\end{column}
+\end{columns}
 \pause
-\\[1em]
-encoded data & \includegraphics[width=5mm]{img/vs} & plain text
-\end{tabularx}
+\begin{columns}
+\begin{column}{0.4\linewidth}
+\flushright encoded data
+\end{column}
+\begin{column}{0.2\linewidth}
+\includeimage[height=5mm]{vs}
+\end{column}
+\begin{column}{0.4\linewidth}
+\flushleft plain text
+\end{column}
+\end{columns}
 \end{Large}
 \note{
 \begin{itemize}
 \item The system should be easy to use
 \item Security measures are in the way of what the user wants to achieve
 \end{itemize}
-Security measures:
+\flushleft Security measures:
 \begin{itemize}
 \item Too many: make a web site unusable
 \item Too few: the web site can be compromised

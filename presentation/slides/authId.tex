@@ -171,7 +171,7 @@ Pre-shared secret
 No pre-shared secret
 \\[0.2em]
 Owner(s) of the secret
-& \includegraphics[width=5mm]{img/vs} &
+& \raisebox{-0.5em}{\includegraphics[width=5mm]{img/vs}} &
 Owner of the private secret
 \\[0.2em]
 \end{tabularx}
@@ -191,8 +191,44 @@ then switches to a \emph{symmetric} algorithm as it is faster.
 \end{frame}
 
 \begin{frame}
+\begin{columns}
+\begin{column}{0.8\linewidth}
+\flushright\includeimage[width=\linewidth]{hash-joke}
+\end{column}
+\pause
+\begin{column}{0.2\linewidth}
+\flushleft\includeimage[width=\linewidth]{salt}
+\end{column}
+\end{columns}
+\note{
+blague avec hachage salage
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hash + Salt}
+\begin{center}
+\includegraphics[width=\linewidth]{img/hash1}
+\pause
+\\[1em]
+\includegraphics[width=\linewidth]{img/hash2}
+\pause
+\\[1em]
+\includegraphics[width=\linewidth]{img/hash3}
+\end{center}
+\note{
+Ensure passwords are hashed with a standard algorithm and a different salt is
+used for each password.
+\begin{itemize}
+\item Prevents \emph{rainbow table} attacks
+\item Both the hash and salt are stored in a database
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
 \frametitle{Signatures}
-\includeimage[width=\linewidth]{signature-schema}
+\includeimage[width=\linewidth]{signature}
 \note{
 \begin{block}{Hash}
 Fixed-size string built using an irreversible function from a message.
@@ -207,27 +243,7 @@ Mean to authenticate the identity of the sender of a message.
 }
 \end{frame}
 
-%TODO : slides blague avec hachage salage ?
 
-\begin{frame}
-\frametitle{Hash + Salt}
-\begin{center}
-hash("hello") = "b1946ac92492d2347c6235b4d2611184" \\[1cm]
-\begin{flushright}
-\includegraphics[width=1.5cm]{img/icon-salt}
-\end{flushright}
-hash("hello", salt1) = "5b1cdd3502528d92b16925aebb99e785" \\
-hash("hello", salt2) = "72a11579b4256c9f604875ea17dbd803" \\
-\end{center}
-\note{
-Ensure passwords are hashed with a standard algorithm and a different salt is
-used for each password.
-\begin{itemize}
-\item Prevents \emph{rainbow table} attacks
-\item Both the hash and salt are stored in a database
-\end{itemize}
-}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -240,10 +256,15 @@ used for each password.
 \frametitle{Authentication means}
 \begin{itemize}
 \item Password
+\pause
 \item Tokens
+\pause
 \item One time passwords
+\pause
 \item Certificates
+\pause
 \item Signature challenge
+\pause
 \item Single Sign-On
 \end{itemize}
 \note{
@@ -253,15 +274,35 @@ used for each password.
 
 %------------------------------------------------
 \begin{frame}
-%TODO : titre ?
-\includeimage[width=0.6\linewidth]{login}
-\note{
 \begin{itemize}
 \item Password is the most common form of authentication
+\pause
 \item Password should be easily changeable
+\pause
 \item People should have different passwords for different services
+\pause
 \item Complexity must be sufficient
+\pause
+\begin{itemize}
+\item Sufficient length
+\pause
+\item Mix lower- and upper-case character
+\pause
+\item Use number and special digit
 \end{itemize}
+\end{itemize}
+\note{
+bullet points
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Password strength}
+\includeimage[height=0.75\textheight,width=\linewidth]{xkcd936_password_strength}
+\note{
+Explain the comic strip orally.
+\par
+A \emph{passphrase} vs a \emph{common password}.
 }
 \end{frame}
 
@@ -276,16 +317,6 @@ letter, etc.)
 \item Check the complexity in the browser and on the server
 % feedback for the user
 \end{itemize}
-}
-\end{frame}
-
-\begin{frame}
-\frametitle{Password strength}
-\includeimage[height=0.75\textheight,width=\linewidth]{xkcd936_password_strength}
-\note{
-Explain the comic strip orally.
-\par
-A \emph{passphrase} vs a \emph{common password}.
 }
 \end{frame}
 
@@ -366,18 +397,21 @@ quality and are most often used in SSL/TLS by web browsers.
 \frametitle{Certificate Authority}
 \begin{itemize}
 \item Private organism
+\pause
 \item Verify the identity of certificate applicants
+\pause
 \item Sign, send and maintain certificates and revocation list
+\pause
+\item Self-signature
 \end{itemize}
-% TODO add examples: Verizon, etc.
-% TODO parler des self-signature au niveau CA
+%TODO add examples: Verizon, etc.
 \note{
 	Bullet points.
 }
 \end{frame}
 
 \defverbatim[colored]\LstA{
-% TODO revoir les parties en couleur (entre les @)
+%TODO revoir les parties en couleur (entre les @)
 \begin{lstlisting}[style=beamer]
 Certificate:
 	Data:
@@ -426,7 +460,7 @@ the identity of the owner. Finally, it signs the certificate.
 \end{itemize}
 \begin{block}{Verification types}
 \begin{enumerate}
-% TODO check that
+%TODO check that
 \item Online verification
 \item Document ID check
 \item Physical identity check
@@ -459,7 +493,7 @@ Certificates are often used as a mean to distribute keys in a public
 key infrastructure (PKI).
 A typical example is for SSL/TLS in web browsers.
 \begin{itemize}
-% TODO simplifier l'explication
+%TODO simplifier l'explication
 \item Each CA does generate it's public-private key pair. They
   self-sign their certificates with their public key.
 \item Browsers are distributed with some pre-installed certificates.
@@ -513,20 +547,16 @@ IS
 \begin{column}{0.3\linewidth}
 \begin{center}
 \bfseries
-%TODO : remplacer l'image ? 
 OWNS
-\includeimage[width=\linewidth]{multifactor-own}
+\includeimage[width=0.85\linewidth]{key-icon}
 \end{center}
 \end{column}
 \begin{column}{0.3\linewidth}
 \begin{center}
 \bfseries
 KNOWS
-%TODO : remplacer l'image ? 
-\includeimage[width=\linewidth]{multifactor-know}
+\includeimage[width=\linewidth]{knowledge}
 \end{center}
-% TODO the images must be the same size
-% (personal note: the height is more important than width)
 \end{column}
 \end{columns}
 \note{
@@ -581,22 +611,27 @@ log in again for each of them.
 
 %------------------------------------------------
 \subsection{SSO providers}
-%TODO : organize logos ? ? 
 %------------------------------------------------
 \begin{frame}
 \frametitle{SSO providers}
 \begin{columns}
-\begin{column}[width=\linewidth]{0.3\linewidth}
-\includeimage[width=0.9\linewidth]{openid}
+\begin{column}[width=\linewidth]{0.5\linewidth}
+\includeimage[width=0.6\linewidth]{openid}
 \end{column}
-\begin{column}[width=\linewidth]{0.3\linewidth}
-\includeimage[width=0.9\linewidth]{logo-google}
-\end{column}
-\begin{column}[width=\linewidth]{0.3\linewidth}
-\includeimage[width=0.9\linewidth]{logo-facebook}
+\begin{column}[width=\linewidth]{0.5\linewidth}
+\includeimage[width=0.6\linewidth]{logo-google}
 \end{column}
 \end{columns}
-\includeimage[width=0.4\linewidth]{active_directory}
+~\\[2em]
+\begin{columns}
+\begin{column}[width=\linewidth]{0.5\linewidth}
+\includeimage[width=0.6\linewidth]{active_directory}
+\end{column}
+\begin{column}[width=\linewidth]{0.5\linewidth}
+\includeimage[width=0.6\linewidth]{logo-facebook}
+\end{column}
+\end{columns}
+
 \note{
 \begin{itemize}
 \item Single sign-on provided using:
@@ -644,21 +679,31 @@ authenticate itself
 \end{frame}
 
 %------------------------------------------------
-\subsection{Compromised authentication mean}
+\subsection{Compromised authentication means}
 
-% TODO transition frame needed
+\begin{frametransition}{What if an user loss its authentication means?}
+~\\[1em]
+\centering\includeimage[width=0.5\linewidth]{lost-credentials}
+\end{frametransition}
+
 
 %------------------------------------------------
 \begin{frame}
-\frametitle{Compromised authentication mean}
-\includeimage[width=0.8\linewidth]{lost-credentials}
+\frametitle{Compromised authentication means}
+\begin{itemize}
+\item Deactivate a \emph{compromised} authentication means
+\pause
+\item Authenticate the user by an \emph{uncompromised} means
+\pause
+\item Give him a \emph{new} primary authentication means
+\end{itemize}
 \note{
 When you implement authentication you have to take into account that
-the user may lose its authentication mean or it can get stolen.
+the user may lose its authentication means or it can get stolen.
 \begin{itemize}
-\item Deactivate a compromised authentication mean
-\item Authenticate the user by an uncompromised mean
-\item Give him a new primary authentication mean
+\item Deactivate a compromised authentication means
+\item Authenticate the user by an uncompromised means
+\item Give him a new primary authentication means
 \end{itemize}
 }
 \end{frame}
@@ -668,11 +713,13 @@ the user may lose its authentication mean or it can get stolen.
 \frametitle{Lost password}
 \begin{Large}
 \begin{itemize}
-\item Security questions
+\item Security questions\\
+\includeimage[width=0.7\linewidth]{security-question}
+\pause
 \item Another channel {\small (e-mail, post, sms)}
 \end{itemize}
 \end{Large}
-% TODO add an image (such as SMS)
+%TODO add an image (such as SMS)
 \note{
 If one of your users loses his password, he has to get a new one but doing
 this in a secure way can be challenging.
