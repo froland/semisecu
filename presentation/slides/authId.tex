@@ -1,7 +1,6 @@
 \section{Authentication and Identity}
 
 %------------------------------------------------
-
 \begin{frame}
 \begin{large}
 \begin{columns}
@@ -106,11 +105,10 @@ client. But... the client can send anything.
 
 \subsubsection*{Cryptography introduction}
 
-
 \begin{frame}
 \frametitle{Symmetric cryptography}
 \includeimage[width=0.9\linewidth]{cryptography-symm}
-\note{ 
+\note{
 \begin{block}{Encryption}
 Transformation of a message in a way that it is readable only by the
 authorized parties.
@@ -198,7 +196,7 @@ then switches to a \emph{symmetric} algorithm as it is faster.
 \end{column}
 \end{columns}
 \note{
-blague avec hachage salage
+Joke: "hachage et salage"
 }
 \end{frame}
 
@@ -207,10 +205,10 @@ blague avec hachage salage
 \begin{center}
 \includegraphics[width=\linewidth]{img/hash1}
 \pause
-\\[1em]
+\vspace{1em}
 \includegraphics[width=\linewidth]{img/hash2}
 \pause
-\\[1em]
+\vspace{1em}
 \includegraphics[width=\linewidth]{img/hash3}
 \end{center}
 \note{
@@ -225,6 +223,7 @@ used for each password.
 
 \begin{frame}
 \frametitle{Signatures}
+% TODO remake the image using DOT
 \includeimage[width=\linewidth]{signature}
 \note{
 \begin{block}{Hash}
@@ -240,8 +239,6 @@ Mean to authenticate the identity of the sender of a message.
 }
 \end{frame}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %------------------------------------------------
@@ -252,48 +249,36 @@ Mean to authenticate the identity of the sender of a message.
 \begin{frame}
 \frametitle{Authentication means}
 \begin{itemize}
-\Large
-\item Password
-\pause
-\item Tokens
-\pause
-\item One time passwords
-\pause
-\item Certificates
-\pause
-\item Signature challenge
-\pause
-\item Single Sign-On
+\item<+-> Password
+\item<+-> Tokens
+\item<+-> One time passwords
+\item<+-> Certificates
+\item<+-> Signature challenge
+\item<+-> Single Sign-On
 \end{itemize}
 \note{
-	bulletpoint
+Bullet points
 }
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Password policy}
+\pause
 \begin{itemize}
-\large
-\item Password is the most common form of authentication
-\pause
-\item Password should be easily changeable
-\pause
-\item People should have different passwords for different services
-\pause
-\item Complexity must be sufficient
-\pause
+\item<+-> The most common form of authentication
+\item<+-> Should be easily changeable
+\item<+-> Different passwords for different services
+\item<+-> Sufficient complexity
 \begin{itemize}
 \normalsize
-\item Sufficient length
-\pause
-\item Mix lower- and upper-case character
-\pause
-\item Use number and special digit
+\item<+-> Sufficient length
+\item<+-> Mix lower-case and upper-case characters
+\item<+-> Use number and special digit
 \end{itemize}
 \end{itemize}
 \note{
-bullet points
+Bullet points
 }
 \end{frame}
 
@@ -397,13 +382,10 @@ quality and are most often used in SSL/TLS by web browsers.
 \begin{frame}
 \frametitle{Certificate Authority}
 \begin{itemize}
-\item Private organism
-\pause
-\item Verify the identity of certificate applicants
-\pause
-\item Sign, send and maintain certificates and revocation list
-\pause
-\item Self-signature
+\item<+-> Private organism
+\item<+-> Verify the identity of certificate applicants
+\item<+-> Sign, send and maintain certificates and revocation list
+\item<+-> Self-signature
 \end{itemize}
 %TODO add examples: Verizon, etc.
 \note{
@@ -507,7 +489,6 @@ A typical example is for SSL/TLS in web browsers.
 }
 \end{frame}
 
-
 \begin{frame}
 \frametitle{Signature challenge}
 \begin{columns}
@@ -549,7 +530,7 @@ IS
 \begin{center}
 \bfseries
 OWNS
-\includeimage[width=0.85\linewidth]{key-icon}
+\includeimage[width=0.85\linewidth]{icon-key}
 \end{center}
 \end{column}
 \begin{column}{0.3\linewidth}
@@ -612,6 +593,7 @@ log in again for each of them.
 
 %------------------------------------------------
 \subsection{SSO providers}
+
 %------------------------------------------------
 \begin{frame}
 \frametitle{SSO providers}
@@ -623,7 +605,7 @@ log in again for each of them.
 \includeimage[width=0.6\linewidth]{logo-google}
 \end{column}
 \end{columns}
-~\\[2em]
+\vspace{2em}
 \begin{columns}
 \begin{column}[width=\linewidth]{0.5\linewidth}
 \includeimage[width=0.6\linewidth]{active_directory}
@@ -632,7 +614,6 @@ log in again for each of them.
 \includeimage[width=0.6\linewidth]{logo-facebook}
 \end{column}
 \end{columns}
-
 \note{
 \begin{itemize}
 \item Single sign-on provided using:
@@ -682,30 +663,22 @@ authenticate itself
 %------------------------------------------------
 \subsection{Compromised authentication means}
 
-\begin{frametransition}{What if an user lose its authentication means?}
-~\\[1em]
+\begin{frametransition}{What if an user lose its authentication mean?}
+\vspace{1em}
 \centering\includeimage[width=0.5\linewidth]{lost-credentials}
 \end{frametransition}
-
 
 %------------------------------------------------
 \begin{frame}
 \frametitle{Compromised authentication means}
 \begin{itemize}
-\item Deactivate a \emph{compromised} authentication means
-\pause
-\item Authenticate the user by an \emph{uncompromised} means
-\pause
-\item Give him a \emph{new} primary authentication means
+\item<+-> Deactivate the \emph{compromised} authentication mean
+\item<+-> Authenticate the user by an \emph{uncompromised} mean
+\item<+-> Give him a \emph{new} primary authentication mean
 \end{itemize}
 \note{
 When you implement authentication you have to take into account that
-the user may lose its authentication means or it can get stolen.
-\begin{itemize}
-\item Deactivate a compromised authentication means
-\item Authenticate the user by an uncompromised means
-\item Give him a new primary authentication means
-\end{itemize}
+the user may lose its authentication mean or it can get stolen.
 }
 \end{frame}
 
@@ -714,11 +687,11 @@ the user may lose its authentication means or it can get stolen.
 \frametitle{Lost password}
 \begin{Large}
 \begin{itemize}
-\item Security questions\\
-\pause
-\item Another channel {\small (e-mail, post, sms)}
+\item<+-> Security questions
+\item<+-> Another channel {\small (e-mail, post, sms)}
 \end{itemize}
-~\\[1em]
+\pause
+\vspace{1em}
 \begin{columns}
 \begin{column}{0.6\linewidth}
 \includeimage[width=0.9\linewidth]{security-question}
@@ -728,7 +701,6 @@ the user may lose its authentication means or it can get stolen.
 \end{column}
 \end{columns}
 \end{Large}
-%TODO add an image (such as SMS)
 \note{
 If one of your users loses his password, he has to get a new one but doing
 this in a secure way can be challenging.
