@@ -1,7 +1,5 @@
 \section{Attacks}
 
-%TODO : expliquer en quoi les attaques sont complémentaires (remarque pour tout le chapitre)
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Attack trees}
 
@@ -37,11 +35,7 @@ the tree.
 \item[External threats]
 	\hfill
 	\begin{itemize}
-	\item internet users
-		\begin{itemize}
-		\item white-hat
-		\item black-hat
-		\end{itemize}
+	\item internet users {\small (and hackers)}
 	\item viruses
 	\end{itemize}
 \item[Internal threats]
@@ -54,9 +48,7 @@ the tree.
 
 \begin{frame}
 \frametitle{Threat agents}
-
 \includeimage[height=0.8\textheight]{lock-virus}
-
 \note{
 \begin{description}
 \item[External threats]
@@ -77,6 +69,9 @@ the tree.
 Threat agents have different skills, resources and different motivations that
 may influence risk.
 \end{block}
+\begin{exampleblock}{Lock virus}
+Computer locked until you pay.
+\end{exampleblock}
 }
 \end{frame}
 
@@ -87,6 +82,7 @@ may influence risk.
 \includeimage[width=\linewidth,height=4cm]{no-electricity}
 \end{column}
 \begin{column}{0.6\linewidth}
+% TODO je ne trouve pas top cette image (krzysztof)
 \includeimage[width=\linewidth,height=4cm]{power-plug}
 \end{column}
 \end{columns}
@@ -262,14 +258,12 @@ Solution: duplication.
 \note{
 \begin{block}{Project: Top 10}
 OWASP compiles a top 10 of most critical web application \emph{risks}.
-% Insist on risk!
-\end{block}
-\begin{block}{Demo application}
-\begin{itemize}
-\item Built with security flaws for the demo
-\item Hotel rating web site
-\item Shown hotels must be approved by an administrator
-\end{itemize}
+\vspace{2em}
+\begin{center}
+\LARGE
+\par Insist on risk!
+\par Attacks are complementary!
+\end{center}
 \end{block}
 }
 \end{frame}
@@ -294,9 +288,14 @@ The issues presented afterwards are common to many technologies.
 \end{block}
 \begin{exampleblock}{The demo}
 Run the normal usage demo.
-% TODO make a video of the demo of the website
-% (je vais la faire)
 \end{exampleblock}
+\begin{block}{Demo application}
+\begin{itemize}
+\item Built with security flaws for the demo
+\item Hotel rating web site
+\item Shown hotels must be approved by an administrator
+\end{itemize}
+\end{block}
 }
 \end{frame}
 
@@ -306,13 +305,13 @@ Run the normal usage demo.
 % - Objectif: detourner l'usage
 % - Ensuite, montrer l'attaque
 % - Et finalement, la correction.
-% TODO ajouter widespread, high impact pour les attaques
 
 \subsubsection{Attack 1 - Injection}
 
 \begin{frame}
 \frametitle{1. Injection}
 \includeimage[scale=0.5]{client-server-injection}
+\emphsidetext{widespread \newline severe impact}
 \note{
 \textbf{Injection} consists in sending untrusted data to an interpreter.
 Attacker enters code to execute into input fields.
@@ -413,6 +412,7 @@ List of valid input patterns.
 \begin{frame}
 \frametitle{2. Cross-site scripting (XSS)}
 \includeimage[scale=0.5]{client-server-xss}
+\emphsidetext{very widespread}
 \note{
 \textbf{Cross-site scripting} allows attackers to inject code into the page
 sent to the user. The injected code can be a script interpreted by the
@@ -434,29 +434,31 @@ It requires an average knowledge to be exploited and the impacts are moderate.
 \defverbatim[colored]\LstBad{
 \begin{lstlisting}[style=beamer]
 <div>
-	@${hotel.description}@
+	your content goes here
 </div>
 \end{lstlisting}
 }
 \defverbatim[colored]\LstGood{
 \begin{lstlisting}[style=beamer]
 <div>
-	@<c:out value="${hotel.description}" />@
+	@escape(@your content goes here@)@
 </div>
 \end{lstlisting}
 }
 \begin{frame}
-% TODO parler plutot des frameworks que de JSP
 \begin{embeddedcode}{bad}
 \LstBad
 \end{embeddedcode}
+\pause
+\begin{center}
+You can inject a part of the page.
+\end{center}
 \badgoodsep
 \begin{embeddedcode}{good}
 \LstGood
 \end{embeddedcode}
 \note{
-{\bfseries JSP page}\par
-Unescaped included text in a JSP.
+Text included directly in a page as is.
 \begin{exampleblock}{Getting the user's cookies - demo}
 Just use \lstinline!document.cookie! in JavaScript and send it to
 \emph{another server}.
@@ -464,6 +466,7 @@ Just use \lstinline!document.cookie! in JavaScript and send it to
 \end{exampleblock}
 \begin{block}{Escaping the values}
 All the values should be escaped before sending them to the users.
+You could also use a light markup language.
 \end{block}
 \begin{block}{White list validation}
 Output values can be white listed, but this is not a complete defence against
@@ -477,6 +480,7 @@ XSS as sometimes special characters must be accepted.
 \begin{frame}
 \frametitle{3. Authentication and Session Management}
 \includeimage[scale=0.5]{client-server-session}
+\emphsidetext{severe impact}
 \note{
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
@@ -516,15 +520,21 @@ cross-site scripting (XSS)
 Good authentication mechanism
 \end{center}
 \note{
-\begin{exampleblock}{Examples}
+\begin{example}
+\begin{small}
 \begin{itemize}
-\item \small Public computer : Forgetting to log out...
-\item Session fixation: In older application server, the session ID could be set using the URL.
-You could send that URL to someone else.
-\item Session guessing: Guess the next generated session ID.
-\item XSS session hijacking - demo: The user's session can be obtained using XSS.
+\item Public computer:
+	Forgetting to log out...
+\item Session fixation:
+	In older application servers, the session ID could be set using the URL.
+	You could send that URL to someone else.
+\item Session guessing:
+	Guess the next generated session ID.
+\item XSS session hijacking (demo):
+	The user's session can be obtained using XSS.
 \end{itemize}
-\end{exampleblock}
+\end{small}
+\end{example}
 \badgoodsep
 \begin{block}{Good authentication mechanism}
 \begin{itemize}
@@ -545,6 +555,7 @@ http://myhotel.com/user/@152@
 }
 \begin{frame}
 \frametitle{4. Insecure Direct Object References}
+\emphsidetext{easy to exploit}
 \begin{columns}
 \begin{column}{0.1\linewidth}\end{column}
 \begin{column}{0.7\linewidth}
@@ -555,53 +566,27 @@ http://myhotel.com/user/@152@
 \begin{center}
 {\huge\bfseries Check permissions}
 \end{center}
-
 \note{
 \small
 The attacker changes a parameter in the request to obtain a \textbf{direct
 object reference} that they should not be able to access.
+\begin{example}
+Replace some object identifier in the request.
+\end{example}
+\begin{block}{Impacts}
+Compromise the data that can be referenced.
+\end{block}
+\begin{alertblock}{Risks}
+Easy to exploit and detect. The impact is moderate.
+\end{alertblock}
+\hrule
 \begin{itemize}
-\item \small Example: Replace some object identifier in the request.
-\item Impacts: Compromise the data that can be referenced.
-\item Risks: Easy to exploit and detect. The impact is moderate.
-\item Missing access verification: Often objects are retrieved by their ID, the developer can forget to check
-whether the user is allowed to see that object.
 \item An unvalidated hotel - demo: See an unvalidated hotel as a normal user.
-\item Check permissions: Check whether the user has the permissions to access the object before
-manipulating it.
+\item Check permissions: Check whether the user has the permissions to access
+the object before manipulating it.
 \item References by session: Use indirect references for each session.
 \end{itemize}
 }
-%\note{
-%\small
-%The attacker changes a parameter in the request to obtain a \textbf{direct
-%object reference} that they should not be able to access.
-%\begin{example}
-%Replace some object identifier in the request.
-%\end{example}
-%\begin{block}{Impacts}
-%Compromise the data that can be referenced.
-%\end{block}
-%\begin{alertblock}{Risks}
-%Easy to exploit and detect. The impact is moderate.
-%\end{alertblock}
-%\begin{block}{Missing access verification}
-%Often objects are retrieved by their ID, the developer can forget to check
-%whether the user is allowed to see that object.
-%\end{block}
-%\hrule
-%\begin{exampleblock}{An unvalidated hotel - demo}
-%See an unvalidated hotel as a normal user.
-%\end{exampleblock}
-%\hrule
-%\begin{block}{\textbf{Check permissions}}
-%Check whether the user has the permissions to access the object before
-%manipulating it.
-%\end{block}
-%\begin{block}{References by session}
-%Use indirect references for each session.
-%\end{block}
-%}
 \end{frame}
 
 \subsubsection{Attack 5 - Cross-site Request Forgery (CSRF)}
@@ -609,6 +594,7 @@ manipulating it.
 \begin{frame}
 \frametitle{5. Cross-site Request Forgery (CSRF)}
 \includeimage[scale=0.5]{client-server-csrf}
+\emphsidetext{widespread}
 \note{
 \textbf{Cross-site Request Forgery} consists in generating requests when the
 user visits the attacker's web page.
@@ -677,6 +663,7 @@ stored only on the application server.
 \begin{frame}
 \frametitle{6. Security Misconfiguration}
 \includeimage[width=0.7\linewidth]{misconfiguration}
+\emphsidetext{easy to exploit}
 \note{
 \small
 \textbf{Security configuration} can happen at any level: the application, the
@@ -733,6 +720,7 @@ Automated scans can detect misconfigurations and missing patches.
 
 \begin{frame}
 \frametitle{7. Insecure Cryptographic Storage}
+\emphsidetext{compromised data}
 \begin{center}
 \begin{tabular}{|l|l|l|c|}
 \hline
@@ -791,6 +779,7 @@ http://myhotel.com/@admin@
 }
 \begin{frame}
 \frametitle{8. Failure to Restrict URL Access}
+\emphsidetext{easy to detect}
 \begin{columns}
 \begin{column}{0.1\linewidth}\end{column}
 \begin{column}{0.7\linewidth}
@@ -829,6 +818,7 @@ Authorization mechanisms should be used.
 \begin{frame}
 \frametitle{9. Insufficient Transport Layer Protection}
 \includeimage[width=0.8\linewidth]{wifi-sniffing}
+\emphsidetext{easy to detect}
 \note{
 \textbf{Traffic is unprotected} and anyone sniffing the network can see the
 data in transit.
@@ -846,7 +836,6 @@ Account theft, expose individual user's data.
 Detectable using any sniffer.
 However, often difficult to exploit.
 \end{alertblock}
-% TODO anecdote a ajouter? (je ne sais plus ce que je voulais dire par la...)
 }
 \end{frame}
 
@@ -878,6 +867,7 @@ http://host.com/forward.jsp?
 }
 \begin{frame}
 \frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
+\emphsidetext{easy to detect}
 \includeimage[width=\linewidth]{webapp-forward}
 \vspace{6mm}
 \Lst
@@ -898,14 +888,15 @@ Easy to detect, uncommonly present.
 \end{frame}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\Large]
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\large]
 https://@bank.com/secured@/../redirect?
 @url=http://evil-bank.com/secured@
 \end{lstlisting}
 }
 \begin{frame}
 \frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
-\includeimage[width=0.7\linewidth]{webapp-redirect}
+\emphsidetext{easy to detect}
+\includeimage[width=\linewidth]{webapp-redirect}
 \Lst
 \note{
 \begin{example}
@@ -931,23 +922,16 @@ Map input values to the actual URLs.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%TODO : faire un plan des attaques qui vont suivre
-% je dirais qu'il faut juste suivre un chemin logique comme pour la
-% prevention, par exemple du serveur au client
-
 \begin{frame}
-\frametitle{Others attacks}
-\begin{enumerate}
-\Large
-\item Denial of Service
-\item Man in the Middle
-\item Social Engineering
-\item Phishing
-\item Brute Force
-\item ...
-\end{enumerate}
+\frametitle{Some other attacks}
+\begin{itemize}
+\item Crashing a system
+\item Altering content
+\item Social engineering
+\item Breaking any password
+\end{itemize}
 \note{
-TODO
+Intent for some other attacks explained just after this slide.
 }
 \end{frame}
 
@@ -1044,12 +1028,16 @@ Use cryptography: HTTPS, PKI (Public Key Infrastructure)
 \end{block}
 }
 \end{frame}
-% TODO reuse archi-webapplication
+
+\begin{frame}
+\includeimage[width=\linewidth]{archi-webapplication}
+\note{
+You can attack anywhere in this schema!
+}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Social engineering}
-\begin{frametransition}{What about accessing the content ?}
-\end{frametransition}
 
 \begin{frame}
 \frametitle{Social engineering}
@@ -1095,7 +1083,8 @@ Something for something:
 Help a user solve a problem, they might give you passwords in exchange.
 \end{description}
 \begin{block}{Story: Silence of the Lambs}
-% TODO story behind the image
+Hannibal Lecter helps the FBI agent (Clarice) in exchange for being transfered
+to a less secure prison from which he can escape.
 \end{block}
 \begin{block}{Protection}
 \begin{itemize}
@@ -1140,6 +1129,9 @@ A \emph{cloned} website.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Other attacks}
+
+\begin{frametransition}{Breaking a password?}
+\end{frametransition}
 
 \begin{frame}
 \frametitle{Brute force}

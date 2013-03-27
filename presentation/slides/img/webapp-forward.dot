@@ -1,5 +1,6 @@
 digraph Forward {
 	rankdir = LR
+	margin = 0
 	node [ shape = none, fontsize = 30 ]
 	edge [ fontsize = 24 ]
 
