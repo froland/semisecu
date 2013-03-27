@@ -8,6 +8,7 @@
 \frametitle{Different moments}
 
 \begin{itemize}
+\Large
 \item Architecture
 \item Development
 \item Maintenance
@@ -24,10 +25,10 @@ whole life cycle of the application.
 % TODO: ajouter une image du livre?
 \begin{quote}
 \begin{small}
-The {\Large highest-level breakdown} of a system into its parts; the decisions that are
-{\Large hard to change}; there are multiple architectures in a system; what is
-architecturally significant can change over a system's lifetime; and, in the
-end, architecture boils down to whatever the {\Large important stuff} is.
+The {\large\color{emphasis} highest-level breakdown} of a system into its parts [...] the decisions that are
+{\large\color{emphasis} hard to change} [...] there are multiple architectures in a system [...] what is
+architecturally significant can change over a system's lifetime [...] and, in the
+end, architecture boils down to whatever the {\large\color{emphasis} important stuff} is.
 \newline \textit{-- Martin Fowler, Patterns of Enterprise Application Architecture}
 \end{small}
 \end{quote}
@@ -66,6 +67,7 @@ Question examples:
 \begin{frame}
 \frametitle{Development: tips and tricks}
 \begin{itemize}
+\Large
 \item<+-> Passwords
 \item<+-> Session management
 \item<+-> Input validation
@@ -242,24 +244,24 @@ Frameworks ease development while providing security mechanisms:
 % TODO mettre une image avec plein de frameworks ESAPI, supprimer Spring
 
 \begin{columns}
-\begin{column}{0.55\linewidth}
+\begin{column}{0.5\linewidth}
 \begin{figure}
 \includeimage[width=0.8\linewidth]{logo-spring}
 \scriptsize{\url{http://www.springsource.org/}}
 \end{figure}
 \begin{figure}
-\includeimage[width=0.8\linewidth]{apache-shiro}
-\scriptsize{\url{https://shiro.apache.org/}}
-\end{figure}
-\end{column}
-\begin{column}{0.45\linewidth}
-\begin{figure}
 \includeimage[width=0.8\linewidth]{logo-esapi}
 ESAPI
 \newline \scriptsize{\url{https://www.owasp.org/}}
 \end{figure}
+\end{column}
+\begin{column}{0.5\linewidth}
 \begin{figure}
-\includeimage[width=0.8\linewidth]{dotnet-logo}
+\includeimage[width=0.8\linewidth]{apache-shiro}
+\scriptsize{\url{https://shiro.apache.org/}}
+\end{figure}
+\begin{figure}
+\includeimage[width=0.55\linewidth]{dotnet-logo}
 \scriptsize{\url{https://www.microsoft.com/net}}
 \end{figure}
 \end{column}
@@ -284,7 +286,8 @@ The ESAPI libraries also serve as a solid foundation for new development.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Security in application servers}
-\begin{block}{Application server}
+\begin{block}{\Large Application server}
+\Large
 The program that runs the web application
 \end{block}
 \vspace{1em}
@@ -374,7 +377,7 @@ communications.
 % * Ajouter le sandbox
 % voir les notes du slide
 \frametitle{Browser restrictions}
-\includeimage[width=0.9\linewidth,height=0.9\textheight]{browser-security2}
+\includeimage[width=0.9\linewidth]{browser-security}
 \note{
 \begin{itemize}
 \item Cross-domain XMLHttpRequest (XHR) is disabled by default for other websites

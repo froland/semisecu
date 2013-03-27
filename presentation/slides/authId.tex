@@ -53,10 +53,7 @@ action.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}
-\begin{center}
-\Large{\textbf{Identification and confidentiality}}
-\end{center}
+\begin{frametransition}{Identification and confidentiality}
 \note{
 Authentication is needed when you want to transmit
 information and be sure that your correspondent isn't
@@ -66,7 +63,7 @@ Authentication by itself doesn't imply confidentiality.
 For that, we have encryption.
 \end{block}
 }
-\end{frame}
+\end{frametransition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technical introduction}
@@ -112,7 +109,7 @@ client. But... the client can send anything.
 
 \begin{frame}
 \frametitle{Symmetric cryptography}
-\includeimage[width=0.8\linewidth]{cryptography-symm}
+\includeimage[width=0.9\linewidth]{cryptography-symm}
 \note{ 
 \begin{block}{Encryption}
 Transformation of a message in a way that it is readable only by the
@@ -255,6 +252,7 @@ Mean to authenticate the identity of the sender of a message.
 \begin{frame}
 \frametitle{Authentication means}
 \begin{itemize}
+\Large
 \item Password
 \pause
 \item Tokens
@@ -274,7 +272,9 @@ Mean to authenticate the identity of the sender of a message.
 
 %------------------------------------------------
 \begin{frame}
+\frametitle{Password policy}
 \begin{itemize}
+\large
 \item Password is the most common form of authentication
 \pause
 \item Password should be easily changeable
@@ -284,6 +284,7 @@ Mean to authenticate the identity of the sender of a message.
 \item Complexity must be sufficient
 \pause
 \begin{itemize}
+\normalsize
 \item Sufficient length
 \pause
 \item Mix lower- and upper-case character
@@ -362,7 +363,7 @@ single use.
 
 \begin{frame}
 \frametitle{One time passwords - choice and distribution}
-\includeimage[width=\linewidth,height=0.7\textheight]{secure-id-token}
+\includeimage[height=0.5\textheight]{secure-id-token}
 \note{
 To avoid prediction, passwords must be chosen using a random or at
 least pseudo-random way.
@@ -656,7 +657,7 @@ log in again for each of them.
 %------------------------------------------------
 \begin{frame}
 \frametitle{Kerberos}
-\includeimage[scale=1]{logo-kerberos}
+\includeimage[width=0.5\linewidth]{logo-kerberos}
 \note{
 \textbf{Kerberos} is a SSO developed at MIT to solve the problem of allowing
 some users to use restricted resources.
@@ -681,7 +682,7 @@ authenticate itself
 %------------------------------------------------
 \subsection{Compromised authentication means}
 
-\begin{frametransition}{What if an user loss its authentication means?}
+\begin{frametransition}{What if an user lose its authentication means?}
 ~\\[1em]
 \centering\includeimage[width=0.5\linewidth]{lost-credentials}
 \end{frametransition}
@@ -714,10 +715,18 @@ the user may lose its authentication means or it can get stolen.
 \begin{Large}
 \begin{itemize}
 \item Security questions\\
-\includeimage[width=0.7\linewidth]{security-question}
 \pause
 \item Another channel {\small (e-mail, post, sms)}
 \end{itemize}
+~\\[1em]
+\begin{columns}
+\begin{column}{0.6\linewidth}
+\includeimage[width=0.9\linewidth]{security-question}
+\end{column}
+\begin{column}{0.4\linewidth}
+\includeimage[width=0.8\linewidth]{sms}
+\end{column}
+\end{columns}
 \end{Large}
 %TODO add an image (such as SMS)
 \note{

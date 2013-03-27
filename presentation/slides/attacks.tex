@@ -54,14 +54,9 @@ the tree.
 
 \begin{frame}
 \frametitle{Threat agents}
-\begin{columns}
-\begin{column}{0.8\linewidth}
-\includeimage[width=\linewidth]{new-fbi-greendot-moneypak-virus}
-\end{column}
-\begin{column}{0.2\linewidth}
-\includeimage[width=0.6\linewidth]{money}
-\end{column}
-\end{columns}
+
+\includeimage[height=0.8\textheight]{lock-virus}
+
 \note{
 \begin{description}
 \item[External threats]
@@ -201,7 +196,7 @@ Explanation in the next slide.
 \subsubsection{Architecture of a web application}
 
 \begin{frame}
-\includeimage[width=\linewidth,height=0.8\textheight]{archi-webapplication}
+\includeimage[width=\linewidth]{archi-webapplication.jpg}
 \note{
 \begin{itemize}
 \item Browser: the client, uses scripting
@@ -282,10 +277,12 @@ OWASP compiles a top 10 of most critical web application \emph{risks}.
 \begin{frame}
 \frametitle{Demo website}
 \begin{description}
+\Large
 \item[Technologies]
 	Java website
 	\hfill
 	\begin{itemize}
+	\Large
 	\item Spring
 	\item Hibernate - h2database
 	\end{itemize}
@@ -364,6 +361,7 @@ ResultSet rs = st.executeQuery();
 \end{embeddedcode}
 \badgoodsep
 \begin{itemize}
+\Large
 \item Parameterized interface
 \end{itemize}
 \begin{embeddedcode}{good}
@@ -387,10 +385,19 @@ input values.
 \end{frame}
 
 \begin{frame}
+\frametitle{Other Countermeasures}
+\begin{columns}
+\begin{column}{0.6\linewidth}
 \begin{itemize}
+\Large
 \item Escaping routines
 \item White list validation
 \end{itemize}
+\end{column}
+\begin{column}{0.4\linewidth}
+\includeimage[width=\linewidth]{exit}
+\end{column}
+\end{columns}
 \note{
 \begin{block}{Escaping routines}
 Some languages have special functions to escape manually values.
@@ -490,16 +497,18 @@ The impact is severe, this attack is common.
 \end{frame}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\huge,text-align=center]
+\begin{minipage}{0.5\linewidth}
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\LARGE,text-align=center]
   http://host.com/page@;
-jsessionid=dfd4fa35df2@...
+  jsessionid=dfd4fa35df2@...
 \end{lstlisting}
+\end{minipage}
 }
 \begin{frame}
 \frametitle{Session Stealing}
 \Lst
 \vspace{3mm}
-\centering\huge\bfseries
+\centering\Large\bfseries
 cross-site scripting (XSS)
 \badgoodsep
 \begin{center}
@@ -516,7 +525,7 @@ You could send that URL to someone else.
 \item XSS session hijacking - demo: The user's session can be obtained using XSS.
 \end{itemize}
 \end{exampleblock}
-\hrule
+\badgoodsep
 \begin{block}{Good authentication mechanism}
 \begin{itemize}
 \item \small Use a proven authentication mechanism
@@ -542,9 +551,9 @@ http://myhotel.com/user/@152@
 \Lst
 \end{column}
 \end{columns}
-\hrule
+\badgoodsep
 \begin{center}
-{\Huge\bfseries Check permissions}
+{\huge\bfseries Check permissions}
 \end{center}
 
 \note{
@@ -751,7 +760,7 @@ The attack is however difficult to perform.
 \end{frame}
 
 \begin{frame}
-\includeimage[height=0.7\textheight,width=0.9\linewidth]{rainbow-table-example}
+\includeimage[width=\textwidth]{rainbow-table-example}
 \note{
 \begin{exampleblock}{Unencrypted passwords}
 After dumping the table \texttt{USERS}, the passwords might be stored in
@@ -776,7 +785,7 @@ The database backup is lost.
 \subsubsection{Attack 8 - Failure to Restrict URL Access}
 
 \defverbatim[colored]\Lst{
-\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\Large]
+\begin{lstlisting}[style=beamer,basicstyle=\ttfamily\LARGE]
 http://myhotel.com/@admin@
 \end{lstlisting}
 }
@@ -869,7 +878,7 @@ http://host.com/forward.jsp?
 }
 \begin{frame}
 \frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
-\includeimage[width=0.7\linewidth]{webapp-forward}
+\includeimage[width=\linewidth]{webapp-forward}
 \vspace{6mm}
 \Lst
 \note{
@@ -897,7 +906,6 @@ https://@bank.com/secured@/../redirect?
 \begin{frame}
 \frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
 \includeimage[width=0.7\linewidth]{webapp-redirect}
-\vspace{2mm}
 \Lst
 \note{
 \begin{example}
@@ -930,6 +938,7 @@ Map input values to the actual URLs.
 \begin{frame}
 \frametitle{Others attacks}
 \begin{enumerate}
+\Large
 \item Denial of Service
 \item Man in the Middle
 \item Social Engineering
@@ -1036,6 +1045,8 @@ Use cryptography: HTTPS, PKI (Public Key Infrastructure)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Social engineering}
+\begin{frametransition}{What about accessing the content ?}
+\end{frametransition}
 
 \begin{frame}
 \frametitle{Social engineering}

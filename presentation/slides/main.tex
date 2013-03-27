@@ -72,7 +72,7 @@
 %\setbeamertemplate{footline}
 % To replace the footer line in all slides with a simple slide count uncomment
 % this line
-\setbeamertemplate{footline}[page number]
+%\setbeamertemplate{footline}[page number]
 % To remove the navigation symbols from the bottom of all slides uncomment
 % this line
 \setbeamertemplate{navigation symbols}{}
@@ -104,7 +104,7 @@
 \usepackage{ifthen}
 
 % Color for emphasis
-\definecolor{emphasis}{rgb}{0.1,0.1,0.8}
+\definecolor{emphasis}{rgb}{1,0,1}
 
 % Listings (code)
 \usepackage{listings}
@@ -126,15 +126,15 @@
 }
 \lstdefinestyle{highlight}{
 	keywordstyle=\color{red},
-	commentstyle=\color{green},
+	commentstyle=\color{green}
 }
 \lstdefinestyle{beamer}{
  	%preset=\large,
     breaklines=true,
-	basicstyle=\ttfamily\footnotesize\color{black!50},
+	basicstyle=\ttfamily\normalsize\color{black!80},
 	keywordstyle=\color{red!50},
 	commentstyle=\color{green!50},
-	moredelim=**[is][{\color{emphasis}\lstset{style=highlight}}]{@}{@},
+	moredelim=**[is][{\color{emphasis}}]{@}{@},
 }
 
 % Macro to include images
@@ -260,10 +260,10 @@
 \end{frame}
 
 \begin{frame}
-\begin{flushright}
+\begin{flushleft}
 \Huge
-Thanks
-\end{flushright}
+Thank you
+\end{flushleft}
 \vspace{1cm}
 \includeimage[width=6cm]{hermes}
 \note{
