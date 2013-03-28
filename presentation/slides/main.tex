@@ -152,6 +152,11 @@
 \vspace{6mm}
 }
 
+% Macro for emhased text on the side
+\newcommand{\emphsidetext}[1]{
+% TODO put the text in the right upper corner
+}
+
 % Macro for good and bad code
 \newenvironment{embeddedcode}[1]{
 \begin{columns}[T]
@@ -188,7 +193,6 @@
 	\note{\Large New section: \emph{\insertsection}}
 	\end{frame}
 }
-
 
 %-----------------------------------------------------------------------------
 %	TITLE PAGE
@@ -264,12 +268,20 @@
 \end{frame}
 
 \begin{frame}
-\begin{flushleft}
-\Huge
-Thank you
-\end{flushleft}
-\vspace{1cm}
+\begin{centering}
+{\Huge
 \includeimage[width=6cm]{hermes}
+\vspace{0.5cm}
+THANK YOU}
+
+\end{centering}
+
+\vspace{2cm}
+
+{\large www.hermes-ecs.com $\triangleright$ about us $\triangleright$ documents
+
+@FrRoland --- francois.roland@hermes-ecs.com}
+
 \note{
 	Thank you.
 }

@@ -1,6 +1,6 @@
 digraph ArchiWebApp {
 	rankdir = LR
-	ranksep = 0.4
+	ranksep = 0.3
 	nodesep = 0.8
 	node [ shape = none, fontsize = 30 ]
 	edge [ arrowhead = none, arrowtail = none ]
