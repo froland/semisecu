@@ -1,0 +1,36 @@
+Feedback pour la présentation
+=============================
+
+Les priorités
+-------------
+
+1. Faire les references
+A mettre a la fin du document papier.
+
+2. Faire un slide pour dire que c'est illegal
+Le rattacher au pentesting.
+
+2. Document papier
+A finir.
+Vincent s'occupe d'envoyer les chapitres relus à Fred et Francois pour
+validation.
+
+3. Finir les TODO dans les slides
+
+Remarques par rapport au resenti (Krzysztof)
+--------------------------------------------
+
+Le debut etait bien accrocheur.
+Ensuite, dans le chapitre sur l'auth: pas mal de personnes ont decroches quand
+on listait les methodes d'authentification. Il faut faire soit des liens (par
+exemple, SSO vs passwords multipls).On pourrait entrer un peu plus dans les
+details pour la cryptographie.
+La partie pour les attaques s'est bien passée. Le fait de faire la pause juste
+avant OWASP était une superbe idée pour trancher ce gros morceau en deux.
+Il parrait que j'ai pris du temps pour ce chapitre.
+J'ai pas de remarques particulieres pour la prevention.
+Pour le dernier chapitre, j'ai un peu stressé. Mais, plus j'avancais dans le
+chapitre, j'avais l'impression que plus de gens ont suivi.
+
+En fin, la durée du seminaire entier était parfaite. Les QR se sont terminés
+avec un quart d'heure d'avance. C'etait sans doute apprecie par les eleves :)
