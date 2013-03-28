@@ -10,7 +10,7 @@ attackers who try to penetrate some system. A honeypot is a non-patched server
 that is monitored for attacks and serves no other purpose. Thus, all
 the traffic can be considered as an attack. The drawback of this
 approach is that you have a vulnerable server that can be used as a
-stepstone to attack other server in your network.
+point of entry to attack other servers in your network.
 }
 \end{frame}
 
@@ -55,12 +55,12 @@ Detects stealth port scans, brute force attacks, etc.
 \begin{block}{Stateful protocol analysis}
 Follows a protocol conversation.
 Detects SYN port scans, etc.
-
-A port scan or portscan is "An attack that sends client requests to a
+\begin{quote}
+A port scan is an attack that sends client requests to a
 range of server port addresses on a host, with the goal of finding an
-active port and exploiting a known vulnerability of that service."
-\url{http://encyclopedia.thefreedictionary.com/Port+scanner}
-
+active port and exploiting a known vulnerability of that service.
+\newline {\scriptsize -- Wikipedia}
+\end{quote}
 \end{block}
 }
 \end{frame}
@@ -116,17 +116,17 @@ Once the attack is effective, the outbound traffic drops.
 \note{
 \begin{itemize}
 \item \href{http://www.ntop.org/products/ntop/}{ntop}: traffic monitoring
-platform GPL
+platform (GPL)
 \item \href{http://www.intersectalliance.com}{Snare}: a collection of tools to
-audit log data and facilitate log analysis NON FREE
+audit log data and facilitate log analysis (non-free)
 \item \href{http://www.ossec.net/}{OSSEC}: open-source alternative; performs
 log analysis, file integrity checking, policy monitoring, rootkit detection,
 real-time alerting and active response
 \item Web log analysis software
 	\begin{itemize}
-	\item \href{http://www.webalizer.org/}{Webalizer} GPL
-	\item \href{http://awstats.sourceforge.net/}{AWStats} Open source
-	\item \href{http://www.weblogexpert.com/}{WebLog Expert} NON FREE
+	\item \href{http://www.webalizer.org/}{Webalizer} (GPL)
+	\item \href{http://awstats.sourceforge.net/}{AWStats}
+	\item \href{http://www.weblogexpert.com/}{WebLog Expert} (non-free)
 	\end{itemize}
 \end{itemize}
 }
