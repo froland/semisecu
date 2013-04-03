@@ -1216,91 +1216,45 @@ security controls.
 \vspace{2em}
 \frametitle{Common points}
 \begin{itemize}
-\pause
-\item Improper input validation
-	\pause
+\item<1-> Improper input validation
+  \only<2-5>{
+  \begin{itemize}
+  \item<2-5> Injection
+  \item<3-5> Cross-site scripting (XSS)
+  \item<4-5> Session Stealing via XSS
+  \item<5-5> Unvalidated Forwards and Redirects
+  \end{itemize}
+}
+\item<6-> Missing authorization checks
+\only<7-8>{
+  \begin{itemize}
+  \item<7-8> Insecure Direct Object References
+  \item<8-8> Failure to Restrict URL Access
+  \end{itemize}
+}
+\item<9-> Misconfiguration
+\item<10-> Other assumptions
+\only<11-14>{
 	\begin{itemize}
-		\item<+-> Injection
-		\item<+-> Cross-site scripting (XSS)
-		\item<+-> Session Stealing via XSS
-		\item<+-> Unvalidated Forwards and Redirects
+		\item<11-14> Insecure Cryptographic Storage
+		\item<12-14> Insufficient Transport Layer Protection
+		\item<13-14> Denial of Service
+		\item<14-14> Man in the Middle
+	\end{itemize}
+}
+\item<15-> Education factor {\small (social engineering)}
+	\begin{itemize}
+		\item<16-19> Session stealing (cybercafe)
+		\item<17-19> Social engineering
+		\item<18-19> Phishing
+		\item<19-19> Brute Force
 	\end{itemize}
 \end{itemize}
 \note{
 Bullet point }
-\end{frame}
 
-\begin{frame}[t]
-\vspace{2em}
-\frametitle{Common points}
-\begin{itemize}
-\item Improper input validation
-\pause
-\item Missing authorization checks
-	\pause
-	\begin{itemize}
-		\item<+-> Insecure Direct Object References
-		\item<+-> Failure to Restrict URL Access
-	\end{itemize}
-\end{itemize}
-\note{
-Bullet point }
-\end{frame}
 
-\begin{frame}[t]
-\vspace{2em}
-\frametitle{Common points}
-\begin{itemize}
-\item Improper input validation
-\item Missing authorization checks
-\pause
-\item Misconfiguration
-\end{itemize}
-\note{
-Bullet point }
-\end{frame}
 
-\begin{frame}[t]
-\vspace{2em}
-\frametitle{Common points}
-\begin{itemize}
-\item Improper input validation
-\item Missing authorization checks
-\item Misconfiguration
-\pause
-\item Other assumptions
-	\pause
-	\begin{itemize}
-		\item<+-> Insecure Cryptographic Storage
-		\item<+-> Insufficient Transport Layer Protection
-		\item<+-> Denial of Service
-		\item<+-> Man in the Middle
-	\end{itemize}
-\end{itemize}
-\note{
-Bullet point }
-\end{frame}
-
-\begin{frame}[t]
-\frametitle{Common points}
-\vspace{2em}
-\begin{itemize}
-\item Improper input validation
-\item Missing authorization checks
-\item Misconfiguration
-\item Other assumptions
-\pause
-\item Education factor {\small (social engineering)}
-	\pause
-	\begin{itemize}
-		\item<+-> Session stealing (cybercafe)
-		\item<+-> Social engineering
-		\item<+-> Phishing
-		\item<+-> Brute Force
-	\end{itemize}
-\end{itemize}
-\note{
-Bullet point }
 % In French: "Pour lutter contre le social engineering, il est bon de
 % sensibiliser vos utilisateurs."
 \end{frame}
