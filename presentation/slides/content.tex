@@ -3,16 +3,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-The purpose of this document is to introduce the basics concepts of
-security in web application. In the software engeneering world, web
+The purpose of this document is to introduce the basic concepts of
+security in web applications. In the software engeneering world, web
 applications share some specifics: they use many elements, some of them
 beyond the control of the developer. Each of them can be a security
 breach or an opportunity to prevent some attacks. We want to stress
 out that security isn't limited to systems and cryptography. It
 concerns the developer when he writes his code; the architect when he
-designs his complete solution; but also the analyst who has to choose
-the right trade-off between usability and security or even the project
-manager who has to think about it while keeping the balance between
+designs his complete solution. The analyst has to choose
+the right trade-off between usability and security. Even the project
+manager has to think about security while keeping the balance between
 cost, time and quality. Moreover, it is also important to be able to
 identify an eventual attack and to diagnose it afterwards. Both of
 these capabilities require money and competency but above all it
@@ -22,7 +22,7 @@ requires preparation.
 
 \subsection{Security concerns}
 
-Internet consists of interconnected networks. These networks were developed in
+Internet consists in interconnected networks. These networks were developed in
 a closed and trusted environment by the U.S. Department of Defense.
 Security was not a concern. At this time, only a few research and government
 sites were linked together to share data. Later, in the middle of the
@@ -43,26 +43,27 @@ lives (e-mail, calendars).
 Security efforts are made to bring trust to users, sometimes giving them a
 false sentiment of security. Web services need to gain some level of trust, still they
 must not lure the users. Indeed, don't we believe that HTTPS websites could be
-seen as fully secured web sites? In reality, they just prevent some of the
+seen as fully secured web sites? In fact, they just prevent some of the
 attacks.
 Every web site should indeed earn the confidence of its users because
 personal information will be shared on the network and it should be
-unacceptable to see this data stolen because of a compromised web site.
+unacceptable to see this data stolen because of a compromised web
+site. That's why security aspects require more specific measures, more
+guarantees and a stronger protection against all kinds of attacks.
 
 \subsection{Users as a security flaw}
 
-That's why security aspects require more specific measures, more guarantees and
-a stronger protection against all kinds of attacks. But security is also a user's
-responsibility. They can divulge their credentials, use unsecured web sites or
-compromised software and they don't always understand what they do.
+Security is also a user's responsibility. They can divulge their
+credentials, use unsecured web sites or compromised software and they
+don't always understand what they do.
 
 For example, each critical web service now requires to use a password.
 But with a number of services getting more and more important, remembering
 multiple passwords can become a hard task. A consequence is that most users use
 the same password for several web sites or just write them down, for example
-on post-its. More, these passwords are generally short and pass-phrases are
+on post-its. Moreover, these passwords are generally short and pass-phrases are
 not common.
-Some online passwords storage services exist to help tracking the password, but
+Some online passwords storage services exist to help tracking the passwords, but
 these services are not always used.
 
 \subsection{Security vs usability}
@@ -126,9 +127,17 @@ decode the message.
 Widespread symmetric cryptography algorithms are AES, DES, Twofish.
 
 \paragraph{Asymmetric cryptography}
-A private-public key pair is used to realize asymmetric encryption. The
-message is encrypted with the public key and decrypted with the private key.
+A private-public key pair is used to realize asymmetric
+encryption. One key is used to encrypt the message and the other to
+decryp the digest depending upon the goal. If the sender wants his
+message to be decodable only by a receiver, he encrypts it with the
+receiver public key and the reciver decrypt it with his private key.
 \[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+
+If the sender wants the receiver to be sure that he his the one that
+sent the message things are done the other way round.
+
+\[ msg \xrightarrow{key_{priv}} cipher \xrightarrow{key_{pub}} msg \]
 
 Widespread cryptography algorithms are RSA, Diffie-Hellman, DSA.
 
@@ -147,16 +156,21 @@ The usual usage is to use asymmetric algorithm to exchange keys and then
 symmetric algorithm is used for the rest of the connection as it is faster.
 
 By definition, the public key is shared.
-To encrypt a message, you use the recipient's public key. This way he is the
-only one who can decrypt it.
+
+\paragraph{Hash and Salt}
+A hash of a message is a fixed size string built using an irreversible
+(or at least difficult to reverse) function from that
+message. Sometimes, it's desirable that two identical message doesn't
+have the same hash. The trick is to use a ``salt'' which is a random
+value appended to the message before hashing. The hash is then useless
+without the salt so they are stored together. 
 
 \paragraph{Signatures}
 The signature is then a mean to authenticate the identity of the sender of a
 message.
-The signature is made using your private key.
-It is the encrypted hash of a message.
-The hash is a fixed size string built using an irreversible function from a
-message. Hashes are used to guarantee the \emph{integrity} of the document.
+You can sign a message by encrypting a hash of it with your private key.
+ Hashes are used to guarantee the \emph{integrity} of the document
+ without having to encrypt and decrypt the whole document.
 
 \subsection{Types of authentication}
 
@@ -175,10 +189,10 @@ This technique is used mainly by services who can afford big infrastructures
 (banks, states,\ldots).
 
 \subsubsection{Signature challenge}
-A challenge use a nonce, this stands for number used once.
+A challenge uses a nonce, this stands for number used once.
 It's a random number used once to avoid replay attack.
 The nonce is encrypted with the correspondent's public key and he is then
-asked for the decrypted and encrypted message.
+asked for the decrypted (with his private key).
 This form of authentication is often used to sign online transactions.
 
 \subsubsection{Certificates}
@@ -209,11 +223,11 @@ The CA checks the integrity of the request and performs some checks on the
 identity of the owner. Finally, it signs the certificate.
 
 \subsubsection{Token}
-Something which ownership gives a form of identification.
+Something whose ownership gives a form of identification.
 For example: Keys, Bank cards, Badges, Digipass, ...
 
 \subsubsection{2-factor authentication}
-Identify the entity using multiple authentication methods.
+Identifies the entity using multiple authentication methods.
 This way, if one method is compromised, the attacker will not still be able to
 log into the system.
 The authentication methods are the following:
@@ -236,7 +250,7 @@ all systems without being prompted to log in again for each of them.
 \hfill
 \begin{itemize}
 \item Easier for the user
-\item Implementation already exist
+\item Implementation already exists
 \item If they have only one password, users tend to treat it with more care
 \item Enter the password less often
 \end{itemize}
@@ -256,9 +270,13 @@ products.
 
 \paragraph{How it works}
 \begin{enumerate}
-\item The client gets a ticket from a distribution center to authenticate itself
-\item The client gets a service ticket
-\item The service ticket can be used on another server
+\item The client authenticate itself with the distribution center and
+  get an authentication ticket.
+\item When he wants a service the client ask the distribution center
+  for a service ticket giving his authentication ticket as a proof of authentication.
+\item The client gives thesservice ticket, which contains the service
+  request and the authorisation, to the service provider who performs
+  the service.
 \end{enumerate}
 
 \subsection{Provider extensions}
@@ -280,8 +298,8 @@ may lose its authentication mean or it can get stolen.
 
 The process for revoking the authentication is the following:
 \begin{enumerate}
-\item Deactivate a compromised authentication mean
 \item Authenticate the user with a still safe mean
+\item Deactivate the compromised authentication mean
 \item Give the user a new primary authentication mean
 \end{enumerate}
 
@@ -308,15 +326,16 @@ kind of model is used to determine and understand threats that may arise.
 
 \begin{figure}[htb]
 \includeimage[width=\linewidth,height=6cm]{attack-tree-admin}
-%\caption{Attack tree example}
+\caption{Attack tree example}
+\label{attack-tree}
 \end{figure}
 
 For an example, administration access can be obtained
 thanks to the knowledge of the password. One way to get this password is to
 steal it. To steal it we can either use social engineering or sniffing
 techniques.
-This reflection enable us to build an attack tree model showing threats
-for the administration access.
+This modeling technique enable us to build the attack tree
+(see Figure \ref{attack-tree}) showing threats for the administration access. 
 
 \subsection{Threats}
 
@@ -375,7 +394,7 @@ present: other clients, intrusion detection systems, databases, etc. In
 between, we can find firewalls, demilitarized zones and others.
 Any component may fail: whether the web site continues to work depends on the
 duplication of components on the network. A single point of failure is a part
-of the system such that when it fails the system stop to work properly.
+of the system such that when it fails the system stops to work properly.
 
 \subsection{Open Web Application Security Project (OWASP)}
 
@@ -410,8 +429,10 @@ such as data loss, data corruption and lack of accountability.
 \includeimage[width=0.5\linewidth]{client-server-injection}
 
 To avoid such security flaws, it is recommended to use a parametrized
-interface (see \autoref{lst:parametrized-interface}), escape routines or to
-use white-list validation to specify valid input patterns.
+interface (see \autoref{lst:parametrized-interface}). One can also use
+routines that ``escape'' (ie tell the interpreter that control
+character shouldn't be interpreted) user input or to
+use white-list validation to specify valid input patterns. Escape
 Black lists are discouraged, because it is easier to forget some rule and
 it is often possible to use workarounds.
 Usually, this vulnerability is present when the code to execute is built using
@@ -450,8 +471,8 @@ Hello @<script>alert("Hello world!");</script>@ world!
 
 \subsubsection{Authentication and Session Management}
 
-The use of flaws in authentication and session management
-implemented for a given web site to steal someone else's identity using
+This attack uses flaws in authentication and session management to
+steal someone else's identity. It's usually done using
 session hijacking or session fixation. This type of attack is very
 common and impacts are often important. Indeed, with the identity of someone
 else, the attacker can do anything the real user can do.
@@ -463,7 +484,7 @@ log out buttons are also "good practices". Then, it is important to prevent
 the use of cross-site scripting
 attack because a session ID could be easily stolen thanks to this mechanism.
 
-For example, session hijacking consist in stealing the session ID of another
+For example, session hijacking consists in stealing the session ID of another
 user through the use of an attack like XSS. Session fixation consists in
 forcing a user to use a particular session ID; it is sometimes possible to
 inject the session ID into the URL.
@@ -495,17 +516,23 @@ This is a widespread attack but fortunately easy to detect.
 
 \includeimage[width=0.5\linewidth]{client-server-csrf}
 
-CSRF can be countered using a simple technique:
-each request should contain an unique token linked to the user's session. This
-way, the attacker's website will not be able to generate the correct requests,
-and so, will be unable to act as the victim.
+In order to prevent CSRF a website should give a unique random token
+to each visitor. This token is sent back with the request. When
+receiving a request the website check the validity of the token. If
+the token received wasn't the one issued, the request is discarded. As
+the attacker's website won't have the token, he won't be able to
+generate a valid request.
 
+The most common implementation is through the use of a hidden field in
+a form such as \ref{CSRF-protected-form}. The hidden field is set by
+the website and sent back unmodified.
 \begin{lstlisting}[style=beamer,
 	caption={A protected form against CSRF}]
 <form @method="post"@ action="addComment">
 	<input @type="hidden"@ name="token" @value="<random>"@ />
 	...
 </form>
+\label{CSRF-protected-form}
 \end{lstlisting}
 
 \subsubsection{Security Misconfiguration}
@@ -514,7 +541,7 @@ Security flaws can also appear through security misconfiguration. Default
 configuration used for application, server or database are not necessarily a
 good choice. It could be possible to gain information such as versions,
 stack traces or debug messages that can lead to bigger threats which could
-compromised the whole system (gain unauthorized access, use known bugs to hack
+compromise the whole system (gain unauthorized access, use known bugs to hack
 an application, etc.).
 
 Keeping an up-to-date system is the first recommendation to prevent such
@@ -532,7 +559,8 @@ attackers.
 For example, a lost unencrypted backup of the database would contain all the
 information for the attacker.
 Also, information such as passwords must be hashed and a salt should be
-applied to prevent rainbow table attacks.
+applied to prevent an attacker to use a precomputated list of
+message/hash pair to find a match. Such list are named rainbow tables.
 
 \subsubsection{Failure to Restrict URL Access}
 
@@ -560,7 +588,7 @@ browser to ensure their validity.
 \subsubsection{Unvalidated Forwards and Redirects}
 
 The last attack implies unvalidated forwards and redirects. This means that an
-URL may appear as trustworthy but actually contain unvalidated redirect to an
+URL may appear as trustworthy but actually contains unvalidated redirect to an
 unsecure page or it can contain a forward attempting to bypass authorization
 functionalities. This is an easy attack to detect and nowadays a rarely
 present kind of attack.
@@ -590,8 +618,8 @@ requests without responding to the server with an acknowledgment. This way, the
 server uses more and more resources but never frees them, causing either a denial
 of service or, for the worst case, a crash.
 \item[Application level flood]
-Request can be sent to the server to initiate cpu-intensive tasks or to save
-lot of data causing the disks to become full.
+Request can be sent to the server to initiate cpu-intensive tasks or
+to save a lot of data causing the disks to become full.
 \item[R-U-Dead-Yet]
 The attack consists in sending data very slowly to the server. This is similar
 to a SYN flood, but the connection stays alive.
@@ -603,7 +631,7 @@ A web site ends up denied not because of a deliberated attack but because of a
 sudden peak of popularity.
 \end{description}
 Using firewalls as well as Intrusion Prevention System can reduce the risks to
-be a victim of this kind of attack.
+be a victim of those kinds of attack.
 
 \subsubsection{Man in the middle}
 
@@ -616,14 +644,14 @@ connection but the attacker, the man in the middle, controls the whole exchange.
 \subsubsection{Social engineering}
 
 A less technical but nevertheless damaging attack is the use of social
-engineering. Social engineering simply consists in manipulation people so they
+engineering. Social engineering simply consists in manipulating people so they
 divulge confidential information. Different scenarios are used by attackers in
 social engineering to achieve their goal. Pretexting is one of them and consists
 in using invented scenario to engage a targeted victim in a manner that
 increases the chance the victim will divulge information or perform actions
 that would be unlikely in ordinary circumstances. Another technique is
 \textit{quid pro quo}, which consists in helping some user while getting from
-them confidential information such as passwords.
+him confidential information such as passwords.
 
 The only way to fight against social engineering is to educate users and use a
 framework of trust.
@@ -637,7 +665,7 @@ Phishing is the attempt to acquire user information, such as passwords or credit
 card details, through masquerading as a legitimate website. Tricks used can be
 cloned websites, link manipulation or even phone phishing but most of the time
 phishing is carried out by e-mail or instant messaging. Most of the time,
-phishing e-mails contains links that redirect the user to malicious web sites.
+phishing e-mails contain links that redirect the user to malicious web sites.
 Victims then enter their confidential information that are finally recovered
 by the attacker.
 
@@ -688,7 +716,7 @@ such attacks should arise.
 	in many ways, at each step the data must be checked whether it is valid
 	and must also be escaped when it is meant to be interpreted.
 \item Missing authorization checks are always a problem.
-\item Misconfigurations given more information for the attacker.
+\item Misconfigurations giving more information for the attacker.
 \item The education factor plays an important role in web security as we saw
 	it with social engineering techniques.
 \end{itemize}
@@ -711,14 +739,14 @@ whole life cycle of the application.
 Integrate a security review into your architecture design process. Start
 early on, and as your design changes, review those changes with the
 steps given in this chapter.
-Evolve your security review. To complete the review
+Make your security review evolve. To complete the review
 process, you might also need to add specific questions that are unique
 to your application.
 Know the threats you are reviewing against. List the threats that affect the
 various components and layers that make up your application.
-Knowing these threats is essential to improving the results of your review process.
+Knowing these threats is essential to improve the results of your review process.
 There is no miracle receipt when it comes to designing a secure
-application. Although there are some guidelines which can help you. You
+application. Although there are some guidelines that can help you. You
 have to ask yourself the good questions and make decisions on a case by
 case basis.
 
@@ -737,7 +765,9 @@ There are lots of best practices that can make your application more secure.
 having the user rotate them, preventing brute-force by implementing temporary
 lock-out,\ldots
 \item Session management: setting an inactivity time out, setting the
-secure-flag for sensitive cookies, using the HTTP-Only flag for cookies,
+secure-flag for sensitive cookies, using the HTTP-Only flag for
+cookies in order to restrict their use to transmitting HTTP request
+(it reduces the risk of session cookie theft by XSS),
 implementing an easily accessible logout,\ldots
 \item Input validation: always on server side, use a positive
   approach: instead of forbidding some inputs, define the set of
@@ -749,7 +779,8 @@ protection specialized for a particular attack in this context.
 However, a secure development cycle should set aside some time for:
 \begin{itemize}
 \item Code review (security-oriented and general)
-\item Pentesting
+\item Penetration testing (trying to attack the website, with the
+  owner authorization, to find security holes)
 \item Security training of the developers
 \item Sensitizing business owners to security trade-off
 \item Choosing a secure and well maintained framework
@@ -770,7 +801,7 @@ server and blocking requests that are exploits.
 
 \subsection{Using frameworks}
 
-You do not develop the first web application. Frameworks already exists to
+You do not develop the first web application. Frameworks already exist to
 ease the development of your application while providing several security
 mechanisms.
 A framework will come generally with authentication support, escaping of
@@ -809,7 +840,8 @@ modifiable for some reason (\autoref{sec:virtual-patching}).
 (Secured Socket Layer).
 They are equal in terms of security.
 HTTPS provides \emph{encryption} and \emph{authentication} for HTTP.
-\newline Protects against eavesdropping and spoofing.
+\newline Protects against eavesdropping (somebody listening the
+conversation) and spoofing (somebody impersonating your correspondant).
 HTTPS is a part of a solution, it does not ensure full security.
 TLS is an open-community standard and allows both secure and unsecure
 communications.
@@ -839,7 +871,8 @@ Nowadays, browsers come with preconfigured security measures.
 \subsection{E-mail}
 
 E-mail is one of the most used application. It's plagued by spam and
-spoofing. Some defensive measures have been taken.
+spoofing but solution exists: Sender Policy Framework and Domain Keys
+Identified Mail.
 
 \subsubsection{Sender Policy Framework}
 SPF validates e-mails by verifying sender's IP address against DNS records.
@@ -903,8 +936,8 @@ Here are some of them:
 
 Internet provides a way to detect and counteract attacks upon systems thanks to
 dedicated assets. Those traps are called \emph{Honeypots}. A Honeypot is a mocked
-website or web application running on a non patched server and that is exposed
-for attackers who try to penetrate some systems.
+website or web application running on a server with known
+vulnerabilities and that is exposed for attackers who try to penetrate some systems.
 
 Honeypots can be distinguished in two types: production honeypots and research
 honeypots. The first group refers to honeypots used by organizations. They use
@@ -914,10 +947,6 @@ used to give a company informations about the motivations and tactics of the
 attackers by capturing much more information than a production honeypot,
 showing how to better defend itself against these attackers, but do not add
 direct value to an organization.
-
-Project Honey Pot is an anti-spammer project. Websites can publish fake
-e-mails addresses for the spammers to be lured and once the spammer's crawlers
-have sent emails to these addresses, they are referenced and blocked.
 
 \subsection{Network Intrusion Detection System}
 
@@ -930,8 +959,9 @@ signature-based detection, which means it can find patterns in packets on the
 network, detect SQL injection or XSS attacks. Snort can also perform
 statistical anomaly-based detection. It looks for peaks in traffic, connection
 coming from a single host and other anomalies or detects brute force attacks.
-In the end, Snort can realize stateful protocol detection to catch SYN port
-scans or follow a protocol conversation.
+In the end, Snort can realize stateful protocol detection: it's able
+to follow a protocol conversation to detect anaomalies. It enables it to catch SYN port
+scans.
 
 \subsection{Post-mortem analysis and performances}
 
@@ -952,7 +982,7 @@ server load or traffic could show an anomaly.
 In combination, using analysis tools such as ntop, Snare or OSSEC can also help
 to detect attacks:
 \begin{itemize}
-\item \textit{Ntop} is traffic monitoring platform designed to probe network usage.
+\item \textit{Ntop} is a traffic monitoring platform designed to probe network usage.
 \item \textit{Snare} (abbreviation for System iNtrusion Analysis and Reporting
 	Environment) is a tool created to audit log data and to centralize log
 	analysis coming from different applications or operating systems.
@@ -971,8 +1001,9 @@ symptoms of an attack.
 \section{Conclusion}
 
 In this document we have reviewed various threat to web application
-but this list is by no means exhaustive. Those are merely example, the
-important point is the use of good security practice and procedure in
-order to reduce the risk. Preventive action should be taken but you
-should also be able to detect attack and to analyse them to prevent in
-the future. It's also important to assess the damage.
+and some hints to fix, avoid or mitigate them but this list is by no
+means exhaustive. We hope that it will help you to look at your
+application with security in mind. Not in an extreme way, throwing
+money out the window for the sake of building a new digital Fort
+Knox. But rather with balance in mind and knowing the trade off you
+make. 
