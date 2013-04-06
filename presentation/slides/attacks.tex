@@ -82,7 +82,6 @@ Computer locked until you pay.
 \includeimage[width=\linewidth,height=4cm]{no-electricity}
 \end{column}
 \begin{column}{0.6\linewidth}
-%je ne trouve pas top cette image (krzysztof) C'est ce que j'ai trouvé de mieux...
 \includeimage[width=\linewidth,height=4cm]{power-plug}
 \end{column}
 \end{columns}
@@ -859,7 +858,7 @@ http://host.com/forward.jsp?
 \begin{frame}
 \frametitle{10. Unvalidated \textbf{Forwards} and Redirects}
 \emphsidetext{easy to detect}
-\includeimage[width=0.9\linewidth]{webapp-forward}
+\includeimage[width=\linewidth,height=6cm]{webapp-forward}
 \Lst
 \note{
 A URL may appear as trustworthy, but it contains an \textbf{unvalidated
@@ -886,7 +885,7 @@ https://@bank.com/secured@/../redirect?
 \begin{frame}
 \frametitle{10. Unvalidated Forwards and \textbf{Redirects}}
 \emphsidetext{easy to detect}
-\includeimage[width=\linewidth]{webapp-redirect}
+\includeimage[width=\linewidth,height=6cm]{webapp-redirect}
 \Lst
 \note{
 \begin{example}
@@ -1204,45 +1203,46 @@ security controls.
 \frametitle{Common points}
 \vspace{2em}
 \begin{itemize}
-\item<1-> Improper input validation
-	\only<2-5>{
+\item<2-> Improper input validation
+	\only<3-6>{
 	\begin{itemize}
-	\item<2-> Injection
-	\item<3-> Cross-site scripting (XSS)
-	\item<4-> Session Stealing via XSS
-	\item<5-> Unvalidated Forwards and Redirects
+	\item<3-> Injection
+	\item<4-> Cross-site scripting (XSS)
+	\item<5-> Session Stealing via XSS
+	\item<6-> Unvalidated Forwards and Redirects
 	\end{itemize}
 	}
-\item<6-> Missing authorization checks
-	\only<7-8>{
+\item<7-> Missing authorization checks
+	\only<8-9>{
 	\begin{itemize}
-	\item<7-> Insecure Direct Object References
-	\item<8-> Failure to Restrict URL Access
+	\item<8-> Insecure Direct Object References
+	\item<9-> Failure to Restrict URL Access
 	\end{itemize}
 	}
-\item<9-> Misconfiguration
-\item<10-> Other assumptions
-	\only<11-14>{
+\item<10-> Misconfiguration
+\item<11-> Other assumptions
+	\only<12-15>{
 	\begin{itemize}
-	\item<11-> Insecure Cryptographic Storage
-	\item<12-> Insufficient Transport Layer Protection
-	\item<13-> Denial of Service
-	\item<14-> Man in the Middle
+	\item<12-> Insecure Cryptographic Storage
+	\item<13-> Insufficient Transport Layer Protection
+	\item<14-> Denial of Service
+	\item<15-> Man in the Middle
 	\end{itemize}
 	}
-\item<15-> Education factor {\small (social engineering)}
-	\only<15-19>{
+\item<16-> Education factor {\small (social engineering)}
+	\only<16-20>{
 	\begin{itemize}
-	\item<16-> Session stealing (cybercafe)
-	\item<17-> Social engineering
-	\item<18-> Phishing
-	\item<19-> Brute Force
+	\item<17-> Session stealing (cybercafe)
+	\item<18-> Social engineering
+	\item<19-> Phishing
+	\item<20-> Brute Force
 	\end{itemize}
 	}
 \end{itemize}
+\visible<21>{} % just to add a pause before ending the chapter
 \note{
 Bullet point
-}
 % In French: "Pour lutter contre le social engineering, il est bon de
 % sensibiliser vos utilisateurs."
+}
 \end{frame}
