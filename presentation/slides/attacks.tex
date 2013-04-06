@@ -301,8 +301,8 @@ Run the normal usage demo.
 
 \begin{frame}
 \frametitle{1. Injection}
-\includeimage[scale=0.5]{client-server-injection}
 \emphsidetext{widespread \newline severe impact}
+\includeimage[scale=0.5]{client-server-injection}
 \note{
 \textbf{Injection} consists in sending untrusted data to an interpreter.
 Attacker enters code to execute into input fields.
@@ -402,8 +402,8 @@ List of valid input patterns.
 
 \begin{frame}
 \frametitle{2. Cross-site scripting (XSS)}
-\includeimage[scale=0.5]{client-server-xss}
 \emphsidetext{very widespread}
+\includeimage[scale=0.5]{client-server-xss}
 \note{
 \textbf{Cross-site scripting} allows attackers to inject code into the page
 sent to the user. The injected code can be a script interpreted by the
@@ -470,8 +470,8 @@ XSS as sometimes special characters must be accepted.
 
 \begin{frame}
 \frametitle{3. Authentication and Session Management}
-\includeimage[scale=0.5]{client-server-session}
 \emphsidetext{severe impact}
+\includeimage[scale=0.5]{client-server-session}
 \note{
 The attacker uses flaws in the \textbf{authentication or session management}
 implemented for a given web site to steal someone else's identity.
@@ -584,8 +584,8 @@ the object before manipulating it.
 
 \begin{frame}
 \frametitle{5. Cross-site Request Forgery (CSRF)}
-\includeimage[scale=0.5]{client-server-csrf}
 \emphsidetext{widespread}
+\includeimage[scale=0.5]{client-server-csrf}
 \note{
 \textbf{Cross-site Request Forgery} consists in generating requests when the
 user visits the attacker's web page.
@@ -653,8 +653,8 @@ stored only on the application server.
 
 \begin{frame}
 \frametitle{6. Security Misconfiguration}
-\includeimage[width=0.7\linewidth]{misconfiguration}
 \emphsidetext{easy to exploit}
+\includeimage[width=0.7\linewidth]{misconfiguration}
 \note{
 \small
 \textbf{Security configuration} can happen at any level: the application, the
@@ -808,8 +808,8 @@ Authorization mechanisms should be used.
 
 \begin{frame}
 \frametitle{9. Insufficient Transport Layer Protection}
-\includeimage[width=0.8\linewidth]{wifi-sniffing}
 \emphsidetext{easy to detect}
+\includeimage[width=0.8\linewidth]{wifi-sniffing}
 \note{
 \textbf{Traffic is unprotected} and anyone sniffing the network can see the
 data in transit.
@@ -1201,48 +1201,48 @@ security controls.
 \subsection{Common points}
 
 \begin{frame}[t]
-\vspace{2em}
 \frametitle{Common points}
+\vspace{2em}
 \begin{itemize}
 \item<1-> Improper input validation
-  \only<2-5>{
-  \begin{itemize}
-  \item<2-5> Injection
-  \item<3-5> Cross-site scripting (XSS)
-  \item<4-5> Session Stealing via XSS
-  \item<5-5> Unvalidated Forwards and Redirects
-  \end{itemize}
-}
+	\only<2-5>{
+	\begin{itemize}
+	\item<2-> Injection
+	\item<3-> Cross-site scripting (XSS)
+	\item<4-> Session Stealing via XSS
+	\item<5-> Unvalidated Forwards and Redirects
+	\end{itemize}
+	}
 \item<6-> Missing authorization checks
-\only<7-8>{
-  \begin{itemize}
-  \item<7-8> Insecure Direct Object References
-  \item<8-8> Failure to Restrict URL Access
-  \end{itemize}
-}
+	\only<7-8>{
+	\begin{itemize}
+	\item<7-> Insecure Direct Object References
+	\item<8-> Failure to Restrict URL Access
+	\end{itemize}
+	}
 \item<9-> Misconfiguration
 \item<10-> Other assumptions
-\only<11-14>{
+	\only<11-14>{
 	\begin{itemize}
-		\item<11-14> Insecure Cryptographic Storage
-		\item<12-14> Insufficient Transport Layer Protection
-		\item<13-14> Denial of Service
-		\item<14-14> Man in the Middle
+	\item<11-> Insecure Cryptographic Storage
+	\item<12-> Insufficient Transport Layer Protection
+	\item<13-> Denial of Service
+	\item<14-> Man in the Middle
 	\end{itemize}
-}
+	}
 \item<15-> Education factor {\small (social engineering)}
+	\only<15-19>{
 	\begin{itemize}
-		\item<16-19> Session stealing (cybercafe)
-		\item<17-19> Social engineering
-		\item<18-19> Phishing
-		\item<19-19> Brute Force
+	\item<16-> Session stealing (cybercafe)
+	\item<17-> Social engineering
+	\item<18-> Phishing
+	\item<19-> Brute Force
 	\end{itemize}
+	}
 \end{itemize}
 \note{
-Bullet point }
-
-
-
+Bullet point
+}
 % In French: "Pour lutter contre le social engineering, il est bon de
 % sensibiliser vos utilisateurs."
 \end{frame}
