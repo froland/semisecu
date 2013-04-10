@@ -102,6 +102,8 @@
 \usepackage{tabularx}
 % ITE package (for conditional compilation)
 \usepackage{ifthen}
+% Tikz
+\usepackage{tikz}
 
 % Color for emphasis
 \definecolor{emphasis}{rgb}{1,0,1}
@@ -153,8 +155,28 @@
 }
 
 % Macro for emhased text on the side
+% source:
+% http://tex.stackexchange.com/questions/16357/how-can-i-position-an-image-in-an-arbitrary-position-in-beamer
+\tikzset{
+	every overlay node/.style={
+		draw=black,fill=white,rounded corners,
+		anchor=north west,align=center,
+		yshift=1.5ex
+	},
+}
+% Usage:
+% \tikzoverlay at (-1cm,-5cm) {content};
+% or
+% \tikzoverlay[text width=5cm] at (-1cm,-5cm) {content};
+\def\tikzoverlay{%
+	\tikz[baseline,overlay]\node[every overlay node]
+}
 \newcommand{\emphsidetext}[1]{
-% TODO put the text in the right upper corner
+	\visible<2->{
+	\tikzoverlay[text width=3cm] at (8cm,0.2cm) {%
+		\color{emphasis}\itshape #1
+	};
+	}
 }
 
 % Macro for good and bad code

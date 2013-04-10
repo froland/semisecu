@@ -4,7 +4,7 @@
 \section{Introduction}
 
 The purpose of this document is to introduce the basic concepts of
-security in web applications. In the software engeneering world, web
+security in web applications. In the software engineering world, web
 applications share some specifics: they use many elements, some of them
 beyond the control of the developer. Each of them can be a security
 breach or an opportunity to prevent some attacks. We want to stress
@@ -16,7 +16,7 @@ manager has to think about security while keeping the balance between
 cost, time and quality. Moreover, it is also important to be able to
 identify an eventual attack and to diagnose it afterwards. Both of
 these capabilities require money and competency but above all it
-requires preparation. 
+requires preparation.
 
 \section{Psycho-sociological Aspects}
 
@@ -129,9 +129,9 @@ Widespread symmetric cryptography algorithms are AES, DES, Twofish.
 \paragraph{Asymmetric cryptography}
 A private-public key pair is used to realize asymmetric
 encryption. One key is used to encrypt the message and the other to
-decryp the digest depending upon the goal. If the sender wants his
+decrypt the digest depending upon the goal. If the sender wants his
 message to be decodable only by a receiver, he encrypts it with the
-receiver public key and the reciver decrypt it with his private key.
+receiver public key and the receiver decrypt it with his private key.
 \[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
 
 If the sender wants the receiver to be sure that he his the one that
@@ -163,7 +163,7 @@ A hash of a message is a fixed size string built using an irreversible
 message. Sometimes, it's desirable that two identical message doesn't
 have the same hash. The trick is to use a ``salt'' which is a random
 value appended to the message before hashing. The hash is then useless
-without the salt so they are stored together. 
+without the salt so they are stored together.
 
 \paragraph{Signatures}
 The signature is then a mean to authenticate the identity of the sender of a
@@ -272,9 +272,9 @@ products.
 \begin{enumerate}
 \item The client authenticate itself with the distribution center and
   get an authentication ticket.
-\item When he wants a service the client ask the distribution center
+\item When he wants to use a service, the client asks the distribution center
   for a service ticket giving his authentication ticket as a proof of authentication.
-\item The client gives thesservice ticket, which contains the service
+\item The client gives the service ticket, which contains the service
   request and the authorisation, to the service provider who performs
   the service.
 \end{enumerate}
@@ -335,7 +335,7 @@ thanks to the knowledge of the password. One way to get this password is to
 steal it. To steal it we can either use social engineering or sniffing
 techniques.
 This modeling technique enable us to build the attack tree
-(see Figure \ref{attack-tree}) showing threats for the administration access. 
+(see Figure \ref{attack-tree}) showing threats for the administration access.
 
 \subsection{Threats}
 
@@ -527,12 +527,12 @@ The most common implementation is through the use of a hidden field in
 a form such as \ref{CSRF-protected-form}. The hidden field is set by
 the website and sent back unmodified.
 \begin{lstlisting}[style=beamer,
+	label={CSRF-protected-form},
 	caption={A protected form against CSRF}]
 <form @method="post"@ action="addComment">
-	<input @type="hidden"@ name="token" @value="<random>"@ />
+	<input @type="hidden"@ name="token" @value="sd5646sdfse8wd"@ />
 	...
 </form>
-\label{CSRF-protected-form}
 \end{lstlisting}
 
 \subsubsection{Security Misconfiguration}
@@ -559,8 +559,8 @@ attackers.
 For example, a lost unencrypted backup of the database would contain all the
 information for the attacker.
 Also, information such as passwords must be hashed and a salt should be
-applied to prevent an attacker to use a precomputated list of
-message/hash pair to find a match. Such list are named rainbow tables.
+applied to prevent an attacker to use a precomputed list of
+message/hash pairs to find a match. Such list are named rainbow tables.
 
 \subsubsection{Failure to Restrict URL Access}
 
@@ -618,7 +618,7 @@ requests without responding to the server with an acknowledgment. This way, the
 server uses more and more resources but never frees them, causing either a denial
 of service or, for the worst case, a crash.
 \item[Application level flood]
-Request can be sent to the server to initiate cpu-intensive tasks or
+Request can be sent to the server to initiate CPU-intensive tasks or
 to save a lot of data causing the disks to become full.
 \item[R-U-Dead-Yet]
 The attack consists in sending data very slowly to the server. This is similar
@@ -717,6 +717,7 @@ such attacks should arise.
 	and must also be escaped when it is meant to be interpreted.
 \item Missing authorization checks are always a problem.
 \item Misconfigurations giving more information for the attacker.
+\item Other assumptions such as ignoring maximum server load, encryption, etc.
 \item The education factor plays an important role in web security as we saw
 	it with social engineering techniques.
 \end{itemize}
@@ -771,7 +772,7 @@ cookies in order to restrict their use to transmitting HTTP request
 implementing an easily accessible logout,\ldots
 \item Input validation: always on server side, use a positive
   approach: instead of forbidding some inputs, define the set of
-  allowed input (usually through the use of regexp)
+  allowed input (usually through the use of \textit{regexp})
 \item Use ad-hoc protection for known attacks. Ad-hoc protection means a
 protection specialized for a particular attack in this context.
 \end{itemize}
@@ -841,7 +842,7 @@ modifiable for some reason (\autoref{sec:virtual-patching}).
 They are equal in terms of security.
 HTTPS provides \emph{encryption} and \emph{authentication} for HTTP.
 \newline Protects against eavesdropping (somebody listening the
-conversation) and spoofing (somebody impersonating your correspondant).
+conversation) and spoofing (somebody impersonating your correspondent).
 HTTPS is a part of a solution, it does not ensure full security.
 TLS is an open-community standard and allows both secure and unsecure
 communications.
@@ -851,7 +852,7 @@ communications.
 Nowadays, browsers come with preconfigured security measures.
 
 \begin{itemize}
-\item Cross-domain XMLHttpRequests (XHR) are blocked.
+\item Cross-domain \texttt{XMLHttpRequests} (XHR) are blocked.
 	Browsers disallow contacting other domains through the use of JavaScript.
 	A website can ask the browser to lift selectively this restriction via the
 	header \texttt{Access-Control}.
@@ -960,7 +961,7 @@ network, detect SQL injection or XSS attacks. Snort can also perform
 statistical anomaly-based detection. It looks for peaks in traffic, connection
 coming from a single host and other anomalies or detects brute force attacks.
 In the end, Snort can realize stateful protocol detection: it's able
-to follow a protocol conversation to detect anaomalies. It enables it to catch SYN port
+to follow a protocol conversation to detect anomalies. It enables it to catch SYN port
 scans.
 
 \subsection{Post-mortem analysis and performances}
@@ -983,8 +984,9 @@ In combination, using analysis tools such as ntop, Snare or OSSEC can also help
 to detect attacks:
 \begin{itemize}
 \item \textit{Ntop} is a traffic monitoring platform designed to probe network usage.
-\item \textit{Snare} (abbreviation for System iNtrusion Analysis and Reporting
-	Environment) is a tool created to audit log data and to centralize log
+\item \textit{Snare} (abbreviation for \textit{System iNtrusion Analysis and
+	Reporting Environment})
+	is a tool created to audit log data and to centralize log
 	analysis coming from different applications or operating systems.
 \item \textit{OSSEC} is an open source NIDS that can perform various tasks such as log
 analysis supporting multiple formats, file integrity checking, policy
@@ -1006,4 +1008,4 @@ means exhaustive. We hope that it will help you to look at your
 application with security in mind. Not in an extreme way, throwing
 money out the window for the sake of building a new digital Fort
 Knox. But rather with balance in mind and knowing the trade off you
-make. 
+make.
