@@ -112,7 +112,7 @@ stored on the client's computer. They are sent in each request and can be
 defined in the response by the server.
 
 To track clients, websites use a session ID cookie for each client.
-It is a "unique number" generated when the user accesses the website for the
+It is a ``unique number'' generated when the user accesses the website for the
 first time. There is still no guarantee that this number is unique, even if
 conflicts are improbable.
 \newline
@@ -186,7 +186,7 @@ One time passwords are used to prevent replay attacks.
 The main difficulty of this technique is to give users their passwords
 (logistical problem).
 This technique is used mainly by services who can afford big infrastructures
-(banks, states,\ldots).
+(banks, states, \ldots).
 
 \subsubsection{Signature challenge}
 A challenge uses a nonce, this stands for number used once.
@@ -477,10 +477,10 @@ session hijacking or session fixation. This type of attack is very
 common and impacts are often important. Indeed, with the identity of someone
 else, the attacker can do anything the real user can do.
 
-To avoid this kind of attack, a few "good practices" should be used. First do not
+To avoid this kind of attack, a few ``good practices'' should be used. First do not
 forget to log out on public computer because your session could be easily used
 by someone else. The use of session timeout and visible
-log out buttons are also "good practices". Then, it is important to prevent
+log out buttons are also ``good practices''. Then, it is important to prevent
 the use of cross-site scripting
 attack because a session ID could be easily stolen thanks to this mechanism.
 
@@ -524,7 +524,7 @@ the attacker's website won't have the token, he won't be able to
 generate a valid request.
 
 The most common implementation is through the use of a hidden field in
-a form such as \ref{CSRF-protected-form}. The hidden field is set by
+a form such as in Listing \ref{CSRF-protected-form}. The hidden field is set by
 the website and sent back unmodified.
 \begin{lstlisting}[style=beamer,
 	label={CSRF-protected-form},
@@ -1002,7 +1002,7 @@ symptoms of an attack.
 
 \section{Conclusion}
 
-In this document we have reviewed various threat to web application
+In this document we have reviewed various threats to web applications
 and some hints to fix, avoid or mitigate them but this list is by no
 means exhaustive. We hope that it will help you to look at your
 application with security in mind. Not in an extreme way, throwing
