@@ -78,7 +78,7 @@ quite safe.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Authentication and identity}
 
-The \emph{identity} of somebody is who they claim to be.
+The \emph{identity} of somebody is who he claims to be.
 The \emph{authentication} is the act of asserting the identity of something or
 someone.
 Authentication is needed when you want to transmit confidential
@@ -131,7 +131,7 @@ A private-public key pair is used to realize asymmetric
 encryption. One key is used to encrypt the message and the other to
 decrypt the digest depending upon the goal. If the sender wants his
 message to be decodable only by a receiver, he encrypts it with the
-receiver public key and the receiver decrypt it with his private key.
+receiver public key and the receiver decrypts it with his private key.
 \[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
 
 If the sender wants the receiver to be sure that he his the one that
@@ -145,7 +145,7 @@ Widespread cryptography algorithms are RSA, Diffie-Hellman, DSA.
 
 \begin{description}
 \item[Symmetric]
-faster, need a pre-shared key and all the people holding the key can
+faster, needs a pre-shared key and all the people holding the key can
 decrypt the message.
 \item[Asymmetric]
 slower but does not need a pre-shared key, messages can be decrypted by the
@@ -160,7 +160,7 @@ By definition, the public key is shared.
 \paragraph{Hash and Salt}
 A hash of a message is a fixed size string built using an irreversible
 (or at least difficult to reverse) function from that
-message. Sometimes, it's desirable that two identical message doesn't
+message. Sometimes, it's desirable that two identical messages don't
 have the same hash. The trick is to use a ``salt'' which is a random
 value appended to the message before hashing. The hash is then useless
 without the salt so they are stored together.
@@ -218,7 +218,7 @@ message against the checked certificate
 
 \paragraph{How to obtain a certificate ?}
 When a website owner wants a certificate, he generates a public-private key
-pair and then sends it to a CA.
+pair and then sends the public key to a CA.
 The CA checks the integrity of the request and performs some checks on the
 identity of the owner. Finally, it signs the certificate.
 
@@ -304,7 +304,7 @@ The process for revoking the authentication is the following:
 \end{enumerate}
 
 \subsubsection*{Password recovery}
-Still a usability versus security trade-off.
+Another usability versus security trade-off.
 How to do it properly?
 \begin{enumerate}
 \item Use of security question or other strong authentication
@@ -334,14 +334,14 @@ For an example, administration access can be obtained
 thanks to the knowledge of the password. One way to get this password is to
 steal it. To steal it we can either use social engineering or sniffing
 techniques.
-This modeling technique enable us to build the attack tree
+This modeling technique enables us to build the attack tree
 (see Figure \ref{attack-tree}) showing threats for the administration access.
 
 \subsection{Threats}
 
 Threats are numerous and diversified.
 \begin{itemize}
-\item Sole purpose to break thinks.
+\item Sole purpose to break things.
 	These attacks can come from internet hackers or viruses but also from
 	internal threats in your enterprise such as unsatisfied employees.
 \item Obtaining a gain.
@@ -428,8 +428,8 @@ such as data loss, data corruption and lack of accountability.
 
 \includeimage[width=0.5\linewidth]{client-server-injection}
 
-To avoid such security flaws, it is recommended to use a parametrized
-interface (see \autoref{lst:parametrized-interface}). One can also use
+To avoid such security flaws, it is recommended to use a parameterized
+interface (see \autoref{lst:parameterized-interface}). One can also use
 routines that ``escape'' (ie tell the interpreter that control
 character shouldn't be interpreted) user input or to
 use white-list validation to specify valid input patterns. Escape
@@ -439,8 +439,8 @@ Usually, this vulnerability is present when the code to execute is built using
 simple concatenation.
 
 \begin{lstlisting}[style=beamer,
-	caption={Parametrized interface in Java},
-	label=lst:parametrized-interface]
+	caption={Parameterized interface in Java},
+	label=lst:parameterized-interface]
 String query = "select * from users where @user_name = ?@";
 PreparedStatement st = con.prepareStatement(query);
 @st.setString(1, name);@
@@ -560,7 +560,7 @@ For example, a lost unencrypted backup of the database would contain all the
 information for the attacker.
 Also, information such as passwords must be hashed and a salt should be
 applied to prevent an attacker to use a precomputed list of
-message/hash pairs to find a match. Such list are named rainbow tables.
+message/hash pairs to find a match. Such lists are named rainbow tables.
 
 \subsubsection{Failure to Restrict URL Access}
 
@@ -697,7 +697,7 @@ commands to execute functionalities as if it was a human being doing the
 manipulation. The web server could be overloaded or spammed in this way.
 
 To prevent this threat, a challenge-response test, called captcha, can be put
-in place. A captcha generally ask a user to complete a simple test which is
+in place. A captcha generally asks a user to complete a simple test which is
 difficult for a computer to answer. But captcha cracking stays possible.
 Indeed, a malicious web site could present the same captcha existing on
 another web site. Users surfing on the evil web site would crack unknowingly
@@ -871,7 +871,7 @@ Nowadays, browsers come with preconfigured security measures.
 
 \subsection{E-mail}
 
-E-mail is one of the most used application. It's plagued by spam and
+E-mail is one of the most used applications. It's plagued by spam and
 spoofing but solution exists: Sender Policy Framework and Domain Keys
 Identified Mail.
 
