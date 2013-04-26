@@ -33,10 +33,12 @@ stole information.
 The Network then continued to grow to finally become the Internet as we know
 it today, but security problems continued to appear in the same time. Both
 aggressive and defensive technologies become more sophisticated.
-Nowadays, internet is present everywhere in our electronic life: we use it
+Nowadays, internet is present everywhere in our digital life: we use it
 for our personal informations and leisures (YouTube, Facebook), for financial
-management (online Banking, Tax-On-Web) and of course in our professional
-lives (e-mail, calendars).
+management (online banking, Tax-On-Web) and of course in our professional
+lives (e-mail, calendars). As we are putting those, always expanding,
+parts of our life on the web, security concerns becomes more
+importnant than ever.
 
 \subsection{Sentiment of security}
 
@@ -54,17 +56,17 @@ guarantees and a stronger protection against all kinds of attacks.
 \subsection{Users as a security flaw}
 
 Security is also a user's responsibility. They can divulge their
-credentials, use unsecured web sites or compromised software and they
-don't always understand what they do.
+credentials, use unsecured web sites or compromised software without
+ever knowing the threat they pose.
 
-For example, each critical web service now requires to use a password.
+For example, many critical web service now requires to use a password.
 But with a number of services getting more and more important, remembering
 multiple passwords can become a hard task. A consequence is that most users use
 the same password for several web sites or just write them down, for example
 on post-its. Moreover, these passwords are generally short and pass-phrases are
-not common.
-Some online passwords storage services exist to help tracking the passwords, but
-these services are not always used.
+uncommon.
+Some online password storage services exist to help managing the passwords, but
+these services are not always used or even known.
 
 \subsection{Security vs usability}
 
@@ -73,7 +75,7 @@ This implies to make a choice between the usage of few or many security
 measures, simple or more complex passwords, plain text or encoded data, etc.
 It is easier to just use a service without worrying about anything, still
 security checks and authorization are necessary to ensure that the data is
-quite safe.
+quite safe. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Authentication and identity}
@@ -139,9 +141,9 @@ sent the message things are done the other way round.
 
 \[ msg \xrightarrow{key_{priv}} cipher \xrightarrow{key_{pub}} msg \]
 
-Widespread cryptography algorithms are RSA, Diffie-Hellman, DSA.
+Widespread asymmetric cryptography algorithms are RSA and ElGamal.
 
-\paragraph{Symmetric versus Asymmetric}
+\paragraph{Symmetric versus asymmetric}
 
 \begin{description}
 \item[Symmetric]
@@ -157,7 +159,7 @@ symmetric algorithm is used for the rest of the connection as it is faster.
 
 By definition, the public key is shared.
 
-\paragraph{Hash and Salt}
+\paragraph{Hash and salt}
 A hash of a message is a fixed size string built using an irreversible
 (or at least difficult to reverse) function from that
 message. Sometimes, it's desirable that two identical messages don't
@@ -166,7 +168,7 @@ value appended to the message before hashing. The hash is then useless
 without the salt so they are stored together.
 
 \paragraph{Signatures}
-The signature is then a mean to authenticate the identity of the sender of a
+The signature is then a mean to assert the sender identityof a
 message.
 You can sign a message by encrypting a hash of it with your private key.
  Hashes are used to guarantee the \emph{integrity} of the document
@@ -181,7 +183,7 @@ periodically.
 Complexity has to be checked on both client and server side.
 People should use different passwords for different services.
 
-\subsubsection{One time Passwords}
+\subsubsection{One-time passwords}
 One time passwords are used to prevent replay attacks.
 The main difficulty of this technique is to give users their passwords
 (logistical problem).
@@ -191,7 +193,7 @@ This technique is used mainly by services who can afford big infrastructures
 \subsubsection{Signature challenge}
 A challenge uses a nonce, this stands for number used once.
 It's a random number used once to avoid replay attack.
-The nonce is encrypted with the correspondent's public key and he is then
+The nonce is encrypted with the recipient's public key and he is then
 asked for the decrypted (with his private key).
 This form of authentication is often used to sign online transactions.
 
@@ -228,7 +230,7 @@ For example: Keys, Bank cards, Badges, Digipass, ...
 
 \subsubsection{2-factor authentication}
 Identifies the entity using multiple authentication methods.
-This way, if one method is compromised, the attacker will not still be able to
+This way, if one method is compromised, the attacker will still not be able to
 log into the system.
 The authentication methods are the following:
 \begin{itemize}
@@ -296,7 +298,7 @@ sign-on mechanism.
 When you implement authentication you have to take into account that the user
 may lose its authentication mean or it can get stolen.
 
-The process for revoking the authentication is the following:
+The process for renewing the authentication is the following:
 \begin{enumerate}
 \item Authenticate the user with a still safe mean
 \item Deactivate the compromised authentication mean
@@ -330,26 +332,26 @@ kind of model is used to determine and understand threats that may arise.
 \label{attack-tree}
 \end{figure}
 
-For an example, administration access can be obtained
+For example, administration access can be obtained
 thanks to the knowledge of the password. One way to get this password is to
-steal it. To steal it we can either use social engineering or sniffing
+steal it. To steal it we can use social engineering or sniffing
 techniques.
 This modeling technique enables us to build the attack tree
 (see Figure \ref{attack-tree}) showing threats for the administration access.
 
 \subsection{Threats}
 
-Threats are numerous and diversified.
+Motivations are numerous and diversified.
 \begin{itemize}
-\item Sole purpose to break things.
+\item Break things.
 	These attacks can come from internet hackers or viruses but also from
 	internal threats in your enterprise such as unsatisfied employees.
-\item Obtaining a gain.
+\item Financial gain.
 	That's the case with organized crime or competitors wanting
 	to acquire financial or technical information.
-\item Can simply be unintentional or accidental.
+\item Accidental.
 	Examples include: loss of electricity, software failure, hardware
-	failure, but also natural disasters.
+	failure, but also natural disasters or human errors.
 \end{itemize}
 
 \subsection{Risk}
@@ -392,15 +394,13 @@ For example, the client can be on a WiFi network that is connected to the
 internet. The web server is on another network where other computers are
 present: other clients, intrusion detection systems, databases, etc. In
 between, we can find firewalls, demilitarized zones and others.
-Any component may fail: whether the web site continues to work depends on the
-duplication of components on the network. A single point of failure is a part
-of the system such that when it fails the system stops to work properly.
+Any of those components can be compromised in one way or an other.
 
 \subsection{Open Web Application Security Project (OWASP)}
 
 A worldwide organization known as \href{https://www.owasp.org/}{Open Web
 Application Security Project} (OWASP) focuses on improving the security of
-software through the publication of standards, libraries and books.
+software through the publication of standards, software libraries and books.
 
 \subsection{Top 10 of most critical web applications risks}
 
@@ -433,7 +433,7 @@ interface (see \autoref{lst:parameterized-interface}). One can also use
 routines that ``escape'' (ie tell the interpreter that control
 character shouldn't be interpreted) user input or to
 use white-list validation to specify valid input patterns. Escape
-Black lists are discouraged, because it is easier to forget some rule and
+black lists are discouraged, because it is easier to forget some rule and
 it is often possible to use workarounds.
 Usually, this vulnerability is present when the code to execute is built using
 simple concatenation.
