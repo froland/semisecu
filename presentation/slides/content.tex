@@ -94,7 +94,8 @@ Beware that authentication by itself does not imply confidentiality.
 
 \subsubsection*{HTTP}
 
-\begin{lstlisting}[style=beamer]
+\begin{lstlisting}[style=beamer,
+	caption={HTTP Request Example}]
 @GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
 Host: en.wikipedia.org
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0)...
@@ -102,7 +103,6 @@ Accept: text/html,application/xhtml+xml,...
 @Cookie@: mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx; ...
 Connection: keep-alive
 ...
-\caption{HTTP request example}
 \end{lstlisting}
 
 A \emph{request} consists of a method (\texttt{GET}, \texttt{POST}, ...), a
@@ -219,7 +219,7 @@ key and send the signed object and their certificate
 message against the checked certificate
 \end{itemize}
 
-\paragraph{How to obtain a certificate ?}
+\paragraph{How to obtain a certificate?}
 When a website owner wants a certificate, he generates a public-private key
 pair and then sends the public key to a CA.
 The CA checks the integrity of the request and performs some checks on the
@@ -431,7 +431,7 @@ such as data loss, data corruption and lack of accountability.
 
 To avoid such security flaws, it is recommended to use a parameterized
 interface (see \autoref{lst:parameterized-interface}). One can also use
-routines that ``escape'' (ie tell the interpreter that control
+routines that ``escape'' (i.e. tell the interpreter that control
 character shouldn't be interpreted) user input or to
 use white-list validation to specify valid input patterns. Escape
 black lists are discouraged, because it is easier to forget some rule and

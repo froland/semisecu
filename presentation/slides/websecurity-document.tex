@@ -36,7 +36,7 @@
 \usepackage{courier}
 \lstset{basicstyle=\ttfamily
 	,tabsize=4
-%	,frame=single
+	,frame=single
 %	,numbers=left
 	,numberstyle=\tiny
 	,numbersep=5pt
@@ -50,7 +50,9 @@
 	,breakatwhitespace=true
 	,xleftmargin=3pt
 	,xrightmargin=3pt
+	,columns=flexible
 }
+\expandafter\def\expandafter\quote\expandafter{\quote\large}
 \lstdefinestyle{highlight}{
 	keywordstyle=\color{red},
 	commentstyle=\color{green},
@@ -71,7 +73,12 @@
 %\fancyhead[LE]{\nouppercase{\leftmark}}
 \fancyfoot{}
 \fancyfoot[RO,LE]{\thepage{} of \pageref{LastPage}}
-\fancyfoot[C]{\tiny{This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/.}}
+\fancyfoot[C]{\parbox{0.55\linewidth}{\tiny
+This work is licensed under the Creative Commons
+Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+To view a copy of this license, visit
+\url{http://creativecommons.org/licenses/by-nc-nd/3.0/}.
+}}
 
 %\fancyfoot[LO]{\footnotesize\docauthor}
 % Redefine plain style for chapters, etc.
@@ -102,8 +109,6 @@
 \end{center}
 \vspace*{\fill}
 \end{titlepage}
-\lstset{frame=lrtb,xleftmargin=\fboxsep,xrightmargin=-\fboxsep,columns=flexible}
-\expandafter\def\expandafter\quote\expandafter{\quote\large}
 \setcounter{tocdepth}{2}
 \tableofcontents
 
