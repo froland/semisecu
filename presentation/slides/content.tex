@@ -97,11 +97,12 @@ Beware that authentication by itself does not imply confidentiality.
 \begin{lstlisting}[style=beamer]
 @GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
 Host: en.wikipedia.org
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0)...
+Accept: text/html,application/xhtml+xml,...
 @Cookie@: mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx; ...
 Connection: keep-alive
 ...
+\caption{HTTP request example}
 \end{lstlisting}
 
 A \emph{request} consists of a method (\texttt{GET}, \texttt{POST}, ...), a
@@ -125,7 +126,7 @@ The goal of the encryption is to obtain a message in a way that is readable
 only by the authorized parties.
 This encryption can be symmetric, that is, a single key is used to encode and
 decode the message.
-\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
+\[ \text{text} \xrightarrow{key} \text{ciphered text} \xrightarrow{key} \text{text} \]
 Widespread symmetric cryptography algorithms are AES, DES, Twofish.
 
 \paragraph{Asymmetric cryptography}
@@ -134,12 +135,12 @@ encryption. One key is used to encrypt the message and the other to
 decrypt the digest depending upon the goal. If the sender wants his
 message to be decodable only by a receiver, he encrypts it with the
 receiver public key and the receiver decrypts it with his private key.
-\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+\[ \text{text} \xrightarrow{key_{public}} \text{ciphered text} \xrightarrow{key_{private}} \text{text} \]
 
 If the sender wants the receiver to be sure that he his the one that
 sent the message things are done the other way round.
 
-\[ msg \xrightarrow{key_{priv}} cipher \xrightarrow{key_{pub}} msg \]
+\[ \text{text} \xrightarrow{key_{private}} \text{ciphered text} \xrightarrow{key_{public}} \text{text} \]
 
 Widespread asymmetric cryptography algorithms are RSA and ElGamal.
 
@@ -360,7 +361,7 @@ To understand the risk encountered by systems vulnerable to such attacks, let's
 first define what is a risk.
 
 \begin{quote}
-The probable frequency and probable magnitude of future loss.
+The probable frequency and probable magnitude of future loss.\\
 \textit{-- The Open Group}
 \end{quote}
 \[
