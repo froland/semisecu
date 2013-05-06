@@ -94,11 +94,12 @@ Beware that authentication by itself does not imply confidentiality.
 
 \subsubsection*{HTTP}
 
-\begin{lstlisting}[style=beamer]
+\begin{lstlisting}[style=beamer,
+	caption={HTTP Request Example}]
 @GET@ @/wiki/Hypertext_Transfer_Protocol@ HTTP/1.1
 Host: en.wikipedia.org
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:19.0)...
+Accept: text/html,application/xhtml+xml,...
 @Cookie@: mediaWiki.user.id=m5MFt3bI4Lr1GcMvj4rPk4mwtwZqTWhx; ...
 Connection: keep-alive
 ...
@@ -125,7 +126,7 @@ The goal of the encryption is to obtain a message in a way that is readable
 only by the authorized parties.
 This encryption can be symmetric, that is, a single key is used to encode and
 decode the message.
-\[ msg \xrightarrow{key} cipher \xrightarrow{key} msg \]
+\[ \text{text} \xrightarrow{key} \text{ciphered text} \xrightarrow{key} \text{text} \]
 Widespread symmetric cryptography algorithms are AES, DES, Twofish.
 
 \paragraph{Asymmetric cryptography}
@@ -134,12 +135,12 @@ encryption. One key is used to encrypt the message and the other to
 decrypt the digest depending upon the goal. If the sender wants his
 message to be decodable only by a receiver, he encrypts it with the
 receiver public key and the receiver decrypts it with his private key.
-\[ msg \xrightarrow{key_{pub}} cipher \xrightarrow{key_{priv}} msg \]
+\[ \text{text} \xrightarrow{key_{public}} \text{ciphered text} \xrightarrow{key_{private}} \text{text} \]
 
 If the sender wants the receiver to be sure that he is the one that
 sent the message, things are done the other way round.
 
-\[ msg \xrightarrow{key_{priv}} cipher \xrightarrow{key_{pub}} msg \]
+\[ \text{text} \xrightarrow{key_{private}} \text{ciphered text} \xrightarrow{key_{public}} \text{text} \]
 
 Widespread asymmetric cryptography algorithms are RSA and ElGamal.
 
@@ -218,7 +219,7 @@ key and send the signed object and their certificate
 message against the checked certificate
 \end{itemize}
 
-\paragraph{How to obtain a certificate ?}
+\paragraph{How to obtain a certificate?}
 When a website owner wants a certificate, he generates a public-private key
 pair and then sends the public key to a CA.
 The CA checks the integrity of the request and performs some checks on the
@@ -360,7 +361,7 @@ To understand the risk encountered by systems vulnerable to such attacks, let's
 first define what is a risk.
 
 \begin{quote}
-The probable frequency and probable magnitude of future loss.
+The probable frequency and probable magnitude of future loss.\\
 \textit{-- The Open Group}
 \end{quote}
 \[
@@ -430,7 +431,7 @@ such as data loss, data corruption and lack of accountability.
 
 To avoid such security flaws, it is recommended to use a parameterized
 interface (see \autoref{lst:parameterized-interface}). One can also use
-routines that ``escape'' (ie tell the interpreter that control
+routines that ``escape'' (i.e. tell the interpreter that control
 character shouldn't be interpreted) user input or to
 use white-list validation to specify valid input patterns. Escape
 black lists are discouraged, because it is easier to forget some rule and
