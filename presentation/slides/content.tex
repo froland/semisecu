@@ -38,7 +38,7 @@ for our personal informations and leisures (YouTube, Facebook), for financial
 management (online banking, Tax-On-Web) and of course in our professional
 lives (e-mail, calendars). As we are putting those, always expanding,
 parts of our life on the web, security concerns becomes more
-importnant than ever.
+important than ever.
 
 \subsection{Sentiment of security}
 
@@ -137,8 +137,8 @@ message to be decodable only by a receiver, he encrypts it with the
 receiver public key and the receiver decrypts it with his private key.
 \[ \text{text} \xrightarrow{key_{public}} \text{ciphered text} \xrightarrow{key_{private}} \text{text} \]
 
-If the sender wants the receiver to be sure that he his the one that
-sent the message things are done the other way round.
+If the sender wants the receiver to be sure that he is the one that
+sent the message, things are done the other way round.
 
 \[ \text{text} \xrightarrow{key_{private}} \text{ciphered text} \xrightarrow{key_{public}} \text{text} \]
 
@@ -169,7 +169,7 @@ value appended to the message before hashing. The hash is then useless
 without the salt so they are stored together.
 
 \paragraph{Signatures}
-The signature is then a mean to assert the sender identityof a
+The signature is then a mean to assert the sender identity of a
 message.
 You can sign a message by encrypting a hash of it with your private key.
  Hashes are used to guarantee the \emph{integrity} of the document
